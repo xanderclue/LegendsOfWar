@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: ab824cf3111a68741a1b5f683b6f1eab
+timeCreated: 1464180098
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - redPortal: {instanceID: 0}
+  - bluePortal: {instanceID: 0}
+  - redTankMinion: {instanceID: 0}
+  - redCasterMinion: {instanceID: 0}
+  - redStrikerMinion: {instanceID: 0}
+  - blueTankMinion: {instanceID: 0}
+  - blueCasterMinion: {fileID: 115220, guid: 12b119e78cfcbb847840860562f71be8, type: 2}
+  - blueStrikerMinion: {fileID: 115220, guid: 218394a210a706447859ea034b748629, type: 2}
+  - uiEventSystem: {instanceID: 0}
+  - hudScript: {instanceID: 0}
+  - cursorObject: {instanceID: 0}
+  - HeroSpawnPoint: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - terrainCollider: {instanceID: 0}
+  - clickFeedback: {instanceID: 0}
+  - BoomRed: {instanceID: 0}
+  - BoomBlue: {instanceID: 0}
+  - ExitRed: {instanceID: 0}
+  - ExitBlue: {instanceID: 0}
+  - defaultHeroPrefab: {instanceID: 0}
+  - topSplit: {instanceID: 0}
+  - botSplit: {instanceID: 0}
+  - DEBUGTEXT: {instanceID: 0}
+  - heroHealthPanel: {instanceID: 0}
+  - heroManaPanel: {instanceID: 0}
+  executionOrder: 80
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+# Blender MTL File: 'Tree2.blend'
+# Material Count: 2
+
+newmtl arbol_gigante_copa
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.449946
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+
+newmtl arbol_gigante_tronco
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.110067 0.066510 0.034138
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
