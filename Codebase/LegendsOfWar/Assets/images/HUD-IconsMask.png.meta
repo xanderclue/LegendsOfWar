@@ -46,6 +46,7 @@ TextureImporter:
   spriteBorder: {x: 402, y: 20, z: 61, w: 84}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:

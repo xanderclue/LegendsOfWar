@@ -7,7 +7,8 @@ TrueTypeFontImporter:
   characterSpacing: 1
   characterPadding: 0
   includeFontData: 1
-  fontNames: []
+  fontNames:
+  - Berylium
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

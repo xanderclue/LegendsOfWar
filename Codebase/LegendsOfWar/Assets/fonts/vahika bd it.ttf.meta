@@ -7,8 +7,11 @@ TrueTypeFontImporter:
   characterSpacing: 1
   characterPadding: 0
   includeFontData: 1
-  fontNames: []
-  fallbackFontReferences: []
+  fontNames:
+  - Vahika
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 470a77b58fe894c69a708b9f5413d59a, type: 3}
+  - {fileID: 12800000, guid: 34442079bdde445518a259f596d794f5, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

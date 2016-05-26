@@ -48,6 +48,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
@@ -67,6 +68,7 @@ TextureImporter:
         - {x: -32, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
+      tessellationDetail: -1
     - name: Geoph-80-free-icon_1
       rect:
         serializedVersion: 2
@@ -82,6 +84,7 @@ TextureImporter:
         - {x: -32, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 
