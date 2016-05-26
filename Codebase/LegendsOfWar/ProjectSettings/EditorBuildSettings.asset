@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/scenes/MainMenu.unity
+  - enabled: 1
     path: Assets/scenes/Character Selection.unity
   - enabled: 1
     path: Assets/scenes/Credits.unity
@@ -19,8 +21,6 @@ EditorBuildSettings:
     path: Assets/scenes/Instruction.unity
   - enabled: 1
     path: Assets/scenes/Introduction Scene.unity
-  - enabled: 1
-    path: Assets/scenes/MainMenu.unity
   - enabled: 1
     path: Assets/scenes/OptionsMenu.unity
   - enabled: 1
