@@ -7,24 +7,24 @@ public class HUDManager : MonoBehaviour
 	Text characterName = null;
 
 	[SerializeField]
-    private GameObject start = null, NoStart = null, InGameInfo = null,
+	private GameObject start = null, NoStart = null, InGameInfo = null,
 		LoreInfo = null, abilityInfo = null, iconsPanel = null;
 
-    TurnManager turnManager;
+	TurnManager turnManager;
 	void Start()
 	{
 		turnManager = GetComponent<TurnManager>();
 		aIcon = iconsPanel.GetComponent<AbilityIcon>();
 		hIcon = iconsPanel.GetComponent<HeroIcon>();
-    }
+	}
 	HeroInfo info;
 	HeroAbilities abilities;
 	AbilityIcon aIcon;
 	HeroIcon hIcon;
 	void Update()
 	{
-        if (turnManager == null || GameObject.Find("Characters") == null)
-            return;
+		if ( turnManager == null || GameObject.Find( "Characters" ) == null )
+			return;
 
 		if ( CharacterSelectionManager.LegendChoice )
 		{
@@ -35,32 +35,32 @@ public class HUDManager : MonoBehaviour
 			abilityInfo.GetComponentInChildren<Text>().text = abilities.abilityInfo;
 		}
 
-		if (start != null || NoStart != null || InGameInfo != null || LoreInfo != null)
-        {
-            if ( CharacterSelectionManager.Instance.Available[ turnManager.CurrentInt])
-            {
-                start.SetActive(true);
-                NoStart.SetActive(false);
-                InGameInfo.SetActive(true);
+		if ( start != null || NoStart != null || InGameInfo != null || LoreInfo != null )
+		{
+			if ( CharacterSelectionManager.Instance.Available[ turnManager.CurrentInt ] )
+			{
+				start.SetActive( true );
+				NoStart.SetActive( false );
+				InGameInfo.SetActive( true );
 				LoreInfo.SetActive( true );
 				abilityInfo.SetActive( true );
 				aIcon.Force();
 				hIcon.Force();
 				iconsPanel.SetActive( true );
 				SetGameInfo();
-            }
-            else
-            {
-                start.SetActive(false);
-                NoStart.SetActive(true);
-                InGameInfo.SetActive(false);
+			}
+			else
+			{
+				start.SetActive( false );
+				NoStart.SetActive( true );
+				InGameInfo.SetActive( false );
 				LoreInfo.SetActive( false );
 				abilityInfo.SetActive( false );
 				iconsPanel.SetActive( false );
 				characterName.text = Options.Japanese ? "名前無し" : "NoName";
 			}
-        }
-    }
+		}
+	}
 	[SerializeField]
 	Text tHealth = null, tMana = null,
 		tDamage = null, tAttackRange = null,

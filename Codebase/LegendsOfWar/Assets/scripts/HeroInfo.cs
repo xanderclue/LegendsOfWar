@@ -6,18 +6,18 @@ public class HeroInfo : Info
 	float respawnTimer;
 	int deathCount;
 	public Sprite heroIcon;
-    public float Damage { get { return damage; } set { damage = value; } }
-    public float Range { get { return attackRange; } }
-    public float AttackSpeed { get { return attackSpeed; } }
-    public float AgroRange { get { return agroRange; } }
+	public float Damage { get { return damage; } set { damage = value; } }
+	public float Range { get { return attackRange; } }
+	public float AttackSpeed { get { return attackSpeed; } }
+	public float AgroRange { get { return agroRange; } }
 
-    [SerializeField]
+	[SerializeField]
 	float maxMana = 100.0f;
 
 	public float manaRegen = 7.5f;
 
-    [SerializeField]
-    public string Lore = "", roaa = "";
+	[SerializeField]
+	public string Lore = "", roaa = "";
 
 	public Transform thirdPerson = null;
 	public Transform heroCenter = null;
@@ -65,14 +65,14 @@ public class HeroInfo : Info
 		dontDestroy = true;
 		Attacked += HeroAttacked;
 		Destroyed += HeroDeath;
-		if(GameManager.Avail)
+		if ( GameManager.Avail )
 			GameManager.Instance.AddHero( this );
 		heroAudio = GetComponent<HeroAudio>();
 		idleTimer = 8.0f;
-    }
+	}
 	float idleTimer;
-    void PlayIdle()
-    {
+	void PlayIdle()
+	{
 		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
 			heroAudio.PlayClip( ( Random.Range( 0, 2 ) == 0 ) ? "HeroIdle1" : "HeroIdle2" );
 		else if ( heroAudio.CHeroIdle1 )
@@ -104,18 +104,18 @@ public class HeroInfo : Info
 	void HeroDeath()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroDeath, transform.position );
-        respawnTimer = respawnTime;
+		respawnTimer = respawnTime;
 		respawnTime += respawnIncrement;
-        ++deathCount;
+		++deathCount;
 		// <BUGFIX: Dev Team #19>
 		mana = 0.0f;
-        // </BUGFIX: Dev Team #19>
+		// </BUGFIX: Dev Team #19>
 	}
 
 	public float Mana { get { return mana; } }
 	public float MaxMana { get { return maxMana; } }
 	public bool waitingRespawn { get { return ( !Alive && respawnTimer <= 0.0f ); } }
-	public float RespawnTimer { get { return respawnTimer; }set { respawnTimer = value; } }
+	public float RespawnTimer { get { return respawnTimer; } set { respawnTimer = value; } }
 	public void Respawn()
 	{
 		movement.ResetToSpawn();

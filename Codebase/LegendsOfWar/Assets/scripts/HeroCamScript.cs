@@ -22,7 +22,7 @@ public class HeroCamScript : MonoBehaviour
 	Button buttonSwitch;
 	Text textSwitch;
 	// <Bugfix: Test Team #29>
-	public static bool onVantage { get{ return CameraControl.Vantage.enabled; } }
+	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
 	// </Bugfix: Test Team #29>
 
 	public static bool onHero
@@ -110,8 +110,10 @@ public class HeroCamScript : MonoBehaviour
 	float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
 	float mouseVerticalStart;
 	public static float MouseVertical
-	{ get { return inst ? inst.mouseVerticalStart : 0.0f; }
-	set { if ( inst ) inst.mouseVerticalStart = value; } }
+	{
+		get { return inst ? inst.mouseVerticalStart : 0.0f; }
+		set { if ( inst ) inst.mouseVerticalStart = value; }
+	}
 
 	void Update()
 	{

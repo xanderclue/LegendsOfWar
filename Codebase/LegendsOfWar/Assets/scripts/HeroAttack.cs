@@ -52,7 +52,8 @@ public class HeroAttack : AttackScript
 		}
 	}
 
-	void FixedUpdate(){
+	void FixedUpdate()
+	{
 		attackTimer -= Time.fixedDeltaTime;
 	}
 

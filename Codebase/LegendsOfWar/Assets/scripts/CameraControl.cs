@@ -2,16 +2,16 @@
 
 public class CameraControl : MonoBehaviour
 {
-    #region TarrentAddedCode
-    public Texture2D SelectionHighlight = null;
-    public static Rect Selection = new Rect(0, 0, 0, 0);
+	#region TarrentAddedCode
+	public Texture2D SelectionHighlight = null;
+	public static Rect Selection = new Rect( 0, 0, 0, 0 );
 
-    private Vector3 StartClick = -Vector3.one;
-    #endregion
+	private Vector3 StartClick = -Vector3.one;
+	#endregion
 
-    //User story: Panning map with middle mouse button
-    private Vector3 Origin;
-    private Vector3 Difference;
+	//User story: Panning map with middle mouse button
+	private Vector3 Origin;
+	private Vector3 Difference;
 
 	static CameraControl inst = null;
 	public static CameraControl instance { get { return inst; } }
@@ -20,7 +20,7 @@ public class CameraControl : MonoBehaviour
 		inst = this;
 	}
 
-    [SerializeField]
+	[SerializeField]
 	private Camera mainCam = null;
 	[SerializeField]
 	private Camera vantageCam = null;
@@ -51,7 +51,7 @@ public class CameraControl : MonoBehaviour
 
 	void Start()
 	{
-        player = GameManager.Instance.Player;
+		player = GameManager.Instance.Player;
 		playerInfo = player.GetComponent<Info>();
 		RecalcZoomLimits();
 		current = mainCam;
@@ -97,16 +97,16 @@ public class CameraControl : MonoBehaviour
 
 		if ( !GameManager.GameRunning )
 			return;
-        #region TarrentAddedCode
-        CheckCamera();
-        #endregion
+		#region TarrentAddedCode
+		CheckCamera();
+		#endregion
 
 		// <BUGFIX: Test Team #19>
 		//if ( Input.GetKeyDown( KeyCode.C ) )
 		//	CameraFollowsPlayer = !followPlayer;
 		followPlayer = HeroCamScript.onHero;
 		// </BUGFIX: Test Team #19>
-        if ( aspectRatio != mainCam.aspect )
+		if ( aspectRatio != mainCam.aspect )
 			RecalcZoomLimits();
 		if ( Input.GetMouseButton( 0 ) )
 		{
@@ -130,53 +130,53 @@ public class CameraControl : MonoBehaviour
 		}
 
 
-    }
+	}
 
-    #region TarrentAddedCode
-    private void CheckCamera()
-    {
+	#region TarrentAddedCode
+	private void CheckCamera()
+	{
 		// <BUGFIX: Test Team #28>
-        if (Input.GetMouseButtonDown(0) && HeroCamScript.onHero == false)
-            StartClick = Input.mousePosition;
+		if ( Input.GetMouseButtonDown( 0 ) && HeroCamScript.onHero == false )
+			StartClick = Input.mousePosition;
 		// </BUGFIX: Test Team #28>
-        if(Input.GetMouseButtonUp(0))
-        {
-            StartClick = -Vector3.one;
-        }
-        if (Input.GetMouseButton(0))
-        {
-            Selection = new Rect(StartClick.x, Screen.height - StartClick.y,
-                Input.mousePosition.x - StartClick.x, StartClick.y - Input.mousePosition.y );
+		if ( Input.GetMouseButtonUp( 0 ) )
+		{
+			StartClick = -Vector3.one;
+		}
+		if ( Input.GetMouseButton( 0 ) )
+		{
+			Selection = new Rect( StartClick.x, Screen.height - StartClick.y,
+				Input.mousePosition.x - StartClick.x, StartClick.y - Input.mousePosition.y );
 
-            if (Selection.width < 0.0f)
-            {
-                Selection.x += Selection.width;
-                Selection.width = -Selection.width;
-            }
-            if (Selection.height < 0.0f)
-            {
-                Selection.y += Selection.height;
-                Selection.height = -Selection.height;
-            }
-        }
-    }
+			if ( Selection.width < 0.0f )
+			{
+				Selection.x += Selection.width;
+				Selection.width = -Selection.width;
+			}
+			if ( Selection.height < 0.0f )
+			{
+				Selection.y += Selection.height;
+				Selection.height = -Selection.height;
+			}
+		}
+	}
 
 	readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
-    private void OnGUI()
-    {
-        if (StartClick != -Vector3.one)
-        {
-            GUI.color = guiCol;
-            GUI.DrawTexture(Selection, SelectionHighlight);
-        }
-    }
-    #endregion
+	private void OnGUI()
+	{
+		if ( StartClick != -Vector3.one )
+		{
+			GUI.color = guiCol;
+			GUI.DrawTexture( Selection, SelectionHighlight );
+		}
+	}
+	#endregion
 
 	float mousePosX;
 	float mousePosY;
 	const float scrollDistance = 2.5f;
 	Vector3 newPos;
-    void LateUpdate()
+	void LateUpdate()
 	{
 		if ( !GameManager.GameRunning )
 			return;
@@ -227,7 +227,7 @@ public class CameraControl : MonoBehaviour
 
 
 
-    }
+	}
 	Info playerInfo;
 	Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
 	private void RecalcZoomLimits()
@@ -310,7 +310,8 @@ public class CameraControl : MonoBehaviour
 	static readonly float onHeroFov = tworad * Mathf.Atan2( 100.0f, 500.0f );
 	void OnOnHero()
 	{
-		if(!mainCam)return;
+		if ( !mainCam )
+			return;
 		mainCam.orthographicSize = 100.0f;
 		camBorder.transform.localScale = new Vector3( 0.2086875f * mainCam.aspect, 0.371f, 1.0f );
 		mainCam.fieldOfView = onHeroFov;
@@ -338,5 +339,5 @@ public class CameraControl : MonoBehaviour
 				return 200.0f;
 		}
 	}
-    
+
 }

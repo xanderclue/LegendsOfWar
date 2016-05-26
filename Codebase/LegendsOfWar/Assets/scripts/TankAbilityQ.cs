@@ -2,48 +2,48 @@
 
 public class TankAbilityQ : AbilityQBase
 {
-    public ParticleSystem AbilityQParticle;
-    float heromaxhp;
-    public float increaseHP;
-    
-    protected override void Start()
-    {
-        base.Start();
-        AbilityQParticle.Stop();
-        heromaxhp = heroInfo.MAXHP;
-    }
+	public ParticleSystem AbilityQParticle;
+	float heromaxhp;
+	public float increaseHP;
 
-    protected override void AbilityActivate()
-    {
-        AbilityQParticle.gameObject.SetActive(true);
-        base.AbilityActivate();
-        AbilityQParticle.Play();
+	protected override void Start()
+	{
+		base.Start();
+		AbilityQParticle.Stop();
+		heromaxhp = heroInfo.MAXHP;
+	}
 
-        if (heroInfo.HP + increaseHP > heroInfo.MAXHP)
-        {
-            heroInfo.MAXHP = heroInfo.HP + increaseHP;
-            heroInfo.HP = heroInfo.MAXHP;
-        }
-        else
-            heroInfo.HP += increaseHP;
-    }
+	protected override void AbilityActivate()
+	{
+		AbilityQParticle.gameObject.SetActive( true );
+		base.AbilityActivate();
+		AbilityQParticle.Play();
 
-    protected override void AbilityDeactivate()
-    {
-        base.AbilityDeactivate();
+		if ( heroInfo.HP + increaseHP > heroInfo.MAXHP )
+		{
+			heroInfo.MAXHP = heroInfo.HP + increaseHP;
+			heroInfo.HP = heroInfo.MAXHP;
+		}
+		else
+			heroInfo.HP += increaseHP;
+	}
 
-        AbilityQParticle.Stop();
-        AbilityQParticle.Clear();
+	protected override void AbilityDeactivate()
+	{
+		base.AbilityDeactivate();
 
-        heroInfo.MAXHP = heromaxhp;
+		AbilityQParticle.Stop();
+		AbilityQParticle.Clear();
 
-        if (heroInfo.HP > heromaxhp)
-        {
-            heroInfo.HP = heromaxhp;
-        }
-        else
-            heroInfo.HP -= increaseHP;
-    }
+		heroInfo.MAXHP = heromaxhp;
+
+		if ( heroInfo.HP > heromaxhp )
+		{
+			heroInfo.HP = heromaxhp;
+		}
+		else
+			heroInfo.HP -= increaseHP;
+	}
 
 
 }

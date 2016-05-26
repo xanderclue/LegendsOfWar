@@ -43,7 +43,7 @@ public class HeroMovement : MovementScript
 
 	void Update()
 	{
-		
+
 		TPUpdate();
 		if ( HeroCamScript.onHero )
 			return;
@@ -268,14 +268,16 @@ public class HeroMovement : MovementScript
 		{
 			// <Bugfix: Test Team #29>
 			//if ( HeroCamScript.onHero && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
-			if (!HeroCamScript.onVantage && HeroCamScript.onHero && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
+			if ( !HeroCamScript.onVantage && HeroCamScript.onHero && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
 			// </Bugfix: Test Team #29>
 			{
 				// <BUGFIX: Dev Team #16>
-				if ( !GameManager.Tutorial || !heroCamDisabler.disabledCameraMovement ) {
-				// </BUGFIX: Dev Team #16>
+				if ( !GameManager.Tutorial || !heroCamDisabler.disabledCameraMovement )
+				{
+					// </BUGFIX: Dev Team #16>
 					transform.Rotate( transform.up, ( currMousePos - prevMousePos ) * 0.5f );
-					currentRot += ( currMousePos - prevMousePos ) * 0.5f; }
+					currentRot += ( currMousePos - prevMousePos ) * 0.5f;
+				}
 				tValue += Time.deltaTime * 2.5f;
 				if ( Input.GetKeyDown( KeyCode.W ) || Input.GetKeyDown( KeyCode.UpArrow ) ||
 					Input.GetKeyDown( KeyCode.A ) || Input.GetKeyDown( KeyCode.LeftArrow ) ||

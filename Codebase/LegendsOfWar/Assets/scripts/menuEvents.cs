@@ -9,12 +9,12 @@ public class menuEvents : MonoBehaviour
 		Loading();
 		ApplicationManager.Instance.ChangeAppState( appState );
 	}
-    public void PlayClickSound()
-    {
-        AudioManager.PlayClickSound();
-    }
+	public void PlayClickSound()
+	{
+		AudioManager.PlayClickSound();
+	}
 
-    public void GoBack()
+	public void GoBack()
 	{
 		ApplicationManager.ReturnToPreviousState();
 	}

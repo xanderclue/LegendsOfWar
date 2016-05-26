@@ -37,7 +37,8 @@ public class EconomyManager : MonoBehaviour
 
 	public void GiveGold( Team team, float amount )
 	{
-		if(amount<=0.0f)return;
+		if ( amount <= 0.0f )
+			return;
 		switch ( team )
 		{
 			case Team.RED_TEAM:
@@ -49,7 +50,8 @@ public class EconomyManager : MonoBehaviour
 			default:
 				break;
 		}
-		if(OnGainGold!=null)OnGainGold();
+		if ( OnGainGold != null )
+			OnGainGold();
 	}
 
 	public delegate void goldChangedEvent();
@@ -64,20 +66,19 @@ public class EconomyManager : MonoBehaviour
 	public float BlueGold { get { return blueTeamGold; } }
 	public float RedGold { get { return redTeamGold; } }
 
-    static EconomyManager instance = null;
-    public static EconomyManager Instance
-    {
-        get
-        {
-            if (!instance)
-            {
-                instance = FindObjectOfType<EconomyManager>();
-                if (!instance)
-                    instance = new GameObject("EconomyManager").AddComponent<EconomyManager>();
-            }
-            return instance;
-        }
-    }
-    void Awake() { instance = this; }
-    void OnDestroy() { if ( this == instance ) instance = null; }
+	static EconomyManager instance = null;
+	public static EconomyManager Instance
+	{
+		get {
+			if ( !instance )
+			{
+				instance = FindObjectOfType<EconomyManager>();
+				if ( !instance )
+					instance = new GameObject( "EconomyManager" ).AddComponent<EconomyManager>();
+			}
+			return instance;
+		}
+	}
+	void Awake() { instance = this; }
+	void OnDestroy() { if ( this == instance ) instance = null; }
 }

@@ -56,9 +56,9 @@ public class ApplicationManager : MonoBehaviour
 			case "STATE_SELECTION":
 				ChangeAppState( StateID.STATE_SELECTION );
 				break;
-            case "STATE_INTRODUCTION":
-                ChangeAppState(StateID.STATE_INTRODUCTION);
-                break;
+			case "STATE_INTRODUCTION":
+				ChangeAppState( StateID.STATE_INTRODUCTION );
+				break;
 			default:
 				break;
 		}
@@ -119,16 +119,16 @@ public class ApplicationManager : MonoBehaviour
 				case StateID.STATE_MAIN_MENU:
 					SceneManager.LoadScene( "MainMenu" );
 					break;
-                case StateID.STATE_INTRODUCTION:
-                    SceneManager.LoadScene("Introduction Scene");
-                    break;
+				case StateID.STATE_INTRODUCTION:
+					SceneManager.LoadScene( "Introduction Scene" );
+					break;
 				case StateID.STATE_OPTIONS_MENU:
 					if ( StateID.STATE_PAUSED == prevState )
 					{
 						pauseMenuEvents.EventSystem = false;
 						Options.IsAdditive = true;
-						SceneManager.LoadScene( "OptionsMenu", LoadSceneMode.Additive);
-                        Time.timeScale = 0.0f;
+						SceneManager.LoadScene( "OptionsMenu", LoadSceneMode.Additive );
+						Time.timeScale = 0.0f;
 					}
 					else
 					{
@@ -199,7 +199,7 @@ public class ApplicationManager : MonoBehaviour
 				case StateID.STATE_SELECTION:
 					SceneManager.LoadScene( "Character Selection" );
 					break;
-                default:
+				default:
 					break;
 			}
 			transitioning = false;

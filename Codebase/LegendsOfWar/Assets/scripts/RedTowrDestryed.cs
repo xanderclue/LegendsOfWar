@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RedTowrDestryed : MonoBehaviour {
+public class RedTowrDestryed : MonoBehaviour
+{
 	[SerializeField]
 	EnemyAIManager aiManager = null;
-	void Start(){
+	void Start()
+	{
 		aiManager = GameObject.FindObjectOfType<EnemyAIManager>();
 	}
 
 
-	void OnDisable(){
-		if(aiManager!= null)
+	void OnDisable()
+	{
+		if ( aiManager != null )
 			aiManager.Destroyed();
 	}
 }

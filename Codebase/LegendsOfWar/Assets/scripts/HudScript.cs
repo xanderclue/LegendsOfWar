@@ -5,25 +5,25 @@ public class HudScript : MonoBehaviour
 {
 	public Camera minimapCam = null;
 	public Text timer;
-    public Text waveTimer;
+	public Text waveTimer;
 	public Text blueGold;
 	public Text qCD, wCD, eCD, rCD;
 	[SerializeField]
 	GameObject hero = null;
 	HeroAbilities abilities;
-    RaycastHit hit;
+	RaycastHit hit;
 	[SerializeField]
 	Button q = null, w = null, e = null, r = null;
 	// <BUGFIX: Test Team #32>
 	Image qIm, wIm, eIm, rIm;
 	// </BUGFIX: Test Team #32>
 
-	public delegate void MiniMapInput(RaycastHit _hit);
-    public event MiniMapInput GrabHit;
+	public delegate void MiniMapInput( RaycastHit _hit );
+	public event MiniMapInput GrabHit;
 
 	void Start()
 	{
-        hero = GameManager.Instance.Player;
+		hero = GameManager.Instance.Player;
 		if ( null == hero )
 			hero = FindObjectOfType<HeroInfo>().gameObject;
 		abilities = hero.GetComponent<HeroAbilities>();
@@ -92,7 +92,7 @@ public class HudScript : MonoBehaviour
 		}
 		else
 		{
-    		heroBeingAttackedText.enabled = false;
+			heroBeingAttackedText.enabled = false;
 			buttonHM.colors = ColorBlock.defaultColorBlock;
 		}
 	}
@@ -100,16 +100,16 @@ public class HudScript : MonoBehaviour
 	float qtim, wtim, etim, rtim;
 	void Cooldowns()
 	{
-        if (abilities)
-        {
-            qtim = abilities.abilityQ.Timer;
-            wtim = abilities.abilityW.Timer;
-            etim = abilities.abilityE.Timer;
-            rtim = abilities.abilityR.Timer;
-            qCD.text = qtim <= 0.0f ? "" : qtim.ToString("F2");
-            wCD.text = wtim <= 0.0f ? "" : wtim.ToString("F2");
-            eCD.text = etim <= 0.0f ? "" : etim.ToString("F2");
-            rCD.text = rtim <= 0.0f ? "" : rtim.ToString("F2");
+		if ( abilities )
+		{
+			qtim = abilities.abilityQ.Timer;
+			wtim = abilities.abilityW.Timer;
+			etim = abilities.abilityE.Timer;
+			rtim = abilities.abilityR.Timer;
+			qCD.text = qtim <= 0.0f ? "" : qtim.ToString( "F2" );
+			wCD.text = wtim <= 0.0f ? "" : wtim.ToString( "F2" );
+			eCD.text = etim <= 0.0f ? "" : etim.ToString( "F2" );
+			rCD.text = rtim <= 0.0f ? "" : rtim.ToString( "F2" );
 			// <BUGFIX: Test Team #32>
 			q.interactable = abilities.abilityQ.EnoughMana && qtim <= 0.0f;
 			w.interactable = abilities.abilityW.EnoughMana && wtim <= 0.0f;
@@ -119,12 +119,16 @@ public class HudScript : MonoBehaviour
 				qIm.color = wIm.color = eIm.color = rIm.color = Color.white;
 			else
 			{
-				if(!q.interactable)qIm.color=q.colors.disabledColor;
-				if(!w.interactable)wIm.color=w.colors.disabledColor;
-				if(!e.interactable)eIm.color=e.colors.disabledColor;
-				if(!r.interactable)rIm.color=r.colors.disabledColor;
+				if ( !q.interactable )
+					qIm.color = q.colors.disabledColor;
+				if ( !w.interactable )
+					wIm.color = w.colors.disabledColor;
+				if ( !e.interactable )
+					eIm.color = e.colors.disabledColor;
+				if ( !r.interactable )
+					rIm.color = r.colors.disabledColor;
 			}
 			// </BUGFIX: Test Team #32>
-        }
+		}
 	}
 }

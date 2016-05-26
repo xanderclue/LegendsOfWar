@@ -17,11 +17,11 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-    [SerializeField]
-    private AudioClip
-        gameBGM = null,
-        menuBGM = null,
-        endGameBGM = null,
+	[SerializeField]
+	private AudioClip
+		gameBGM = null,
+		menuBGM = null,
+		endGameBGM = null,
 		HeroCam = null,
 		WaveSpawn = null,
 		TowerProjectile = null,
@@ -32,9 +32,9 @@ public class AudioManager : MonoBehaviour
 		MinionAttack = null,
 		MinionAttacked = null,
 		MinionDeath = null,
-        HeroAttacked = null,
-		HeroDeath = null,   
-        ClickSound = null;
+		HeroAttacked = null,
+		HeroDeath = null,
+		ClickSound = null;
 
 	public static AudioClip
 		bgmGame,
@@ -88,7 +88,8 @@ public class AudioManager : MonoBehaviour
 	}
 	void OnDestroy()
 	{
-		if ( this == instance ) instance = null;
+		if ( this == instance )
+			instance = null;
 		Options.onChangedBgmVolume -= OnChangedBgmVol;
 		Options.onChangedSfxVolume -= OnChangedSfxVol;
 	}
@@ -140,8 +141,8 @@ public class AudioManager : MonoBehaviour
 	{
 		FindListener();
 		BGM_Switch();
-    }
-    public static void PlayClickSound()
+	}
+	public static void PlayClickSound()
 	{
 		instance.clickSoundSource.volume = Options.sfxVolume;
 		instance.clickSoundSource.PlayOneShot( sfxClickSound );

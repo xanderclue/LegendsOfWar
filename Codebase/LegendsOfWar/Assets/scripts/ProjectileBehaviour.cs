@@ -5,7 +5,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	public float speed;
 	public Transform target = null;
 	public float damage;
-    //public bool HitFirstCollision = false;
+	//public bool HitFirstCollision = false;
 	private bool isFired = false;
 
 	void FixedUpdate()
@@ -17,7 +17,8 @@ public class ProjectileBehaviour : MonoBehaviour
 				transform.LookAt( target );
 				transform.Translate( transform.forward * speed * Time.fixedDeltaTime, Space.World );
 			}
-			else Destroy( gameObject );
+			else
+				Destroy( gameObject );
 		}
 	}
 
@@ -35,10 +36,16 @@ public class ProjectileBehaviour : MonoBehaviour
 		}
 	}
 
-	void Update() { if ( GameManager.GameEnded ) Destroy( gameObject );
-	// <BUGFIX: Dev Team #21>
-	else if ( projectileTimer <= 0.0f ) Destroy( gameObject );
-	else if ( isFired ) projectileTimer -= Time.deltaTime; }
+	void Update()
+	{
+		if ( GameManager.GameEnded )
+			Destroy( gameObject );
+		// <BUGFIX: Dev Team #21>
+		else if ( projectileTimer <= 0.0f )
+			Destroy( gameObject );
+		else if ( isFired )
+			projectileTimer -= Time.deltaTime;
+	}
 	float projectileTimer;
 	public float projectileLifetime = 3.0f;
 	void Start() { projectileTimer = projectileLifetime; }

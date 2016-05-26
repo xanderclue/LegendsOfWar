@@ -2,7 +2,7 @@
 
 enum Move_State { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE };
 
-public enum Path { NORTH_PATH=577, SOUTH_PATH=1153, CENTER_PATH=289, NULL=1, ANY_PATH = 2023}; //Ralph made this public
+public enum Path { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }; //Ralph made this public
 
 // 577 = Binary for area mask #0, #6, #9
 // 
@@ -22,15 +22,15 @@ public class MinionMovement : MovementScript
 {
 	NavMeshAgent agent;
 	public Transform goal;
-    bool followingNav = true;
+	bool followingNav = true;
 	LineRenderer line;
 
 	MinionInfo info;
 	Interactive interactive;
 
 	[SerializeField]
-    Move_State m_state, m_prevState;
-    Path m_path;
+	Move_State m_state, m_prevState;
+	Path m_path;
 
 	void SetState( Move_State _state )
 	{
@@ -56,7 +56,7 @@ public class MinionMovement : MovementScript
 		base.Start();
 		Start2();
 		agent.speed = info.MovementSpeed;
-		if (info.type == MinionClass.SIEGE_MINION)
+		if ( info.type == MinionClass.SIEGE_MINION )
 			return;
 		line = gameObject.AddComponent<LineRenderer>();
 		temp_smr = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -67,154 +67,157 @@ public class MinionMovement : MovementScript
 	{
 		agent = GetComponent<NavMeshAgent>();
 
-        m_state = m_prevState = Move_State.LANING_STATE;
+		m_state = m_prevState = Move_State.LANING_STATE;
 		info = GetComponent<MinionInfo>();
 		interactive = GetComponent<Interactive>();
-        
-            if (Team.RED_TEAM == info.team)
-            {
-                goal = GameManager.BluePortalTransform;
-                if(agent.enabled)
-                agent.destination = goal.position;
-            }
-            else
-            {
-                goal = GameManager.RedPortalTransform;
-                //agent.destination = goal.position; Goal is set in GameManager SetupMinion() due to teleporting bug w/ spawning
-            }
+
+		if ( Team.RED_TEAM == info.team )
+		{
+			goal = GameManager.BluePortalTransform;
+			if ( agent.enabled )
+				agent.destination = goal.position;
+		}
+		else
+		{
+			goal = GameManager.RedPortalTransform;
+			//agent.destination = goal.position; Goal is set in GameManager SetupMinion() due to teleporting bug w/ spawning
+		}
 	}
 
 	void Update()
 	{
 
 		if ( GameManager.GameRunning )
-        {
-            switch(m_state)
-            {
-                case Move_State.LANING_STATE:
+		{
+			switch ( m_state )
+			{
+				case Move_State.LANING_STATE:
 					agent.enabled = true;
 					#region LANING
 					if ( agent.pathPending )
 						break;
-					if (info.type != MinionClass.SIEGE_MINION)
+					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
-                    //if (agent.remainingDistance <= 6.0f)
-                    //    followingNav = !followingNav;
-                    if (inCombat)
-                    {
-                        SetState(Move_State.ENGAGE_STATE);
-                    }
-                    else if (!followingNav)
-                    {
-                        followingNav = true;
-                        if (transform.position.z <= GameManager.botSplitZ)
-                            ChangeLane( Path.SOUTH_PATH);
-                        else if (transform.position.z >= GameManager.topSplitZ)
-                            ChangeLane( Path.NORTH_PATH);
-                        else
-                            ChangeLane( Path.CENTER_PATH);
-
-                        agent.destination = goal.position;
-                    }
-                    if (!interactive.Selected)
-                        rayHit = false;
-                    CheckForInput();
-                    break;
-                #endregion
-                case Move_State.COMMAND_STATE:
-                    #region COMMAND
-                    if (agent.pathPending)
-                        break;
-					if (info.type != MinionClass.SIEGE_MINION){
-						line.enabled = true;
-						var temp = new Vector3[] { transform.localPosition, agent.destination };
-						line.SetPositions(temp);
+					//if (agent.remainingDistance <= 6.0f)
+					//    followingNav = !followingNav;
+					if ( inCombat )
+					{
+						SetState( Move_State.ENGAGE_STATE );
 					}
-                    if(m_path != Path.ANY_PATH)
-                        ChangeLane();
-                    agent.SetDestination(hit.point);
-                    CheckForInput();
-                    if(!agent.pathPending)
-                        if (agent.remainingDistance <= 3)
-                        SetState(Move_State.IDLE_STATE);
-                    break;
-                    #endregion
-                case Move_State.COMBAT_STATE:
-                    #region COMBAT
-					if (info.type != MinionClass.SIEGE_MINION)
+					else if ( !followingNav )
+					{
+						followingNav = true;
+						if ( transform.position.z <= GameManager.botSplitZ )
+							ChangeLane( Path.SOUTH_PATH );
+						else if ( transform.position.z >= GameManager.topSplitZ )
+							ChangeLane( Path.NORTH_PATH );
+						else
+							ChangeLane( Path.CENTER_PATH );
+
+						agent.destination = goal.position;
+					}
+					if ( !interactive.Selected )
+						rayHit = false;
+					CheckForInput();
+					break;
+				#endregion
+				case Move_State.COMMAND_STATE:
+					#region COMMAND
+					if ( agent.pathPending )
+						break;
+					if ( info.type != MinionClass.SIEGE_MINION )
+					{
+						line.enabled = true;
+						var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						line.SetPositions( temp );
+					}
+					if ( m_path != Path.ANY_PATH )
+						ChangeLane();
+					agent.SetDestination( hit.point );
+					CheckForInput();
+					if ( !agent.pathPending )
+						if ( agent.remainingDistance <= 3 )
+							SetState( Move_State.IDLE_STATE );
+					break;
+				#endregion
+				case Move_State.COMBAT_STATE:
+					#region COMBAT
+					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
-                    if (inCombat && TargetPosition!=null)
-                    {
-                        if (Vector3.Distance(transform.position, TargetPosition.position) > combatRange)
-                        {
-                            //agent.destination = TargetPosition.position;
-                            agent.Resume();
-                            withinRange = false;
-                        }
-                        else
-                        {
-                            agent.Stop();
-                            withinRange = true;
-                        }
-                    }
-                    else
-                        SetState(Move_State.DISENGAGE_STATE);
-                    break;
-                    #endregion
+					if ( inCombat && TargetPosition != null )
+					{
+						if ( Vector3.Distance( transform.position, TargetPosition.position ) > combatRange )
+						{
+							//agent.destination = TargetPosition.position;
+							agent.Resume();
+							withinRange = false;
+						}
+						else
+						{
+							agent.Stop();
+							withinRange = true;
+						}
+					}
+					else
+						SetState( Move_State.DISENGAGE_STATE );
+					break;
+				#endregion
 				case Move_State.IDLE_STATE:
-					if (info.type != MinionClass.SIEGE_MINION)
+					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
-                    if (CheckForInput())
-                        SetState(Move_State.COMMAND_STATE);
-                    else if (!interactive.Selected)
-                        SetState(Move_State.LANING_STATE);
-                    else if (InCombat)
-                        SetState(Move_State.ENGAGE_STATE);
-                    else
-                        agent.destination = hit.point;
-                    break;
-                case Move_State.ENGAGE_STATE:
-                    if(agent&&TargetPosition)
-                    agent.destination = TargetPosition.position;
-                    followingNav = false;
-                    withinRange = false;
-                    SetState(Move_State.COMBAT_STATE);
-                    break;
-                case Move_State.DISENGAGE_STATE:
-                    agent.Resume();
-                    inCombat = false;
-                    withinRange = false;
-                    SetState(m_prevState);
-                    m_prevState = m_state;
-                    break;
-                default:
-                    break;
-            }
+					if ( CheckForInput() )
+						SetState( Move_State.COMMAND_STATE );
+					else if ( !interactive.Selected )
+						SetState( Move_State.LANING_STATE );
+					else if ( InCombat )
+						SetState( Move_State.ENGAGE_STATE );
+					else
+						agent.destination = hit.point;
+					break;
+				case Move_State.ENGAGE_STATE:
+					if ( agent && TargetPosition )
+						agent.destination = TargetPosition.position;
+					followingNav = false;
+					withinRange = false;
+					SetState( Move_State.COMBAT_STATE );
+					break;
+				case Move_State.DISENGAGE_STATE:
+					agent.Resume();
+					inCombat = false;
+					withinRange = false;
+					SetState( m_prevState );
+					m_prevState = m_state;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
 
-    public void ChangeLane(Path _newPath = Path.ANY_PATH) //Ralph made this public
-    {
-        if(!followingNav){
-            m_path = Path.ANY_PATH;
-        }
-        else{
-            m_path = _newPath;
-        }
-        if (!agent) //Ralph added this code
-            Start2();
-        agent.areaMask = (int)m_path;
-        if (agent.isPathStale)
-        {
-            agent.ResetPath();
-        }
-    }
+	public void ChangeLane( Path _newPath = Path.ANY_PATH ) //Ralph made this public
+	{
+		if ( !followingNav )
+		{
+			m_path = Path.ANY_PATH;
+		}
+		else
+		{
+			m_path = _newPath;
+		}
+		if ( !agent ) //Ralph added this code
+			Start2();
+		agent.areaMask = ( int )m_path;
+		if ( agent.isPathStale )
+		{
+			agent.ResetPath();
+		}
+	}
 
-    bool CheckForInput()
-    {
+	bool CheckForInput()
+	{
 		// <BUGFIX: Test Team #28>
-		if (HeroCamScript.onHero)
+		if ( HeroCamScript.onHero )
 			return false;
 		// </BUGFIX: Test Team #28>
 		if ( interactive.Selected )
@@ -225,29 +228,31 @@ public class MinionMovement : MovementScript
 				followingNav = false;
 				agent.ResetPath();
 				agent.SetDestination( hit.point );
-				if (info.type != MinionClass.SIEGE_MINION) {
-					var temp = new Vector3[] { transform.localPosition, agent.destination };
-					line.SetPositions(temp);
+				if ( info.type != MinionClass.SIEGE_MINION )
+				{
+					var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+					line.SetPositions( temp );
 				}
 				SetState( Move_State.COMMAND_STATE );
 				return true;
 			}
 			else if ( Input.GetMouseButton( 1 ) )
 			{
-				if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.mousePosition ), out hit, 1000,5943 ) )
+				if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.mousePosition ), out hit, 1000, 5943 ) )
 				{
 					followingNav = false;
 					agent.ResetPath();
 					agent.SetDestination( hit.point );
-						if (info.type != MinionClass.SIEGE_MINION) {
-							var temp = new Vector3[] { transform.localPosition, agent.destination };
-							line.SetPositions(temp);
-						}
+					if ( info.type != MinionClass.SIEGE_MINION )
+					{
+						var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						line.SetPositions( temp );
+					}
 					SetState( Move_State.COMMAND_STATE );
 					return true;
 				}
 			}
 		}
-        return false;
-    }
+		return false;
+	}
 }

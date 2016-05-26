@@ -11,20 +11,20 @@ public class Info : MonoBehaviour
 	public Team team = Team.BLUE_TEAM;
 	protected bool dontDestroy = false;
 
-    protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
+	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
 
 	[SerializeField]
 	protected float attackSpeed, agroRange, attackRange, damage;
-    public float DmgAmp
-    {
-        get { return dmgAmp; }
-        set { dmgAmp = value; }
-    }
-    public float DmgDamp
-    {
-        get { return dmgDamp; }
-        set { dmgDamp = value; }
-    }
+	public float DmgAmp
+	{
+		get { return dmgAmp; }
+		set { dmgAmp = value; }
+	}
+	public float DmgDamp
+	{
+		get { return dmgDamp; }
+		set { dmgDamp = value; }
+	}
 
 	protected virtual void Start()
 	{
@@ -38,22 +38,22 @@ public class Info : MonoBehaviour
 			return;
 		if ( SupportRange.InSupportRange( gameObject ) )
 			damage *= 0.75f;
-		HeroUIScript.Damage( damage*(1- (DmgDamp * 0.01f)), transform.position + 10.0f * Vector3.up );
-		currHP -= damage * (1- (DmgDamp * 0.01f));
+		HeroUIScript.Damage( damage * ( 1 - ( DmgDamp * 0.01f ) ), transform.position + 10.0f * Vector3.up );
+		currHP -= damage * ( 1 - ( DmgDamp * 0.01f ) );
 		if ( null != Attacked )
 			Attacked();
 		if ( currHP <= 0.0f )
 		{
 			currHP = 0.0f;
 			isAlive = false;
-            if (!(this is PortalInfo))
-            {
-                gameObject.SetActive(false);
-                if (!dontDestroy)
-                    Destroy(gameObject, 1.0f);
+			if ( !( this is PortalInfo ) )
+			{
+				gameObject.SetActive( false );
+				if ( !dontDestroy )
+					Destroy( gameObject, 1.0f );
 			}
-            if (null != Destroyed)
-                Destroyed();
+			if ( null != Destroyed )
+				Destroyed();
 		}
 	}
 
