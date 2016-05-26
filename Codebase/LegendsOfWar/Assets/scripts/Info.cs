@@ -60,7 +60,8 @@ public class Info : MonoBehaviour
 	public bool Alive
 	{
 		get { return isAlive; }
-		protected set {
+		protected set
+		{
 			if ( value && !isAlive )
 			{
 				currHP = MaxHP;
@@ -76,7 +77,8 @@ public class Info : MonoBehaviour
 	public float HP
 	{
 		get { return currHP; }
-		set {
+		set
+		{
 			if ( value <= 0.0f )
 				TakeDamage( currHP - value );
 			else

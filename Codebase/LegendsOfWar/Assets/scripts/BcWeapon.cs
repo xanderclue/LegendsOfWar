@@ -523,7 +523,8 @@ public class BcWeaponEditor : Editor
 	Texture bulletcreatorLogo_;
 	Texture bulletcreatorLogo
 	{
-		get {
+		get
+		{
 			if ( bulletcreatorLogo_ == null )
 			{
 				string path = AssetDatabase.GUIDToAssetPath( AssetDatabase.FindAssets( "BcWeapon" )[ 0 ] ).Replace( "BcWeapon.cs", "" ) + "Internal/Images/bulletcreator_logo.png";
@@ -535,7 +536,8 @@ public class BcWeaponEditor : Editor
 	Texture pixelattoIcon_;
 	Texture pixelattoIcon
 	{
-		get {
+		get
+		{
 			if ( pixelattoIcon_ == null )
 			{
 				string path = AssetDatabase.GUIDToAssetPath( AssetDatabase.FindAssets( "BcWeapon" )[ 0 ] ).Replace( "BcWeapon.cs", "" ) + "Internal/Images/pixelatto_icon.png";

@@ -44,7 +44,8 @@ public class CameraControl : MonoBehaviour
 	public static Camera Vantage { get { return vantage; } }
 	public static Camera Current
 	{
-		get {
+		get
+		{
 			return HeroCamScript.onHero ? HeroCamScript.HeroCam : current;
 		}
 	}
@@ -70,10 +71,12 @@ public class CameraControl : MonoBehaviour
 
 	public bool CameraFollowsPlayer
 	{
-		get {
+		get
+		{
 			return followPlayer;
 		}
-		set {
+		set
+		{
 			if ( !playerInfo.Alive || null == playerInfo )
 				followPlayer = false;
 			else
@@ -332,7 +335,8 @@ public class CameraControl : MonoBehaviour
 
 	static public float AudioDistance
 	{
-		get {
+		get
+		{
 			if ( instance && instance.mainCam )
 				return instance.mainCam.orthographicSize * instance.mainCam.aspect;
 			else

@@ -11,7 +11,8 @@ public class StatusEffectsManager : MonoBehaviour
 	static StatusEffectsManager inst = null;
 	public static StatusEffectsManager Instance
 	{
-		get {
+		get
+		{
 			if ( inst == null )
 			{
 				inst = FindObjectOfType<StatusEffectsManager>();

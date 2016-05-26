@@ -29,7 +29,8 @@ public class HeroAbilities : MonoBehaviour
 	public string heroClassEn = "", heroClassJp = "";
 	public string abilityInfo
 	{
-		get {
+		get
+		{
 			if ( Options.Japanese )
 				return heroClassJp + "\n\n"
 					+ q.abilityNameJp + ": " + q.abilityDescJp + "\n\n"

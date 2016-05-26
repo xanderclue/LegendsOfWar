@@ -39,7 +39,8 @@ public class TurnManager : MonoBehaviour
 
 	Character next
 	{
-		get {
+		get
+		{
 			c = CurrentInt;
 			++c;
 			if ( m < c )
@@ -49,7 +50,8 @@ public class TurnManager : MonoBehaviour
 	}
 	Character prev
 	{
-		get {
+		get
+		{
 			c = CurrentInt;
 			--c;
 			if ( c < 0 )

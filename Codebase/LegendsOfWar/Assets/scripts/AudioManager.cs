@@ -10,7 +10,8 @@ public class AudioManager : MonoBehaviour
 
 	public static Vector3 ListenerPosition
 	{
-		get {
+		get
+		{
 			if ( listenerTransform )
 				return listenerTransform.position;
 			return Vector3.zero;

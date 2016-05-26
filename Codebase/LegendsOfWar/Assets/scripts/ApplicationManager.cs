@@ -81,7 +81,8 @@ public class ApplicationManager : MonoBehaviour
 	static ApplicationManager instance = null;
 	public static ApplicationManager Instance
 	{
-		get {
+		get
+		{
 			if ( !instance )
 			{
 				instance = FindObjectOfType<ApplicationManager>();

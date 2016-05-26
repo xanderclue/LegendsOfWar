@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
 	public static bool Avail { get { return instance != null; } }
 	public static bool GameRunning
 	{
-		get {
+		get
+		{
 			if ( instance )
 				return Instance.gameRunning;
 			else
@@ -179,7 +180,8 @@ public class GameManager : MonoBehaviour
 
 	public static bool eventSystem
 	{
-		set {
+		set
+		{
 			Instance.uiEventSystem.enabled = value;
 			foreach ( Button button in Instance.buttons )
 				button.enabled = value;
@@ -192,7 +194,8 @@ public class GameManager : MonoBehaviour
 	static GameManager instance = null;
 	public static GameManager Instance
 	{
-		get {
+		get
+		{
 			if ( !instance )
 			{
 				instance = FindObjectOfType<GameManager>();

@@ -69,7 +69,8 @@ public class EconomyManager : MonoBehaviour
 	static EconomyManager instance = null;
 	public static EconomyManager Instance
 	{
-		get {
+		get
+		{
 			if ( !instance )
 			{
 				instance = FindObjectOfType<EconomyManager>();

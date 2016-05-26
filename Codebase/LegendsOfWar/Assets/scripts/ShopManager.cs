@@ -170,7 +170,8 @@ public class ShopManager : MonoBehaviour
 	static ShopManager instance = null;
 	public static ShopManager Instance
 	{
-		get {
+		get
+		{
 			if ( !instance )
 			{
 				instance = FindObjectOfType<ShopManager>();

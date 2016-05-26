@@ -27,7 +27,8 @@ public class HeroCamScript : MonoBehaviour
 
 	public static bool onHero
 	{
-		get {
+		get
+		{
 			if ( inst )
 				return inst.state == CamTransitionState.OnHero;
 			else
@@ -36,7 +37,8 @@ public class HeroCamScript : MonoBehaviour
 	}
 	public static bool heroAlive
 	{
-		get {
+		get
+		{
 			if ( !inst )
 				return false;
 			if ( !inst.info )
@@ -362,11 +364,13 @@ public class HeroCamScript : MonoBehaviour
 	private bool hudTextShowsQWER = true;
 	private bool HudTextShowsQWER
 	{
-		get {
+		get
+		{
 			return hudTextShowsQWER;
 		}
 
-		set {
+		set
+		{
 			hudTextShowsQWER = value;
 			if ( value )
 			{

@@ -51,7 +51,8 @@ public class HeroUIScript : MonoBehaviour
 	public static bool HeroBeingAttacked
 	{
 		get { return heroDamageNotifTimer > 0.0f; }
-		set {
+		set
+		{
 			//if ( value && !HeroCamScript.onHero && heroDamageNotifTimer <= 0.0f )
 			//	inst.hiirooKougeki.PlayOneShot( inst.kougeki );
 			heroDamageNotifTimer = ( value && !HeroCamScript.onHero ) ?

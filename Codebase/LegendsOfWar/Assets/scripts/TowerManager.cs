@@ -134,7 +134,8 @@ public class TowerManager : MonoBehaviour
 	static TowerManager instance = null;
 	public static TowerManager Instance
 	{
-		get {
+		get
+		{
 			if ( !instance )
 			{
 				instance = FindObjectOfType<TowerManager>();

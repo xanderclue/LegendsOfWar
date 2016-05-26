@@ -13,7 +13,8 @@ public class pauseMenuEvents : MonoBehaviour
 	public static bool EventSystem
 	{
 		get { return inst.eventSystem.activeInHierarchy; }
-		set {
+		set
+		{
 			inst.eventSystem.SetActive( value );
 			foreach ( Button button in inst.buttons )
 				button.enabled = value;
