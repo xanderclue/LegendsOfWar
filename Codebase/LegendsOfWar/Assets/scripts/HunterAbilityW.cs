@@ -2,7 +2,6 @@
 
 public class HunterAbilityW : AbilityWBase
 {
-	//Rooting Shot
 	[SerializeField]
 	float range = 0.0f, speed = 0.0f, damage = 0.0f;
 	[SerializeField]
@@ -17,22 +16,13 @@ public class HunterAbilityW : AbilityWBase
 	float originalSpeed = 0.0f;
 	RaycastHit hit;
 
-	//void Awake()
-	//{
-	//    m_effect = new Effect();
-	//    m_effect.Name = "Rooting shot";
-	//    m_effect.Type = StatusEffectType.SNARE;
-	//    m_effect.Duration = 3;
-	//}
 
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
-		// <BUGFIX: Test Team #32>
 		if ( EnoughMana )
-			// </BUGFIX: Test Team #32>
 			if ( ( ( Input.GetKeyDown( KeyCode.W ) && !HeroCamScript.onHero ) ||
 				Input.GetKeyDown( KeyCode.Alpha2 ) ||
 				Input.GetKeyDown( KeyCode.Keypad2 ) ) && cooldownTimer <= 0.0f )
@@ -82,7 +72,6 @@ public class HunterAbilityW : AbilityWBase
 	{
 		originalSpeed = target.GetComponent<NavMeshAgent>().speed;
 		target.GetComponent<NavMeshAgent>().speed = 0.0f;
-		//StatusEffects.Inflict(target.gameObject, Effect.CreateEffect());
 		activeIcon = ( Instantiate( Icon, target.transform.position, target.transform.rotation ) as GameObject );
 		activeIcon.transform.parent = target.transform;
 		activeIcon.GetComponent<SpriteRenderer>().enabled = true;

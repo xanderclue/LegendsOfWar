@@ -5,7 +5,6 @@ public class ProjectileBehaviour : MonoBehaviour
 	public float speed;
 	public Transform target = null;
 	public float damage;
-	//public bool HitFirstCollision = false;
 	private bool isFired = false;
 
 	void FixedUpdate()
@@ -29,7 +28,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
 	void OnTriggerEnter( Collider col )
 	{
-		if ( col.gameObject == target.gameObject /*|| HitFirstCollision == true*/)
+		if ( col.gameObject == target.gameObject )
 		{
 			col.gameObject.GetComponent<Info>().TakeDamage( damage );
 			Destroy( gameObject );
@@ -40,7 +39,6 @@ public class ProjectileBehaviour : MonoBehaviour
 	{
 		if ( GameManager.GameEnded )
 			Destroy( gameObject );
-		// <BUGFIX: Dev Team #21>
 		else if ( projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( isFired )
@@ -49,5 +47,4 @@ public class ProjectileBehaviour : MonoBehaviour
 	float projectileTimer;
 	public float projectileLifetime = 3.0f;
 	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }

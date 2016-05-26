@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 public class StatusEffectsManager : MonoBehaviour
 {
-	// Key = status ability name, Value = effect values
 	SortedList<string, Effect> stats = new SortedList<string, Effect>();
-	// Key = Users, Value = list of status effects
 	SortedList<string, SortedList<string, Effect>> objects = new SortedList<string, SortedList<string, Effect>>();
 
 	static StatusEffectsManager inst = null;
@@ -33,17 +31,14 @@ public class StatusEffectsManager : MonoBehaviour
 	}
 	public void AddStatus( string _nameKey, Effect _effect )
 	{
-		// Is this user affected? If not do:
 		if ( !objects.ContainsKey( _nameKey ) )
 		{
 			stats.Clear();
 			stats = new SortedList<string, Effect>();
 			objects.Add( _nameKey, stats );
 		}
-		// Is this user already affected by this?
 		if ( objects[ _nameKey ].ContainsKey( _effect.m_name ) )
 		{
-			// does this effect stack? if so add a stack. Else refresh the effect.
 			if ( _effect.m_stackable )
 			{
 				objects[ _nameKey ][ _effect.m_name ].m_stacks++;
@@ -53,7 +48,6 @@ public class StatusEffectsManager : MonoBehaviour
 				objects[ _nameKey ][ _effect.m_name ].Refresh();
 			}
 		}
-		// Add new effect to the user.
 		else
 		{
 			objects[ _nameKey ].Add( _effect.m_name, _effect );

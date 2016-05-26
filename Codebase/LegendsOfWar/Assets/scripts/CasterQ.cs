@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CasterQ : AbilityQBase
 {
@@ -57,7 +56,6 @@ public class CasterQ : AbilityQBase
 		if ( Input.GetMouseButtonDown( 0 ) && aimingSkill )
 		{
 			aimingSkill = false;
-			//Input.ResetInputAxes();
 			TryCast();
 			ResetSystem();
 		}
@@ -69,10 +67,8 @@ public class CasterQ : AbilityQBase
 					Input.GetKeyDown( KeyCode.Alpha1 ) ||
 					Input.GetKeyDown( KeyCode.Keypad1 ) ) && !aimingSkill && cooldownTimer <= 0.0f )
 			aimingSkill = true;
-		// <BUGFIX: Test Team #32>
 		if ( !EnoughMana )
 			aimingSkill = false;
-		// </BUGFIX: Test Team #32>
 	}
 
 	protected override void AbilityActivate()

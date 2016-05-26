@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -46,9 +45,6 @@ public class BcWeapon : MonoBehaviour
 	float lastTriggerValue;
 	bool triggerPushed;
 
-	// <BUGFIX: Dev Team #23>
-	//AudioSource audioSource;
-	// </BUGFIX: Dev Team #23>
 
 	void Start()
 	{
@@ -85,25 +81,13 @@ public class BcWeapon : MonoBehaviour
 			Reload();
 		}
 
-		// <BUGFIX: Dev Team #23>
-		//foreach (AudioSource source in GetComponents<AudioSource>()) {
-		//	if (!source.isPlaying) {
-		//		Destroy(source);
-		//	}
-		//}
-		// </BUGFIX: Dev Team #23>
 	}
 
 	public void Reload()
 	{
 		if ( !isReloading )
 		{
-			// <BUGFIX: Dev Team #23>
-			//audioSource =gameObject.AddComponent<AudioSource>();
-			//audioSource.clip=reloadingSound;
-			//audioSource.Play();
 			AudioManager.PlaySoundEffect( reloadingSound, transform.position );
-			// </BUGFIX: Dev Team #23>
 			isReloading = true;
 		}
 		shootTimer = 0;
@@ -115,16 +99,10 @@ public class BcWeapon : MonoBehaviour
 			isReloading = false;
 			reloadTimer = 0;
 			shootTimer = 0;
-			// <BUGFIX: Dev Team #23>
-			//audioSource =gameObject.AddComponent<AudioSource>();
-			//audioSource.clip=reloadedSound;
-			//audioSource.Play();
 			AudioManager.PlaySoundEffect( reloadedSound, transform.position );
-			// </BUGFIX: Dev Team #23>
 		}
 	}
 
-	//Pull the trigger: shoots if the next bullet is ready
 	public void Shoot()
 	{
 		if ( !isReloading && currentAmmo > 0 && shootTimer <= 0 )
@@ -132,25 +110,14 @@ public class BcWeapon : MonoBehaviour
 			currentAmmo--;
 			shootTimer += 1 / rateOfFire;
 			SpawnBullet();
-			// <BUGFIX: Dev Team #23>
-			//audioSource =gameObject.AddComponent<AudioSource>();
-			//audioSource.clip=shootSound;
-			//audioSource.Play();
 			AudioManager.PlaySoundEffect( shootSound, transform.position );
-			// </BUGFIX: Dev Team #23>
 		}
 		if ( isReloading && triggerPushed && !isSemiAutomatic )
 		{
-			// <BUGFIX: Dev Team #23>
-			//audioSource =gameObject.AddComponent<AudioSource>();
-			//audioSource.clip=emptyClickSound;
-			//audioSource.Play();
 			AudioManager.PlaySoundEffect( emptyClickSound, transform.position );
-			// </BUGFIX: Dev Team #23>
 		}
 	}
 
-	//Force shoot: even if the bullet is not ready yet
 	public void SpawnBullet()
 	{
 		for ( int i = 0; i < bulletsPerShot; i++ )
@@ -202,7 +169,6 @@ public class BcWeapon : MonoBehaviour
 	{
 		if ( this.enabled )
 		{
-			//Shoot cone display
 			Mesh hull = new Mesh();
 			hull.Clear();
 			Vector3[ ] vertexMatrix = new Vector3[ 8 ];
@@ -216,11 +182,9 @@ public class BcWeapon : MonoBehaviour
 			DrawMesh( hull, except );
 			Gizmos.DrawWireSphere( DrawTrajectory( transform.position, transform.forward * ( bulletSpeed ), bulletLife, Color.yellow ), 0.3f );
 
-			//Scale values
 			float width = 1 / rateOfFire * clipSize * displayScale;
 			float height = displayScale;
 
-			//Shooting time display
 			for ( float i = 0; i < clipSize / rateOfFire; i += 1 )
 			{
 				float size = 0.25f * height;
@@ -243,7 +207,6 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward * 0,
 							DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward * Mathf.Max( 0, currentAmmo + shootTimer * rateOfFire ) / clipSize * width );
 
-			//Clip size display
 			for ( float i = 0; i < clipSize; i += 1 )
 			{
 				float size = 0.15f * height;
@@ -266,7 +229,6 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward * 0,
 							DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward * Mathf.Max( 0, currentAmmo ) / clipSize * width );
 
-			//Reload time display
 			for ( float i = 0; i < reloadTime; i += 1 )
 			{
 				float size = 0.15f * height;
@@ -289,7 +251,6 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 ) - transform.forward * 0,
 							DisplayPosition() - transform.up * ( -height / 2 ) - transform.forward * reloadTimer * displayScale );
 
-			//GUI context line
 			Gizmos.color = Color.white;
 			Gizmos.DrawLine( transform.position,
 							transform.position + transform.up * ( height * 2 ) * IsOverCannon() );
@@ -298,7 +259,6 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( height * 2 ) * IsOverCannon(),
 							DisplayPosition() );
 
-			//Cannon position & shoot direction display
 			if ( autofire )
 			{ Gizmos.color = new Color( 0.75f, 0.5f, 0.5f, 1 ); }
 			else
@@ -312,7 +272,6 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform.position + transform.right * displayScale / 2 );
 			Gizmos.DrawWireSphere( transform.position, 0.475f * displayScale );
 
-			//Bullets per shot display
 			Gizmos.color = Color.cyan;
 			for ( float i = 0; i < bulletsPerShot; i++ )
 			{
@@ -475,7 +434,6 @@ public class BcWeaponEditor : Editor
 
 			SerializeProperties();
 
-			//Display position handle
 			if ( showDisplayHandles.boolValue )
 			{
 				offset = tW.transform.position;
@@ -490,13 +448,11 @@ public class BcWeaponEditor : Editor
 									0.75f * HandleUtility.GetHandleSize( offset + tW.DisplayOffset() ), 0 ) );
 			}
 
-			//Rate of fire handle (time scale)
 			Handles.color = Color.white;
 			offset = tW.DisplayPosition() + tW.transform.up * displayScale.floatValue / 2 + tW.transform.forward * 0.5f * displayScale.floatValue;
 			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / rateOfFire.floatValue * tW.clipSize * displayScale.floatValue, tW.transform.forward, 0.75f * displayScale.floatValue, Handles.ConeCap, 0 );
 			rateOfFire.floatValue = tW.clipSize / ( vec.magnitude / displayScale.floatValue );
 
-			//Clip size handle
 			Handles.color = Color.white;
 			offset = tW.DisplayPosition() - tW.transform.up * displayScale.floatValue / 2 + tW.transform.forward * 0.75f * displayScale.floatValue;
 			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / tW.rateOfFire * tW.clipSize * displayScale.floatValue, tW.transform.forward, 0.75f * displayScale.floatValue, Handles.SphereCap, 0 );
@@ -504,16 +460,13 @@ public class BcWeaponEditor : Editor
 			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / tW.rateOfFire * tW.clipSize * displayScale.floatValue, tW.transform.forward, 0.75f * displayScale.floatValue, Handles.CylinderCap, 0 );
 			clipSize.intValue = Mathf.RoundToInt( tW.rateOfFire * ( vec.magnitude / displayScale.floatValue ) );
 
-			//Reload time handle
 			Handles.color = Color.gray;
 			offset = tW.DisplayPosition() + tW.transform.up * displayScale.floatValue / 2 - tW.transform.forward * 0.5f * displayScale.floatValue;
 			vec = -offset + Handles.Slider( offset - tW.transform.forward * tW.reloadTime * displayScale.floatValue, -tW.transform.forward, 0.75f * displayScale.floatValue, Handles.ConeCap, 0 );
 			reloadTime.floatValue = vec.magnitude / displayScale.floatValue;
 
-			//Update values
 			this.serializedObject.ApplyModifiedProperties();
 
-			//Lifetime display
 			Handles.color = Color.white;
 			Vector3 position = tW.ShotEnd( tW.bulletSpeed * tW.transform.forward, tW.bulletLife, Color.white );
 			Handles.Label( position, Mathf.Round( 100 * tW.bulletLife ) / 100 + " secs" + " | " + Mathf.Round( 100 * Vector3.Distance( tW.transform.position, position ) ) / 100 + " m" );
@@ -556,7 +509,6 @@ public class BcWeaponEditor : Editor
 	void DrawTitle()
 	{
 		GUILayout.Space( 8f );
-		//if (bulletcreatorLogo!=null) {
 		var headerRect = GUILayoutUtility.GetRect( Screen.width, 5.0f );
 		headerRect.x = headerRect.x - 16;
 		headerRect.width = bulletcreatorLogo.width;
@@ -568,7 +520,6 @@ public class BcWeaponEditor : Editor
 		{
 			Application.OpenURL( "http://www.pixelatto.com/" );
 		}
-		//}
 	}
 }
 #endif

@@ -2,7 +2,6 @@
 
 public class HunterAbilityE : AbilityEBase
 {
-	//Charged Shot
 	[SerializeField]
 	float range = 0.0f, speed = 0.0f, abilityAdditionalDamage = 0.0f;
 	[SerializeField]
@@ -21,14 +20,10 @@ public class HunterAbilityE : AbilityEBase
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
 
-		// <BUGFIX: Dev Team #22>
 		if ( !GameManager.GameRunning || !abilityEnabled )
 			return;
-		// </BUGFIX: Dev Team #22>
 
-		// <BUGFIX: Test Team #32>
 		if ( EnoughMana )
-			// </BUGFIX: Test Team #32>
 			if ( !aiming && cooldownTimer <= 0.0f )
 			{
 				if ( ( Input.GetKeyDown( KeyCode.E ) && !HeroCamScript.onHero ) ||

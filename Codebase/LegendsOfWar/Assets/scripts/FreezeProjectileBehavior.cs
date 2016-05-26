@@ -144,7 +144,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 				victims.Add( obj.transform );
 				if ( obj.gameObject.GetComponent<NavMeshAgent>() )
 				{
-					//check to see if we already have this agent in the list
 					foreach ( NavMeshAgent agent in slowTargets )
 						if ( agent == obj.gameObject.GetComponent<NavMeshAgent>() )
 							skip = false;
@@ -167,7 +166,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		{
 			if ( GameManager.GameEnded )
 				Destroy( gameObject );
-			// <BUGFIX: Dev Team #21>
 			else if ( projectileTimer <= 0.0f )
 				Destroy( gameObject );
 			else if ( fired )
@@ -178,5 +176,4 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	float projectileTimer;
 	public float projectileLifetime = 4.0f;
 	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }

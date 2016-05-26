@@ -2,9 +2,9 @@
 
 public class AudioManager : MonoBehaviour
 {
-	static Transform listenerTransform = null; // FOR FOLLOWING
-	static AudioSource BgmSource; // FOR MUSIC
-	static AudioSource SfxSource = null; // FOR NONPOSITIONED SFX SOUNDS
+	static Transform listenerTransform = null;
+	static AudioSource BgmSource;
+	static AudioSource SfxSource = null;
 	[SerializeField]
 	AudioSource clickSoundSource = null;
 

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class MinionAttack : AttackScript
 {
-	//private MinionInfo Minioninfo;
-	//private float damage { get { return Minioninfo.Damage; } }
 	[SerializeField]
 	List<Transform> targets;
 
@@ -29,7 +27,6 @@ public class MinionAttack : AttackScript
 		targets = new List<Transform>();
 		movement = GetComponent<MinionMovement>();
 
-		//Minioninfo = GetComponent<MinionInfo>();
 	}
 
 	void AttackTriggerEnter( GameObject obj )
@@ -44,7 +41,6 @@ public class MinionAttack : AttackScript
 					if ( targ.team != Minioninfo.team )
 					{
 						targets.Add( obj.transform );
-						//Debug.Log("target added");
 					}
 				}
 			}

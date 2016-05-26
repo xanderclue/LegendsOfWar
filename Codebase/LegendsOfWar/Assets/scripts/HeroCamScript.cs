@@ -21,9 +21,7 @@ public class HeroCamScript : MonoBehaviour
 	GameObject switchButton = null;
 	Button buttonSwitch;
 	Text textSwitch;
-	// <Bugfix: Test Team #29>
 	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
-	// </Bugfix: Test Team #29>
 
 	public static bool onHero
 	{
@@ -119,10 +117,8 @@ public class HeroCamScript : MonoBehaviour
 
 	void Update()
 	{
-		// <BUGFIX: Test Team #5.1>
 		Cursor.visible = !GameManager.GameRunning || !onHero
 			|| StateID.STATE_SHOP == ApplicationManager.Instance.GetAppState()
-		// </BUGFIX: Test Team #5.1>
 		|| heroCamDisabler.disabledCameraMovement;
 		if ( !cameraReady )
 		{
@@ -167,11 +163,9 @@ public class HeroCamScript : MonoBehaviour
 	float currentVertical;
 	void MouseVerticalAxis()
 	{
-		// <BUGFIX: Dev Team #16>
 		if ( GameManager.Tutorial )
 			if ( heroCamDisabler.disabledCameraMovement )
 				return;
-		// </BUGFIX: Dev Team #16>
 		if ( !onHero )
 			return;
 		if ( Input.GetMouseButton( 2 ) )
@@ -197,7 +191,6 @@ public class HeroCamScript : MonoBehaviour
 			info = player.GetComponent<HeroInfo>();
 			if ( info )
 			{
-				//heroCenter = player.transform;
 				heroCenter = info.heroCenter;
 
 				heroTransformMax = new GameObject( "MaxTransf" ).transform;
@@ -290,10 +283,6 @@ public class HeroCamScript : MonoBehaviour
 			{
 				tValue = 1.0f;
 				state = CamTransitionState.OnHero;
-				// <BUGFIX: Test Team #5,#5.1>
-				//Cursor.visible = false;
-				//Cursor.lockState = CursorLockMode.Locked;
-				// </BUGFIX Test Team #5,#5.1>
 				if ( null != OnOnHero )
 					OnOnHero();
 			}
@@ -336,10 +325,6 @@ public class HeroCamScript : MonoBehaviour
 			tValue -= transitionSpeed * Time.deltaTime;
 			if ( tValue <= 0.0f )
 			{
-				// <BUGFIX: Test Team #5,#5.1>
-				//Cursor.visible = true;
-				//Cursor.lockState = CursorLockMode.Confined;
-				// </BUGFIX: Test Team #5,#5.1>
 				tValue = 0.0f;
 				mainCam.enabled = true;
 				heroCam.enabled = false;

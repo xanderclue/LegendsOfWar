@@ -1,5 +1,4 @@
-﻿// <BUGFIX: Dev Team #16>
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 public class heroCamDisabler : MonoBehaviour
 {
@@ -10,4 +9,3 @@ public class heroCamDisabler : MonoBehaviour
 	public static bool disabledCameraMovement
 	{ get { if ( null != disablers ) return disablers.Count > 0; return false; } }
 }
-// </BUGFIX: Dev Team #16>

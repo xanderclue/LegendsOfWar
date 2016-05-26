@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class ResourceBarScript : MonoBehaviour
@@ -10,7 +9,7 @@ public class ResourceBarScript : MonoBehaviour
 	Info stats;
 	Image bar = null;
 
-	[SerializeField, Tooltip( "Are potatoes green?" )]
+	[SerializeField]
 	bool attachedToHUD = false;
 
 	public bool isMana = false;

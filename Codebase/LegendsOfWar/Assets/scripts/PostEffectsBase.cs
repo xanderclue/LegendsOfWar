@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
@@ -15,7 +14,6 @@ namespace UnityStandardAssets.ImageEffects
 		{
 			if ( !s )
 			{
-				Debug.Log( "Missing shader in " + ToString() );
 				enabled = false;
 				return null;
 			}
@@ -26,7 +24,6 @@ namespace UnityStandardAssets.ImageEffects
 			if ( !s.isSupported )
 			{
 				NotSupported();
-				Debug.Log( "The shader " + s.ToString() + " on effect " + ToString() + " is not supported on this platform!" );
 				return null;
 			}
 			else
@@ -45,7 +42,6 @@ namespace UnityStandardAssets.ImageEffects
 		{
 			if ( !s )
 			{
-				Debug.Log( "Missing shader in " + ToString() );
 				return null;
 			}
 
@@ -80,7 +76,6 @@ namespace UnityStandardAssets.ImageEffects
 
 		public virtual bool CheckResources()
 		{
-			Debug.LogWarning( "CheckResources () for " + ToString() + " should be overwritten." );
 			return isSupported;
 		}
 
@@ -137,13 +132,10 @@ namespace UnityStandardAssets.ImageEffects
 
 		protected void ReportAutoDisable()
 		{
-			Debug.LogWarning( "The image effect " + ToString() + " has been disabled as it's not supported on the current platform." );
 		}
 
-		// deprecated but needed for old effects to survive upgrading
 		bool CheckShader( Shader s )
 		{
-			Debug.Log( "The shader " + s.ToString() + " on effect " + ToString() + " is not part of the Unity 3.2+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package." );
 			if ( !s.isSupported )
 			{
 				NotSupported();
@@ -172,8 +164,7 @@ namespace UnityStandardAssets.ImageEffects
 			float y2;
 
 			RenderTexture.active = dest;
-			bool invertY = true; // source.texelSize.y < 0.0ff;
-								 // Set up the simple Matrix
+			bool invertY = true;
 			GL.PushMatrix();
 			GL.LoadOrtho();
 
@@ -194,7 +185,6 @@ namespace UnityStandardAssets.ImageEffects
 					y2_ = 1.0f;
 				}
 
-				// left
 				x1 = 0.0f;
 				x2 = 0.0f + 1.0f / ( dest.width * 1.0f );
 				y1 = 0.0f;
@@ -210,7 +200,6 @@ namespace UnityStandardAssets.ImageEffects
 				GL.TexCoord2( 0.0f, y2_ );
 				GL.Vertex3( x1, y2, 0.1f );
 
-				// right
 				x1 = 1.0f - 1.0f / ( dest.width * 1.0f );
 				x2 = 1.0f;
 				y1 = 0.0f;
@@ -225,7 +214,6 @@ namespace UnityStandardAssets.ImageEffects
 				GL.TexCoord2( 0.0f, y2_ );
 				GL.Vertex3( x1, y2, 0.1f );
 
-				// top
 				x1 = 0.0f;
 				x2 = 1.0f;
 				y1 = 0.0f;
@@ -240,7 +228,6 @@ namespace UnityStandardAssets.ImageEffects
 				GL.TexCoord2( 0.0f, y2_ );
 				GL.Vertex3( x1, y2, 0.1f );
 
-				// bottom
 				x1 = 0.0f;
 				x2 = 1.0f;
 				y1 = 1.0f - 1.0f / ( dest.height * 1.0f );

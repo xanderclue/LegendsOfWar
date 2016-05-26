@@ -1,2 +1,1 @@
-﻿using UnityEngine;
-public class AssassinAbilityE : AbilityEBase { }
+﻿public class AssassinAbilityE : AbilityEBase { }

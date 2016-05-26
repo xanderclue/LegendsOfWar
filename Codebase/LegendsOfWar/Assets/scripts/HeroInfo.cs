@@ -23,8 +23,6 @@ public class HeroInfo : Info
 	public Transform heroCenter = null;
 	HeroMovement movement;
 
-	//[SerializeField]
-	//float damage;
 
 	public float respawnTime = 9.0f, respawnIncrement = 3.0f;
 	[HideInInspector]
@@ -107,9 +105,7 @@ public class HeroInfo : Info
 		respawnTimer = respawnTime;
 		respawnTime += respawnIncrement;
 		++deathCount;
-		// <BUGFIX: Dev Team #19>
 		mana = 0.0f;
-		// </BUGFIX: Dev Team #19>
 	}
 
 	public float Mana { get { return mana; } }
@@ -119,9 +115,7 @@ public class HeroInfo : Info
 	public void Respawn()
 	{
 		movement.ResetToSpawn();
-		// <BUGFIX: Dev Team #19>
 		mana = maxMana;
-		// </BUGFIX: Dev Team #19>
 		Alive = true;
 	}
 

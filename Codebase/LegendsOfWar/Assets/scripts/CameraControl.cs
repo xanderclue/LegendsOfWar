@@ -2,14 +2,11 @@
 
 public class CameraControl : MonoBehaviour
 {
-	#region TarrentAddedCode
 	public Texture2D SelectionHighlight = null;
 	public static Rect Selection = new Rect( 0, 0, 0, 0 );
 
 	private Vector3 StartClick = -Vector3.one;
-	#endregion
 
-	//User story: Panning map with middle mouse button
 	private Vector3 Origin;
 	private Vector3 Difference;
 
@@ -100,15 +97,9 @@ public class CameraControl : MonoBehaviour
 
 		if ( !GameManager.GameRunning )
 			return;
-		#region TarrentAddedCode
 		CheckCamera();
-		#endregion
 
-		// <BUGFIX: Test Team #19>
-		//if ( Input.GetKeyDown( KeyCode.C ) )
-		//	CameraFollowsPlayer = !followPlayer;
 		followPlayer = HeroCamScript.onHero;
-		// </BUGFIX: Test Team #19>
 		if ( aspectRatio != mainCam.aspect )
 			RecalcZoomLimits();
 		if ( Input.GetMouseButton( 0 ) )
@@ -135,13 +126,10 @@ public class CameraControl : MonoBehaviour
 
 	}
 
-	#region TarrentAddedCode
 	private void CheckCamera()
 	{
-		// <BUGFIX: Test Team #28>
 		if ( Input.GetMouseButtonDown( 0 ) && HeroCamScript.onHero == false )
 			StartClick = Input.mousePosition;
-		// </BUGFIX: Test Team #28>
 		if ( Input.GetMouseButtonUp( 0 ) )
 		{
 			StartClick = -Vector3.one;
@@ -173,7 +161,6 @@ public class CameraControl : MonoBehaviour
 			GUI.DrawTexture( Selection, SelectionHighlight );
 		}
 	}
-	#endregion
 
 	float mousePosX;
 	float mousePosY;
@@ -184,7 +171,6 @@ public class CameraControl : MonoBehaviour
 		if ( !GameManager.GameRunning )
 			return;
 
-		//User story: Panning map with middle mouse button
 		if ( mainCam.enabled )
 		{
 			if ( Input.GetMouseButtonDown( 2 ) )
@@ -201,7 +187,6 @@ public class CameraControl : MonoBehaviour
 
 		if ( mainCam.enabled && !followPlayer )
 		{
-			//camera movement by reaching the edge
 			mousePosX = Input.mousePosition.x;
 			mousePosY = Input.mousePosition.y;
 			if ( mousePosX < scrollDistance )

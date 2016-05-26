@@ -20,7 +20,6 @@ public class IntroManager : MonoBehaviour
 	}
 	STATES currentState = STATES.STATE_INTRO;
 	public void NextState() { currentState += 1; }
-	//Full Controlers
 	[SerializeField]
 	GameObject IntroSequence;
 	[SerializeField]
@@ -28,7 +27,6 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	GameObject GameHUD;
 
-	//Minion Prefabs
 	[SerializeField]
 	GameObject RedTankMinion;
 	[SerializeField]
@@ -42,7 +40,6 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	GameObject BlueCasterMinion;
 
-	#region Hero Tutorial Requirements
 	[SerializeField]
 	GameObject HeroTutorial;
 	[SerializeField]
@@ -51,8 +48,6 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	GameObject[ ] RedSpawns;
 
-	//[SerializeField]
-	//GameObject Instructions;
 	[SerializeField]
 	GameObject[ ] HeroInstructions;
 
@@ -69,9 +64,7 @@ public class IntroManager : MonoBehaviour
 
 	[SerializeField]
 	GameObject Ending;
-	#endregion
 
-	#region Minion tut Requirements
 
 	bool SpawnMinionTutRed = false;
 	public void ToggleSpawnMinionRed() { SpawnMinionTutRed = !SpawnMinionTutRed; }
@@ -90,20 +83,16 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	GameObject MinionEnd;
 
-	#endregion
 
 	[SerializeField]
 	GameObject Death;
 	[SerializeField]
 	GameObject Player;
-	#region ToggleHeroTut
 	bool Welcome, Camera, Movement;
 	public void ToggleWelcome() { Welcome = !Welcome; }
 	public void ToggleCamera() { Camera = !Camera; }
 	public void ToggleMovement() { Movement = !Movement; }
-	#endregion
 
-	// Use this for initialization
 	void Start()
 	{
 		PlayedIntro = false;
@@ -117,13 +106,11 @@ public class IntroManager : MonoBehaviour
 	IEnumerator LateStart( float waitTime )
 	{
 		yield return new WaitForSeconds( waitTime );
-		Debug.Log( "DelayStart" );
 		MainGame.SetActive( false );
 		GameHUD.SetActive( false );
 		HeroTutorial.SetActive( false );
 		HeroHUD.SetActive( false );
 
-		//Instructions.SetActive(false);
 		for ( int i = 0; i < HeroInstructions.Length - 1; ++i )
 		{
 			HeroInstructions[ i ].SetActive( false );
@@ -136,7 +123,6 @@ public class IntroManager : MonoBehaviour
 		}
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		Player = GameManager.Instance.Player;
@@ -152,7 +138,6 @@ public class IntroManager : MonoBehaviour
 					HeroHUD.SetActive( true );
 					HeroCamScript.inst.SwitchView();
 					HeroInstanciate = true;
-					//Instructions.SetActive(true);
 					HeroInstructions[ 0 ].SetActive( true );
 
 				}
@@ -174,19 +159,15 @@ public class IntroManager : MonoBehaviour
 				{
 					HeroInstructions[ 2 ].SetActive( false );
 					Movement = false;
-					//Instructions.SetActive(false);
 				}
 				if ( RedSpawn.GetComponent<TutSpawnRed>().Battle == true )
 				{
 					GameObject[ ] Minions = GameObject.FindGameObjectsWithTag( "Minion" );
-					//Debug.Log("Searching");
 
 					if ( Minions.Length <= 1 )
 					{
-						//Debug.Log("None Found");
 						RedSpawn.GetComponent<TutSpawnRed>().Battle = false;
 						End.SetActive( true );
-						//Instructions.SetActive(true);
 						Ending.SetActive( true );
 					}
 				}
@@ -221,13 +202,11 @@ public class IntroManager : MonoBehaviour
 				{
 					MoveMainCam.SetActive( true );
 					firstswitch = true;
-					//Instructions.SetActive(true);
 				}
 				if ( RedTower != null && RedTower.activeInHierarchy == false )
 				{
 					TogglePause();
 					MinionEnd.SetActive( true );
-					Debug.Log( "Tower Destroyed" );
 				}
 				break;
 
@@ -236,13 +215,10 @@ public class IntroManager : MonoBehaviour
 		}
 
 
-		//Hero Instructions
-		//End Intro
 		if ( PlayedIntro == false )
 		{
 			if ( Input.GetKeyDown( KeyCode.Return ) )
 			{
-				Debug.Log( "KeyDown" );
 				PlayedIntro = true;
 				IntroSequence.SetActive( false );
 				currentState = STATES.STATE_HERO;
@@ -251,25 +227,8 @@ public class IntroManager : MonoBehaviour
 		}
 
 
-		//Start Hero Tutorial
-
-		//End Hero Tutoral
-
-
-		//Minion Tutorial
-
-		//End Minion Tutorial
-
-
-		//Main Game Tutorial
-
-		//End Game Tutorial
-
-
-		//Testing Code
 		if ( Input.GetKeyDown( KeyCode.Backspace ) )
 		{
-			Debug.Log( "test" );
 			SpawnRedTankMinion();
 			SpawnRedCasterMinion();
 			SpawnRedStrikerMinion();
@@ -277,13 +236,11 @@ public class IntroManager : MonoBehaviour
 		if ( Player != null && Player.activeInHierarchy == false )
 		{
 			Death.SetActive( true );
-			//Instructions.SetActive(true);
 
 		}
 	}
 
 
-	#region Spawing
 
 	public void SpawnRedTankMinion()
 	{
@@ -322,7 +279,6 @@ public class IntroManager : MonoBehaviour
 
 		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
-	#endregion
 
 	public bool pause = false;
 	public void TogglePause()

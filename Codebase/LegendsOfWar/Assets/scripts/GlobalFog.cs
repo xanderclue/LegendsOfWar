@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
@@ -101,8 +100,8 @@ namespace UnityStandardAssets.ImageEffects
 			bool linear = ( sceneMode == FogMode.Linear );
 			float diff = linear ? sceneEnd - sceneStart : 0.0f;
 			float invDiff = Mathf.Abs( diff ) > 0.0001f ? 1.0f / diff : 0.0f;
-			sceneParams.x = sceneDensity * 1.2011224087f; // density / sqrt(ln(2)), used by Exp2 fog mode
-			sceneParams.y = sceneDensity * 1.4426950408f; // density / ln(2), used by Exp fog mode
+			sceneParams.x = sceneDensity * 1.2011224087f;
+			sceneParams.y = sceneDensity * 1.4426950408f;
 			sceneParams.z = linear ? -invDiff : 0.0f;
 			sceneParams.w = linear ? sceneEnd * invDiff : 0.0f;
 			fogMaterial.SetVector( "_SceneFogParams", sceneParams );
@@ -110,11 +109,11 @@ namespace UnityStandardAssets.ImageEffects
 
 			int pass = 0;
 			if ( distanceFog && heightFog )
-				pass = 0; // distance + height
+				pass = 0;
 			else if ( distanceFog )
-				pass = 1; // distance only
+				pass = 1;
 			else
-				pass = 2; // height only
+				pass = 2;
 			CustomGraphicsBlit( source, destination, fogMaterial, pass );
 		}
 
@@ -132,16 +131,16 @@ namespace UnityStandardAssets.ImageEffects
 			GL.Begin( GL.QUADS );
 
 			GL.MultiTexCoord2( 0, 0.0f, 0.0f );
-			GL.Vertex3( 0.0f, 0.0f, 3.0f ); // BL
+			GL.Vertex3( 0.0f, 0.0f, 3.0f );
 
 			GL.MultiTexCoord2( 0, 1.0f, 0.0f );
-			GL.Vertex3( 1.0f, 0.0f, 2.0f ); // BR
+			GL.Vertex3( 1.0f, 0.0f, 2.0f );
 
 			GL.MultiTexCoord2( 0, 1.0f, 1.0f );
-			GL.Vertex3( 1.0f, 1.0f, 1.0f ); // TR
+			GL.Vertex3( 1.0f, 1.0f, 1.0f );
 
 			GL.MultiTexCoord2( 0, 0.0f, 1.0f );
-			GL.Vertex3( 0.0f, 1.0f, 0.0f ); // TL
+			GL.Vertex3( 0.0f, 1.0f, 0.0f );
 
 			GL.End();
 			GL.PopMatrix();

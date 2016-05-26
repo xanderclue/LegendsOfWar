@@ -2,7 +2,6 @@
 
 public class HeroAudio : MonoBehaviour
 {
-	//MUST PUT FILES IN THIS ORDER, IF THERE IS NOT A SOUND FOR IT LEAVE IT NULL
 	public AudioClip
 	CHeroTaunt1 = null,
 	CHeroTaunt2 = null,

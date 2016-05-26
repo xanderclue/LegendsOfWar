@@ -57,7 +57,6 @@ public class HeroMovement : MovementScript
 						agent.Resume();
 					if ( CheckInput() || m_attackMOve )
 					{
-						//agent.destination = hit.point;
 						if ( inCombat && m_attackMOve )
 							SetState( MOVE_State.ENGAGE_STATE );
 					}
@@ -73,19 +72,16 @@ public class HeroMovement : MovementScript
 						{
 							if ( Vector3.Distance( transform.position, TargetPosition.position ) > combatRange )
 							{
-								//agent.destination = TargetPosition.position;
 								if ( agent.enabled )
 									agent.Resume();
 								withinRange = false;
 
-								//Debug.Log("Chasing");
 							}
 							else
 							{
 								if ( agent.enabled )
 									agent.Stop();
 								withinRange = true;
-								//Debug.Log("not chasing");
 							}
 						}
 						else
@@ -135,28 +131,6 @@ public class HeroMovement : MovementScript
 					break;
 			}
 		}
-		#region OLD
-		//if ( Input.GetMouseButtonDown( 1 ) )
-		//{
-		//    if (CameraControl.instance.CameraFollowsPlayer)
-		//    {
-		//        if (rayHit)
-		//        {
-		//            //Debug.Log(rayHit);
-		//            rayHit = false;
-		//            agent.destination = hit.point;
-		//        }
-		//        else if (Physics.Raycast(CameraControl.Current.ScreenPointToRay(Input.mousePosition), out hit))
-		//        {
-		//            agent.destination = hit.point;
-		//            SetState(MOVE_State.COMMAND_STATE);
-		//        }
-		//    }
-		//    else
-		//        agent.destination = hit.point;
-		//
-		//}
-		#endregion
 	}
 
 
@@ -171,7 +145,6 @@ public class HeroMovement : MovementScript
 				{
 					if ( rayHit )
 					{
-						//Debug.Log(rayHit);
 						rayHit = false;
 						if ( agent.enabled )
 							agent.destination = hit.point;
@@ -187,8 +160,6 @@ public class HeroMovement : MovementScript
 					}
 					return true;
 				}
-				//else
-				//    agent.destination = hit.point;
 
 			}
 			else
@@ -197,7 +168,6 @@ public class HeroMovement : MovementScript
 				{
 					if ( rayHit )
 					{
-						//Debug.Log(rayHit);
 						rayHit = false;
 						m_attackMOve = false;
 						if ( agent.enabled )
@@ -213,14 +183,11 @@ public class HeroMovement : MovementScript
 					}
 					return true;
 				}
-				//else
-				//    agent.destination = hit.point;
 			}
 		}
 		return false;
 	}
 
-	// TP Move
 	float prevMousePos, currMousePos, currentRot;
 	bool shiftKeyPressed;
 	Vector3 rot;
@@ -248,10 +215,7 @@ public class HeroMovement : MovementScript
 		bool shouldRepositionToCenter = HeroCamScript.onHero && GameManager.GameRunning
 			&& !heroCamDisabler.disabledCameraMovement
 			&& StateID.STATE_SHOP != ApplicationManager.Instance.GetAppState();
-		// <BUGFIX: Test Team #2>
-		//if ( Mathf.Abs( Screen.width * 0.5f - currMousePos ) >= ( Screen.width * 0.499f ) )
 		if ( Mathf.Abs( Screen.width * 0.5f - currMousePos ) >= ( Screen.width * 0.2f )
-		// </BUGFIX: Test Team #2>
 		|| Mathf.Abs( Screen.height * 0.5f - HeroCamScript.MouseVertical ) >= ( Screen.height * 0.2f ) )
 		{
 			Cursor.lockState = shouldRepositionToCenter ? CursorLockMode.Locked : CursorLockMode.None;
@@ -261,20 +225,12 @@ public class HeroMovement : MovementScript
 				Cursor.lockState = CursorLockMode.Locked;
 			}
 		}
-		// <BUGFIX: Test Team #5>
-		//Cursor.visible = true;//( !HeroCamScript.onHero || !GameManager.GameRunning );
-		// </BUGFIX: Test Team #5>
 		if ( GameManager.GameRunning )
 		{
-			// <Bugfix: Test Team #29>
-			//if ( HeroCamScript.onHero && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
 			if ( !HeroCamScript.onVantage && HeroCamScript.onHero && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
-			// </Bugfix: Test Team #29>
 			{
-				// <BUGFIX: Dev Team #16>
 				if ( !GameManager.Tutorial || !heroCamDisabler.disabledCameraMovement )
 				{
-					// </BUGFIX: Dev Team #16>
 					transform.Rotate( transform.up, ( currMousePos - prevMousePos ) * 0.5f );
 					currentRot += ( currMousePos - prevMousePos ) * 0.5f;
 				}
@@ -334,9 +290,7 @@ public class HeroMovement : MovementScript
 			agent.baseOffset * transform.localScale.y,
 			nmhit.position.z
 			);
-		// <BUGFIX: Test Team #22>
 		transform.rotation = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f );
 		currentRot = transform.rotation.eulerAngles.y;
-		// </BUGFIX: Test Team #22>
 	}
 }

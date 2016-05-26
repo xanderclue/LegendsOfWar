@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class ExplosiveProjectileBehavior : MonoBehaviour
 {
@@ -78,7 +77,6 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 	{
 		if ( GameManager.GameEnded )
 			Destroy( gameObject );
-		// <BUGFIX: Dev Team #21>
 		else if ( projectileTimer <= 0.0f && !aoeActive )
 			Destroy( gameObject );
 		else if ( fired )
@@ -87,5 +85,4 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 	float projectileTimer;
 	public float projectileLifetime = 3.0f;
 	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }

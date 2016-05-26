@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class localizationScript : MonoBehaviour
 {
 	[SerializeField]
-	string english = "", japanese = "";//, german = "";
+	string english = "", japanese = "";
 	Text text;
 	bool pendingChange = false;
 

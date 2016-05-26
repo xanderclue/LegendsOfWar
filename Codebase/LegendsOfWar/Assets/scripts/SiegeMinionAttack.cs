@@ -4,8 +4,6 @@ using System.Collections.Generic;
 public class SiegeMinionAttack : AttackScript
 {
 
-	//private MinionInfo Minioninfo;
-	//private float damage { get { return Minioninfo.Damage; } }
 	[SerializeField]
 	List<Transform> targets;
 
@@ -42,7 +40,6 @@ public class SiegeMinionAttack : AttackScript
 			weaponDetails.bulletPrefab.GetComponent<SiegeProjectile>().damage = sMinioninfo.Damage;
 		}
 		weaponDetails.currentAmmo = 0;
-		//Minioninfo = GetComponent<MinionInfo>();
 	}
 
 	void AttackTriggerEnter( GameObject obj )
@@ -88,7 +85,6 @@ public class SiegeMinionAttack : AttackScript
 		{
 			weapon.transform.LookAt( targets[ 0 ].position );
 			weaponDetails.Shoot();
-			//AudioManager.PlaySoundEffect(AudioManager.sfxMinionAttack, transform.position);
 		}
 		else if ( !movement.InCombat )
 		{
@@ -114,7 +110,7 @@ public class SiegeMinionAttack : AttackScript
 				continue;
 			else
 			{
-				targets.RemoveAt( i-- );
+				targets.RemoveAt( i ); --i;
 			}
 	}
 }

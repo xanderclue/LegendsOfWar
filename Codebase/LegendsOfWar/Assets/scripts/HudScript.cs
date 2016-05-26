@@ -14,9 +14,7 @@ public class HudScript : MonoBehaviour
 	RaycastHit hit;
 	[SerializeField]
 	Button q = null, w = null, e = null, r = null;
-	// <BUGFIX: Test Team #32>
 	Image qIm, wIm, eIm, rIm;
-	// </BUGFIX: Test Team #32>
 
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
@@ -31,12 +29,10 @@ public class HudScript : MonoBehaviour
 		w.onClick.AddListener( abilities.abilityW.TryCast );
 		e.onClick.AddListener( abilities.abilityE.TryCast );
 		r.onClick.AddListener( abilities.abilityR.TryCast );
-		// <BUGFIX: Test Team #32>
 		qIm = q.image;
 		wIm = w.image;
 		eIm = e.image;
 		rIm = r.image;
-		// </BUGFIX: Test Team #32>
 		BrightColor = ColorBlock.defaultColorBlock;
 		BrightColor.colorMultiplier = 1.5f;
 	}
@@ -110,7 +106,6 @@ public class HudScript : MonoBehaviour
 			wCD.text = wtim <= 0.0f ? "" : wtim.ToString( "F2" );
 			eCD.text = etim <= 0.0f ? "" : etim.ToString( "F2" );
 			rCD.text = rtim <= 0.0f ? "" : rtim.ToString( "F2" );
-			// <BUGFIX: Test Team #32>
 			q.interactable = abilities.abilityQ.EnoughMana && qtim <= 0.0f;
 			w.interactable = abilities.abilityW.EnoughMana && wtim <= 0.0f;
 			e.interactable = abilities.abilityE.EnoughMana && etim <= 0.0f;
@@ -128,7 +123,6 @@ public class HudScript : MonoBehaviour
 				if ( !r.interactable )
 					rIm.color = r.colors.disabledColor;
 			}
-			// </BUGFIX: Test Team #32>
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CasterE : AbilityEBase
 {
@@ -66,10 +65,8 @@ public class CasterE : AbilityEBase
 				   Input.GetKeyDown( KeyCode.Alpha3 ) ||
 		Input.GetKeyDown( KeyCode.Keypad3 ) ) && !aimingSkill && cooldownTimer <= 0.0f )
 			aimingSkill = true;
-		// <BUGFIX: Test Team #32>
 		if ( !EnoughMana )
 			aimingSkill = false;
-		// </BUGFIX: Test Team #32>
 	}
 
 	protected override void AbilityActivate()

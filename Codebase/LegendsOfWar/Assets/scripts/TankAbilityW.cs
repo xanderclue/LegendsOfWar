@@ -27,11 +27,6 @@ public class TankAbilityW : AbilityWBase
 		AbilityWParticle.GetComponent<ParticleSystem>().Play();
 
 		movement.SprintingAbility = true;
-		//if (coll.metEnemy == true)
-		//{
-		//    coll.metEnemy = false;
-		//    AbilityDeactivate();
-		//}
 		coll.DealDamage( CCharge );
 
 	}

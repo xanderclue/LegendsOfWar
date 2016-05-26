@@ -18,7 +18,6 @@ public class Interactive : MonoBehaviour
 	{
 		if ( GameManager.GameRunning )
 		{
-			// <BUGFIX: Test Team #28>
 			if ( HeroCamScript.onHero == false )
 				if ( info.Alive && Input.GetMouseButton( 0 ) && Team.BLUE_TEAM == info.team )
 				{
@@ -26,7 +25,6 @@ public class Interactive : MonoBehaviour
 					camPos.y = Screen.height - camPos.y;
 					selected = CameraControl.Selection.Contains( camPos );
 				}
-			// </BUGFIX: Test Team #28>
 			if ( Circle != null )
 			{
 				if ( selected )

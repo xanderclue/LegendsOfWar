@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class RedTowrDestryed : MonoBehaviour
 {
@@ -7,7 +6,7 @@ public class RedTowrDestryed : MonoBehaviour
 	EnemyAIManager aiManager = null;
 	void Start()
 	{
-		aiManager = GameObject.FindObjectOfType<EnemyAIManager>();
+		aiManager = FindObjectOfType<EnemyAIManager>();
 	}
 
 

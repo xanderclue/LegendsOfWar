@@ -1,26 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SiegeProjectile : MonoBehaviour
 {
 	public float speed;
-	//public Transform target = null;
 	public float damage;
 	[SerializeField]
 	bool lazer = false;
-	//public bool HitFirstCollision = false;
-	//private bool isFired = false;
-
-	//public void Fire()
-	//{
-	//    isFired = true;
-	//}
 
 	void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject.GetComponent<Info>() )
 		{
-			if ( col.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM /*|| HitFirstCollision == true*/)
+			if ( col.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM )
 			{
 				col.gameObject.GetComponent<Info>().TakeDamage( damage + 1 );
 				if ( lazer )
@@ -39,13 +30,10 @@ public class SiegeProjectile : MonoBehaviour
 	}
 
 
-	// BUGFIX Code is redundant if used where intended, as in by the siege minion. 
-	// The siege minion firing has it's own bullet script that does the below and more. 
 	void Update()
 	{
 		if ( GameManager.GameEnded )
 			Destroy( gameObject );
-		// <BUGFIX: Dev Team #21>
 		else if ( projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else
@@ -54,5 +42,4 @@ public class SiegeProjectile : MonoBehaviour
 	float projectileTimer;
 	public float projectileLifetime = 2.0f;
 	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }

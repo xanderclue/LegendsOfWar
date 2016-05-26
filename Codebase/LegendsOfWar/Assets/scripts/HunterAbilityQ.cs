@@ -2,7 +2,6 @@
 
 public class HunterAbilityQ : AbilityQBase
 {
-	//Hunter's Mark
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();

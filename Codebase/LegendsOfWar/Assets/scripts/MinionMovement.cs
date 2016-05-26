@@ -2,21 +2,8 @@
 
 enum Move_State { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE };
 
-public enum Path { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }; //Ralph made this public
+public enum Path { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 };
 
-// 577 = Binary for area mask #0, #6, #9
-// 
-// 1153 = Binary for area mask #0, #7, #10 
-// 
-// 289 = Binary for area mask #0, #5, #8
-// 
-// NOTE: agents need at least area mask #0 to move. 
-// 
-// 
-// 
-// 
-// 
-// 
 
 public class MinionMovement : MovementScript
 {
@@ -80,7 +67,6 @@ public class MinionMovement : MovementScript
 		else
 		{
 			goal = GameManager.RedPortalTransform;
-			//agent.destination = goal.position; Goal is set in GameManager SetupMinion() due to teleporting bug w/ spawning
 		}
 	}
 
@@ -93,13 +79,10 @@ public class MinionMovement : MovementScript
 			{
 				case Move_State.LANING_STATE:
 					agent.enabled = true;
-					#region LANING
 					if ( agent.pathPending )
 						break;
 					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
-					//if (agent.remainingDistance <= 6.0f)
-					//    followingNav = !followingNav;
 					if ( inCombat )
 					{
 						SetState( Move_State.ENGAGE_STATE );
@@ -120,9 +103,7 @@ public class MinionMovement : MovementScript
 						rayHit = false;
 					CheckForInput();
 					break;
-				#endregion
 				case Move_State.COMMAND_STATE:
-					#region COMMAND
 					if ( agent.pathPending )
 						break;
 					if ( info.type != MinionClass.SIEGE_MINION )
@@ -139,16 +120,13 @@ public class MinionMovement : MovementScript
 						if ( agent.remainingDistance <= 3 )
 							SetState( Move_State.IDLE_STATE );
 					break;
-				#endregion
 				case Move_State.COMBAT_STATE:
-					#region COMBAT
 					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
 					if ( inCombat && TargetPosition != null )
 					{
 						if ( Vector3.Distance( transform.position, TargetPosition.position ) > combatRange )
 						{
-							//agent.destination = TargetPosition.position;
 							agent.Resume();
 							withinRange = false;
 						}
@@ -161,7 +139,6 @@ public class MinionMovement : MovementScript
 					else
 						SetState( Move_State.DISENGAGE_STATE );
 					break;
-				#endregion
 				case Move_State.IDLE_STATE:
 					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
@@ -195,7 +172,7 @@ public class MinionMovement : MovementScript
 	}
 
 
-	public void ChangeLane( Path _newPath = Path.ANY_PATH ) //Ralph made this public
+	public void ChangeLane( Path _newPath = Path.ANY_PATH )
 	{
 		if ( !followingNav )
 		{
@@ -205,7 +182,7 @@ public class MinionMovement : MovementScript
 		{
 			m_path = _newPath;
 		}
-		if ( !agent ) //Ralph added this code
+		if ( !agent )
 			Start2();
 		agent.areaMask = ( int )m_path;
 		if ( agent.isPathStale )
@@ -216,10 +193,8 @@ public class MinionMovement : MovementScript
 
 	bool CheckForInput()
 	{
-		// <BUGFIX: Test Team #28>
 		if ( HeroCamScript.onHero )
 			return false;
-		// </BUGFIX: Test Team #28>
 		if ( interactive.Selected )
 		{
 			if ( rayHit )

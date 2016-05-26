@@ -32,9 +32,7 @@ public class AttackScript : MonoBehaviour
 			p.speed = _speed;
 			p.damage = _damage;
 			p.target = _target;
-			//p.transform.parent = info.projectileSpawnPoint.transform;
 			p.Fire();
-			//AudioManager.Instance.PlaySoundEffect("TowerProjectile", transform.position);
 		}
 	}
 }

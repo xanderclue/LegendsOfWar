@@ -52,21 +52,11 @@ public class Options : MonoBehaviour
 	Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
 	[SerializeField]
 	GameObject menuCam = null;
-	//[SerializeField]
-	//Image bgPanel = null;
-
-	//Color mainColor = new Color( 0.196078435f, 0.0f, 0.196078435f, 0.3529412f ),
-	//	ingameColor = new Color( 0.196078435f, 0.0f, 0.196078435f, 0.784313738f );
 
 	void Awake()
 	{
 		if ( IsAdditive )
-		{
 			menuCam.SetActive( false );
-			//bgPanel.color = ingameColor;
-		}
-		//else
-		//	bgPanel.color = mainColor;
 	}
 	void Start()
 	{

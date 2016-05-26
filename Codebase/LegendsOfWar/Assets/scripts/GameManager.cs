@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-	// <BUGFIX: Dev Team #22>
 	[SerializeField]
 	bool tutorial = false;
-	// </BUGFIX: Dev Team #22>
-	// <BUGFIX: Dev Team #16>
 	public static bool Tutorial { get { if ( instance ) return instance.tutorial; return false; } }
-	// <BUGFIX: Dev Team #16>
 	[SerializeField]
 	public static bool WebPlayerMode = false;
 
@@ -63,7 +58,6 @@ public class GameManager : MonoBehaviour
 	public static Transform RedPortalTransform { get { return Instance.redPortal.transform; } }
 	public static Transform BluePortalTransform { get { return Instance.bluePortal.transform; } }
 
-	//For Game End
 	public ParticleSystem BoomRed;
 	public ParticleSystem BoomBlue;
 	public ParticleSystem ExitRed;
@@ -267,7 +261,6 @@ public class GameManager : MonoBehaviour
 		if ( redPortal.HP <= 0.0f )
 		{
 			ExitRed.gameObject.SetActive( true );
-			//Player.transform.position = new Vector3(950, 0, 350);
 		}
 		else if ( bluePortal.HP <= 0.0f )
 		{
@@ -352,7 +345,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	List<Button> buttons = null;
 
-	//to reset upgrades from the previous playthrough
 	void ResetUpgrades()
 	{
 		MinionInfo info;
@@ -374,8 +366,6 @@ public class GameManager : MonoBehaviour
 		info.Damage = 50.0f;
 	}
 
-	#region shop helper functions
-	//for shop hero insta spawn
 	public List<HeroInfo> Heros { get { return heros; } }
 
 	public void InstaRespawn( Team team, HeroInfo hero )
@@ -393,7 +383,6 @@ public class GameManager : MonoBehaviour
 		else
 			Player = Instantiate( defaultHeroPrefab, HeroSpawnPoint.position, faceRight ) as GameObject;
 		heroHealthPanel.Host = heroManaPanel.Host = Player;
-		// <BUGFIX: Dev Team #22>
 		if ( tutorial )
 		{
 			HeroAbilities abilities = Player.GetComponent<HeroAbilities>();
@@ -401,10 +390,8 @@ public class GameManager : MonoBehaviour
 			abilities.abilityE.abilityEnabled = false;
 			abilities.abilityR.abilityEnabled = false;
 		}
-		// </BUGFIX: Dev Team #22>
 	}
 
-	//for shop minion purchases
 	public void SpawnStrikerMinion( Team team, int lane )
 	{
 		if ( team == Team.BLUE_TEAM )
@@ -468,7 +455,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	//for shop minion upgrades
 	public void UpgradeStrikerMinions( Team team )
 	{
 		if ( team == Team.BLUE_TEAM )
@@ -524,5 +510,4 @@ public class GameManager : MonoBehaviour
 			info.Range += ShopManager.Instance.casterRangeUpgrade;
 		}
 	}
-	#endregion
 }

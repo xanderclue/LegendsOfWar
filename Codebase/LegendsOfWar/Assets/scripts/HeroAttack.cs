@@ -38,7 +38,6 @@ public class HeroAttack : AttackScript
 		if ( GameManager.GameEnded )
 			return;
 		Nil();
-		//attackTimer -= Time.deltaTime;
 		AsoundTimer -= Time.deltaTime;
 		if ( targets.Count > 0 && attackTimer <= 0.0f )
 		{
@@ -74,7 +73,7 @@ public class HeroAttack : AttackScript
 				continue;
 			else
 			{
-				targets.RemoveAt( i-- );
+				targets.RemoveAt( i ); --i;
 			}
 	}
 }

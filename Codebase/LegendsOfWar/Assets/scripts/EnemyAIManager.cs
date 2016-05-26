@@ -284,7 +284,6 @@ public class EnemyAIManager : MonoBehaviour
 		}
 
 
-		// Locate the hero
 		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <= 130.0f )
 			heroPresence = HeroLocation.TOO_Close;
 		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <= 210.0f )
@@ -295,7 +294,6 @@ public class EnemyAIManager : MonoBehaviour
 			heroPresence = HeroLocation.BOT_Lane;
 		else
 			heroPresence = HeroLocation.MID_Lane;
-		// if the hero is close, increase defence
 		if ( heroPresence == HeroLocation.TOO_Close )
 		{
 			redPortal.DmgDamp = 16.555f * towersRemaining;

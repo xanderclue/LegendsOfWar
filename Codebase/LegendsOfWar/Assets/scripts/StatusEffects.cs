@@ -26,7 +26,6 @@ public class StatusEffects : MonoBehaviour
 								GetComponent<Info>().TakeDamage( _effect.m_damage * _effect.m_tickRate );
 
 						}
-						Debug.Log( _effect.m_type );
 					}
 					break;
 				case StatusEffectType.STUN:
@@ -36,7 +35,6 @@ public class StatusEffects : MonoBehaviour
 						gameObject.GetComponent<MinionAttack>().enabled = false;
 						gameObject.GetComponent<MinionMovement>().enabled = false;
 						gameObject.GetComponent<NavMeshAgent>().enabled = false;
-						Debug.Log( _effect.m_type );
 					}
 					break;
 				case StatusEffectType.SLOW:
@@ -51,7 +49,6 @@ public class StatusEffects : MonoBehaviour
 							gameObject.GetComponent<NavMeshAgent>().speed =
 							( gameObject.GetComponent<NavMeshAgent>().speed * 0.5f );
 						}
-						Debug.Log( _effect.m_type );
 
 					}
 					break;
@@ -59,14 +56,12 @@ public class StatusEffects : MonoBehaviour
 					{
 						if ( !gameObject.GetComponent<MinionInfo>() )
 							break;
-						Debug.Log( _effect.m_type );
 						gameObject.GetComponent<NavMeshAgent>().Stop();
 						gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
 					}
 					break;
 
 				case StatusEffectType.NONE:
-					Debug.Log( _effect.m_type + _effect.m_stacks );
 					break;
 				case StatusEffectType.DMG_Amp:
 					{
@@ -79,13 +74,11 @@ public class StatusEffects : MonoBehaviour
 					}
 					break;
 				default:
-					Debug.LogWarning( "StatusEffects.Apply(): Defualt case" );
 					break;
 			}
 		}
 		else
 		{
-			Debug.Log( "removing" + _effect.m_name );
 			RemoveExpired( _effect );
 		}
 	}
@@ -168,11 +161,8 @@ public class StatusEffects : MonoBehaviour
 				}
 				break;
 			default:
-				Debug.LogWarning( "StatusEffects.Expire(): Default case" );
 				break;
 		}
-		if ( StatusEffectsManager.Instance.Expired( gameObject.GetInstanceID().ToString(), _effect ) )
-			Debug.LogWarning( "StatusEffects.Expire(): failed to remove" );
 	}
 
 }

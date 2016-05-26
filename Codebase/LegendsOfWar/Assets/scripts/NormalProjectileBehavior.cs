@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class NormalProjectileBehavior : MonoBehaviour
 {
@@ -36,7 +35,6 @@ public class NormalProjectileBehavior : MonoBehaviour
 	{
 		if ( GameManager.GameEnded )
 			Destroy( gameObject );
-		// <BUGFIX: Dev Team #21>
 		else if ( projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( fired )
@@ -45,5 +43,4 @@ public class NormalProjectileBehavior : MonoBehaviour
 	float projectileTimer;
 	public float projectileLifetime = 2.0f;
 	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }

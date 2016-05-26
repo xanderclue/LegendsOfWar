@@ -9,9 +9,6 @@ public class HeroUIScript : MonoBehaviour
 	public static float heroDamageNotifTimer = 0.0f;
 	[SerializeField]
 	float AttackedNotificationDuration = 5.0f;
-	//AudioSource hiirooKougeki;
-	//[SerializeField]
-	//AudioClip kougeki = null;
 
 	static HeroUIScript inst;
 	public static HeroUIScript Instance { get { return inst; } }
@@ -22,7 +19,6 @@ public class HeroUIScript : MonoBehaviour
 	void Start()
 	{
 		heroDamageNotifTimer = 0.0f;
-		//hiirooKougeki = GetComponent<AudioSource>();
 	}
 
 	public static void Damage( float amount, Vector3 position )
@@ -53,8 +49,6 @@ public class HeroUIScript : MonoBehaviour
 		get { return heroDamageNotifTimer > 0.0f; }
 		set
 		{
-			//if ( value && !HeroCamScript.onHero && heroDamageNotifTimer <= 0.0f )
-			//	inst.hiirooKougeki.PlayOneShot( inst.kougeki );
 			heroDamageNotifTimer = ( value && !HeroCamScript.onHero ) ?
 			  ( inst.AttackedNotificationDuration ) : 0.0f;
 		}
