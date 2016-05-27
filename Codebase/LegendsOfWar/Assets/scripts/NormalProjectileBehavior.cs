@@ -10,7 +10,8 @@ public class NormalProjectileBehavior : MonoBehaviour
 		else if ( fired && target )
 		{
 			transform.LookAt( target );
-			transform.Translate( transform.forward * TowerManager.Instance.normalInfo.ProjectileSpeed * Time.fixedDeltaTime, Space.World );
+			transform.Translate( transform.forward * TowerManager.Instance.normalInfo.
+				ProjectileSpeed * Time.fixedDeltaTime, Space.World );
 		}
 	}
 	public void Fire()
@@ -22,7 +23,8 @@ public class NormalProjectileBehavior : MonoBehaviour
 	{
 		if ( target && col.gameObject == target.gameObject )
 		{
-			col.gameObject.GetComponent<Info>().TakeDamage( TowerManager.Instance.normalInfo.Damage );
+			col.gameObject.GetComponent<Info>().TakeDamage( TowerManager.Instance.normalInfo.Damage
+				);
 			Destroy( gameObject );
 		}
 	}

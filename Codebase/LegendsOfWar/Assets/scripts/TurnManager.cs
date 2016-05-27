@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 enum TurnState { Still, Left, Right, Fix }
-enum Character { Default, Support, Hunter, Tanker, Character_5, Character_6, Character_7, Assassin, Total }
+enum Character
+{ Default, Support, Hunter, Tanker, Character_5, Character_6, Character_7, Assassin, Total }
 public class TurnManager : MonoBehaviour
 {
 	static TurnManager inst;
@@ -120,7 +121,11 @@ public class TurnManager : MonoBehaviour
 	{
 		inst = null;
 	}
-	static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f ), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f, 225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f, 0.0f ) };
+	static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f ),
+		Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
+		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
+			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
+				0.0f ) };
 	private bool check( Quaternion rot )
 	{
 		return Quaternion.Angle( rot, rotations[ CurrentInt ] ) < 3.0f;

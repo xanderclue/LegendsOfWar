@@ -15,13 +15,15 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 	{
 		if ( fired && target && target.gameObject )
 		{
-			if ( !target.gameObject.activeInHierarchy && Vector3.Distance( target.position, transform.position ) < 1.0f )
+			if ( !target.gameObject.activeInHierarchy && Vector3.Distance( target.position,
+				transform.position ) < 1.0f )
 			{
 				DamageTargets();
 				return;
 			}
 			transform.LookAt( target );
-			transform.Translate( transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime, Space.World );
+			transform.Translate( transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime,
+				Space.World );
 		}
 		if ( aoeActive )
 			PlayEffect();
@@ -42,7 +44,8 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 	}
 	void DamageTargets()
 	{
-		victims = Physics.OverlapSphere( transform.position, info.aoeRadius, 9, QueryTriggerInteraction.Collide );
+		victims = Physics.OverlapSphere( transform.position, info.aoeRadius, 9,
+			QueryTriggerInteraction.Collide );
 		foreach ( Collider victim in victims )
 		{
 			Info targ = victim.gameObject.GetComponent<Info>();

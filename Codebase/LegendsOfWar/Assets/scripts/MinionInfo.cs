@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public enum MinionClass { STRIKER_MINION, TANK_MINION, CASTER_MINION, SIEGE_MINION };
+public enum MinionClass { STRIKER_MINION, TANK_MINION, CASTER_MINION, SIEGE_MINION }
 public class MinionInfo : Info
 {
 	public MinionClass type;

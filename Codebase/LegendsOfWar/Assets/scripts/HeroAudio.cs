@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 public class HeroAudio : MonoBehaviour
 {
-	public AudioClip CHeroTaunt1 = null, CHeroTaunt2 = null, CHeroIdle1 = null, CHeroIdle2 = null, CHeroSelected = null, CHeroAttack = null, CHeroCastAbilityQ = null, CHeroCastAbilityW = null, CHeroCastAbilityE = null, CHeroCastAbilityR = null;
+	public AudioClip CHeroTaunt1 = null, CHeroTaunt2 = null, CHeroIdle1 = null, CHeroIdle2 = null,
+		CHeroSelected = null, CHeroAttack = null, CHeroCastAbilityQ = null, CHeroCastAbilityW = null
+		, CHeroCastAbilityE = null, CHeroCastAbilityR = null;
 	[SerializeField]
-	private string JHeroTaunt1 = "", JHeroTaunt2 = "", JHeroIdle1 = "", JHeroIdle2 = "", JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "", JHeroCastAbilityE = "", JHeroCastAbilityR = "";
+	private string JHeroTaunt1 = "", JHeroTaunt2 = "", JHeroIdle1 = "", JHeroIdle2 = "",
+		JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "",
+		JHeroCastAbilityE = "", JHeroCastAbilityR = "";
 	AudioSource source;
 	void Start()
 	{

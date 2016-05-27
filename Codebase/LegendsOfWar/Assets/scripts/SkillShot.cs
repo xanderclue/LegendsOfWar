@@ -13,7 +13,8 @@ public class SkillShot : MonoBehaviour
 	{
 		if ( isFired )
 		{
-			if ( target && target.gameObject && target.gameObject.activeInHierarchy && Vector3.Distance( transform.position, target.transform.position ) > 1.0 )
+			if ( target && target.gameObject && target.gameObject.activeInHierarchy && Vector3.
+				Distance( transform.position, target.transform.position ) > 1.0 )
 				transform.Translate( transform.forward * speed * Time.fixedDeltaTime, Space.World );
 			else
 				Destroy( gameObject );
@@ -26,10 +27,12 @@ public class SkillShot : MonoBehaviour
 	void OnTriggerEnter( Collider col )
 	{
 		if ( Shooter && col )
-			if ( col.gameObject.GetComponent<Info>() && col.gameObject.GetComponent<Info>().team != Shooter.GetComponent<Info>().team )
+			if ( col.gameObject.GetComponent<Info>() && col.gameObject.GetComponent<Info>().team !=
+				Shooter.GetComponent<Info>().team )
 			{
 				StatusEffects.Inflict( col.gameObject, effect );
-				int tmpStack = StatusEffectsManager.Instance.GetStacks( col.gameObject.GetInstanceID().ToString(), effect.m_name );
+				int tmpStack = StatusEffectsManager.Instance.GetStacks( col.gameObject.GetInstanceID
+					().ToString(), effect.m_name );
 				if ( tmpStack > 0 )
 					col.gameObject.GetComponent<Info>().TakeDamage( damage * ( 1 + 2 * tmpStack ) );
 				else

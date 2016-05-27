@@ -16,8 +16,14 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	private AudioClip gameBGM = null, menuBGM = null, endGameBGM = null, HeroCam = null, WaveSpawn = null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed = null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null, HeroAttacked = null, HeroDeath = null, ClickSound = null;
-	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn, sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed, sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked, sfxHeroDeath, sfxClickSound;
+	private AudioClip gameBGM = null, menuBGM = null, endGameBGM = null, HeroCam = null, WaveSpawn =
+		null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed
+		= null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null
+		, HeroAttacked = null, HeroDeath = null, ClickSound = null;
+	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn,
+		sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
+		sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,
+		sfxHeroDeath, sfxClickSound;
 	static AudioManager instance = null;
 	public static AudioManager Instance { get { return instance; } }
 	void Awake()
@@ -192,7 +198,8 @@ public class AudioManager : MonoBehaviour
 			singleAud.mute = true;
 		singleAud = null;
 	}
-	public static void PlayClipRaw( AudioClip clp, Transform loc = null, bool isVoice = false, bool single = false )
+	public static void PlayClipRaw( AudioClip clp, Transform loc = null, bool isVoice = false, bool
+		single = false )
 	{
 		if ( !clp )
 			return;

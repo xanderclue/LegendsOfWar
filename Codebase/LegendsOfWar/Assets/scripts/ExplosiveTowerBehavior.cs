@@ -35,7 +35,8 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 	void Update()
 	{
 		targets.RemoveAll( item => item == null );
-		if ( TowerManager.Instance.CheckIfShotActive( team, Items.ExplosiveShot ) && fireTimer <= 0.0f && targets.Count > 0 )
+		if ( TowerManager.Instance.CheckIfShotActive( team, Items.ExplosiveShot ) && fireTimer <=
+			0.0f && targets.Count > 0 )
 		{
 			if ( !targets[ 0 ].gameObject.activeInHierarchy )
 				RemoveTarget( targets[ 0 ].gameObject );
@@ -53,7 +54,9 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 		if ( GameManager.GameEnded )
 			return;
 		projectileSpawnPoint.LookAt( targets[ 0 ] );
-		ExplosiveProjectileBehavior p = ( Instantiate( TowerManager.Instance.explosiveShotPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation ) as GameObject ).GetComponent<ExplosiveProjectileBehavior>();
+		ExplosiveProjectileBehavior p = ( Instantiate( TowerManager.Instance.explosiveShotPrefab,
+			projectileSpawnPoint.position, projectileSpawnPoint.rotation ) as GameObject ).
+			GetComponent<ExplosiveProjectileBehavior>();
 		p.target = targets[ 0 ];
 		p.Fire( team );
 	}

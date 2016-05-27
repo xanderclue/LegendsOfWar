@@ -41,7 +41,8 @@ namespace UnityStandardAssets.ImageEffects
 				float camAspect = cam.aspect;
 				Matrix4x4 frustumCorners = Matrix4x4.identity;
 				float fovWHalf = camFov * 0.5f;
-				Vector3 toRight = camtr.right * camNear * Mathf.Tan( fovWHalf * Mathf.Deg2Rad ) * camAspect;
+				Vector3 toRight = camtr.right * camNear * Mathf.Tan( fovWHalf * Mathf.Deg2Rad ) *
+					camAspect;
 				Vector3 toTop = camtr.up * camNear * Mathf.Tan( fovWHalf * Mathf.Deg2Rad );
 				Vector3 topLeft = ( camtr.forward * camNear - toRight + toTop );
 				float camScale = topLeft.magnitude * camFar / camNear;
@@ -66,8 +67,10 @@ namespace UnityStandardAssets.ImageEffects
 				float excludeDepth = ( excludeFarPixels ? 1.0f : 2.0f );
 				fogMaterial.SetMatrix( "_FrustumCornersWS", frustumCorners );
 				fogMaterial.SetVector( "_CameraWS", camPos );
-				fogMaterial.SetVector( "_HeightParams", new Vector4( height, FdotC, paramK, heightDensity * 0.5f ) );
-				fogMaterial.SetVector( "_DistanceParams", new Vector4( -Mathf.Max( startDistance, 0.0f ), excludeDepth, 0, 0 ) );
+				fogMaterial.SetVector( "_HeightParams", new Vector4( height, FdotC, paramK,
+					heightDensity * 0.5f ) );
+				fogMaterial.SetVector( "_DistanceParams", new Vector4( -Mathf.Max( startDistance,
+					0.0f ), excludeDepth, 0, 0 ) );
 				FogMode sceneMode = RenderSettings.fogMode;
 				float sceneDensity = RenderSettings.fogDensity;
 				float sceneStart = RenderSettings.fogStartDistance;
@@ -81,7 +84,8 @@ namespace UnityStandardAssets.ImageEffects
 				sceneParams.z = linear ? -invDiff : 0.0f;
 				sceneParams.w = linear ? sceneEnd * invDiff : 0.0f;
 				fogMaterial.SetVector( "_SceneFogParams", sceneParams );
-				fogMaterial.SetVector( "_SceneFogMode", new Vector4( ( int )sceneMode, useRadialDistance ? 1 : 0, 0, 0 ) );
+				fogMaterial.SetVector( "_SceneFogMode", new Vector4( ( int )sceneMode,
+					useRadialDistance ? 1 : 0, 0, 0 ) );
 				int pass = 0;
 				if ( !distanceFog )
 					pass = 2;
@@ -92,7 +96,8 @@ namespace UnityStandardAssets.ImageEffects
 			else
 				Graphics.Blit( source, destination );
 		}
-		static void CustomGraphicsBlit( RenderTexture source, RenderTexture dest, Material fxMaterial, int passNr )
+		static void CustomGraphicsBlit( RenderTexture source, RenderTexture dest, Material
+			fxMaterial, int passNr )
 		{
 			RenderTexture.active = dest;
 			fxMaterial.SetTexture( "_MainTex", source );

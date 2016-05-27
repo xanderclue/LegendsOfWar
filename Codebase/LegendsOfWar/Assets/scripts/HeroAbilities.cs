@@ -28,8 +28,12 @@ public class HeroAbilities : MonoBehaviour
 		get
 		{
 			if ( Options.Japanese )
-				return heroClassJp + "\n\n" + q.abilityNameJp + ": " + q.abilityDescJp + "\n\n" + w.abilityNameJp + ": " + w.abilityDescJp + "\n\n" + e.abilityNameJp + ": " + e.abilityDescJp;
-			return heroClassEn + "\n\n" + q.abilityNameEn + ": " + q.abilityDescEn + "\n\n" + w.abilityNameEn + ": " + w.abilityDescEn + "\n\n" + e.abilityNameEn + ": " + e.abilityDescEn;
+				return heroClassJp + "\n\n" + q.abilityNameJp + ": " + q.abilityDescJp + "\n\n" + w.
+					abilityNameJp + ": " + w.abilityDescJp + "\n\n" + e.abilityNameJp + ": " + e.
+					abilityDescJp;
+			return heroClassEn + "\n\n" + q.abilityNameEn + ": " + q.abilityDescEn + "\n\n" + w.
+				abilityNameEn + ": " + w.abilityDescEn + "\n\n" + e.abilityNameEn + ": " + e.
+				abilityDescEn;
 		}
 	}
 }

@@ -19,10 +19,13 @@ public class CasterE : AbilityEBase
 	void FixedUpdate()
 	{
 		if ( aimingSkill )
-			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
+			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
+				m_targetHit, 150.0f, 1 ) )
+				if ( m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.
+					RED_TEAM )
 				{
-					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform.position;
+					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
+						.position;
 					m_targetingEffect.Play();
 					return;
 				}
@@ -46,7 +49,9 @@ public class CasterE : AbilityEBase
 		}
 		else if ( Input.GetMouseButtonDown( 1 ) && aimingSkill )
 			aimingSkill = false;
-		else if ( ( ( Input.GetKeyDown( KeyCode.E ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha3 ) || Input.GetKeyDown( KeyCode.Keypad3 ) ) && !aimingSkill && cooldownTimer <= 0.0f )
+		else if ( ( ( Input.GetKeyDown( KeyCode.E ) && !HeroCamScript.onHero ) || Input.GetKeyDown(
+			KeyCode.Alpha3 ) || Input.GetKeyDown( KeyCode.Keypad3 ) ) && !aimingSkill &&
+			cooldownTimer <= 0.0f )
 			aimingSkill = true;
 		if ( !EnoughMana )
 			aimingSkill = false;
@@ -55,7 +60,8 @@ public class CasterE : AbilityEBase
 	{
 		if ( m_targetHit.collider != null )
 		{
-			GameObject tmp = Instantiate( m_Burn, m_targetHit.transform.position, m_targetHit.transform.rotation ) as GameObject;
+			GameObject tmp = Instantiate( m_Burn, m_targetHit.transform.position, m_targetHit.
+				transform.rotation ) as GameObject;
 			tmp.GetComponent<CasterEBehavior>().Activate = true;
 			tmp.transform.parent = m_targetHit.transform;
 			StatusEffects.Inflict( m_targetHit.collider.gameObject, Effect.CreateEffect() );

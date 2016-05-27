@@ -3,7 +3,8 @@ using System.Collections.Generic;
 public class StatusEffectsManager : MonoBehaviour
 {
 	SortedList<string, Effect> stats = new SortedList<string, Effect>();
-	SortedList<string, SortedList<string, Effect>> objects = new SortedList<string, SortedList<string, Effect>>();
+	SortedList<string, SortedList<string, Effect>> objects = new SortedList<string, SortedList<
+		string, Effect>>();
 	static StatusEffectsManager inst = null;
 	public static StatusEffectsManager Instance
 	{

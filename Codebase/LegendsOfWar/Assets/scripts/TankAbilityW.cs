@@ -17,7 +17,8 @@ public class TankAbilityW : AbilityWBase
 	{
 		base.AbilityActivate();
 		skillON = true;
-		AbilityWParticle.transform.position = new Vector3( heroInfo.transform.position.x, 1.0f, heroInfo.transform.position.z );
+		AbilityWParticle.transform.position = new Vector3( heroInfo.transform.position.x, 1.0f,
+			heroInfo.transform.position.z );
 		AbilityWParticle.GetComponent<ParticleSystem>().Play();
 		movement.SprintingAbility = true;
 		coll.DealDamage( CCharge );

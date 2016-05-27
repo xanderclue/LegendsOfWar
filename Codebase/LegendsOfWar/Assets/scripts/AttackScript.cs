@@ -25,7 +25,8 @@ public class AttackScript : MonoBehaviour
 		{
 			if ( _target.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM )
 				weapon.transform.LookAt( _target, _target.up );
-			p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour>();
+			p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as
+				GameObject ).GetComponent<ProjectileBehaviour>();
 			p.speed = _speed;
 			p.damage = _damage;
 			p.target = _target;

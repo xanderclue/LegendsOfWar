@@ -1,6 +1,11 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-public enum StateID { STATE_MAIN_MENU, STATE_OPTIONS_MENU, STATE_INGAME, STATE_PAUSED, STATE_INTRODUCTION, STATE_GAME_WON, STATE_GAME_LOST, STATE_CREDITS, STATE_EXIT, STATE_HELP, STATE_GAME_DRAW, STATE_SHOP, STATE_SELECTION };
+public enum StateID
+{
+	STATE_MAIN_MENU, STATE_OPTIONS_MENU, STATE_INGAME, STATE_PAUSED, STATE_INTRODUCTION,
+	STATE_GAME_WON, STATE_GAME_LOST, STATE_CREDITS, STATE_EXIT, STATE_HELP, STATE_GAME_DRAW,
+	STATE_SHOP, STATE_SELECTION
+}
 public class ApplicationManager : MonoBehaviour
 {
 	public bool transitioning = false;
@@ -74,7 +79,8 @@ public class ApplicationManager : MonoBehaviour
 			{
 				instance = FindObjectOfType<ApplicationManager>();
 				if ( !instance )
-					instance = new GameObject( "ApplicationManager" ).AddComponent<ApplicationManager>();
+					instance = new GameObject( "ApplicationManager" ).AddComponent<
+						ApplicationManager>();
 			}
 			return instance;
 		}

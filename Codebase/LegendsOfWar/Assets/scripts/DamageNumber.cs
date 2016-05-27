@@ -11,7 +11,8 @@ public class DamageNumber : MonoBehaviour
 	Transform orig;
 	bool followingTransform = false;
 	float heightF = 0.0f;
-	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color textColor )
+	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color
+		textColor )
 	{
 		low = startPos;
 		high = low + height * Vector3.up;
@@ -21,9 +22,11 @@ public class DamageNumber : MonoBehaviour
 		transform.position = low;
 		ready = true;
 	}
-	public void CreateNumber( float number, Transform startTransform, float height, float duration, Color textColor )
+	public void CreateNumber( float number, Transform startTransform, float height, float duration,
+		Color textColor )
 	{
-		CreateNumber( number, startTransform.position + 10.0f * Vector3.up, height, duration, textColor );
+		CreateNumber( number, startTransform.position + 10.0f * Vector3.up, height, duration,
+			textColor );
 		heightF = height;
 		orig = startTransform;
 		followingTransform = true;

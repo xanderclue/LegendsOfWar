@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
-public enum Items { Striker, Tank, Caster, Revive, SLvl, TLvl, CLvl, QLvl, WLvl, ELvl, RLvl, FreezeShot, ExplosiveShot, NormalShot };
+public enum Items
+{
+	Striker, Tank, Caster, Revive, SLvl, TLvl, CLvl, QLvl, WLvl, ELvl, RLvl, FreezeShot,
+	ExplosiveShot, NormalShot
+}
 public class ShopManager : MonoBehaviour
 {
-	public int StrikerPurchaseCost = 20, TankPurchaseCost = 30, CasterPurchaseCost = 40, MinionUG1Cost = 20, MinionUG2Cost = 30, MinionUG3Cost = 40, AbilityUG1Cost = 10, AbilityUG2Cost = 20, AbilityUG3Cost = 30, InstaReviveCost = 50, FreezingShotCost = 50, ExplosiveShotCost = 60;
-	public float strikerHpUpgrade = 10, strikerDamageUpgrade = 5, strikerAttackspeedUpgrade = 10, tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5, casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
+	public int StrikerPurchaseCost = 20, TankPurchaseCost = 30, CasterPurchaseCost = 40,
+		MinionUG1Cost = 20, MinionUG2Cost = 30, MinionUG3Cost = 40, AbilityUG1Cost = 10,
+		AbilityUG2Cost = 20, AbilityUG3Cost = 30, InstaReviveCost = 50, FreezingShotCost = 50,
+		ExplosiveShotCost = 60;
+	public float strikerHpUpgrade = 10, strikerDamageUpgrade = 5, strikerAttackspeedUpgrade = 10,
+		tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5,
+		casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
 	int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	public int[ ] Purchases { get { return purchases; } }
 	int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
@@ -64,7 +73,8 @@ public class ShopManager : MonoBehaviour
 	public void PurchaseInstaRevive( Team team )
 	{
 		foreach ( HeroInfo hero in GameManager.Instance.Heros )
-			if ( !hero.Alive && hero.team == team && EconomyManager.Instance.TakeGold( team, InstaReviveCost ) )
+			if ( !hero.Alive && hero.team == team && EconomyManager.Instance.TakeGold( team,
+				InstaReviveCost ) )
 			{
 				++purchases[ ( int )Items.Revive ];
 				GameManager.Instance.InstaRespawn( team, hero );
@@ -76,21 +86,24 @@ public class ShopManager : MonoBehaviour
 		switch ( item )
 		{
 			case Items.SLvl:
-				if ( purchases[ ( int )Items.SLvl ] < 3 && EconomyManager.Instance.TakeGold( team, MinionUGPrices[ purchases[ ( int )Items.SLvl ] ] ) )
+				if ( purchases[ ( int )Items.SLvl ] < 3 && EconomyManager.Instance.TakeGold( team,
+					MinionUGPrices[ purchases[ ( int )Items.SLvl ] ] ) )
 				{
 					GameManager.Instance.UpgradeStrikerMinions( team );
 					++purchases[ ( int )Items.SLvl ];
 				}
 				break;
 			case Items.TLvl:
-				if ( purchases[ ( int )Items.TLvl ] < 3 && EconomyManager.Instance.TakeGold( team, MinionUGPrices[ purchases[ ( int )Items.TLvl ] ] ) )
+				if ( purchases[ ( int )Items.TLvl ] < 3 && EconomyManager.Instance.TakeGold( team,
+					MinionUGPrices[ purchases[ ( int )Items.TLvl ] ] ) )
 				{
 					GameManager.Instance.UpgradeTankMinions( team );
 					++purchases[ ( int )Items.TLvl ];
 				}
 				break;
 			case Items.CLvl:
-				if ( purchases[ ( int )Items.CLvl ] < 3 && EconomyManager.Instance.TakeGold( team, MinionUGPrices[ purchases[ ( int )Items.CLvl ] ] ) )
+				if ( purchases[ ( int )Items.CLvl ] < 3 && EconomyManager.Instance.TakeGold( team,
+					MinionUGPrices[ purchases[ ( int )Items.CLvl ] ] ) )
 				{
 					GameManager.Instance.UpgradeCasterMinions( team );
 					++purchases[ ( int )Items.CLvl ];
@@ -98,19 +111,23 @@ public class ShopManager : MonoBehaviour
 				break;
 			case Items.QLvl:
 				if ( purchases[ ( int )Items.QLvl ] < 3 )
-					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items.QLvl ] ] );
+					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items
+						.QLvl ] ] );
 				break;
 			case Items.WLvl:
 				if ( purchases[ ( int )Items.WLvl ] < 3 )
-					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items.WLvl ] ] );
+					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items
+						.WLvl ] ] );
 				break;
 			case Items.ELvl:
 				if ( purchases[ ( int )Items.ELvl ] < 3 )
-					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items.ELvl ] ] );
+					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items
+						.ELvl ] ] );
 				break;
 			case Items.RLvl:
 				if ( purchases[ ( int )Items.RLvl ] < 3 )
-					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items.RLvl ] ] );
+					EconomyManager.Instance.TakeGold( team, AbilityUGPrices[ purchases[ ( int )Items
+						.RLvl ] ] );
 				break;
 			default:
 				break;

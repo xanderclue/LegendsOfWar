@@ -16,13 +16,15 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	{
 		if ( fired && target && target.gameObject )
 		{
-			if ( !target.gameObject.activeInHierarchy && Vector3.Distance( target.position, transform.position ) < 1.0f )
+			if ( !target.gameObject.activeInHierarchy && Vector3.Distance( target.position,
+				transform.position ) < 1.0f )
 			{
 				CreateAOEZone();
 				return;
 			}
 			transform.LookAt( target );
-			transform.Translate( transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime, Space.World );
+			transform.Translate( transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime,
+				Space.World );
 		}
 		if ( aoeActive )
 			PlayEffect();

@@ -72,7 +72,8 @@ public abstract class AbilityBase : MonoBehaviour
 	protected void ToggleCursor( bool _bool )
 	{
 		if ( cursor )
-			if ( !( Input.GetKey( KeyCode.Q ) || Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.E ) || Input.GetKey( KeyCode.R ) ) )
+			if ( !( Input.GetKey( KeyCode.Q ) || Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.
+				E ) || Input.GetKey( KeyCode.R ) ) )
 				cursor.SetActive( _bool );
 		if ( _bool )
 			Cursor.SetCursor( CursorIcon, hotSpot, cursorMode );

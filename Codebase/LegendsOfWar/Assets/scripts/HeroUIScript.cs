@@ -20,11 +20,13 @@ public class HeroUIScript : MonoBehaviour
 	}
 	public static void Damage( float amount, Vector3 position )
 	{
-		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount, position, inst.damageNumberHeight, inst.damageNumberDuration, Color.red );
+		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount,
+			position, inst.damageNumberHeight, inst.damageNumberDuration, Color.red );
 	}
 	public static void Mana( float amount, Transform transf )
 	{
-		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount, transf, inst.damageNumberHeight, inst.damageNumberDuration, Color.blue );
+		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount,
+			transf, inst.damageNumberHeight, inst.damageNumberDuration, Color.blue );
 	}
 	void Update()
 	{

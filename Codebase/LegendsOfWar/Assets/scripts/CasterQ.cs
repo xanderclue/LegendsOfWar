@@ -20,10 +20,13 @@ public class CasterQ : AbilityQBase
 	void FixedUpdate()
 	{
 		if ( aimingSkill )
-			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.tag == "Minion" && m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
+			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
+				m_targetHit, 150.0f, 1 ) )
+				if ( m_targetHit.collider.gameObject.tag == "Minion" && m_targetHit.collider.
+					gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
 				{
-					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform.position;
+					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
+						.position;
 					m_targetingEffect.Play();
 					return;
 				}
@@ -47,7 +50,9 @@ public class CasterQ : AbilityQBase
 		}
 		else if ( Input.GetMouseButtonDown( 1 ) && aimingSkill )
 			aimingSkill = false;
-		else if ( ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha1 ) || Input.GetKeyDown( KeyCode.Keypad1 ) ) && !aimingSkill && cooldownTimer <= 0.0f )
+		else if ( ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) || Input.GetKeyDown(
+			KeyCode.Alpha1 ) || Input.GetKeyDown( KeyCode.Keypad1 ) ) && !aimingSkill &&
+			cooldownTimer <= 0.0f )
 			aimingSkill = true;
 		if ( !EnoughMana )
 			aimingSkill = false;
@@ -56,11 +61,13 @@ public class CasterQ : AbilityQBase
 	{
 		if ( m_targetHit.collider != null )
 		{
-			GameObject tmp = Instantiate( m_Engulf, m_targetHit.transform.position, m_targetHit.transform.rotation ) as GameObject;
+			GameObject tmp = Instantiate( m_Engulf, m_targetHit.transform.position, m_targetHit.
+				transform.rotation ) as GameObject;
 			tmp.GetComponent<CasterEBehavior>().Activate = true;
 			tmp.transform.parent = m_targetHit.transform;
 			StatusEffects.Inflict( m_targetHit.collider.gameObject, Effect.CreateEffect() );
-			m_targetHit.collider.gameObject.GetComponentInParent<Info>().TakeDamage( m_effect.m_damage );
+			m_targetHit.collider.gameObject.GetComponentInParent<Info>().TakeDamage( m_effect.
+				m_damage );
 			base.AbilityActivate();
 		}
 	}

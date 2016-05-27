@@ -20,7 +20,8 @@ public class AssassinAbilityW : AbilityWBase
 	{
 		if ( _target )
 		{
-			SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as GameObject ).GetComponent<SkillShot>();
+			SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.
+				rotation ) as GameObject ).GetComponent<SkillShot>();
 			p.MarkingAttack = true;
 			p.speed = _speed;
 			p.damage = _damage;

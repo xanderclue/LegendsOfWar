@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class ShopOnHover : MonoBehaviour
 {
-	enum Description { Q, W, E, R, DEFAULT };
+	enum Description { Q, W, E, R, DEFAULT }
 	[SerializeField]
 	Description disc = Description.Q;
 	bool isHovering = false;

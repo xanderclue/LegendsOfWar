@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-enum Move_State { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE };
-public enum Path { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 };
+enum Move_State
+{ LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
+public enum Path
+{ NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }
 public class MinionMovement : MovementScript
 {
 	NavMeshAgent agent;
@@ -89,7 +91,8 @@ public class MinionMovement : MovementScript
 					if ( info.type != MinionClass.SIEGE_MINION )
 					{
 						line.enabled = true;
-						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
+							destination };
 						line.SetPositions( temp );
 					}
 					if ( m_path != Path.ANY_PATH )
@@ -105,7 +108,8 @@ public class MinionMovement : MovementScript
 						line.enabled = false;
 					if ( inCombat && TargetPosition != null )
 					{
-						if ( Vector3.Distance( transform.position, TargetPosition.position ) > combatRange )
+						if ( Vector3.Distance( transform.position, TargetPosition.position ) >
+							combatRange )
 						{
 							agent.Resume();
 							withinRange = false;
@@ -183,14 +187,16 @@ public class MinionMovement : MovementScript
 			}
 			else if ( Input.GetMouseButton( 1 ) )
 			{
-				if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.mousePosition ), out hit, 1000, 5943 ) )
+				if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.mousePosition ),
+					out hit, 1000, 5943 ) )
 				{
 					followingNav = false;
 					agent.ResetPath();
 					agent.SetDestination( hit.point );
 					if ( info.type != MinionClass.SIEGE_MINION )
 					{
-						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
+							destination };
 						line.SetPositions( temp );
 					}
 					SetState( Move_State.COMMAND_STATE );

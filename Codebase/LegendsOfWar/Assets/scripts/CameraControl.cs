@@ -24,14 +24,16 @@ public class CameraControl : MonoBehaviour
 	private float zoomSpeed = 1.0f, moveSpeed = 1.0f;
 	[SerializeField]
 	private float worldMaxX = 1200.0f, worldMinX = 0.0f, worldMaxZ = 700.0f, worldMinZ = 0.0f;
-	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize = 1.0f;
+	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
+		1.0f;
 	private float aspectRatio = 0.0f;
 	public GameObject player;
 	private bool followPlayer = false;
 	static Camera main, vantage, current;
 	public static Camera Main { get { return main; } }
 	public static Camera Vantage { get { return vantage; } }
-	public static Camera Current { get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
+	public static Camera Current
+	{ get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
 	void Start()
 	{
 		player = GameManager.Instance.Player;
@@ -82,7 +84,8 @@ public class CameraControl : MonoBehaviour
 		if ( Input.GetMouseButton( 0 ) )
 			if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit ) )
 			{
-				mainCam.transform.position = new Vector3( hit.point.x, mainCam.transform.position.y, hit.point.z );
+				mainCam.transform.position = new Vector3( hit.point.x, mainCam.transform.position.y,
+					hit.point.z );
 				followPlayer = false;
 			}
 		if ( Input.GetKeyDown( KeyCode.V ) )
@@ -90,7 +93,9 @@ public class CameraControl : MonoBehaviour
 		if ( mainCam.enabled )
 		{
 			if ( !followPlayer )
-				MoveCam( Input.GetAxis( "Horizontal" ) * moveSpeed * mainCam.orthographicSize * 0.01f, Input.GetAxis( "Vertical" ) * moveSpeed * mainCam.orthographicSize * 0.01f );
+				MoveCam( Input.GetAxis( "Horizontal" ) * moveSpeed * mainCam.orthographicSize *
+					0.01f, Input.GetAxis( "Vertical" ) * moveSpeed * mainCam.orthographicSize *
+					0.01f );
 			zoomTemp = Input.GetAxis( "Mouse ScrollWheel" ) + Input.GetAxis( "-=" );
 			if ( 0.0f != zoomTemp )
 				ZoomCam( -zoomTemp * zoomSpeed );
@@ -104,7 +109,8 @@ public class CameraControl : MonoBehaviour
 			StartClick = -Vector3.one;
 		if ( Input.GetMouseButton( 0 ) )
 		{
-			Selection = new Rect( StartClick.x, Screen.height - StartClick.y, Input.mousePosition.x - StartClick.x, StartClick.y - Input.mousePosition.y );
+			Selection = new Rect( StartClick.x, Screen.height - StartClick.y, Input.mousePosition.x
+				- StartClick.x, StartClick.y - Input.mousePosition.y );
 			if ( Selection.width < 0.0f )
 			{
 				Selection.x += Selection.width;
@@ -141,9 +147,11 @@ public class CameraControl : MonoBehaviour
 			if ( Input.GetMouseButton( 2 ) )
 			{
 				Difference = Input.mousePosition * 0.05f;
-				newPos.x = Mathf.Clamp( mainCam.transform.position.x - Origin.x + Difference.x, minXPos, maxXPos );
+				newPos.x = Mathf.Clamp( mainCam.transform.position.x - Origin.x + Difference.x,
+					minXPos, maxXPos );
 				newPos.y = mainCam.transform.position.y;
-				newPos.z = Mathf.Clamp( mainCam.transform.position.z - Origin.y + Difference.y, minZPos, maxZPos );
+				newPos.z = Mathf.Clamp( mainCam.transform.position.z - Origin.y + Difference.y,
+					minZPos, maxZPos );
 				mainCam.transform.position = newPos;
 			}
 		}
@@ -178,7 +186,8 @@ public class CameraControl : MonoBehaviour
 	private void RecalcZoomLimits()
 	{
 		aspectRatio = mainCam.aspect;
-		maxZoomSize = Mathf.Min( ( worldMaxX - worldMinX ) / aspectRatio, worldMaxZ - worldMinZ ) * 0.3f;
+		maxZoomSize = Mathf.Min( ( worldMaxX - worldMinX ) / aspectRatio, worldMaxZ - worldMinZ ) *
+			0.3f;
 		minimapviewport.height = 0.175f * aspectRatio;
 		minimapCam.rect = minimapviewport;
 		ZoomCam( 0.0f );
@@ -189,12 +198,16 @@ public class CameraControl : MonoBehaviour
 		maxZPos = worldMaxZ - mainCam.orthographicSize;
 		minXPos = worldMinX + aspectRatio * mainCam.orthographicSize;
 		maxXPos = worldMaxX - aspectRatio * mainCam.orthographicSize;
-		mainCam.transform.position = new Vector3( Mathf.Clamp( mainCam.transform.position.x, minXPos, maxXPos ), mainCam.transform.position.y, Mathf.Clamp( mainCam.transform.position.z, minZPos, maxZPos ) );
+		mainCam.transform.position = new Vector3( Mathf.Clamp( mainCam.transform.position.x, minXPos
+			, maxXPos ), mainCam.transform.position.y, Mathf.Clamp( mainCam.transform.position.z,
+			minZPos, maxZPos ) );
 	}
 	private void MoveCam( float dx, float dz )
 	{
 		if ( GameManager.GameRunning )
-			mainCam.transform.position = new Vector3( Mathf.Clamp( mainCam.transform.position.x + dx, minXPos, maxXPos ), mainCam.transform.position.y, Mathf.Clamp( mainCam.transform.position.z + dz, minZPos, maxZPos ) );
+			mainCam.transform.position = new Vector3( Mathf.Clamp( mainCam.transform.position.x + dx
+				, minXPos, maxXPos ), mainCam.transform.position.y, Mathf.Clamp( mainCam.transform.
+				position.z + dz, minZPos, maxZPos ) );
 	}
 	public void SwitchToMainCam()
 	{
@@ -228,9 +241,12 @@ public class CameraControl : MonoBehaviour
 	{
 		if ( HeroCamScript.onHero )
 			return;
-		mainCam.orthographicSize = Mathf.Clamp( mainCam.orthographicSize + deltaSize, 50.0f, maxZoomSize );
-		camBorder.transform.localScale = new Vector3( 0.002086875f * mainCam.orthographicSize * mainCam.aspect, 0.00371f * mainCam.orthographicSize, 1.0f );
-		mainCam.fieldOfView = 114.591559026f * Mathf.Atan2( mainCam.orthographicSize, mainCam.transform.position.y );
+		mainCam.orthographicSize = Mathf.Clamp( mainCam.orthographicSize + deltaSize, 50.0f,
+			maxZoomSize );
+		camBorder.transform.localScale = new Vector3( 0.002086875f * mainCam.orthographicSize *
+			mainCam.aspect, 0.00371f * mainCam.orthographicSize, 1.0f );
+		mainCam.fieldOfView = 114.591559026f * Mathf.Atan2( mainCam.orthographicSize, mainCam.
+			transform.position.y );
 		RecalcBoundaries();
 	}
 	static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );

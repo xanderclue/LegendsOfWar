@@ -225,17 +225,20 @@ public class IntroManager : MonoBehaviour
 	public void SpawnBlueTankMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueTankMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+		Instantiate( BlueTankMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
 	}
 	public void SpawnBlueCasterMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueCasterMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+		Instantiate( BlueCasterMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
 	}
 	public void SpawnBlueStrikerMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
 	}
 	public bool pause = false;
 	public void TogglePause()

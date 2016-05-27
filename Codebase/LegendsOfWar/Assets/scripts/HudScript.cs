@@ -39,14 +39,16 @@ public class HudScript : MonoBehaviour
 		ButtonHMAnim();
 		if ( Input.GetMouseButton( 1 ) )
 			if ( GrabHit != null )
-				if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit ) )
+				if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit )
+					)
 					GrabHit( hit );
 		tmr = GameManager.Instance.Timer;
 		if ( tmr <= 0.0f )
 			tmr = 0.0f;
 		timer.text = Options.Japanese ? "秒読み：" : "Time left: ";
 		if ( tmr >= 60.0f )
-			timer.text += System.Math.DivRem( ( int )tmr + 1, 60, out tempSec ).ToString( "D2" ) + ':' + tempSec.ToString( "D2" );
+			timer.text += System.Math.DivRem( ( int )tmr + 1, 60, out tempSec ).ToString( "D2" ) +
+				':' + tempSec.ToString( "D2" );
 		else
 			timer.text += tmr.ToString( tmr > 10.0f ? "F1" : "F2" );
 		if ( Options.Japanese )

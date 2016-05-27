@@ -4,9 +4,11 @@ public abstract class AbilityRBase : AbilityBase
 	protected override void Update()
 	{
 		base.Update();
-		if ( ( Input.GetKeyDown( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha4 ) || Input.GetKeyDown( KeyCode.Keypad4 ) )
+		if ( ( Input.GetKeyDown( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode
+			.Alpha4 ) || Input.GetKeyDown( KeyCode.Keypad4 ) )
 			TryCast();
-		ToggleCursor( ( Input.GetKey( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKey( KeyCode.Alpha4 ) || Input.GetKey( KeyCode.Keypad4 ) );
+		ToggleCursor( ( Input.GetKey( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKey(
+			KeyCode.Alpha4 ) || Input.GetKey( KeyCode.Keypad4 ) );
 	}
 	HeroMovement movement;
 	protected override void Start()

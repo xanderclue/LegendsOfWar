@@ -1,4 +1,4 @@
-﻿public enum StatusEffectType { NONE, DOT, STUN, SLOW, SNARE, DMG_Amp, DMG_Damp };
+﻿public enum StatusEffectType { NONE, DOT, STUN, SLOW, SNARE, DMG_Amp, DMG_Damp }
 [System.Serializable]
 public class Effect
 {

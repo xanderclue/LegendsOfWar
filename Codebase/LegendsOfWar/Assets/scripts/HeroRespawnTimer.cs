@@ -16,7 +16,8 @@ public class HeroRespawnTimer : MonoBehaviour
 		if ( info.RespawnTimer <= 0.0f )
 			gameObject.SetActive( false );
 		else
-			text.text = ( Options.Japanese ? "生変：" : "Respawn: " ) + info.RespawnTimer.ToString( "F2" );
+			text.text = ( Options.Japanese ? "生変：" : "Respawn: " ) + info.RespawnTimer.ToString(
+				"F2" );
 	}
 	void ShowTimer()
 	{

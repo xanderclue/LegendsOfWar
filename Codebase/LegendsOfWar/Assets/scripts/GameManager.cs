@@ -79,40 +79,72 @@ public class GameManager : MonoBehaviour
 	}
 	void SpawnMinionWaves()
 	{
-		SetupMinion( Instantiate( redCasterMinion, redPortal.LeftSpawn[ 0 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 3 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 4 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 1 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 2 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redCasterMinion, redPortal.MidSpawn[ 0 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 3 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 4 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 1 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 2 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redCasterMinion, redPortal.RightSpawn[ 0 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 3 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 4 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 1 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 2 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ 0 ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 3 ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 4 ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 1 ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 2 ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ 0 ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 3 ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 4 ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 1 ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 2 ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ 0 ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 3 ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 4 ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 1 ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 2 ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( redCasterMinion, redPortal.LeftSpawn[ 0 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 3 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 4 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 1 ].position, faceDown ), Path
+			.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 2 ].position, faceDown ), Path
+			.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redCasterMinion, redPortal.MidSpawn[ 0 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 3 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 4 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 1 ].position, faceLeft ), Path.
+			CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 2 ].position, faceLeft ), Path.
+			CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redCasterMinion, redPortal.RightSpawn[ 0 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 3 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 4 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 1 ].position, faceUp ), Path.
+			NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 2 ].position, faceUp ), Path.
+			NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ 0 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 3 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 4 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 1 ].position, faceUp ), Path
+			.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 2 ].position, faceUp ), Path
+			.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ 0 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 3 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 4 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 1 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 2 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ 0 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 3 ].position, faceDown )
+			, Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 4 ].position, faceDown )
+			, Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 1 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 2 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
 		EconomyManager.Instance.NewWave();
 		AudioManager.PlaySoundEffect( AudioManager.sfxWaveSpawn );
 	}
-	static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+	static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f ),
+		faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp = new
+		Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
 	public void InitiateGame()
 	{
 		gameRunning = true;
@@ -247,7 +279,8 @@ public class GameManager : MonoBehaviour
 	{
 		if ( !gameRunning || gameEnded )
 			return;
-		if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() != StateID.STATE_SHOP )
+		if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() !=
+			StateID.STATE_SHOP )
 			Pause();
 		else if ( Input.GetKeyDown( KeyCode.Tab ) )
 		{
@@ -262,7 +295,8 @@ public class GameManager : MonoBehaviour
 				ExitShop();
 			}
 		}
-		else if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() == StateID.STATE_SHOP )
+		else if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() ==
+			StateID.STATE_SHOP )
 			ExitShop();
 		else if ( timer <= 0.0f || redPortal.HP <= 0.0f || bluePortal.HP <= 0.0f )
 			StartCoroutine( GameEnding() );
@@ -338,9 +372,11 @@ public class GameManager : MonoBehaviour
 	public void SpawnHero()
 	{
 		if ( CharacterSelectionManager.Instance )
-			Player = Instantiate( CharacterSelectionManager.LegendChoice, HeroSpawnPoint.position, faceRight ) as GameObject;
+			Player = Instantiate( CharacterSelectionManager.LegendChoice, HeroSpawnPoint.position,
+				faceRight ) as GameObject;
 		else
-			Player = Instantiate( defaultHeroPrefab, HeroSpawnPoint.position, faceRight ) as GameObject;
+			Player = Instantiate( defaultHeroPrefab, HeroSpawnPoint.position, faceRight ) as
+				GameObject;
 		heroHealthPanel.Host = heroManaPanel.Host = Player;
 		if ( tutorial )
 		{
@@ -357,13 +393,16 @@ public class GameManager : MonoBehaviour
 			switch ( lane )
 			{
 				case 1:
-					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ Random.Range( 0, 5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ Random.Range(
+						0, 5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
 					break;
 				case 2:
-					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ Random.Range( 0, 5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ Random.Range(
+						0, 5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
 					break;
 				case 3:
-					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ Random.Range( 0, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ Random.Range
+						( 0, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
 					break;
 				default:
 					break;
@@ -377,13 +416,16 @@ public class GameManager : MonoBehaviour
 			switch ( lane )
 			{
 				case 1:
-					SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ Random.Range( 0, 5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ Random.Range( 0,
+						5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
 					break;
 				case 2:
-					SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ Random.Range( 0, 5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ Random.Range( 0,
+						5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
 					break;
 				case 3:
-					SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ Random.Range( 0, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ Random.Range( 0
+						, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
 					break;
 				default:
 					break;
@@ -397,13 +439,16 @@ public class GameManager : MonoBehaviour
 			switch ( lane )
 			{
 				case 1:
-					SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ Random.Range( 0, 5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ Random.Range(
+						0, 5 ) ].position, faceUp ), Path.NORTH_PATH, Team.BLUE_TEAM );
 					break;
 				case 2:
-					SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ Random.Range( 0, 5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ Random.Range( 0
+						, 5 ) ].position, faceRight ), Path.CENTER_PATH, Team.BLUE_TEAM );
 					break;
 				case 3:
-					SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ Random.Range( 0, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
+					SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ Random.Range(
+						0, 5 ) ].position, faceDown ), Path.SOUTH_PATH, Team.BLUE_TEAM );
 					break;
 				default:
 					break;

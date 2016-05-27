@@ -69,7 +69,8 @@ namespace UnityStandardAssets.ImageEffects
 		protected bool CheckSupport( bool needDepth )
 		{
 			isSupported = true;
-			supportHDRTextures = SystemInfo.SupportsRenderTextureFormat( RenderTextureFormat.ARGBHalf );
+			supportHDRTextures = SystemInfo.SupportsRenderTextureFormat( RenderTextureFormat.
+				ARGBHalf );
 			supportDX11 = SystemInfo.graphicsShaderLevel >= 50 && SystemInfo.supportsComputeShaders;
 			if ( !SystemInfo.supportsImageEffects || !SystemInfo.supportsRenderTextures )
 			{
@@ -111,46 +112,42 @@ namespace UnityStandardAssets.ImageEffects
 			enabled = false;
 			isSupported = false;
 		}
-		float x2x1y2y1;
 		protected void DrawBorder( RenderTexture dest, Material material )
 		{
+			float x2x1y2y1;
 			RenderTexture.active = dest;
 			GL.PushMatrix();
 			GL.LoadOrtho();
 			for ( int i = 0; i < material.passCount; ++i )
 			{
 				material.SetPass( i );
-				x2x1y2y1 = 1.0f / dest.width;
 				GL.Begin( GL.QUADS );
 				GL.TexCoord2( 0.0f, 1.0f );
 				GL.Vertex3( 0.0f, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 1.0f );
-				GL.Vertex3( x2x1y2y1, 0.0f, 0.1f );
+				GL.Vertex3( x2x1y2y1 = 1.0f / dest.width, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 0.0f );
 				GL.Vertex3( x2x1y2y1, 1.0f, 0.1f );
 				GL.TexCoord2( 0.0f, 0.0f );
 				GL.Vertex3( 0.0f, 1.0f, 0.1f );
-				x2x1y2y1 = 1.0f - x2x1y2y1;
 				GL.TexCoord2( 0.0f, 1.0f );
-				GL.Vertex3( x2x1y2y1, 0.0f, 0.1f );
+				GL.Vertex3( x2x1y2y1 = 1.0f - x2x1y2y1, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 1.0f );
 				GL.Vertex3( 1.0f, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 0.0f );
 				GL.Vertex3( 1.0f, 1.0f, 0.1f );
 				GL.TexCoord2( 0.0f, 0.0f );
 				GL.Vertex3( x2x1y2y1, 1.0f, 0.1f );
-				x2x1y2y1 = 1.0f / dest.height;
 				GL.TexCoord2( 0.0f, 1.0f );
 				GL.Vertex3( 0.0f, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 1.0f );
 				GL.Vertex3( 1.0f, 0.0f, 0.1f );
 				GL.TexCoord2( 1.0f, 0.0f );
-				GL.Vertex3( 1.0f, x2x1y2y1, 0.1f );
+				GL.Vertex3( 1.0f, x2x1y2y1 = 1.0f / dest.height, 0.1f );
 				GL.TexCoord2( 0.0f, 0.0f );
 				GL.Vertex3( 0.0f, x2x1y2y1, 0.1f );
-				x2x1y2y1 = 1.0f - x2x1y2y1;
 				GL.TexCoord2( 0.0f, 1.0f );
-				GL.Vertex3( 0.0f, x2x1y2y1, 0.1f );
+				GL.Vertex3( 0.0f, x2x1y2y1 = 1.0f - x2x1y2y1, 0.1f );
 				GL.TexCoord2( 1.0f, 1.0f );
 				GL.Vertex3( 1.0f, x2x1y2y1, 0.1f );
 				GL.TexCoord2( 1.0f, 0.0f );

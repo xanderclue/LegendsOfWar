@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public enum Team { RED_TEAM, BLUE_TEAM };
+public enum Team { RED_TEAM, BLUE_TEAM }
 public class Info : MonoBehaviour
 {
 	private float currHP;
@@ -32,7 +32,8 @@ public class Info : MonoBehaviour
 			return;
 		if ( SupportRange.InSupportRange( gameObject ) )
 			damage *= 0.75f;
-		HeroUIScript.Damage( damage * ( 1 - ( DmgDamp * 0.01f ) ), transform.position + 10.0f * Vector3.up );
+		HeroUIScript.Damage( damage * ( 1 - ( DmgDamp * 0.01f ) ), transform.position + 10.0f *
+			Vector3.up );
 		currHP -= damage * ( 1 - ( DmgDamp * 0.01f ) );
 		if ( null != Attacked )
 			Attacked();

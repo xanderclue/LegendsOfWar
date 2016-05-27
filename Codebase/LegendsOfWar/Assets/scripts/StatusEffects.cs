@@ -13,9 +13,11 @@ public class StatusEffects : MonoBehaviour
 					if ( _effect.Ticked( Time.deltaTime ) )
 					{
 						if ( _effect.m_stackable )
-							GetComponent<Info>().TakeDamage( _effect.m_damage * ( 1 + _effect.m_stacks / 3 ) * _effect.m_tickRate );
+							GetComponent<Info>().TakeDamage( _effect.m_damage * ( 1 + _effect.
+								m_stacks / 3 ) * _effect.m_tickRate );
 						else
-							GetComponent<Info>().TakeDamage( _effect.m_damage * _effect.m_tickRate );
+							GetComponent<Info>().TakeDamage( _effect.m_damage * _effect.m_tickRate )
+								;
 					}
 					break;
 				case StatusEffectType.STUN:
@@ -27,7 +29,8 @@ public class StatusEffects : MonoBehaviour
 					break;
 				case StatusEffectType.SLOW:
 					if ( gameObject.GetComponent<MinionInfo>() )
-						gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<MinionInfo>().MovementSpeed * ( 1.0f - _effect.m_percentage * 0.01f );
+						gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<
+							MinionInfo>().MovementSpeed * ( 1.0f - _effect.m_percentage * 0.01f );
 					else if ( gameObject.GetComponent<HeroInfo>() )
 						gameObject.GetComponent<NavMeshAgent>().speed *= 0.5f;
 					break;
@@ -53,7 +56,8 @@ public class StatusEffects : MonoBehaviour
 	}
 	void Awake()
 	{
-		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() );
+		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
+			;
 	}
 	public static void Inflict( GameObject _target, Effect _effect )
 	{
@@ -61,7 +65,8 @@ public class StatusEffects : MonoBehaviour
 	}
 	void Update()
 	{
-		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() );
+		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
+			;
 		if ( m_stats != null )
 			for ( int i = 0; i < m_stats.Count; ++i )
 				Apply( m_stats[ i ] );
@@ -82,14 +87,16 @@ public class StatusEffects : MonoBehaviour
 				break;
 			case StatusEffectType.SLOW:
 				if ( gameObject.GetComponent<MinionInfo>() )
-					gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<MinionInfo>().MovementSpeed;
+					gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<
+						MinionInfo>().MovementSpeed;
 				else if ( gameObject.GetComponent<HeroInfo>() )
 					gameObject.GetComponent<NavMeshAgent>().speed *= 2.0f;
 				break;
 			case StatusEffectType.SNARE:
 				if ( !gameObject.GetComponent<MinionInfo>() )
 					break;
-				gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<MinionInfo>().MovementSpeed;
+				gameObject.GetComponent<NavMeshAgent>().speed = gameObject.GetComponent<MinionInfo>(
+					).MovementSpeed;
 				gameObject.GetComponent<NavMeshAgent>().Resume();
 				break;
 			case StatusEffectType.DMG_Amp:

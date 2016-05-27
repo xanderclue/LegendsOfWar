@@ -11,7 +11,8 @@ public class CasterW : AbilityWBase
 	}
 	protected override void AbilityActivate()
 	{
-		CasterWZoneBehavior tmp = ( Instantiate( m_zone, transform.position, transform.rotation ) as GameObject ).GetComponent<CasterWZoneBehavior>();
+		CasterWZoneBehavior tmp = ( Instantiate( m_zone, transform.position, transform.rotation ) as
+			GameObject ).GetComponent<CasterWZoneBehavior>();
 		tmp.Activate = true;
 		tmp.zoneDuration = m_effect.m_duration;
 		base.AbilityActivate();

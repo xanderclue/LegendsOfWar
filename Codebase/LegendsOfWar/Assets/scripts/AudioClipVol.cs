@@ -16,6 +16,7 @@ public class AudioClipVol : MonoBehaviour
 		if ( dist >= maxDist - 5.0f )
 			aud.volume = 0.0f;
 		else
-			aud.volume = ( 1.0f - ( dist / maxDist ) ) * ( isVoice ? Options.voiceVolume : Options.sfxVolume );
+			aud.volume = ( 1.0f - ( dist / maxDist ) ) * ( isVoice ? Options.voiceVolume : Options.
+				sfxVolume );
 	}
 }

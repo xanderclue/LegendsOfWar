@@ -5,7 +5,8 @@ public class HUDManager : MonoBehaviour
 	[SerializeField]
 	Text characterName = null;
 	[SerializeField]
-	private GameObject start = null, NoStart = null, InGameInfo = null, LoreInfo = null, abilityInfo = null, iconsPanel = null;
+	private GameObject start = null, NoStart = null, InGameInfo = null, LoreInfo = null, abilityInfo
+		= null, iconsPanel = null;
 	TurnManager turnManager;
 	void Start()
 	{
@@ -55,7 +56,8 @@ public class HUDManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null, tDifficulty = null;
+	Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null, tDifficulty
+		= null;
 	void SetGameInfo()
 	{
 		info = CharacterSelectionManager.heroInfo;

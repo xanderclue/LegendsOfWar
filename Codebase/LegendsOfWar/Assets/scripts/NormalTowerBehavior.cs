@@ -39,7 +39,8 @@ public class NormalTowerBehavior : MonoBehaviour
 		{
 			if ( fireTimer <= 0.0f )
 			{
-				if ( targets != null && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject )
+				if ( targets != null && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject
+					)
 				{
 					if ( !targets[ 0 ].gameObject.activeInHierarchy )
 						RemoveTarget( targets[ 0 ].gameObject );
@@ -59,7 +60,9 @@ public class NormalTowerBehavior : MonoBehaviour
 		if ( GameManager.GameEnded )
 			return;
 		projectileSpawnPoint.LookAt( targets[ 0 ] );
-		NormalProjectileBehavior p = ( Instantiate( TowerManager.Instance.normalShotPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation ) as GameObject ).GetComponent<NormalProjectileBehavior>();
+		NormalProjectileBehavior p = ( Instantiate( TowerManager.Instance.normalShotPrefab,
+			projectileSpawnPoint.position, projectileSpawnPoint.rotation ) as GameObject ).
+			GetComponent<NormalProjectileBehavior>();
 		p.target = targets[ 0 ];
 		p.Fire();
 	}

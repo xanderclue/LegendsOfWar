@@ -23,13 +23,16 @@ public class TowerRangeIndicator : MonoBehaviour
 		switch ( TowerManager.Instance.GetActiveShot( team ) )
 		{
 			case Items.NormalShot:
-				circle.localScale = new Vector3( TowerManager.Instance.normalInfo.AgroRange * 0.27f, 0.0f, TowerManager.Instance.normalInfo.AgroRange * 0.27f );
+				circle.localScale = new Vector3( TowerManager.Instance.normalInfo.AgroRange * 0.27f,
+					0.0f, TowerManager.Instance.normalInfo.AgroRange * 0.27f );
 				break;
 			case Items.FreezeShot:
-				circle.localScale = new Vector3( TowerManager.Instance.freezeInfo.AgroRange * 0.27f, 0.0f, TowerManager.Instance.freezeInfo.AgroRange * 0.27f );
+				circle.localScale = new Vector3( TowerManager.Instance.freezeInfo.AgroRange * 0.27f,
+					0.0f, TowerManager.Instance.freezeInfo.AgroRange * 0.27f );
 				break;
 			case Items.ExplosiveShot:
-				circle.localScale = new Vector3( TowerManager.Instance.explosiveInfo.AgroRange * 0.27f, 0.0f, TowerManager.Instance.explosiveInfo.AgroRange * 0.27f );
+				circle.localScale = new Vector3( TowerManager.Instance.explosiveInfo.AgroRange *
+					0.27f, 0.0f, TowerManager.Instance.explosiveInfo.AgroRange * 0.27f );
 				break;
 			default:
 				break;

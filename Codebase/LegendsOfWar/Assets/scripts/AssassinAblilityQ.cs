@@ -25,7 +25,8 @@ public class AssassinAblilityQ : AbilityQBase
 		if ( !aiming )
 		{
 			Indicator.SetActive( false );
-			if ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha1 ) || Input.GetKeyDown( KeyCode.Keypad1 ) )
+			if ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) || Input.GetKeyDown(
+				KeyCode.Alpha1 ) || Input.GetKeyDown( KeyCode.Keypad1 ) )
 				aiming = true;
 		}
 		if ( !EnoughMana )
@@ -60,7 +61,8 @@ public class AssassinAblilityQ : AbilityQBase
 	{
 		if ( _target )
 		{
-			SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as GameObject ).GetComponent<SkillShot>();
+			SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.
+				rotation ) as GameObject ).GetComponent<SkillShot>();
 			p.speed = _speed;
 			p.damage = _damage;
 			p.target = _target;

@@ -16,7 +16,9 @@ public class TankAbilityE : AbilityEBase
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
-		AbilityEParticle.GetComponent<Transform>().localPosition = new Vector3( GameObject.FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.x, 1, GameObject.FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.z );
+		AbilityEParticle.GetComponent<Transform>().localPosition = new Vector3( GameObject.
+			FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.x, 1, GameObject
+			.FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.z );
 		AbilityEParticle.GetComponent<ParticleSystem>().Play();
 		if ( coll )
 			coll.DealDamage( Slow );

@@ -10,7 +10,8 @@ public class TowerManager : MonoBehaviour
 	[SerializeField]
 	public ExplosiveProjectileInfo explosiveInfo = null;
 	[SerializeField]
-	bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false, blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
+	bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false, blueFreezeActive
+		= false, redExplosiveActive = false, blueExplosiveActive = false;
 	bool blueShotChanged = false;
 	public bool BlueShotChanged { get { return blueShotChanged; } }
 	bool redShotChanged = false;
@@ -83,7 +84,8 @@ public class TowerManager : MonoBehaviour
 	}
 	public void ActivateShotType( Team team, Items shotType )
 	{
-		if ( shotType == Items.NormalShot || shotType == Items.FreezeShot || shotType == Items.ExplosiveShot )
+		if ( shotType == Items.NormalShot || shotType == Items.FreezeShot || shotType == Items.
+			ExplosiveShot )
 		{
 			DeactivateShots( team );
 			switch ( shotType )

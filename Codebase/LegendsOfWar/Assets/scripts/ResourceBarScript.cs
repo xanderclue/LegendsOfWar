@@ -37,7 +37,8 @@ public class ResourceBarScript : MonoBehaviour
 			if ( HeroCamScript.onHero && notHero )
 			{
 				transform.localPosition = low;
-				transform.LookAt( 2.0f * transform.position - heroUiTrans.position, heroUiTrans.up );
+				transform.LookAt( 2.0f * transform.position - heroUiTrans.position, heroUiTrans.up )
+					;
 				gameObject.layer = 11;
 			}
 			else

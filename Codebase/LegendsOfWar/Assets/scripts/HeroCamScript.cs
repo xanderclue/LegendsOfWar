@@ -4,7 +4,8 @@ enum CamTransitionState { OnMain, Main2Hero, OnHero, Hero2Main }
 public class HeroCamScript : MonoBehaviour
 {
 	[SerializeField]
-	Transform mainCameraTransform = null, heroTransform = null, heroTransformMax = null, heroCenter = null;
+	Transform mainCameraTransform = null, heroTransform = null, heroTransformMax = null, heroCenter
+		= null;
 	Camera mainCam, heroCam;
 	float tValue = 0.0f;
 	CamTransitionState state = CamTransitionState.OnMain;
@@ -87,7 +88,8 @@ public class HeroCamScript : MonoBehaviour
 	void CalcHeroCamPosition()
 	{
 		maxDistance = Vector3.Distance( heroCenter.position, heroTransformMax.position );
-		hits = Physics.RaycastAll( heroCenter.position, heroTransformMax.position - heroCenter.position, maxDistance );
+		hits = Physics.RaycastAll( heroCenter.position, heroTransformMax.position - heroCenter.
+			position, maxDistance );
 		forceDistance = maxDistance;
 		foreach ( RaycastHit hit in hits )
 		{
@@ -96,7 +98,8 @@ public class HeroCamScript : MonoBehaviour
 				if ( hit.distance <= forceDistance )
 					forceDistance = hit.distance;
 		}
-		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * ( forceDistance / maxDistance ) + heroCenter.position;
+		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * (
+			forceDistance / maxDistance ) + heroCenter.position;
 	}
 	Color green, red;
 	float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
@@ -112,7 +115,8 @@ public class HeroCamScript : MonoBehaviour
 	}
 	void Update()
 	{
-		Cursor.visible = !GameManager.GameRunning || !onHero || StateID.STATE_SHOP == ApplicationManager.Instance.GetAppState() || heroCamDisabler.disabledCameraMovement;
+		Cursor.visible = !GameManager.GameRunning || !onHero || StateID.STATE_SHOP ==
+			ApplicationManager.Instance.GetAppState() || heroCamDisabler.disabledCameraMovement;
 		if ( !cameraReady )
 		{
 			GetHeroInfo();
@@ -163,7 +167,8 @@ public class HeroCamScript : MonoBehaviour
 		if ( Input.GetMouseButton( 2 ) )
 		{
 			currentVertical = Input.mousePosition.y;
-			float newVert = Mathf.Clamp( verticalRotation + mouseVerticalStart - currentVertical, minVert, maxVert );
+			float newVert = Mathf.Clamp( verticalRotation + mouseVerticalStart - currentVertical,
+				minVert, maxVert );
 			float vertChange = newVert - verticalRotation;
 			verticalRotation = newVert;
 			heroCenter.Rotate( heroCenter.right, vertChange, Space.World );
@@ -191,8 +196,10 @@ public class HeroCamScript : MonoBehaviour
 				}
 				else
 				{
-					heroTransformMax.localRotation = heroTransform.localRotation = Quaternion.Euler( 12.6756f, 0.0f, 0.0f );
-					heroTransformMax.localPosition = heroTransform.localPosition = new Vector3( 0.0f, 3.143125f, -7.536876f );
+					heroTransformMax.localRotation = heroTransform.localRotation = Quaternion.Euler(
+						12.6756f, 0.0f, 0.0f );
+					heroTransformMax.localPosition = heroTransform.localPosition = new Vector3( 0.0f
+						, 3.143125f, -7.536876f );
 				}
 			}
 		}
@@ -264,8 +271,10 @@ public class HeroCamScript : MonoBehaviour
 				if ( null != OnOnHero )
 					OnOnHero();
 			}
-			transform.rotation = Quaternion.Slerp( mainCameraTransform.rotation, heroTransform.rotation, tValue );
-			transform.position = Vector3.Lerp( mainCameraTransform.position, heroTransform.position, tValue );
+			transform.rotation = Quaternion.Slerp( mainCameraTransform.rotation, heroTransform.
+				rotation, tValue );
+			transform.position = Vector3.Lerp( mainCameraTransform.position, heroTransform.position,
+				tValue );
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
@@ -306,13 +315,16 @@ public class HeroCamScript : MonoBehaviour
 				heroCam.enabled = false;
 				state = CamTransitionState.OnMain;
 			}
-			transform.rotation = Quaternion.Slerp( mainCameraTransform.rotation, heroTransform.rotation, tValue );
-			transform.position = Vector3.Lerp( mainCameraTransform.position, heroTransform.position, tValue );
+			transform.rotation = Quaternion.Slerp( mainCameraTransform.rotation, heroTransform.
+				rotation, tValue );
+			transform.position = Vector3.Lerp( mainCameraTransform.position, heroTransform.position,
+				tValue );
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
 	[SerializeField]
-	Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null, hudTextAbilityR = null;
+	Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null, hudTextAbilityR =
+		null;
 	public delegate void voidDel();
 	public static event voidDel OnOnHero;
 	private bool hudTextShowsQWER = true;

@@ -27,6 +27,7 @@ public class CharacterSelectionManager : MonoBehaviour
 		for ( int i = 0; i < Legends.Length; ++i )
 			available[ i ] = Legends[ i ];
 	}
-	static public GameObject LegendChoice { get { return inst ? inst.Legends[ inst.Index ] : null; } }
+	static public GameObject LegendChoice
+	{ get { return inst ? inst.Legends[ inst.Index ] : null; } }
 	static public HeroInfo heroInfo { get { return LegendChoice.GetComponent<HeroInfo>(); } }
 }

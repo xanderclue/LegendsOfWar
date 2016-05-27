@@ -34,7 +34,8 @@ public class MinionAttack : AttackScript
 	void Update()
 	{
 		second -= Time.deltaTime * Minioninfo.AttackSpeed;
-		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
+		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<
+			Info>().Alive )
 		{
 			movement.Disengage();
 			Nil();

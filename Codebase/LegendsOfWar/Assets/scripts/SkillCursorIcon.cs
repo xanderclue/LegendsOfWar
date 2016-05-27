@@ -4,6 +4,7 @@ public class SkillCursorIcon : MonoBehaviour
 	void Update()
 	{
 		if ( gameObject.activeInHierarchy )
-			GetComponent<RectTransform>().position = CameraControl.Current.ScreenToWorldPoint( Input.mousePosition );
+			GetComponent<RectTransform>().position = CameraControl.Current.ScreenToWorldPoint( Input
+				.mousePosition );
 	}
 }

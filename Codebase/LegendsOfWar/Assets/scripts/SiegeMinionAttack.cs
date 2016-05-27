@@ -23,7 +23,8 @@ public class SiegeMinionAttack : AttackScript
 			weaponDetails.clipSize = sMinioninfo.clipSize * 2;
 			weaponDetails.rateOfFire = sMinioninfo.AttackSpeed * 1.2f;
 			weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot + 2;
-			weaponDetails.bulletPrefab.GetComponent<SiegeProjectile>().damage = sMinioninfo.Damage * 1.5f;
+			weaponDetails.bulletPrefab.GetComponent<SiegeProjectile>().damage = sMinioninfo.Damage *
+				1.5f;
 			GetComponent<NavMeshAgent>().speed = sMinioninfo.MovementSpeed * 1.8f;
 		}
 		else
@@ -52,7 +53,8 @@ public class SiegeMinionAttack : AttackScript
 	{
 		if ( EnemyAIManager.huntHero )
 		{
-			if ( Vector3.Distance( gameObject.transform.position, GameManager.Instance.Player.transform.position ) <= sMinioninfo.AgroRange + 30.0f )
+			if ( Vector3.Distance( gameObject.transform.position, GameManager.Instance.Player.
+				transform.position ) <= sMinioninfo.AgroRange + 30.0f )
 			{
 				movement.Disengage();
 				movement.SetTarget( GameManager.Instance.Player.transform, sMinioninfo.AgroRange );
@@ -60,7 +62,8 @@ public class SiegeMinionAttack : AttackScript
 			else
 				movement.Disengage();
 		}
-		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
+		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
+			Alive )
 		{
 			movement.Disengage();
 			Nil();
