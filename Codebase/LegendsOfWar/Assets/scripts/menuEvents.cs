@@ -2,7 +2,7 @@
 public class menuEvents : MonoBehaviour
 {
 	[SerializeField]
-	GameObject loading = null;
+	private GameObject loading = null;
 	public void ChangeAppState( string appState )
 	{
 		Loading();

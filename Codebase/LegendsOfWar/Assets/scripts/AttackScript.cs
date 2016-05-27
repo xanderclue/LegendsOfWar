@@ -18,7 +18,7 @@ public class AttackScript : MonoBehaviour
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
-	ProjectileBehaviour p;
+	private ProjectileBehaviour p;
 	protected void FireAtTarget( Transform _target, float _speed, float _damage )
 	{
 		if ( _target && !GameManager.GameEnded )

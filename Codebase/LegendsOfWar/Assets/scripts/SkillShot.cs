@@ -9,7 +9,7 @@ public class SkillShot : MonoBehaviour
 	public GameObject Shooter = null;
 	public Effect effect = new Effect();
 	private bool isFired = false;
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( isFired )
 		{
@@ -24,7 +24,7 @@ public class SkillShot : MonoBehaviour
 	{
 		isFired = true;
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( Shooter && col )
 			if ( col.gameObject.GetComponent<Info>() && col.gameObject.GetComponent<Info>().team !=
@@ -41,16 +41,16 @@ public class SkillShot : MonoBehaviour
 					Destroy( gameObject );
 			}
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( isFired )
 			projectileTimer -= Time.deltaTime;
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 2.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}

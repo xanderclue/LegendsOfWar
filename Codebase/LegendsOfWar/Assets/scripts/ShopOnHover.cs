@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
+public enum Description { Q, W, E, R, DEFAULT }
 public class ShopOnHover : MonoBehaviour
 {
-	enum Description { Q, W, E, R, DEFAULT }
 	[SerializeField]
-	Description disc = Description.Q;
-	bool isHovering = false;
+	private Description disc = Description.Q;
+	private bool isHovering = false;
 	[SerializeField]
-	string textEn = "", textJp = "";
-	void Start()
+	private string textEn = "", textJp = "";
+	private void Start()
 	{
 		HeroAbilities abilities = GameManager.Instance.Player.GetComponent<HeroAbilities>();
 		switch ( disc )
@@ -40,12 +40,12 @@ public class ShopOnHover : MonoBehaviour
 	{
 		isHovering = false;
 	}
-	void OnGUI()
+	private void OnGUI()
 	{
 		if ( isHovering == true )
 			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
-	void GenerateBox( string words )
+	private void GenerateBox( string words )
 	{
 		GUIStyle style = new GUIStyle( GUI.skin.box );
 		style.normal.textColor = Color.green;

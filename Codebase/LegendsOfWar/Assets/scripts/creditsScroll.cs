@@ -2,15 +2,15 @@
 public class creditsScroll : MonoBehaviour
 {
 	[SerializeField]
-	float speed = 0.0f, initialY = 0.0f, finalY = 0.0f;
-	Vector3 position;
-	void Start()
+	private float speed = 0.0f, initialY = 0.0f, finalY = 0.0f;
+	private Vector3 position;
+	private void Start()
 	{
 		position = transform.localPosition;
 		position.y = initialY;
 		transform.localPosition = position;
 	}
-	void Update()
+	private void Update()
 	{
 		position.y += Time.deltaTime * speed;
 		if ( position.y > finalY )

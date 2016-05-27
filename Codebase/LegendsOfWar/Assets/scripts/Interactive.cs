@@ -2,16 +2,16 @@
 public class Interactive : MonoBehaviour
 {
 	[SerializeField]
-	bool selected = false;
+	private bool selected = false;
 	private GameObject Circle;
-	MinionInfo info;
+	private MinionInfo info;
 	public static bool minSelected = false;
-	void Start()
+	private void Start()
 	{
 		Circle = transform.Find( "Selection Circle" ).gameObject;
 		info = GetComponent<MinionInfo>();
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameRunning )
 		{

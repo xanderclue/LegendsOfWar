@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 public class ExplosiveProjectileBehavior : MonoBehaviour
 {
-	ExplosiveProjectileInfo info;
-	Collider[ ] victims;
-	Team team;
+	private ExplosiveProjectileInfo info;
+	private Collider[ ] victims;
+	private Team team;
 	public Transform target = null;
-	bool fired, aoeActive = false;
-	float effectTime = 3.0f;
-	void Awake()
+	private bool fired, aoeActive = false;
+	private float effectTime = 3.0f;
+	private void Awake()
 	{
 		info = TowerManager.Instance.explosiveInfo;
 	}
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( fired && target && target.gameObject )
 		{
@@ -37,12 +37,12 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
 			GetComponentInChildren<ParticleSystem>().Stop();
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( target && col.gameObject == target.gameObject )
 			DamageTargets();
 	}
-	void DamageTargets()
+	private void DamageTargets()
 	{
 		victims = Physics.OverlapSphere( transform.position, info.aoeRadius, 9,
 			QueryTriggerInteraction.Collide );
@@ -58,23 +58,23 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 		aoeActive = true;
 		fired = false;
 	}
-	void PlayEffect()
+	private void PlayEffect()
 	{
 		if ( effectTime <= 0.0f )
 			Destroy( gameObject );
 		else
 			effectTime -= Time.deltaTime;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameEnded || ( projectileTimer <= 0.0f && !aoeActive ) )
 			Destroy( gameObject );
 		else if ( fired )
 			projectileTimer -= Time.deltaTime;
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 3.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}

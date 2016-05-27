@@ -4,8 +4,8 @@ public class Detector : MonoBehaviour
 	public delegate void triggerEvent( GameObject obj );
 	public event triggerEvent triggerEnter, triggerExit;
 	[SerializeField]
-	SphereCollider detectionSphere = null;
-	void Start()
+	private SphereCollider detectionSphere = null;
+	private void Start()
 	{
 		if ( !detectionSphere )
 			detectionSphere = GetComponent<SphereCollider>();
@@ -17,12 +17,12 @@ public class Detector : MonoBehaviour
 		detectionSphere.isTrigger = true;
 		detectionSphere.radius = _radius / transform.parent.lossyScale.x;
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( null != triggerEnter )
 			triggerEnter( col.gameObject );
 	}
-	void OnTriggerExit( Collider col )
+	private void OnTriggerExit( Collider col )
 	{
 		if ( null != triggerExit )
 			triggerExit( col.gameObject );

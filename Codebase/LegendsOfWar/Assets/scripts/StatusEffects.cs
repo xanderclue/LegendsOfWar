@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 public class StatusEffects : MonoBehaviour
 {
-	IList<Effect> m_stats;
+	private IList<Effect> m_stats;
 	public IList<Effect> Stats { get { return m_stats; } }
 	public void Apply( Effect _effect )
 	{
@@ -54,7 +54,7 @@ public class StatusEffects : MonoBehaviour
 		else
 			RemoveExpired( _effect );
 	}
-	void Awake()
+	private void Awake()
 	{
 		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
 			;
@@ -63,7 +63,7 @@ public class StatusEffects : MonoBehaviour
 	{
 		StatusEffectsManager.Instance.AddStatus( _target.GetInstanceID().ToString(), _effect );
 	}
-	void Update()
+	private void Update()
 	{
 		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
 			;
@@ -71,7 +71,7 @@ public class StatusEffects : MonoBehaviour
 			for ( int i = 0; i < m_stats.Count; ++i )
 				Apply( m_stats[ i ] );
 	}
-	void RemoveExpired( Effect _effect )
+	private void RemoveExpired( Effect _effect )
 	{
 		switch ( _effect.m_type )
 		{

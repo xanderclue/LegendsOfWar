@@ -2,11 +2,11 @@
 public class CasterQ : AbilityQBase
 {
 	[SerializeField]
-	GameObject m_Engulf = null;
+	private GameObject m_Engulf = null;
 	[SerializeField]
-	GameObject m_targetingSystem = null;
-	ParticleSystem m_targetingEffect = null;
-	RaycastHit m_targetHit;
+	private GameObject m_targetingSystem = null;
+	private ParticleSystem m_targetingEffect = null;
+	private RaycastHit m_targetHit;
 	protected override void Start()
 	{
 		base.Start();
@@ -17,7 +17,7 @@ public class CasterQ : AbilityQBase
 		m_targetingEffect.Clear();
 		cooldownTime = 0.8f;
 	}
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( aimingSkill )
 			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
@@ -33,7 +33,7 @@ public class CasterQ : AbilityQBase
 		if ( m_targetingEffect.isPlaying )
 			ResetSystem();
 	}
-	void ResetSystem()
+	private void ResetSystem()
 	{
 		if ( m_targetingEffect.isPlaying )
 			m_targetingEffect.Stop();

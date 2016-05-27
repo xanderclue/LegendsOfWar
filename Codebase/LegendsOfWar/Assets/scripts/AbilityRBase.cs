@@ -10,7 +10,7 @@ public abstract class AbilityRBase : AbilityBase
 		ToggleCursor( ( Input.GetKey( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKey(
 			KeyCode.Alpha4 ) || Input.GetKey( KeyCode.Keypad4 ) );
 	}
-	HeroMovement movement;
+	private HeroMovement movement;
 	protected override void Start()
 	{
 		base.Start();

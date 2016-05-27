@@ -2,11 +2,11 @@
 public class CasterE : AbilityEBase
 {
 	[SerializeField]
-	GameObject m_Burn = null;
+	private GameObject m_Burn = null;
 	[SerializeField]
-	GameObject m_targetingSystem = null;
-	ParticleSystem m_targetingEffect = null;
-	RaycastHit m_targetHit;
+	private GameObject m_targetingSystem = null;
+	private ParticleSystem m_targetingEffect = null;
+	private RaycastHit m_targetHit;
 	protected override void Start()
 	{
 		base.Start();
@@ -16,7 +16,7 @@ public class CasterE : AbilityEBase
 		m_targetingEffect.Stop();
 		m_targetingEffect.Clear();
 	}
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( aimingSkill )
 			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
@@ -32,7 +32,7 @@ public class CasterE : AbilityEBase
 		if ( m_targetingEffect.isPlaying )
 			ResetSystem();
 	}
-	void ResetSystem()
+	private void ResetSystem()
 	{
 		if ( m_targetingEffect.isPlaying )
 			m_targetingEffect.Stop();

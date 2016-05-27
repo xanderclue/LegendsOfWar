@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-enum TurnState { Still, Left, Right, Fix }
-enum Character
+public enum TurnState { Still, Left, Right, Fix }
+public enum Character
 { Default, Support, Hunter, Tanker, Character_5, Character_6, Character_7, Assassin, Total }
 public class TurnManager : MonoBehaviour
 {
-	static TurnManager inst;
+	private static TurnManager inst;
 	public static TurnManager Instance { get { return inst; } }
 	[SerializeField]
-	menuEvents menuEventsObj = null;
+	private menuEvents menuEventsObj = null;
 	[SerializeField]
 	private Transform CharacterSelectionSpace = null;
 	[SerializeField]
@@ -15,10 +15,10 @@ public class TurnManager : MonoBehaviour
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
 	[SerializeField]
-	Light[ ] spotlights = null;
-	int c;
-	const int m = ( int )Character.Total - 1;
-	Character next
+	private Light[ ] spotlights = null;
+	private int c;
+	private const int m = ( int )Character.Total - 1;
+	private Character next
 	{
 		get
 		{
@@ -29,7 +29,7 @@ public class TurnManager : MonoBehaviour
 			return ( Character )c;
 		}
 	}
-	Character prev
+	private Character prev
 	{
 		get
 		{
@@ -69,22 +69,22 @@ public class TurnManager : MonoBehaviour
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
 	}
-	void PlayVoice()
+	private void PlayVoice()
 	{
 		sub.SetSub( "", -0.0f );
 		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
 	}
-	bool spLight { set { spotlights[ ( int )current ].enabled = value; } }
-	void Awake()
+	private bool spLight { set { spotlights[ ( int )current ].enabled = value; } }
+	private void Awake()
 	{
 		inst = this;
 	}
-	void Start()
+	private void Start()
 	{
 		CharacterSelectionManager.Instance.Index = CurrentInt;
 		spLight = true;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.LeftArrow ) )
 			TurnLeft();
@@ -117,12 +117,12 @@ public class TurnManager : MonoBehaviour
 			if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
 				menuEventsObj.ChangeAppState( "STATE_HELP" );
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		inst = null;
 	}
-	static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
+	private static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f
+		), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
 		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
 			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
 				0.0f ) };

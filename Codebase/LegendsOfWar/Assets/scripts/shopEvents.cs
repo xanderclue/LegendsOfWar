@@ -2,11 +2,11 @@
 public class shopEvents : MonoBehaviour
 {
 	[SerializeField]
-	Team team = Team.BLUE_TEAM;
+	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
-	GameObject laneSelectPanel = null;
-	string selectedItem;
-	void Awake()
+	private GameObject laneSelectPanel = null;
+	private string selectedItem;
+	private void Awake()
 	{
 		ClosePanel();
 		ShopManager.Instance.UpdateValues = true;
@@ -80,15 +80,15 @@ public class shopEvents : MonoBehaviour
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.RLvl );
 	}
-	bool upgrade;
-	bool laneSelect;
-	float updateTimer, timer;
-	void Start()
+	private bool upgrade;
+	private bool laneSelect;
+	private float updateTimer, timer;
+	private void Start()
 	{
 		upgrade = false;
 		updateTimer = timer = 3.0f;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( upgrade )
 		{
@@ -103,7 +103,7 @@ public class shopEvents : MonoBehaviour
 		if ( laneSelect )
 			RecieveLaneInputs();
 	}
-	void RecieveLaneInputs()
+	private void RecieveLaneInputs()
 	{
 		if ( Input.GetKeyDown( KeyCode.UpArrow ) )
 			BuyMinion( 1 );

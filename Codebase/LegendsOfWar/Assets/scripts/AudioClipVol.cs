@@ -2,14 +2,14 @@
 public class AudioClipVol : MonoBehaviour
 {
 	public AudioSource aud;
-	float maxDist, dist;
+	private float maxDist, dist;
 	public bool isVoice = false;
-	void Start()
+	private void Start()
 	{
 		if ( !aud )
 			Destroy( this );
 	}
-	void Update()
+	private void Update()
 	{
 		maxDist = CameraControl.AudioDistance;
 		dist = ( AudioManager.ListenerPosition - transform.position ).magnitude;

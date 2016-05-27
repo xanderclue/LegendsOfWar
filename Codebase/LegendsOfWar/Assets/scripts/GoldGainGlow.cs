@@ -2,24 +2,24 @@
 using UnityEngine.UI;
 public class GoldGainGlow : MonoBehaviour
 {
-	Image image;
-	Color originalColor;
-	Color highlightedColor;
-	float activeTimer = 0.0f;
+	private Image image;
+	private Color originalColor;
+	private Color highlightedColor;
+	private float activeTimer = 0.0f;
 	[SerializeField]
-	float activeTime = 1.0f;
-	void Awake()
+	private float activeTime = 1.0f;
+	private void Awake()
 	{
 		image = GetComponent<Image>();
 	}
-	void Start()
+	private void Start()
 	{
 		EconomyManager.Instance.OnGainGold += GoldGained;
 		originalColor = image.color;
 		highlightedColor = originalColor;
 		highlightedColor.r = highlightedColor.b = 0.0f;
 	}
-	void Update()
+	private void Update()
 	{
 		activeTimer -= Time.deltaTime;
 		if ( activeTimer >= 0.0f )
@@ -27,7 +27,7 @@ public class GoldGainGlow : MonoBehaviour
 		else
 			image.color = originalColor;
 	}
-	void GoldGained()
+	private void GoldGained()
 	{
 		activeTimer = activeTime;
 	}

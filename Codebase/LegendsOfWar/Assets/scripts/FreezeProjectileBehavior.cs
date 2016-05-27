@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 public class FreezeProjectileBehavior : MonoBehaviour
 {
-	FreezeProjectileInfo info;
-	Team team;
+	private FreezeProjectileInfo info;
+	private Team team;
 	public Transform target = null;
-	bool fired = false;
-	void Awake()
+	private bool fired = false;
+	private void Awake()
 	{
 		info = TowerManager.Instance.freezeInfo;
 		victims = new List<Transform>();
 		slowTargets = new List<NavMeshAgent>();
 	}
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( fired && target && target.gameObject )
 		{
@@ -38,7 +38,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
 			GetComponentInChildren<ParticleSystem>().Stop();
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( target != null && !aoeActive && col.gameObject == target.gameObject )
 		{
@@ -47,13 +47,13 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	Detector AreaOfEffect = null;
-	List<Transform> victims;
-	List<NavMeshAgent> slowTargets;
-	float aoeTimer, heroSpeed = 105, minionSpeed = 15;
-	bool aoeActive, targetsAreSlowed, skip;
-	int repeat;
-	void CreateAOEZone()
+	private Detector AreaOfEffect = null;
+	private List<Transform> victims;
+	private List<NavMeshAgent> slowTargets;
+	private float aoeTimer, heroSpeed = 105, minionSpeed = 15;
+	private bool aoeActive, targetsAreSlowed, skip;
+	private int repeat;
+	private void CreateAOEZone()
 	{
 		aoeActive = targetsAreSlowed = true;
 		fired = skip = false;
@@ -66,7 +66,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );
 		GetComponentInChildren<ParticleSystem>().Play();
 	}
-	void SlowTargetsSpeed()
+	private void SlowTargetsSpeed()
 	{
 		for ( int i = 0; i < slowTargets.Count; ++i )
 			if ( slowTargets[ i ].tag == "Hero" )
@@ -74,7 +74,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			else
 				slowTargets[ i ].speed -= info.SlowAmount;
 	}
-	void ReturnTargetsSpeed()
+	private void ReturnTargetsSpeed()
 	{
 		slowTargets.RemoveAll( item => item == null );
 		for ( int i = 0; i < slowTargets.Count; ++i )
@@ -83,7 +83,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			else
 				slowTargets[ i ].speed = minionSpeed;
 	}
-	void PlayEffect()
+	private void PlayEffect()
 	{
 		victims.RemoveAll( item => item == null );
 		if ( repeat >= info.aoeTotalTicks )
@@ -105,12 +105,12 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		else
 			aoeTimer -= Time.deltaTime;
 	}
-	void DamageVictims()
+	private void DamageVictims()
 	{
 		foreach ( Transform victim in victims )
 			victim.gameObject.GetComponent<Info>().TakeDamage( info.aoeDamagePerTick );
 	}
-	void AddTarget( GameObject obj )
+	private void AddTarget( GameObject obj )
 	{
 		skip = true;
 		if ( obj )
@@ -129,11 +129,11 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			}
 		}
 	}
-	void RemoveTarget( GameObject obj )
+	private void RemoveTarget( GameObject obj )
 	{
 		victims.Remove( obj.transform );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( !aoeActive )
 		{
@@ -143,9 +143,9 @@ public class FreezeProjectileBehavior : MonoBehaviour
 				projectileTimer -= Time.deltaTime;
 		}
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 4.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}

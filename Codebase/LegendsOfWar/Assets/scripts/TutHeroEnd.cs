@@ -2,8 +2,8 @@
 public class TutHeroEnd : MonoBehaviour
 {
 	[SerializeField]
-	GameObject HeroOnly;
-	void OnTriggerEnter()
+	private GameObject HeroOnly;
+	private void OnTriggerEnter()
 	{
 		HeroOnly.SetActive( false );
 	}

@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
-enum Move_State
+public enum Move_State
 { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
 public enum Path
 { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }
 public class MinionMovement : MovementScript
 {
-	NavMeshAgent agent;
+	private NavMeshAgent agent;
 	public Transform goal;
-	bool followingNav = true;
-	LineRenderer line;
-	MinionInfo info;
-	Interactive interactive;
+	private bool followingNav = true;
+	private LineRenderer line;
+	private MinionInfo info;
+	private Interactive interactive;
 	[SerializeField]
-	Move_State m_state, m_prevState;
-	Path m_path;
-	void SetState( Move_State _state )
+	private Move_State m_state, m_prevState;
+	private Path m_path;
+	private void SetState( Move_State _state )
 	{
 		switch ( _state )
 		{
@@ -29,7 +29,7 @@ public class MinionMovement : MovementScript
 				break;
 		}
 	}
-	SkinnedMeshRenderer temp_smr;
+	private SkinnedMeshRenderer temp_smr;
 	protected override void Start()
 	{
 		base.Start();
@@ -42,7 +42,7 @@ public class MinionMovement : MovementScript
 		if ( temp_smr )
 			line.material = temp_smr.material;
 	}
-	void Start2()
+	private void Start2()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		m_state = m_prevState = Move_State.LANING_STATE;
@@ -57,7 +57,7 @@ public class MinionMovement : MovementScript
 		else
 			goal = GameManager.RedPortalTransform;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameRunning )
 			switch ( m_state )
@@ -165,7 +165,7 @@ public class MinionMovement : MovementScript
 		if ( agent.isPathStale )
 			agent.ResetPath();
 	}
-	bool CheckForInput()
+	private bool CheckForInput()
 	{
 		if ( HeroCamScript.onHero )
 			return false;

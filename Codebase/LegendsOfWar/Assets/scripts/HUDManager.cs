@@ -3,22 +3,22 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour
 {
 	[SerializeField]
-	Text characterName = null;
+	private Text characterName = null;
 	[SerializeField]
 	private GameObject start = null, NoStart = null, InGameInfo = null, LoreInfo = null, abilityInfo
 		= null, iconsPanel = null;
-	TurnManager turnManager;
-	void Start()
+	private TurnManager turnManager;
+	private void Start()
 	{
 		turnManager = GetComponent<TurnManager>();
 		aIcon = iconsPanel.GetComponent<AbilityIcon>();
 		hIcon = iconsPanel.GetComponent<HeroIcon>();
 	}
-	HeroInfo info;
-	HeroAbilities abilities;
-	AbilityIcon aIcon;
-	HeroIcon hIcon;
-	void Update()
+	private HeroInfo info;
+	private HeroAbilities abilities;
+	private AbilityIcon aIcon;
+	private HeroIcon hIcon;
+	private void Update()
 	{
 		if ( turnManager == null || GameObject.Find( "Characters" ) == null )
 			return;
@@ -56,9 +56,9 @@ public class HUDManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null, tDifficulty
-		= null;
-	void SetGameInfo()
+	private Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null,
+		tDifficulty = null;
+	private void SetGameInfo()
 	{
 		info = CharacterSelectionManager.heroInfo;
 		if ( Options.Japanese )

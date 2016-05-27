@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
+public enum MOVE_State { COMBAT_STATE, MOVE_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
 public class HeroMovement : MovementScript
 {
-	NavMeshAgent agent;
+	private NavMeshAgent agent;
 	[SerializeField]
-	bool m_AttMvKey = false;
-	enum MOVE_State { COMBAT_STATE, MOVE_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
+	private bool m_AttMvKey = false;
 	[SerializeField]
-	MOVE_State m_state, m_prevState;
-	HeroInfo info;
+	private MOVE_State m_state, m_prevState;
+	private HeroInfo info;
 	protected override void Start()
 	{
 		base.Start();
@@ -16,7 +16,7 @@ public class HeroMovement : MovementScript
 		info = GetComponent<HeroInfo>();
 		TPStart();
 	}
-	void SetState( MOVE_State _state )
+	private void SetState( MOVE_State _state )
 	{
 		switch ( _state )
 		{
@@ -31,7 +31,7 @@ public class HeroMovement : MovementScript
 				break;
 		}
 	}
-	void Update()
+	private void Update()
 	{
 		TPUpdate();
 		if ( HeroCamScript.onHero )
@@ -98,7 +98,7 @@ public class HeroMovement : MovementScript
 			}
 		}
 	}
-	bool CheckInput()
+	private bool CheckInput()
 	{
 		m_AttMvKey = Input.GetKey( KeyCode.A );
 		if ( Input.GetMouseButtonDown( 1 ) )
@@ -152,21 +152,21 @@ public class HeroMovement : MovementScript
 		}
 		return false;
 	}
-	float prevMousePos, currMousePos, currentRot;
-	bool shiftKeyPressed;
-	Vector3 rot;
+	private float prevMousePos, currMousePos, currentRot;
+	private bool shiftKeyPressed;
+	private Vector3 rot;
 	public bool SprintingAbility { private get; set; }
-	void TPStart()
+	private void TPStart()
 	{
 		prevMousePos = currMousePos = Input.mousePosition.x;
 		currentRot = transform.rotation.eulerAngles.y;
 		SprintingAbility = false;
 		agent.angularSpeed = 0.0f;
 	}
-	Vector3 newVel;
-	float tValue = 0.0f;
-	bool moving = false;
-	void TPUpdate()
+	private Vector3 newVel;
+	private float tValue = 0.0f;
+	private bool moving = false;
+	private void TPUpdate()
 	{
 		shiftKeyPressed = Input.GetKey( KeyCode.LeftShift ) || Input.GetKey( KeyCode.RightShift );
 		agent.speed = ( ( SprintingAbility ) ? ( shiftKeyPressed ? 25000.0f : 21500.0f ) : (
@@ -239,7 +239,7 @@ public class HeroMovement : MovementScript
 		rot.y = currentRot;
 		transform.rotation = Quaternion.Euler( rot );
 	}
-	NavMeshHit nmhit;
+	private NavMeshHit nmhit;
 	public void ResetToSpawn()
 	{
 		NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, NavMesh.AllAreas

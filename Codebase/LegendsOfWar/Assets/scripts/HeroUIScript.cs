@@ -2,19 +2,19 @@
 public class HeroUIScript : MonoBehaviour
 {
 	[SerializeField]
-	GameObject damageNumberPrefab = null;
+	private GameObject damageNumberPrefab = null;
 	[SerializeField]
-	float damageNumberHeight = 10.0f, damageNumberDuration = 1.0f;
+	private float damageNumberHeight = 10.0f, damageNumberDuration = 1.0f;
 	public static float heroDamageNotifTimer = 0.0f;
 	[SerializeField]
-	float AttackedNotificationDuration = 5.0f;
-	static HeroUIScript inst;
+	private float AttackedNotificationDuration = 5.0f;
+	private static HeroUIScript inst;
 	public static HeroUIScript Instance { get { return inst; } }
-	void Awake()
+	private void Awake()
 	{
 		inst = this;
 	}
-	void Start()
+	private void Start()
 	{
 		heroDamageNotifTimer = 0.0f;
 	}
@@ -28,7 +28,7 @@ public class HeroUIScript : MonoBehaviour
 		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount,
 			transf, inst.damageNumberHeight, inst.damageNumberDuration, Color.blue );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( HeroCamScript.onHero || !HeroCamScript.heroAlive )
 			heroDamageNotifTimer = -0.0f;
@@ -48,5 +48,5 @@ public class HeroUIScript : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	AudioSource heroWarning = null;
+	private AudioSource heroWarning = null;
 }

@@ -42,21 +42,21 @@ public class Options : MonoBehaviour
 			onChangedLanguage();
 	}
 	[SerializeField]
-	Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
+	private Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
 	[SerializeField]
-	GameObject menuCam = null;
-	void Awake()
+	private GameObject menuCam = null;
+	private void Awake()
 	{
 		if ( IsAdditive )
 			menuCam.SetActive( false );
 	}
-	void Start()
+	private void Start()
 	{
 		bgmSlider.normalizedValue = bgmVolume;
 		sfxSlider.normalizedValue = sfxVolume;
 		voiceSlider.normalizedValue = voiceVolume;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 			ApplicationManager.ReturnToPreviousState();
@@ -66,7 +66,7 @@ public class Options : MonoBehaviour
 		AudioManager.PlaySoundEffect( AudioManager.sfxTowerAttacked );
 	}
 	[SerializeField]
-	AudioClip voice = null;
+	private AudioClip voice = null;
 	public void PlayVoiceSound()
 	{
 		AudioManager.PlayClipRaw( voice, null, true );

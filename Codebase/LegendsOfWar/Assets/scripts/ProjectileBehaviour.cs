@@ -5,7 +5,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	public Transform target = null;
 	public float damage;
 	private bool isFired = false;
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		if ( isFired )
 		{
@@ -22,7 +22,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	{
 		isFired = true;
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject == target.gameObject )
 		{
@@ -30,16 +30,16 @@ public class ProjectileBehaviour : MonoBehaviour
 			Destroy( gameObject );
 		}
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( isFired )
 			projectileTimer -= Time.deltaTime;
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 3.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}

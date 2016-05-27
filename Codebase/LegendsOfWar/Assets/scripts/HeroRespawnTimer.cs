@@ -2,16 +2,16 @@
 using UnityEngine.UI;
 public class HeroRespawnTimer : MonoBehaviour
 {
-	HeroInfo info;
+	private HeroInfo info;
 	[SerializeField]
-	Text text = null;
-	void Start()
+	private Text text = null;
+	private void Start()
 	{
 		info = GameManager.Instance.Player.GetComponent<HeroInfo>();
 		info.Destroyed += ShowTimer;
 		gameObject.SetActive( false );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( info.RespawnTimer <= 0.0f )
 			gameObject.SetActive( false );
@@ -19,7 +19,7 @@ public class HeroRespawnTimer : MonoBehaviour
 			text.text = ( Options.Japanese ? "生変：" : "Respawn: " ) + info.RespawnTimer.ToString(
 				"F2" );
 	}
-	void ShowTimer()
+	private void ShowTimer()
 	{
 		text.text = info.RespawnTimer.ToString( "F2" );
 		gameObject.SetActive( true );

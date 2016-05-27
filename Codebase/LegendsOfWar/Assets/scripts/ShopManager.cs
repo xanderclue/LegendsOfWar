@@ -13,14 +13,14 @@ public class ShopManager : MonoBehaviour
 	public float strikerHpUpgrade = 10, strikerDamageUpgrade = 5, strikerAttackspeedUpgrade = 10,
 		tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5,
 		casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
-	int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	private int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	public int[ ] Purchases { get { return purchases; } }
-	int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
+	private int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
 	public int[ ] minionUGPrices { get { return MinionUGPrices; } }
-	int[ ] AbilityUGPrices = new int[ 3 ] { 0, 0, 0 };
+	private int[ ] AbilityUGPrices = new int[ 3 ] { 0, 0, 0 };
 	[HideInInspector]
 	public bool UpdateValues = false;
-	void Start()
+	private void Start()
 	{
 		MinionUGPrices[ 0 ] = MinionUG1Cost;
 		MinionUGPrices[ 1 ] = MinionUG2Cost;
@@ -134,7 +134,7 @@ public class ShopManager : MonoBehaviour
 		}
 		UpdateValues = true;
 	}
-	static ShopManager instance = null;
+	private static ShopManager instance = null;
 	public static ShopManager Instance
 	{
 		get
@@ -148,11 +148,11 @@ public class ShopManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		instance = this;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		instance = null;
 	}

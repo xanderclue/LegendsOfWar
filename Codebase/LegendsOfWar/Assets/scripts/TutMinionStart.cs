@@ -2,8 +2,8 @@
 public class TutMinionStart : MonoBehaviour
 {
 	[SerializeField]
-	GameObject MininionStart = null;
-	void OnTriggerEnter()
+	private GameObject MininionStart = null;
+	private void OnTriggerEnter()
 	{
 		MininionStart.SetActive( true );
 		this.gameObject.SetActive( false );

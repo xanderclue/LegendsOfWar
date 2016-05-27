@@ -2,14 +2,14 @@
 public class AssassinAbilityW : AbilityWBase
 {
 	[SerializeField]
-	GameObject Target = null;
+	private GameObject Target = null;
 	[SerializeField]
-	int Damage = 0, Speed = 0;
+	private int Damage = 0, Speed = 0;
 	[SerializeField]
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
-	static int MarkNum = 0;
+	private static int MarkNum = 0;
 	public GameObject[ ] Marked;
 	protected override void AbilityActivate()
 	{

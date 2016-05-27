@@ -3,15 +3,15 @@ using System.Collections.Generic;
 public class NormalTowerBehavior : MonoBehaviour
 {
 	[SerializeField]
-	Team team = Team.BLUE_TEAM;
+	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
-	Transform projectileSpawnPoint = null;
+	private Transform projectileSpawnPoint = null;
 	[SerializeField]
-	Detector detector = null;
-	List<Transform> targets;
-	NormalProjectileInfo info;
-	float fireTimer;
-	void Awake()
+	private Detector detector = null;
+	private List<Transform> targets;
+	private NormalProjectileInfo info;
+	private float fireTimer;
+	private void Awake()
 	{
 		targets = new List<Transform>();
 		info = TowerManager.Instance.normalInfo;
@@ -19,7 +19,7 @@ public class NormalTowerBehavior : MonoBehaviour
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
 	}
-	void AddTarget( GameObject obj )
+	private void AddTarget( GameObject obj )
 	{
 		if ( obj )
 		{
@@ -28,11 +28,11 @@ public class NormalTowerBehavior : MonoBehaviour
 				targets.Add( obj.transform );
 		}
 	}
-	void RemoveTarget( GameObject obj )
+	private void RemoveTarget( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-	void Update()
+	private void Update()
 	{
 		targets.RemoveAll( item => item == null );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.NormalShot ) )
@@ -55,7 +55,7 @@ public class NormalTowerBehavior : MonoBehaviour
 				fireTimer -= Time.deltaTime;
 		}
 	}
-	void FireAtTarget()
+	private void FireAtTarget()
 	{
 		if ( GameManager.GameEnded )
 			return;

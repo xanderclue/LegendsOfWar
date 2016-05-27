@@ -3,9 +3,9 @@ public class CharacterSelectionManager : MonoBehaviour
 {
 	public GameObject[ ] Legends;
 	public int Index;
-	static CharacterSelectionManager inst;
+	private static CharacterSelectionManager inst;
 	public static CharacterSelectionManager Instance { get { return inst; } }
-	bool[ ] available;
+	private bool[ ] available;
 	public bool[ ] Available { get { return available; } }
 	public delegate void ChangedCharacterEvent();
 	public static event ChangedCharacterEvent OnChangedCharacter;
@@ -14,14 +14,14 @@ public class CharacterSelectionManager : MonoBehaviour
 		if ( OnChangedCharacter != null )
 			OnChangedCharacter();
 	}
-	void Awake()
+	private void Awake()
 	{
 		if ( inst && inst.gameObject.activeInHierarchy )
 			Destroy( inst.gameObject );
 		inst = this;
 		DontDestroyOnLoad( transform.gameObject );
 	}
-	void Start()
+	private void Start()
 	{
 		available = new bool[ Legends.Length ];
 		for ( int i = 0; i < Legends.Length; ++i )

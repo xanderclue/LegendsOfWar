@@ -1,79 +1,79 @@
 ﻿using UnityEngine;
 using System.Collections;
+public enum STATES { STATE_INTRO, STATE_HERO, STATE_MINION, STATE_MAIN, STATE_END, STATE_TOTAL }
 public class IntroManager : MonoBehaviour
 {
-	static IntroManager inst = null;
+	private static IntroManager inst = null;
 	public static IntroManager instance { get { return inst; } }
-	bool PlayedIntro = false;
-	bool HeroInstanciate = false;
-	enum STATES { STATE_INTRO, STATE_HERO, STATE_MINION, STATE_MAIN, STATE_END, STATE_TOTAL }
-	STATES currentState = STATES.STATE_INTRO;
+	private bool PlayedIntro = false;
+	private bool HeroInstanciate = false;
+	private STATES currentState = STATES.STATE_INTRO;
 	public void NextState()
 	{
 		currentState += 1;
 	}
 	[SerializeField]
-	GameObject IntroSequence = null;
+	private GameObject IntroSequence = null;
 	[SerializeField]
-	GameObject MainGame = null;
+	private GameObject MainGame = null;
 	[SerializeField]
-	GameObject GameHUD = null;
+	private GameObject GameHUD = null;
 	[SerializeField]
-	GameObject RedTankMinion = null;
+	private GameObject RedTankMinion = null;
 	[SerializeField]
-	GameObject RedStrikerMinion = null;
+	private GameObject RedStrikerMinion = null;
 	[SerializeField]
-	GameObject RedCasterMinion = null;
+	private GameObject RedCasterMinion = null;
 	[SerializeField]
-	GameObject BlueTankMinion = null;
+	private GameObject BlueTankMinion = null;
 	[SerializeField]
-	GameObject BlueStrikerMinion = null;
+	private GameObject BlueStrikerMinion = null;
 	[SerializeField]
-	GameObject BlueCasterMinion = null;
+	private GameObject BlueCasterMinion = null;
 	[SerializeField]
-	GameObject HeroTutorial = null;
+	private GameObject HeroTutorial = null;
 	[SerializeField]
-	GameObject HeroHUD = null;
+	private GameObject HeroHUD = null;
 	[SerializeField]
-	GameObject[ ] RedSpawns;
+	private GameObject[ ] RedSpawns;
 	[SerializeField]
-	GameObject[ ] HeroInstructions = null;
+	private GameObject[ ] HeroInstructions = null;
 	[SerializeField]
-	GameObject MechanicsList = null;
+	private GameObject MechanicsList = null;
 	[SerializeField]
-	GameObject[ ] Mechanics = null;
+	private GameObject[ ] Mechanics = null;
 	[SerializeField]
-	GameObject RedSpawn = null;
+	private GameObject RedSpawn = null;
 	[SerializeField]
-	GameObject End = null;
+	private GameObject End = null;
 	[SerializeField]
-	GameObject Ending = null;
-	bool SpawnMinionTutRed = false;
+	private GameObject Ending = null;
+	private bool SpawnMinionTutRed = false;
 	public void ToggleSpawnMinionRed()
 	{
 		SpawnMinionTutRed = !SpawnMinionTutRed;
 	}
-	bool SpawnMinionTutBlue = false;
+	private bool SpawnMinionTutBlue = false;
 	public void ToggleSpawnMinionBlue()
 	{
 		SpawnMinionTutBlue = !SpawnMinionTutBlue;
 	}
-	bool firstswitch = false;
+	private bool firstswitch = false;
 	[SerializeField]
-	GameObject[ ] MinionRedSpawns = null;
+	private GameObject[ ] MinionRedSpawns = null;
 	[SerializeField]
-	GameObject[ ] MinionBlueSpawns = null;
+	private GameObject[ ] MinionBlueSpawns = null;
 	[SerializeField]
-	GameObject MoveMainCam = null;
+	private GameObject MoveMainCam = null;
 	[SerializeField]
-	GameObject RedTower = null;
+	private GameObject RedTower = null;
 	[SerializeField]
-	GameObject MinionEnd = null;
+	private GameObject MinionEnd = null;
 	[SerializeField]
-	GameObject Death = null;
+	private GameObject Death = null;
 	[SerializeField]
-	GameObject Player = null;
-	bool Welcome, Camera, Movement;
+	private GameObject Player = null;
+	private bool Welcome, Camera, Movement;
 	public void ToggleWelcome()
 	{
 		Welcome = !Welcome;
@@ -86,7 +86,7 @@ public class IntroManager : MonoBehaviour
 	{
 		Movement = !Movement;
 	}
-	void Start()
+	private void Start()
 	{
 		PlayedIntro = false;
 		HeroInstanciate = false;
@@ -94,7 +94,7 @@ public class IntroManager : MonoBehaviour
 		Welcome = Camera = Movement = false;
 		StartCoroutine( LateStart( 0.001f ) );
 	}
-	IEnumerator LateStart( float waitTime )
+	private IEnumerator LateStart( float waitTime )
 	{
 		yield return new WaitForSeconds( waitTime );
 		MainGame.SetActive( false );
@@ -107,7 +107,7 @@ public class IntroManager : MonoBehaviour
 		for ( int i = 0; i < Mechanics.Length - 1; ++i )
 			Mechanics[ i ].SetActive( false );
 	}
-	void Update()
+	private void Update()
 	{
 		Player = GameManager.Instance.Player;
 		switch ( currentState )

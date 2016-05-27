@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
-	static Transform listenerTransform = null;
-	static AudioSource BgmSource;
-	static AudioSource SfxSource = null;
+	private static Transform listenerTransform = null;
+	private static AudioSource BgmSource;
+	private static AudioSource SfxSource = null;
 	[SerializeField]
-	AudioSource clickSoundSource = null;
+	private AudioSource clickSoundSource = null;
 	public static Vector3 ListenerPosition
 	{
 		get
@@ -24,9 +24,9 @@ public class AudioManager : MonoBehaviour
 		sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
 		sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,
 		sfxHeroDeath, sfxClickSound;
-	static AudioManager instance = null;
+	private static AudioManager instance = null;
 	public static AudioManager Instance { get { return instance; } }
-	void Awake()
+	private void Awake()
 	{
 		if ( instance )
 			Destroy( gameObject );
@@ -56,14 +56,14 @@ public class AudioManager : MonoBehaviour
 		sfxHeroDeath = HeroDeath;
 		sfxClickSound = ClickSound;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		if ( this == instance )
 			instance = null;
 		Options.onChangedBgmVolume -= OnChangedBgmVol;
 		Options.onChangedSfxVolume -= OnChangedSfxVol;
 	}
-	void Start()
+	private void Start()
 	{
 		clickSoundSource.clip = ClickSound;
 		Options.onChangedBgmVolume += OnChangedBgmVol;
@@ -77,7 +77,7 @@ public class AudioManager : MonoBehaviour
 		OnChangedBgmVol();
 		OnChangedSfxVol();
 	}
-	void FindListener()
+	private void FindListener()
 	{
 		if ( null == listenerTransform )
 		{
@@ -101,7 +101,7 @@ public class AudioManager : MonoBehaviour
 		}
 		BgmSource.transform.position = ListenerPosition;
 	}
-	void Update()
+	private void Update()
 	{
 		FindListener();
 		BGM_Switch();
@@ -181,17 +181,17 @@ public class AudioManager : MonoBehaviour
 			Destroy( temp, clip.length );
 		}
 	}
-	void OnChangedBgmVol()
+	private void OnChangedBgmVol()
 	{
 		if ( BgmSource )
 			BgmSource.volume = Options.bgmVolume;
 	}
-	void OnChangedSfxVol()
+	private void OnChangedSfxVol()
 	{
 		if ( SfxSource )
 			clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
 	}
-	static AudioSource singleAud = null;
+	private static AudioSource singleAud = null;
 	public static void KillSingle()
 	{
 		if ( singleAud )

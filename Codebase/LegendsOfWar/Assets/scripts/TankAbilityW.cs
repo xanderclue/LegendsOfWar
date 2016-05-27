@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 public class TankAbilityW : AbilityWBase
 {
-	GameObject AbilityWParticle;
+	private GameObject AbilityWParticle;
 	public bool skillON = false;
 	public float Wdamage;
-	HeroMovement movement;
+	private HeroMovement movement;
 	public CollisionDetector coll;
 	protected override void Start()
 	{
@@ -32,7 +32,7 @@ public class TankAbilityW : AbilityWBase
 		AbilityWParticle.GetComponent<ParticleSystem>().Stop();
 		AbilityWParticle.GetComponent<ParticleSystem>().Clear();
 	}
-	void CCharge( Info entity )
+	private void CCharge( Info entity )
 	{
 		if ( entity )
 			if ( entity is MinionInfo )

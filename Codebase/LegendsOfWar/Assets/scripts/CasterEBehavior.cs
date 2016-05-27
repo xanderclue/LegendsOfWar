@@ -2,7 +2,7 @@
 public class CasterEBehavior : MonoBehaviour
 {
 	public bool Activate = false;
-	void Update()
+	private void Update()
 	{
 		if ( Activate )
 			if ( GetComponent<ParticleSystem>().isStopped )

@@ -3,14 +3,14 @@ using UnityEngine.UI;
 public class DamageNumber : MonoBehaviour
 {
 	[SerializeField]
-	Text textObject = null;
-	Vector3 low, high;
-	float maxDurationInv = 0.0f;
-	float tValue = 0.0f;
-	bool ready = false;
-	Transform orig;
-	bool followingTransform = false;
-	float heightF = 0.0f;
+	private Text textObject = null;
+	private Vector3 low, high;
+	private float maxDurationInv = 0.0f;
+	private float tValue = 0.0f;
+	private bool ready = false;
+	private Transform orig;
+	private bool followingTransform = false;
+	private float heightF = 0.0f;
 	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color
 		textColor )
 	{
@@ -31,13 +31,13 @@ public class DamageNumber : MonoBehaviour
 		orig = startTransform;
 		followingTransform = true;
 	}
-	void Start()
+	private void Start()
 	{
 		transform.LookAt( 2.0f * transform.position - HeroUIScript.Instance.transform.position );
 		if ( !ready )
 			textObject.text = "";
 	}
-	void Update()
+	private void Update()
 	{
 		if ( ready )
 		{

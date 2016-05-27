@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+public enum HeroLocation { TOP_Lane, MID_Lane, BOT_Lane, Close, TOO_Close, Unknown }
+public enum DangerLevel { MINIMAL, LOW, MEDIUM, MODERATE, HIGH, CRITICAL, EXTREME }
 public class EnemyAIManager : MonoBehaviour
 {
-	public enum HeroLocation { TOP_Lane, MID_Lane, BOT_Lane, Close, TOO_Close, Unknown }
 	[Header( "Needed stuff" )]
 	public PortalInfo redPortal = null;
 	public PortalInfo bluePortal = null;
@@ -51,24 +52,24 @@ public class EnemyAIManager : MonoBehaviour
 	public GameObject redStriker = null;
 	public GameObject redTank = null;
 	public GameObject redCaster = null;
-	float reinforcementsTime = 40;
-	float siegeTime = 60.0f;
-	float lastResortTime = 20.0f;
-	bool LastResortActive = false;
-	float towerCost = 9f;
-	float healthCost = 50f;
-	float timeCost = 40.0f;
-	float selfRecoveryBase = 20.0f;
-	float selfRecoveryGrowth = 8.0f;
-	float maxTime = 900.0f;
-	GameObject min_go;
-	NavMeshAgent nma;
-	static readonly Quaternion faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ),
-		faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f,
-			0.0f, 0.0f );
-	List<Transform> targets = new List<Transform>();
-	GameObject Hero = null;
-	float CalcSelfRecovery
+	private float reinforcementsTime = 40;
+	private float siegeTime = 60.0f;
+	private float lastResortTime = 20.0f;
+	private bool LastResortActive = false;
+	private float towerCost = 9f;
+	private float healthCost = 50f;
+	private float timeCost = 40.0f;
+	private float selfRecoveryBase = 20.0f;
+	private float selfRecoveryGrowth = 8.0f;
+	private float maxTime = 900.0f;
+	private GameObject min_go;
+	private NavMeshAgent nma;
+	private static readonly Quaternion faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f,
+		0.707106781f ), faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion
+		( 0.0f, 1.0f, 0.0f, 0.0f );
+	private List<Transform> targets = new List<Transform>();
+	private GameObject Hero = null;
+	private float CalcSelfRecovery
 	{
 		get
 		{
@@ -77,7 +78,7 @@ public class EnemyAIManager : MonoBehaviour
 				Instance.Timer ) ) );
 		}
 	}
-	void Start()
+	private void Start()
 	{
 		remainingHealth = redPortal.HP;
 		Hero = GameManager.Instance.Player;
@@ -85,11 +86,11 @@ public class EnemyAIManager : MonoBehaviour
 		attackRange.triggerExit += AttackRange_triggerExit;
 		attackRange.CreateTrigger( 210.0f );
 	}
-	void AttackRange_triggerExit( GameObject obj )
+	private void AttackRange_triggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-	void AttackRange_triggerEnter( GameObject obj )
+	private void AttackRange_triggerEnter( GameObject obj )
 	{
 		if ( redPortal.Alive )
 			if ( obj && obj.CompareTag( "Minion" ) )
@@ -100,7 +101,7 @@ public class EnemyAIManager : MonoBehaviour
 	{
 		--towersRemaining;
 	}
-	void Update()
+	private void Update()
 	{
 #if DEBUG
 		m_spawnSiegeMinion = spawnSiegeMinion;
@@ -286,8 +287,7 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			redPortal.DmgDamp = 10.0f * towersRemaining;
 	}
-	enum DangerLevel { MINIMAL, LOW, MEDIUM, MODERATE, HIGH, CRITICAL, EXTREME }
-	DangerLevel GetTriggered( float _num )
+	private DangerLevel GetTriggered( float _num )
 	{
 		if ( dangerTreshold >= 90.0f )
 			return DangerLevel.EXTREME;
@@ -306,10 +306,10 @@ public class EnemyAIManager : MonoBehaviour
 	}
 #if DEBUG
 	public float temp;
-	float second = 1.0f;
+	private float second = 1.0f;
 	public float temp2 = 0.0f;
 #endif
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 #if DEBUG
 		second -= Time.fixedDeltaTime;
@@ -349,13 +349,13 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			lazer.autofire = false;
 	}
-	void Nil()
+	private void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
 			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
 				targets.RemoveAt( i-- );
 	}
-	void SetupMinion( Object _minion, Path lane, Team team )
+	private void SetupMinion( Object _minion, Path lane, Team team )
 	{
 		min_go = _minion as GameObject;
 		min_go.GetComponent<MinionMovement>().ChangeLane( lane );

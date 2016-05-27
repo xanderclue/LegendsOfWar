@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 public class ArrowShowSelection : MonoBehaviour
 {
-	Vector3 newVector;
+	private Vector3 newVector;
 	[SerializeField]
-	GameObject top = null, center = null, bot = null;
-	void Start()
+	private GameObject top = null, center = null, bot = null;
+	private void Start()
 	{
 		top.SetActive( false );
 		center.SetActive( false );
 		bot.SetActive( false );
 	}
-	Vector3 test = Vector3.zero;
-	void Update()
+	private Vector3 test = Vector3.zero;
+	private void Update()
 	{
 		test.Set( Input.mousePosition.x, Input.mousePosition.y, 10.0f );
 		newVector = CameraControl.Current.ScreenToWorldPoint( test );

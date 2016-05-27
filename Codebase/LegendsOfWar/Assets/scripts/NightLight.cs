@@ -2,22 +2,22 @@
 public class NightLight : MonoBehaviour
 {
 	[SerializeField]
-	Light nightLight = null;
-	void Start()
+	private Light nightLight = null;
+	private void Start()
 	{
 		DayNight.OnDay += OnDay;
 		DayNight.OnNight += OnNight;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		DayNight.OnDay -= OnDay;
 		DayNight.OnNight -= OnNight;
 	}
-	void OnDay()
+	private void OnDay()
 	{
 		nightLight.enabled = false;
 	}
-	void OnNight()
+	private void OnNight()
 	{
 		nightLight.enabled = true;
 	}

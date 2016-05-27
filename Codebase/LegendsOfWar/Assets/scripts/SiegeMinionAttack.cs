@@ -3,12 +3,12 @@ using System.Collections.Generic;
 public class SiegeMinionAttack : AttackScript
 {
 	[SerializeField]
-	List<Transform> targets;
-	SiegeMinionInfo sMinioninfo;
-	MinionMovement movement;
-	BcWeapon weaponDetails;
-	ProximityCompare poo = new ProximityCompare();
-	void Start()
+	private List<Transform> targets;
+	private SiegeMinionInfo sMinioninfo;
+	private MinionMovement movement;
+	private BcWeapon weaponDetails;
+	private ProximityCompare poo = new ProximityCompare();
+	private void Start()
 	{
 		sMinioninfo = GetComponent<SiegeMinionInfo>();
 		attackTrigger.CreateTrigger( sMinioninfo.AgroRange );
@@ -38,7 +38,7 @@ public class SiegeMinionAttack : AttackScript
 		}
 		weaponDetails.currentAmmo = 0.0f;
 	}
-	void AttackTriggerEnter( GameObject obj )
+	private void AttackTriggerEnter( GameObject obj )
 	{
 		if ( this.isActiveAndEnabled )
 			if ( obj && obj.activeInHierarchy )
@@ -49,7 +49,7 @@ public class SiegeMinionAttack : AttackScript
 						targets.Add( obj.transform );
 			}
 	}
-	void Update()
+	private void Update()
 	{
 		if ( EnemyAIManager.huntHero )
 		{
@@ -78,7 +78,7 @@ public class SiegeMinionAttack : AttackScript
 		else if ( !movement.InCombat )
 			movement.SetTarget( targets[ 0 ], sMinioninfo.Range );
 	}
-	void AttackTriggerExit( GameObject obj )
+	private void AttackTriggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 		if ( targets.Count > 2 )
@@ -87,7 +87,7 @@ public class SiegeMinionAttack : AttackScript
 			targets.Reverse( 1, targets.Count - 1 );
 		}
 	}
-	void Nil()
+	private void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
 			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 public class HeroAttack : AttackScript
 {
 	private HeroInfo info;
-	List<Transform> targets;
-	ProximityCompare comparer = new ProximityCompare();
-	float attackDelay;
-	float attackTimer = 0.0f;
-	void Start()
+	private List<Transform> targets;
+	private ProximityCompare comparer = new ProximityCompare();
+	private float attackDelay;
+	private float attackTimer = 0.0f;
+	private void Start()
 	{
 		info = GetComponent<HeroInfo>();
 		attackTrigger.CreateTrigger( info.Range );
@@ -17,7 +17,7 @@ public class HeroAttack : AttackScript
 		attackDelay = 1.0f / info.AttackSpeed;
 		info.Destroyed += targets.Clear;
 	}
-	void AttackTriggerEnter( GameObject obj )
+	private void AttackTriggerEnter( GameObject obj )
 	{
 		if ( this.isActiveAndEnabled )
 			if ( obj && obj.activeInHierarchy )
@@ -28,8 +28,8 @@ public class HeroAttack : AttackScript
 						targets.Add( obj.transform );
 			}
 	}
-	float AsoundTimer = 1.0f;
-	void Update()
+	private float AsoundTimer = 1.0f;
+	private void Update()
 	{
 		if ( GameManager.GameEnded )
 			return;
@@ -46,11 +46,11 @@ public class HeroAttack : AttackScript
 			}
 		}
 	}
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		attackTimer -= Time.fixedDeltaTime;
 	}
-	void AttackTriggerExit( GameObject obj )
+	private void AttackTriggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 		if ( targets.Count > 2 )
@@ -59,7 +59,7 @@ public class HeroAttack : AttackScript
 			targets.Reverse( 1, targets.Count - 1 );
 		}
 	}
-	void Nil()
+	private void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
 			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )

@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
-
 public class AbilityOnHover : MonoBehaviour
 {
-	bool isHovering = false;
-	HeroAbilities abilities;
-	GameObject legend;
-	AbilityBase ability;
+	private bool isHovering = false;
+	private HeroAbilities abilities;
+	private GameObject legend;
+	private AbilityBase ability;
 	[SerializeField]
-	char abilityChoice = '\0';
-	string textEn, textJp;
-	void Start()
+	private char abilityChoice = '\0';
+	private string textEn, textJp;
+	private void Start()
 	{
 		CharacterSelectionManager.OnChangedCharacter += changedCharacter;
 		changedCharacter();
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		CharacterSelectionManager.OnChangedCharacter -= changedCharacter;
 	}
-	void changedCharacter()
+	private void changedCharacter()
 	{
 		legend = CharacterSelectionManager.LegendChoice;
 		if ( legend )
@@ -34,12 +33,12 @@ public class AbilityOnHover : MonoBehaviour
 		}
 		textEn = textJp = "";
 	}
-	void Update()
+	private void Update()
 	{
 		if ( !ability )
 			changedCharacter();
 	}
-	AbilityBase GetAbility()
+	private AbilityBase GetAbility()
 	{
 		if ( abilities )
 			switch ( abilityChoice )
@@ -73,12 +72,12 @@ public class AbilityOnHover : MonoBehaviour
 	{
 		isHovering = false;
 	}
-	void OnGUI()
+	private void OnGUI()
 	{
 		if ( isHovering )
 			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
-	void GenerateBox( string words )
+	private void GenerateBox( string words )
 	{
 		if ( words.Length <= 0 )
 			return;

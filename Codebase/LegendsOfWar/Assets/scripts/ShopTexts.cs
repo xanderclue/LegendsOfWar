@@ -3,19 +3,19 @@ using UnityEngine.UI;
 public class ShopTexts : MonoBehaviour
 {
 	[SerializeField]
-	Text heroName = null, abilityQName = null, abilityWName = null, abilityEName = null,
+	private Text heroName = null, abilityQName = null, abilityWName = null, abilityEName = null,
 		abilityRName = null, abilityQCost = null, abilityWCost = null, abilityECost = null,
 		abilityRCost = null;
-	void Start()
+	private void Start()
 	{
 		Options.onChangedLanguage += SetTexts;
 		SetTexts();
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		Options.onChangedLanguage -= SetTexts;
 	}
-	void SetTexts()
+	private void SetTexts()
 	{
 		GameObject player = GameManager.Instance.Player;
 		if ( !player )
@@ -63,7 +63,7 @@ public class ShopTexts : MonoBehaviour
 			abilityRName.text = abilities.abilityR.abilityNameEn;
 		}
 	}
-	static string getVertical( string inputText )
+	private static string getVertical( string inputText )
 	{
 		string outputText = "";
 		for ( int i = 0; i < inputText.Length; ++i )

@@ -33,19 +33,19 @@ public class BcWeapon : MonoBehaviour
 	public AudioClip reloadingSound;
 	public AudioClip reloadedSound;
 	public AudioClip emptyClickSound;
-	float bulletMass = 1f;
-	bool isReloading;
-	float shootTimer;
-	float reloadTimer;
-	float lastTriggerValue;
-	bool triggerPushed;
-	void Start()
+	private float bulletMass = 1f;
+	private bool isReloading;
+	private float shootTimer;
+	private float reloadTimer;
+	private float lastTriggerValue;
+	private bool triggerPushed;
+	private void Start()
 	{
 		isReloading = false;
 		currentAmmo = clipSize;
 		shootTimer = 0.0f;
 	}
-	void Update()
+	private void Update()
 	{
 		triggerPushed = Input.GetAxis( triggerAxis ) > lastTriggerValue;
 		lastTriggerValue = Input.GetAxis( triggerAxis );
@@ -124,11 +124,11 @@ public class BcWeapon : MonoBehaviour
 		else
 			return result;
 	}
-	void OnDrawGizmosSelected()
+	private void OnDrawGizmosSelected()
 	{
 		DrawGizmos();
 	}
-	void DrawGizmos()
+	private void DrawGizmos()
 	{
 		if ( this.enabled )
 		{
@@ -282,7 +282,8 @@ public class BcWeapon : MonoBehaviour
 			return -1;
 		return 0;
 	}
-	Vector3 DrawTrajectory( Vector3 pos, Vector3 vel, float time, Color color, bool draw = true )
+	private Vector3 DrawTrajectory( Vector3 pos, Vector3 vel, float time, Color color, bool draw =
+		true )
 	{
 		Gizmos.color = color;
 		Vector3 nextPos;
@@ -302,7 +303,7 @@ public class BcWeapon : MonoBehaviour
 	{
 		return DrawTrajectory( transform.position, initialSpeed, time, color, false );
 	}
-	Vector3[ ] DrawShot( Vector3 initialSpeed, float time, Color color, bool draw = true )
+	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time, Color color, bool draw = true )
 	{
 		Vector3[ ] res = new Vector3[ 4 ];
 		res[ 0 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
@@ -316,7 +317,7 @@ public class BcWeapon : MonoBehaviour
 		Gizmos.color = Color.white;
 		return res;
 	}
-	void ExceptionLine( Vector3 source, Vector3 destination )
+	private void ExceptionLine( Vector3 source, Vector3 destination )
 	{
 		bool skip = true;
 		Vector3 s = transform.worldToLocalMatrix.MultiplyVector( source );
@@ -328,7 +329,7 @@ public class BcWeapon : MonoBehaviour
 		if ( !skip )
 			Gizmos.DrawLine( source, destination );
 	}
-	void DrawMesh( Mesh mesh, Vector3[ ] exception )
+	private void DrawMesh( Mesh mesh, Vector3[ ] exception )
 	{
 		foreach ( Vector3 vert in mesh.vertices )
 		{
@@ -337,7 +338,7 @@ public class BcWeapon : MonoBehaviour
 				ExceptionLine( vert, check );
 		}
 	}
-	static bool RoughlyEqual( float a, float b )
+	private static bool RoughlyEqual( float a, float b )
 	{
 		float treshold = 0.01f;
 		return ( Mathf.Abs( a - b ) < treshold );
@@ -372,7 +373,7 @@ public class BcWeaponEditor : Editor
 	public SerializedProperty emptyClickSound;
 	public bool speedEditMode;
 	public bool lifeEditMode;
-	void SerializeProperties()
+	private void SerializeProperties()
 	{
 		test = this.serializedObject.FindProperty( "test" );
 		bulletPrefab = this.serializedObject.FindProperty( "bulletPrefab" );
@@ -397,7 +398,7 @@ public class BcWeaponEditor : Editor
 		reloadedSound = this.serializedObject.FindProperty( "reloadedSound" );
 		emptyClickSound = this.serializedObject.FindProperty( "emptyClickSound" );
 	}
-	void OnSceneGUI()
+	private void OnSceneGUI()
 	{
 		Vector3 offset, vec;
 		BcWeapon tW = ( BcWeapon )target;

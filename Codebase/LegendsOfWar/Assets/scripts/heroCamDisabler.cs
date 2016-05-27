@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 public class heroCamDisabler : MonoBehaviour
 {
-	static List<heroCamDisabler> disablers;
-	void Awake()
+	private static List<heroCamDisabler> disablers;
+	private void Awake()
 	{
 		if ( null == disablers )
 			disablers = new List<heroCamDisabler>();
 	}
-	void OnEnable()
+	private void OnEnable()
 	{
 		disablers.Add( this );
 	}
-	void OnDisable()
+	private void OnDisable()
 	{
 		disablers.Remove( this );
 	}

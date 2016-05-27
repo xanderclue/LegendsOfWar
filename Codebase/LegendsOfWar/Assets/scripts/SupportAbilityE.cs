@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 public class SupportAbilityE : AbilityEBase
 {
-	SupportRange supprang;
-	ParticleSystem ps;
+	private SupportRange supprang;
+	private ParticleSystem ps;
 	protected override void Start()
 	{
 		base.Start();
@@ -15,7 +15,7 @@ public class SupportAbilityE : AbilityEBase
 		supprang.ApplyToEnemiesInRange( Cyclone );
 		ps.Play();
 	}
-	void Cyclone( Info entity )
+	private void Cyclone( Info entity )
 	{
 		if ( entity )
 			if ( entity.team != heroInfo.team )

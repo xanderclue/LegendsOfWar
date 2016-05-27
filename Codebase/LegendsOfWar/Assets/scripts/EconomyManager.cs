@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
-	float blueTeamGold = 0.0f, redTeamGold = 0.0f;
+	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	[SerializeField]
-	float startingAmount = 100.0f, waveAmount = 10.0f;
+	private float startingAmount = 100.0f, waveAmount = 10.0f;
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;
@@ -58,7 +58,7 @@ public class EconomyManager : MonoBehaviour
 	}
 	public float BlueGold { get { return blueTeamGold; } }
 	public float RedGold { get { return redTeamGold; } }
-	static EconomyManager instance = null;
+	private static EconomyManager instance = null;
 	public static EconomyManager Instance
 	{
 		get
@@ -72,11 +72,11 @@ public class EconomyManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		instance = this;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		if ( this == instance )
 			instance = null;

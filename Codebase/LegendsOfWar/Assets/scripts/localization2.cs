@@ -2,17 +2,17 @@
 public class localization2 : MonoBehaviour
 {
 	[SerializeField]
-	GameObject englishObj = null, japaneseObj = null;
-	void Start()
+	private GameObject englishObj = null, japaneseObj = null;
+	private void Start()
 	{
 		Options.onChangedLanguage += changeObj;
 		changeObj();
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		Options.onChangedLanguage -= changeObj;
 	}
-	void changeObj()
+	private void changeObj()
 	{
 		if ( Options.Japanese )
 		{

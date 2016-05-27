@@ -3,9 +3,9 @@ using System.Collections.Generic;
 public class SupportAbilityW : AbilityWBase
 {
 	[SerializeField]
-	GameObject Icon = null;
-	List<MinionInfo> applied = new List<MinionInfo>();
-	SupportRange supprang;
+	private GameObject Icon = null;
+	private List<MinionInfo> applied = new List<MinionInfo>();
+	private SupportRange supprang;
 	protected override void Start()
 	{
 		base.Start();
@@ -16,7 +16,7 @@ public class SupportAbilityW : AbilityWBase
 		base.AbilityActivate();
 		supprang.ApplyToAlliesInRange( SoulDefense );
 	}
-	MarkedEnemyIcon mei;
+	private MarkedEnemyIcon mei;
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
@@ -29,8 +29,8 @@ public class SupportAbilityW : AbilityWBase
 					Destroy( mei.gameObject );
 			}
 	}
-	MinionInfo temp;
-	void SoulDefense( Info entity )
+	private MinionInfo temp;
+	private void SoulDefense( Info entity )
 	{
 		temp = entity as MinionInfo;
 		if ( temp )

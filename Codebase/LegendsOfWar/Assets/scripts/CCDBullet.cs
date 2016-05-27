@@ -2,22 +2,22 @@ using UnityEngine;
 public class CCDBullet : MonoBehaviour
 {
 	public float life;
-	Rigidbody body;
-	void Start()
+	private Rigidbody body;
+	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
 		gameObject.layer = 31;
 		Physics.IgnoreLayerCollision( 31, 31 );
 		CheckCollision();
 	}
-	void Update()
+	private void Update()
 	{
 		CheckCollision();
 		life -= Time.deltaTime;
 		if ( life <= 0.0f )
 			Destroy( gameObject );
 	}
-	void CheckCollision()
+	private void CheckCollision()
 	{
 		Ray ray = new Ray( transform.position, body.velocity );
 		RaycastHit hit = new RaycastHit();

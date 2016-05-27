@@ -3,15 +3,15 @@ using System.Collections.Generic;
 public class FreezeTowerBehavior : MonoBehaviour
 {
 	[SerializeField]
-	Team team = Team.BLUE_TEAM;
+	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
-	Transform projectileSpawnPoint = null;
+	private Transform projectileSpawnPoint = null;
 	[SerializeField]
-	Detector detector = null;
-	List<Transform> targets;
-	FreezeProjectileInfo info;
-	float fireTimer;
-	void Awake()
+	private Detector detector = null;
+	private List<Transform> targets;
+	private FreezeProjectileInfo info;
+	private float fireTimer;
+	private void Awake()
 	{
 		targets = new List<Transform>();
 		info = TowerManager.Instance.freezeInfo;
@@ -19,7 +19,7 @@ public class FreezeTowerBehavior : MonoBehaviour
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
 	}
-	void AddTarget( GameObject obj )
+	private void AddTarget( GameObject obj )
 	{
 		if ( obj )
 		{
@@ -29,11 +29,11 @@ public class FreezeTowerBehavior : MonoBehaviour
 					targets.Add( obj.transform );
 		}
 	}
-	void RemoveTarget( GameObject obj )
+	private void RemoveTarget( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-	void Update()
+	private void Update()
 	{
 		targets.RemoveAll( item => item == null );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.FreezeShot ) && fireTimer <= 0.0f
@@ -50,7 +50,7 @@ public class FreezeTowerBehavior : MonoBehaviour
 		else
 			fireTimer -= Time.deltaTime;
 	}
-	void FireAtTarget()
+	private void FireAtTarget()
 	{
 		if ( GameManager.GameEnded )
 			return;

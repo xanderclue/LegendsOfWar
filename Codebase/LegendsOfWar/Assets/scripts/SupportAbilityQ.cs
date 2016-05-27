@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 public class SupportAbilityQ : AbilityQBase
 {
-	ParticleSystem ps;
-	SupportRange supprang;
+	private ParticleSystem ps;
+	private SupportRange supprang;
 	protected override void Start()
 	{
 		base.Start();
@@ -15,7 +15,7 @@ public class SupportAbilityQ : AbilityQBase
 		supprang.ApplyToAlliesInRange( SoothingAura );
 		ps.Play();
 	}
-	void SoothingAura( Info entity )
+	private void SoothingAura( Info entity )
 	{
 		if ( entity is MinionInfo )
 			entity.HP += 10.0f;

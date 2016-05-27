@@ -3,9 +3,9 @@ using System.Collections.Generic;
 public class TankAbilityE : AbilityEBase
 {
 	public CollisionDetector coll;
-	GameObject AbilityEParticle;
+	private GameObject AbilityEParticle;
 	public float Edamage;
-	List<Info> slowed;
+	private List<Info> slowed;
 	protected override void Start()
 	{
 		base.Start();
@@ -23,7 +23,7 @@ public class TankAbilityE : AbilityEBase
 		if ( coll )
 			coll.DealDamage( Slow );
 	}
-	void Slow( Info entity )
+	private void Slow( Info entity )
 	{
 		if ( entity )
 			if ( entity is MinionInfo )

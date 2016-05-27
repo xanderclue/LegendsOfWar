@@ -6,9 +6,9 @@ public class CameraControl : MonoBehaviour
 	private Vector3 StartClick = -Vector3.one;
 	private Vector3 Origin;
 	private Vector3 Difference;
-	static CameraControl inst = null;
+	private static CameraControl inst = null;
 	public static CameraControl instance { get { return inst; } }
-	void Awake()
+	private void Awake()
 	{
 		inst = this;
 	}
@@ -29,12 +29,12 @@ public class CameraControl : MonoBehaviour
 	private float aspectRatio = 0.0f;
 	public GameObject player;
 	private bool followPlayer = false;
-	static Camera main, vantage, current;
+	private static Camera main, vantage, current;
 	public static Camera Main { get { return main; } }
 	public static Camera Vantage { get { return vantage; } }
 	public static Camera Current
 	{ get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
-	void Start()
+	private void Start()
 	{
 		player = GameManager.Instance.Player;
 		playerInfo = player.GetComponent<Info>();
@@ -46,7 +46,7 @@ public class CameraControl : MonoBehaviour
 		GameManager.OnBlueWin += OnBlueWin;
 		GameManager.OnRedWin += OnRedWin;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		HeroCamScript.OnOnHero -= OnOnHero;
 		GameManager.OnBlueWin -= OnBlueWin;
@@ -63,17 +63,17 @@ public class CameraControl : MonoBehaviour
 				followPlayer = value;
 		}
 	}
-	void OnRedWin()
+	private void OnRedWin()
 	{
 		mainCam.transform.position = new Vector3( 200.0f, 500.0f, 333.0f );
 	}
-	void OnBlueWin()
+	private void OnBlueWin()
 	{
 		mainCam.transform.position = new Vector3( 1000.0f, 500.0f, 333.0f );
 	}
-	float zoomTemp;
-	RaycastHit hit;
-	void Update()
+	private float zoomTemp;
+	private RaycastHit hit;
+	private void Update()
 	{
 		if ( !GameManager.GameRunning )
 			return;
@@ -123,7 +123,7 @@ public class CameraControl : MonoBehaviour
 			}
 		}
 	}
-	readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
+	private readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
 	private void OnGUI()
 	{
 		if ( StartClick != -Vector3.one )
@@ -132,11 +132,11 @@ public class CameraControl : MonoBehaviour
 			GUI.DrawTexture( Selection, SelectionHighlight );
 		}
 	}
-	float mousePosX;
-	float mousePosY;
-	const float scrollDistance = 2.5f;
-	Vector3 newPos = new Vector3();
-	void LateUpdate()
+	private float mousePosX;
+	private float mousePosY;
+	private const float scrollDistance = 2.5f;
+	private Vector3 newPos = new Vector3();
+	private void LateUpdate()
 	{
 		if ( !GameManager.GameRunning )
 			return;
@@ -181,8 +181,8 @@ public class CameraControl : MonoBehaviour
 				followPlayer = false;
 		}
 	}
-	Info playerInfo;
-	Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
+	private Info playerInfo;
+	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
 	private void RecalcZoomLimits()
 	{
 		aspectRatio = mainCam.aspect;
@@ -224,7 +224,7 @@ public class CameraControl : MonoBehaviour
 		mainCam.enabled = false;
 		camBorder.enabled = false;
 	}
-	void ResetMinimapCam()
+	private void ResetMinimapCam()
 	{
 		minimapCam.enabled = false;
 		minimapCam.enabled = true;
@@ -249,8 +249,8 @@ public class CameraControl : MonoBehaviour
 			transform.position.y );
 		RecalcBoundaries();
 	}
-	static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
-	void OnOnHero()
+	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
+	private void OnOnHero()
 	{
 		if ( !mainCam )
 			return;
@@ -259,7 +259,7 @@ public class CameraControl : MonoBehaviour
 		mainCam.fieldOfView = onHeroFov;
 		RecalcBoundaries();
 	}
-	static public float AudioDistance
+	public static float AudioDistance
 	{
 		get
 		{

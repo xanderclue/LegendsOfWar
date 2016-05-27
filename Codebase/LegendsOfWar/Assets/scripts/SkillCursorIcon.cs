@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class SkillCursorIcon : MonoBehaviour
 {
-	void Update()
+	private void Update()
 	{
 		if ( gameObject.activeInHierarchy )
 			GetComponent<RectTransform>().position = CameraControl.Current.ScreenToWorldPoint( Input

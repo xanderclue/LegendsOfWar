@@ -3,9 +3,9 @@ using UnityEngine.UI;
 public class AbilityIcon : MonoBehaviour
 {
 	[SerializeField]
-	Image q = null, w = null, e = null, r = null;
-	HeroAbilities abilities = null;
-	void SetIcons()
+	private Image q = null, w = null, e = null, r = null;
+	private HeroAbilities abilities = null;
+	private void SetIcons()
 	{
 		if ( CharacterSelectionManager.LegendChoice )
 			abilities = CharacterSelectionManager.LegendChoice.GetComponent<HeroAbilities>();
@@ -17,7 +17,7 @@ public class AbilityIcon : MonoBehaviour
 			r.sprite = abilities.abilityR.abilityIcon;
 		}
 	}
-	void Update()
+	private void Update()
 	{
 		SetIcons();
 	}

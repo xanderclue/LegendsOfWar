@@ -2,25 +2,25 @@
 using UnityEngine.UI;
 public class sub : MonoBehaviour
 {
-	static sub inst = null;
-	static Text text = null;
-	static float timer = -0.0f;
-	void Awake()
+	private static sub inst = null;
+	private static Text text = null;
+	private static float timer = -0.0f;
+	private void Awake()
 	{
 		inst = this;
 	}
-	void Start()
+	private void Start()
 	{
 		text = GetComponentInChildren<Text>();
 		gameObject.SetActive( false );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( timer <= 0.0f )
 			gameObject.SetActive( false );
 		timer -= Time.deltaTime;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		inst = null;
 		text = null;

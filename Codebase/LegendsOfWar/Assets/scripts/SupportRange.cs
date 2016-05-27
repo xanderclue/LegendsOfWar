@@ -3,14 +3,14 @@ using UnityEngine;
 public class SupportRange : MonoBehaviour
 {
 	public static List<Collider> supportedEntities = new List<Collider>();
-	List<Collider> mySupportedEntities;
-	List<Collider> nearbyEnemies;
-	void Awake()
+	private List<Collider> mySupportedEntities;
+	private List<Collider> nearbyEnemies;
+	private void Awake()
 	{
 		mySupportedEntities = new List<Collider>();
 		nearbyEnemies = new List<Collider>();
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		Info info = col.gameObject.GetComponent<Info>();
 		if ( info )
@@ -25,7 +25,7 @@ public class SupportRange : MonoBehaviour
 		}
 		ClearNullsSelf();
 	}
-	void OnTriggerExit( Collider col )
+	private void OnTriggerExit( Collider col )
 	{
 		ClearNullsSelf();
 		Info i = col.gameObject.GetComponent<Info>();
@@ -48,13 +48,13 @@ public class SupportRange : MonoBehaviour
 				return true;
 		return false;
 	}
-	static void ClearNulls()
+	private static void ClearNulls()
 	{
 		for ( int i = 0; i < supportedEntities.Count; ++i )
 			if ( !supportedEntities[ i ] )
 				supportedEntities.RemoveAt( i-- );
 	}
-	void ClearNullsSelf()
+	private void ClearNullsSelf()
 	{
 		ClearNulls();
 		for ( int i = 0; i < mySupportedEntities.Count; ++i )

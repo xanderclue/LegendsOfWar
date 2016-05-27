@@ -2,12 +2,12 @@
 public class RedTowrDestryed : MonoBehaviour
 {
 	[SerializeField]
-	EnemyAIManager aiManager = null;
-	void Start()
+	private EnemyAIManager aiManager = null;
+	private void Start()
 	{
 		aiManager = FindObjectOfType<EnemyAIManager>();
 	}
-	void OnDisable()
+	private void OnDisable()
 	{
 		if ( aiManager )
 			aiManager.Destroyed();

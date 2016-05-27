@@ -6,7 +6,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 	[SerializeField]
-	bool tutorial = false;
+	private bool tutorial = false;
 	public static bool Tutorial
 	{
 		get
@@ -18,33 +18,33 @@ public class GameManager : MonoBehaviour
 	}
 	public static bool WebPlayerMode = false;
 	[SerializeField]
-	PortalInfo redPortal = null;
+	private PortalInfo redPortal = null;
 	[SerializeField]
-	PortalInfo bluePortal = null;
+	private PortalInfo bluePortal = null;
 	[SerializeField]
-	GameObject redTankMinion = null, redCasterMinion = null, redStrikerMinion = null;
+	private GameObject redTankMinion = null, redCasterMinion = null, redStrikerMinion = null;
 	[SerializeField]
-	GameObject blueTankMinion = null, blueCasterMinion = null, blueStrikerMinion = null;
+	private GameObject blueTankMinion = null, blueCasterMinion = null, blueStrikerMinion = null;
 	[SerializeField]
-	EventSystem uiEventSystem = null;
-	bool gameRunning = false;
+	private EventSystem uiEventSystem = null;
+	private bool gameRunning = false;
 	[SerializeField]
-	float maxTime = 900.0f;
+	private float maxTime = 900.0f;
 	[SerializeField]
-	float waveTime = 60.0f;
+	private float waveTime = 60.0f;
 	[SerializeField]
-	HudScript hudScript = null;
+	private HudScript hudScript = null;
 	public static HudScript Hud { get { return instance.hudScript; } }
 	public static float topSplitZ, botSplitZ;
 	[SerializeField]
-	GameObject cursorObject = null;
+	private GameObject cursorObject = null;
 	public static GameObject cursor { get { return instance.cursorObject; } }
-	float waveTimer;
-	float timer;
-	int wave = 0;
+	private float waveTimer;
+	private float timer;
+	private int wave = 0;
 	public static List<HeroAbilities> abilities;
 	[SerializeField]
-	Transform HeroSpawnPoint = null;
+	private Transform HeroSpawnPoint = null;
 	public GameObject Player;
 	public static bool Avail { get { return instance != null; } }
 	public static bool GameRunning
@@ -63,10 +63,10 @@ public class GameManager : MonoBehaviour
 	public ParticleSystem BoomBlue;
 	public ParticleSystem ExitRed;
 	public ParticleSystem ExitBlue;
-	MinionInfo[ ] endminions;
-	GameObject min_go;
-	NavMeshAgent nma;
-	void SetupMinion( Object _minion, Path lane, Team team )
+	private MinionInfo[ ] endminions;
+	private GameObject min_go;
+	private NavMeshAgent nma;
+	private void SetupMinion( Object _minion, Path lane, Team team )
 	{
 		min_go = _minion as GameObject;
 		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 		else
 			nma.destination = BluePortalTransform.position;
 	}
-	void SpawnMinionWaves()
+	private void SpawnMinionWaves()
 	{
 		SetupMinion( Instantiate( redCasterMinion, redPortal.LeftSpawn[ 0 ].position, faceDown ),
 			Path.SOUTH_PATH, Team.RED_TEAM );
@@ -142,9 +142,10 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.NewWave();
 		AudioManager.PlaySoundEffect( AudioManager.sfxWaveSpawn );
 	}
-	static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f ),
-		faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp = new
-		Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+	private static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f,
+		0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp
+		= new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f,
+			0.0f );
 	public void InitiateGame()
 	{
 		gameRunning = true;
@@ -154,7 +155,7 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.StartingGame();
 		ResetUpgrades();
 	}
-	bool gameEnded = false;
+	private bool gameEnded = false;
 	public static bool GameEnded { get { return instance.gameEnded; } }
 	public void EndGame()
 	{
@@ -196,8 +197,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	GameObject defaultHeroPrefab = null;
-	static GameManager instance = null;
+	private GameObject defaultHeroPrefab = null;
+	private static GameManager instance = null;
 	public static GameManager Instance
 	{
 		get
@@ -212,8 +213,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	Transform topSplit = null, botSplit = null;
-	void Awake()
+	private Transform topSplit = null, botSplit = null;
+	private void Awake()
 	{
 		if ( instance )
 			Destroy( this );
@@ -227,12 +228,12 @@ public class GameManager : MonoBehaviour
 			SpawnHero();
 		}
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		if ( this == instance )
 			instance = null;
 	}
-	void Start()
+	private void Start()
 	{
 		InitiateGame();
 		BoomBlue.gameObject.SetActive( false );
@@ -242,7 +243,7 @@ public class GameManager : MonoBehaviour
 	}
 	public delegate void GameEndEvent();
 	public static event GameEndEvent OnBlueWin, OnRedWin;
-	IEnumerator GameEnding()
+	private IEnumerator GameEnding()
 	{
 		gameEnded = true;
 		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_SHOP )
@@ -274,8 +275,8 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds( 4.0f );
 		EndGame();
 	}
-	bool shopActive = false;
-	void Update()
+	private bool shopActive = false;
+	private void Update()
 	{
 		if ( !gameRunning || gameEnded )
 			return;
@@ -317,7 +318,7 @@ public class GameManager : MonoBehaviour
 	public float Timer { get { return timer; } }
 	public float WaveTimer { get { return waveTimer; } }
 	public int Wave { get { return wave; } }
-	void DoAbilityCooldowns()
+	private void DoAbilityCooldowns()
 	{
 		foreach ( HeroAbilities abs in abilities )
 		{
@@ -327,12 +328,12 @@ public class GameManager : MonoBehaviour
 			abs.abilityR.Timer -= Time.deltaTime;
 		}
 	}
-	List<HeroInfo> heros = null;
+	private List<HeroInfo> heros = null;
 	public void AddHero( HeroInfo info )
 	{
 		heros.Add( info );
 	}
-	void RespawnTimers()
+	private void RespawnTimers()
 	{
 		foreach ( HeroInfo hero in heros )
 		{
@@ -343,8 +344,8 @@ public class GameManager : MonoBehaviour
 	}
 	public static Vector3 blueHeroSpawnPosition { get { return Instance.HeroSpawnPoint.position; } }
 	[SerializeField]
-	List<Button> buttons = null;
-	void ResetUpgrades()
+	private List<Button> buttons = null;
+	private void ResetUpgrades()
 	{
 		MinionInfo info;
 		info = blueCasterMinion.GetComponent<MinionInfo>();
@@ -368,7 +369,7 @@ public class GameManager : MonoBehaviour
 			hero.RespawnTimer = 0.0f;
 	}
 	[SerializeField]
-	ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
+	private ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
 	public void SpawnHero()
 	{
 		if ( CharacterSelectionManager.Instance )

@@ -3,13 +3,13 @@ using UnityEngine.UI;
 public class BarNumeric : MonoBehaviour
 {
 	[SerializeField]
-	Text hpText = null, manaText = null;
-	HeroInfo info;
-	void Start()
+	private Text hpText = null, manaText = null;
+	private HeroInfo info;
+	private void Start()
 	{
 		info = GameManager.Instance.Player.GetComponent<HeroInfo>();
 	}
-	void Update()
+	private void Update()
 	{
 		hpText.text = Mathf.RoundToInt( info.HP ) + " / " + Mathf.RoundToInt( info.MAXHP );
 		manaText.text = Mathf.RoundToInt( info.Mana ) + " / " + Mathf.RoundToInt( info.MaxMana );

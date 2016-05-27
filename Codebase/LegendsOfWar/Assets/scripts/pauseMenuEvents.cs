@@ -3,10 +3,10 @@ using UnityEngine.UI;
 public class pauseMenuEvents : MonoBehaviour
 {
 	[SerializeField]
-	GameObject eventSystem = null;
+	private GameObject eventSystem = null;
 	[SerializeField]
-	Button[ ] buttons = null;
-	static pauseMenuEvents inst = null;
+	private Button[ ] buttons = null;
+	private static pauseMenuEvents inst = null;
 	public static bool EventSystem
 	{
 		get { return inst.eventSystem.activeInHierarchy; }
@@ -17,11 +17,11 @@ public class pauseMenuEvents : MonoBehaviour
 				button.enabled = value;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		inst = this;
 	}
-	void Update()
+	private void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 			Unpause();

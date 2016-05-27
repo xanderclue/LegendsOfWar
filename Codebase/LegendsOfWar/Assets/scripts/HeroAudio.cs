@@ -8,18 +8,18 @@ public class HeroAudio : MonoBehaviour
 	private string JHeroTaunt1 = "", JHeroTaunt2 = "", JHeroIdle1 = "", JHeroIdle2 = "",
 		JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "",
 		JHeroCastAbilityE = "", JHeroCastAbilityR = "";
-	AudioSource source;
-	void Start()
+	private AudioSource source;
+	private void Start()
 	{
 		source = GetComponent<AudioSource>();
 		Options.onChangedVoiceVolume += SetVoiceVolume;
 		SetVoiceVolume();
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		Options.onChangedVoiceVolume -= SetVoiceVolume;
 	}
-	void SetVoiceVolume()
+	private void SetVoiceVolume()
 	{
 		source.volume = Options.voiceVolume;
 	}
@@ -84,7 +84,7 @@ public class HeroAudio : MonoBehaviour
 		}
 		return 0.0f;
 	}
-	void HeroSelectedSound()
+	private void HeroSelectedSound()
 	{
 		if ( CHeroSelected )
 			AudioManager.PlayClipRaw( CHeroSelected, null, true, true );

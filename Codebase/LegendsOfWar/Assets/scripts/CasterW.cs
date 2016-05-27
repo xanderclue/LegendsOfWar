@@ -2,7 +2,7 @@
 public class CasterW : AbilityWBase
 {
 	[SerializeField]
-	GameObject m_zone = null;
+	private GameObject m_zone = null;
 	protected override void Start()
 	{
 		base.Start();

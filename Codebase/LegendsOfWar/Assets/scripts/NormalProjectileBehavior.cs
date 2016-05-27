@@ -2,8 +2,8 @@
 public class NormalProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
-	bool fired = false;
-	void FixedUpdate()
+	private bool fired = false;
+	private void FixedUpdate()
 	{
 		if ( !target || !target.gameObject.activeInHierarchy )
 			Destroy( gameObject );
@@ -19,7 +19,7 @@ public class NormalProjectileBehavior : MonoBehaviour
 		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );
 		fired = true;
 	}
-	void OnTriggerEnter( Collider col )
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( target && col.gameObject == target.gameObject )
 		{
@@ -28,16 +28,16 @@ public class NormalProjectileBehavior : MonoBehaviour
 			Destroy( gameObject );
 		}
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( fired )
 			projectileTimer -= Time.deltaTime;
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 2.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}

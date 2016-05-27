@@ -4,7 +4,7 @@ public class MinionInfo : Info
 {
 	public MinionClass type;
 	[SerializeField]
-	int movementSpeed = 0;
+	private int movementSpeed = 0;
 	public int MovementSpeed { get { return movementSpeed; } }
 	public float Damage { get { return damage; } set { damage = value; } }
 	public float Range { get { return attackRange; } set { attackRange = value; } }
@@ -12,7 +12,7 @@ public class MinionInfo : Info
 	public float AgroRange { get { return agroRange; } }
 	[HideInInspector]
 	public bool soulDefense = false;
-	float baseDamage = 0.0f;
+	private float baseDamage = 0.0f;
 	protected override void Start()
 	{
 		base.Start();
@@ -20,15 +20,15 @@ public class MinionInfo : Info
 		Destroyed += MinionDeath;
 		baseDamage = damage;
 	}
-	void MinionAttacked()
+	private void MinionAttacked()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttacked, transform.position );
 	}
-	void MinionDeath()
+	private void MinionDeath()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxMinionDeath, transform.position );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( SupportRange.InSupportRange( gameObject ) )
 			damage = baseDamage * 1.5f;

@@ -2,15 +2,15 @@
 public class TowerRangeIndicator : MonoBehaviour
 {
 	[SerializeField]
-	Transform circle = null;
+	private Transform circle = null;
 	[SerializeField]
-	Team team = Team.RED_TEAM;
-	void Awake()
+	private Team team = Team.RED_TEAM;
+	private void Awake()
 	{
 		GetComponent<MeshRenderer>().material.color = Color.red;
 		UpdateRange();
 	}
-	void Update()
+	private void Update()
 	{
 		circle.Rotate( 0.0f, Time.deltaTime * 1.5f, 0.0f );
 		if ( TowerManager.Instance.BlueShotChanged && team == Team.BLUE_TEAM )
@@ -18,7 +18,7 @@ public class TowerRangeIndicator : MonoBehaviour
 		else if ( TowerManager.Instance.RedShotChanged && team == Team.RED_TEAM )
 			UpdateRange();
 	}
-	void UpdateRange()
+	private void UpdateRange()
 	{
 		switch ( TowerManager.Instance.GetActiveShot( team ) )
 		{

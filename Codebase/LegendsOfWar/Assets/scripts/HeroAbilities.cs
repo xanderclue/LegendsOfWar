@@ -13,15 +13,14 @@ public class HeroAbilities : MonoBehaviour
 	public AbilityWBase abilityW { get { return w; } }
 	public AbilityEBase abilityE { get { return e; } }
 	public AbilityRBase abilityR { get { return r; } }
-	void Start()
+	private void Start()
 	{
 		GameManager.abilities.Add( this );
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		GameManager.abilities.Remove( this );
 	}
-	[SerializeField]
 	public string heroClassEn = "", heroClassJp = "";
 	public string abilityInfo
 	{

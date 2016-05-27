@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
 public class TowerManager : MonoBehaviour
 {
-	[SerializeField]
 	public GameObject normalShotPrefab = null, freezeShotPrefab = null, explosiveShotPrefab = null;
-	[SerializeField]
 	public NormalProjectileInfo normalInfo = null;
-	[SerializeField]
 	public FreezeProjectileInfo freezeInfo = null;
-	[SerializeField]
 	public ExplosiveProjectileInfo explosiveInfo = null;
 	[SerializeField]
-	bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false, blueFreezeActive
-		= false, redExplosiveActive = false, blueExplosiveActive = false;
-	bool blueShotChanged = false;
+	private bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false,
+		blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
+	private bool blueShotChanged = false;
 	public bool BlueShotChanged { get { return blueShotChanged; } }
-	bool redShotChanged = false;
+	private bool redShotChanged = false;
 	public bool RedShotChanged { get { return redShotChanged; } }
-	float blueTimer = 0.1f, redTimer = 0.1f;
-	void Update()
+	private float blueTimer = 0.1f, redTimer = 0.1f;
+	private void Update()
 	{
 		if ( blueShotChanged && blueTimer < 0.0f )
 		{
@@ -117,14 +113,14 @@ public class TowerManager : MonoBehaviour
 				redShotChanged = true;
 		}
 	}
-	void DeactivateShots( Team team )
+	private void DeactivateShots( Team team )
 	{
 		if ( team == Team.BLUE_TEAM )
 			blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;
 	}
-	static TowerManager instance = null;
+	private static TowerManager instance = null;
 	public static TowerManager Instance
 	{
 		get
@@ -138,11 +134,11 @@ public class TowerManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		instance = this;
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		instance = null;
 	}

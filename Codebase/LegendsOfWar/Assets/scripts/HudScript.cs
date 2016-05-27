@@ -8,15 +8,15 @@ public class HudScript : MonoBehaviour
 	public Text blueGold;
 	public Text qCD, wCD, eCD, rCD;
 	[SerializeField]
-	GameObject hero = null;
-	HeroAbilities abilities;
-	RaycastHit hit;
+	private GameObject hero = null;
+	private HeroAbilities abilities;
+	private RaycastHit hit;
 	[SerializeField]
-	Button q = null, w = null, e = null, r = null;
-	Image qIm, wIm, eIm, rIm;
+	private Button q = null, w = null, e = null, r = null;
+	private Image qIm, wIm, eIm, rIm;
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
-	void Start()
+	private void Start()
 	{
 		hero = GameManager.Instance.Player;
 		if ( !hero )
@@ -33,8 +33,9 @@ public class HudScript : MonoBehaviour
 		BrightColor = ColorBlock.defaultColorBlock;
 		BrightColor.colorMultiplier = 1.5f;
 	}
-	int tempSec; float tmr;
-	void Update()
+	private int tempSec;
+	private float tmr;
+	private void Update()
 	{
 		ButtonHMAnim();
 		if ( Input.GetMouseButton( 1 ) )
@@ -60,13 +61,13 @@ public class HudScript : MonoBehaviour
 		Cooldowns();
 	}
 	[SerializeField]
-	Button buttonHM = null;
+	private Button buttonHM = null;
 	[SerializeField]
-	Text heroBeingAttackedText = null;
-	ColorBlock BrightColor;
-	float buttonHmAnimTime = 0.0f;
-	Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
-	void ButtonHMAnim()
+	private Text heroBeingAttackedText = null;
+	private ColorBlock BrightColor;
+	private float buttonHmAnimTime = 0.0f;
+	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
+	private void ButtonHMAnim()
 	{
 		if ( HeroUIScript.HeroBeingAttacked )
 		{
@@ -89,8 +90,8 @@ public class HudScript : MonoBehaviour
 			buttonHM.colors = ColorBlock.defaultColorBlock;
 		}
 	}
-	float qtim, wtim, etim, rtim;
-	void Cooldowns()
+	private float qtim, wtim, etim, rtim;
+	private void Cooldowns()
 	{
 		if ( abilities )
 		{

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 public class StatusEffectsManager : MonoBehaviour
 {
-	SortedList<string, Effect> stats = new SortedList<string, Effect>();
-	SortedList<string, SortedList<string, Effect>> objects = new SortedList<string, SortedList<
-		string, Effect>>();
-	static StatusEffectsManager inst = null;
+	private SortedList<string, Effect> stats = new SortedList<string, Effect>();
+	private SortedList<string, SortedList<string, Effect>> objects = new SortedList<string,
+		SortedList<string, Effect>>();
+	private static StatusEffectsManager inst = null;
 	public static StatusEffectsManager Instance
 	{
 		get
@@ -19,7 +19,7 @@ public class StatusEffectsManager : MonoBehaviour
 			return inst;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		if ( inst )
 			Destroy( this );

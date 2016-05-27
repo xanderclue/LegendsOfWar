@@ -3,13 +3,13 @@ using UnityEngine.UI;
 public class ResourceBarScript : MonoBehaviour
 {
 	[SerializeField]
-	GameObject host = null;
-	Info stats;
-	Image bar = null;
+	private GameObject host = null;
+	private Info stats;
+	private Image bar = null;
 	[SerializeField]
-	bool attachedToHUD = false;
+	private bool attachedToHUD = false;
 	public bool isMana = false;
-	void Start()
+	private void Start()
 	{
 		stats = host.GetComponent<Info>();
 		bar = GetComponent<Image>();
@@ -22,12 +22,12 @@ public class ResourceBarScript : MonoBehaviour
 		heroUiTrans = HeroUIScript.Instance.transform;
 		rectTransform = GetComponent<RectTransform>();
 	}
-	bool notHero = true;
-	Vector3 high, low;
-	static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
-	Transform heroUiTrans;
-	RectTransform rectTransform;
-	void Update()
+	private bool notHero = true;
+	private Vector3 high, low;
+	private static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
+	private Transform heroUiTrans;
+	private RectTransform rectTransform;
+	private void Update()
 	{
 		if ( isMana )
 			bar.fillAmount = ( ( stats as HeroInfo ).Mana / ( stats as HeroInfo ).MaxMana );

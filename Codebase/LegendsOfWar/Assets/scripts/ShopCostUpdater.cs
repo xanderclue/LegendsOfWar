@@ -3,19 +3,19 @@ using UnityEngine.UI;
 public class ShopCostUpdater : MonoBehaviour
 {
 	[SerializeField]
-	Text freezeShotCost = null, explosiveShotCost = null, strikerCost = null, tankCost = null,
-		casterCost = null, reviveCost = null, strikerUpgradeCost = null, tankUpgradeCost = null,
-		casterUpgradeCost = null;
+	private Text freezeShotCost = null, explosiveShotCost = null, strikerCost = null, tankCost =
+		null, casterCost = null, reviveCost = null, strikerUpgradeCost = null, tankUpgradeCost =
+		null, casterUpgradeCost = null;
 	[SerializeField]
-	GameObject strikerButton = null, tankButton = null, casterButton = null;
-	Color bronze = new Color( 0.424f, 0.329f, 0.118f );
-	Color silver = new Color( 0.753f, 0.753f, 0.753f );
-	Color gold = new Color( 1.0f, 0.843f, 0.0f );
-	void Start()
+	private GameObject strikerButton = null, tankButton = null, casterButton = null;
+	private Color bronze = new Color( 0.424f, 0.329f, 0.118f );
+	private Color silver = new Color( 0.753f, 0.753f, 0.753f );
+	private Color gold = new Color( 1.0f, 0.843f, 0.0f );
+	private void Start()
 	{
 		SetValues();
 	}
-	void Update()
+	private void Update()
 	{
 		if ( ShopManager.Instance.UpdateValues )
 		{
@@ -24,7 +24,7 @@ public class ShopCostUpdater : MonoBehaviour
 			ShopManager.Instance.UpdateValues = false;
 		}
 	}
-	void SetValues()
+	private void SetValues()
 	{
 		freezeShotCost.text = ShopManager.Instance.FreezingShotCost.ToString();
 		explosiveShotCost.text = ShopManager.Instance.ExplosiveShotCost.ToString();
@@ -35,7 +35,7 @@ public class ShopCostUpdater : MonoBehaviour
 		strikerUpgradeCost.text = tankUpgradeCost.text = casterUpgradeCost.text = ShopManager.
 			Instance.MinionUG1Cost.ToString();
 	}
-	void UpdatedValues()
+	private void UpdatedValues()
 	{
 		strikerUpgradeCost.text = ShopManager.Instance.minionUGPrices[ ShopManager.Instance.
 			Purchases[ ( int )Items.SLvl ] ].ToString();
@@ -50,7 +50,7 @@ public class ShopCostUpdater : MonoBehaviour
 		if ( ShopManager.Instance.Purchases[ ( int )Items.CLvl ] == 3 )
 			casterUpgradeCost.text = "MAX";
 	}
-	void UpdateColors()
+	private void UpdateColors()
 	{
 		switch ( ShopManager.Instance.Purchases[ ( int )Items.SLvl ] )
 		{

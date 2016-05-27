@@ -3,16 +3,16 @@ using UnityEngine.UI;
 public class HeroIcon : MonoBehaviour
 {
 	[SerializeField]
-	Image heroIcon = null;
-	HeroInfo info = null;
-	void SetIcon()
+	private Image heroIcon = null;
+	private HeroInfo info = null;
+	private void SetIcon()
 	{
 		if ( CharacterSelectionManager.LegendChoice )
 			info = CharacterSelectionManager.heroInfo;
 		if ( info )
 			heroIcon.sprite = info.heroIcon;
 	}
-	void Update()
+	private void Update()
 	{
 		SetIcon();
 	}

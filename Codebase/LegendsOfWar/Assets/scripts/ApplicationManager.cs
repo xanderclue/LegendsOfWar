@@ -70,7 +70,7 @@ public class ApplicationManager : MonoBehaviour
 	{
 		return currentState;
 	}
-	static ApplicationManager instance = null;
+	private static ApplicationManager instance = null;
 	public static ApplicationManager Instance
 	{
 		get
@@ -85,7 +85,7 @@ public class ApplicationManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake()
+	private void Awake()
 	{
 		if ( instance )
 			Destroy( this );
@@ -97,7 +97,7 @@ public class ApplicationManager : MonoBehaviour
 				currentState = StateID.STATE_INGAME;
 		}
 	}
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		if ( this == instance )
 			instance = null;
@@ -106,7 +106,7 @@ public class ApplicationManager : MonoBehaviour
 	{
 		Instance.ChangeAppState( Instance.prevState );
 	}
-	void Update()
+	private void Update()
 	{
 		if ( transitioning )
 		{

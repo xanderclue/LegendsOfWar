@@ -5,7 +5,7 @@ public class MovementScript : MonoBehaviour
 	protected bool inCombat = false;
 	protected bool withinRange = false;
 	protected float combatRange = 0;
-	Transform targetPosition;
+	private Transform targetPosition;
 	protected RaycastHit hit;
 	protected bool rayHit = false;
 	[SerializeField]
@@ -15,11 +15,11 @@ public class MovementScript : MonoBehaviour
 	{
 		GameManager.Hud.GrabHit += MovementScript_GrabHit;
 	}
-	void OnDestoy()
+	private void OnDestoy()
 	{
 		GameManager.Hud.GrabHit -= MovementScript_GrabHit;
 	}
-	void MovementScript_GrabHit( RaycastHit _hit )
+	private void MovementScript_GrabHit( RaycastHit _hit )
 	{
 		hit = _hit;
 		rayHit = true;

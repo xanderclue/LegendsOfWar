@@ -2,15 +2,15 @@
 public class HunterAbilityW : AbilityWBase
 {
 	[SerializeField]
-	float range = 0.0f, speed = 0.0f, damage = 0.0f;
+	private float range = 0.0f, speed = 0.0f, damage = 0.0f;
 	[SerializeField]
-	GameObject projectile = null, arrowSpawn = null;
+	private GameObject projectile = null, arrowSpawn = null;
 	[SerializeField]
-	GameObject Icon = null;
-	GameObject activeIcon = null;
-	Info target = null;
-	float originalSpeed = 0.0f;
-	RaycastHit hit;
+	private GameObject Icon = null;
+	private GameObject activeIcon = null;
+	private Info target = null;
+	private float originalSpeed = 0.0f;
+	private RaycastHit hit;
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;
@@ -37,7 +37,7 @@ public class HunterAbilityW : AbilityWBase
 		if ( activeIcon && activeIcon.GetComponent<SpriteRenderer>() )
 			activeIcon.GetComponent<SpriteRenderer>().enabled = false;
 	}
-	bool TargetSelected()
+	private bool TargetSelected()
 	{
 		Ray ray = new Ray( transform.position, transform.forward );
 		if ( Physics.SphereCast( ray, 5.0f, out hit, range, 9, QueryTriggerInteraction.Collide ) )
@@ -49,7 +49,7 @@ public class HunterAbilityW : AbilityWBase
 			}
 		return false;
 	}
-	void StopTarget()
+	private void StopTarget()
 	{
 		originalSpeed = target.GetComponent<NavMeshAgent>().speed;
 		target.GetComponent<NavMeshAgent>().speed = 0.0f;

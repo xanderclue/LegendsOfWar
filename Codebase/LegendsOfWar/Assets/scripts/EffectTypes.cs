@@ -2,8 +2,8 @@
 [System.Serializable]
 public class Effect
 {
-	float m_elapsedTime = 0.0f;
-	float m_tickTimer = 0.0f;
+	private float m_elapsedTime = 0.0f;
+	private float m_tickTimer = 0.0f;
 	public string m_name;
 	public StatusEffectType m_type;
 	public float m_damage;

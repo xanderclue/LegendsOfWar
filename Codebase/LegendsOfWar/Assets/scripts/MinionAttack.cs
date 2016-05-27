@@ -3,15 +3,15 @@ using System.Collections.Generic;
 public class MinionAttack : AttackScript
 {
 	[SerializeField]
-	List<Transform> targets;
-	MinionMovement movement;
-	ProximityCompare poo = new ProximityCompare();
-	float second = 1.0f;
+	private List<Transform> targets;
+	private MinionMovement movement;
+	private ProximityCompare poo = new ProximityCompare();
+	private float second = 1.0f;
 	[SerializeField]
-	ParticleSystem attackParticles = null;
-	float effectTime = 0.5f;
-	bool psEnabled = false;
-	void Start()
+	private ParticleSystem attackParticles = null;
+	private float effectTime = 0.5f;
+	private bool psEnabled = false;
+	private void Start()
 	{
 		Minioninfo = GetComponent<MinionInfo>();
 		attackTrigger.CreateTrigger( Minioninfo.AgroRange );
@@ -20,7 +20,7 @@ public class MinionAttack : AttackScript
 		targets = new List<Transform>();
 		movement = GetComponent<MinionMovement>();
 	}
-	void AttackTriggerEnter( GameObject obj )
+	private void AttackTriggerEnter( GameObject obj )
 	{
 		if ( this.isActiveAndEnabled )
 			if ( obj && obj.activeInHierarchy )
@@ -31,7 +31,7 @@ public class MinionAttack : AttackScript
 						targets.Add( obj.transform );
 			}
 	}
-	void Update()
+	private void Update()
 	{
 		second -= Time.deltaTime * Minioninfo.AttackSpeed;
 		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<
@@ -67,7 +67,7 @@ public class MinionAttack : AttackScript
 			effectTime = 0.25f;
 		}
 	}
-	void AttackTriggerExit( GameObject obj )
+	private void AttackTriggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 		if ( targets.Count > 2 )
@@ -76,7 +76,7 @@ public class MinionAttack : AttackScript
 			targets.Reverse( 1, targets.Count - 1 );
 		}
 	}
-	void Nil()
+	private void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
 			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )

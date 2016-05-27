@@ -2,16 +2,16 @@
 public class AssassinAblilityQ : AbilityQBase
 {
 	[SerializeField]
-	GameObject Target = null;
+	private GameObject Target = null;
 	[SerializeField]
-	int Damage = 0, Speed = 0;
+	private int Damage = 0, Speed = 0;
 	[SerializeField]
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
 	[SerializeField]
-	GameObject Indicator = null;
-	bool aiming, waitForCast;
+	private GameObject Indicator = null;
+	private bool aiming, waitForCast;
 	protected override void Start()
 	{
 		base.Start();

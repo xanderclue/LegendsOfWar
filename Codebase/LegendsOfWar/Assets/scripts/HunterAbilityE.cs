@@ -2,10 +2,10 @@
 public class HunterAbilityE : AbilityEBase
 {
 	[SerializeField]
-	float range = 0.0f, speed = 0.0f, abilityAdditionalDamage = 0.0f;
+	private float range = 0.0f, speed = 0.0f, abilityAdditionalDamage = 0.0f;
 	[SerializeField]
-	GameObject projectile = null, arrowSpawn = null, visualTarget = null;
-	bool aiming = false;
+	private GameObject projectile = null, arrowSpawn = null, visualTarget = null;
+	private bool aiming = false;
 	protected override void Update()
 	{
 		Vector3 pos = transform.position + transform.forward * 50.0f;
@@ -43,7 +43,7 @@ public class HunterAbilityE : AbilityEBase
 			}
 		}
 	}
-	void Fire()
+	private void Fire()
 	{
 		RaycastHit hit;
 		Ray ray = new Ray( transform.position, transform.forward );

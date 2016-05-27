@@ -2,11 +2,11 @@
 public class PortalInfo : Info
 {
 	[SerializeField]
-	Transform[ ] minionSpawnPointLeft = null;
+	private Transform[ ] minionSpawnPointLeft = null;
 	[SerializeField]
-	Transform[ ] minionSpawnPointMid = null;
+	private Transform[ ] minionSpawnPointMid = null;
 	[SerializeField]
-	Transform[ ] minionSpawnPointRight = null;
+	private Transform[ ] minionSpawnPointRight = null;
 	public Transform[ ] LeftSpawn { get { return minionSpawnPointLeft; } }
 	public Transform[ ] MidSpawn { get { return minionSpawnPointMid; } }
 	public Transform[ ] RightSpawn { get { return minionSpawnPointRight; } }
@@ -17,11 +17,11 @@ public class PortalInfo : Info
 		Attacked += OnPortalAttacked;
 		Destroyed += OnPortalDestroy;
 	}
-	void OnPortalDestroy()
+	private void OnPortalDestroy()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxPortalDestroyed );
 	}
-	void OnPortalAttacked()
+	private void OnPortalAttacked()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxPortalAttacked, transform.position );
 	}

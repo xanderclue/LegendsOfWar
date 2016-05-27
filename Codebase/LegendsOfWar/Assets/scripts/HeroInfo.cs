@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
+public enum Difficulty { Easy, Hard }
 public class HeroInfo : Info
 {
-	float mana;
-	float respawnTimer;
+	private float mana;
+	private float respawnTimer;
 	public Sprite heroIcon;
 	public float Damage { get { return damage; } set { damage = value; } }
 	public float Range { get { return attackRange; } }
 	public float AttackSpeed { get { return attackSpeed; } }
 	public float AgroRange { get { return agroRange; } }
 	[SerializeField]
-	float maxMana = 100.0f;
+	private float maxMana = 100.0f;
 	public float manaRegen = 7.5f;
-	[SerializeField]
 	public string Lore = "", roaa = "";
 	public Transform thirdPerson = null;
 	public Transform heroCenter = null;
-	HeroMovement movement;
+	private HeroMovement movement;
 	public float respawnTime = 9.0f, respawnIncrement = 3.0f;
 	[HideInInspector]
 	public HeroAudio heroAudio;
-	void Update()
+	private void Update()
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
 		tauntTimer -= Time.deltaTime;
@@ -32,8 +32,8 @@ public class HeroInfo : Info
 			Deidle();
 		}
 	}
-	float tauntTimer = 0.0f;
-	void PlayTaunt()
+	private float tauntTimer = 0.0f;
+	private void PlayTaunt()
 	{
 		if ( tauntTimer >= 0.0f )
 			return;
@@ -57,8 +57,8 @@ public class HeroInfo : Info
 		heroAudio = GetComponent<HeroAudio>();
 		idleTimer = 8.0f;
 	}
-	float idleTimer;
-	void PlayIdle()
+	private float idleTimer;
+	private void PlayIdle()
 	{
 		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
 			heroAudio.PlayClip( ( Random.Range( 0, 2 ) == 0 ) ? "HeroIdle1" : "HeroIdle2" );
@@ -80,13 +80,13 @@ public class HeroInfo : Info
 		HeroUIScript.Mana( manaCost, transform );
 		return true;
 	}
-	void HeroAttacked()
+	private void HeroAttacked()
 	{
 		overlay.Flash( HP, MAXHP );
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroAttacked, transform.position );
 		HeroUIScript.HeroBeingAttacked = true;
 	}
-	void HeroDeath()
+	private void HeroDeath()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroDeath, transform.position );
 		respawnTimer = respawnTime;
@@ -107,4 +107,3 @@ public class HeroInfo : Info
 	public string heroNameEn = "Player";
 	public string heroNameJp = "プレイヤー";
 }
-public enum Difficulty { Easy, Hard }

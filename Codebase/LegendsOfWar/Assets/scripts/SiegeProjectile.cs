@@ -4,8 +4,8 @@ public class SiegeProjectile : MonoBehaviour
 	public float speed;
 	public float damage;
 	[SerializeField]
-	bool lazer = false;
-	void OnTriggerEnter( Collider col )
+	private bool lazer = false;
+	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject.GetComponent<Info>() )
 			if ( col.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM )
@@ -24,16 +24,16 @@ public class SiegeProjectile : MonoBehaviour
 				Destroy( this.gameObject );
 			}
 	}
-	void Update()
+	private void Update()
 	{
 		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else
 			projectileTimer -= Time.deltaTime;
 	}
-	float projectileTimer;
+	private float projectileTimer;
 	public float projectileLifetime = 2.0f;
-	void Start()
+	private void Start()
 	{
 		projectileTimer = projectileLifetime;
 	}
