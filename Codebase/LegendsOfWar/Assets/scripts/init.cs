@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class init : MonoBehaviour
 {
 	static bool appInited = false;

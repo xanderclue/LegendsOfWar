@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-
 public class TowerMovement : MonoBehaviour
 {
-
 	void Update()
 	{
 		if ( EnemyAIManager.towerMovement )

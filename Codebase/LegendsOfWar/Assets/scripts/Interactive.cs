@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class Interactive : MonoBehaviour
 {
 	[SerializeField]
@@ -7,13 +6,11 @@ public class Interactive : MonoBehaviour
 	private GameObject Circle;
 	MinionInfo info;
 	public static bool minSelected = false;
-
 	void Start()
 	{
 		Circle = transform.Find( "Selection Circle" ).gameObject;
 		info = GetComponent<MinionInfo>();
 	}
-
 	void Update()
 	{
 		if ( GameManager.GameRunning )
@@ -25,7 +22,7 @@ public class Interactive : MonoBehaviour
 					camPos.y = Screen.height - camPos.y;
 					selected = CameraControl.Selection.Contains( camPos );
 				}
-			if ( Circle != null )
+			if ( Circle )
 			{
 				if ( selected )
 				{
@@ -41,7 +38,5 @@ public class Interactive : MonoBehaviour
 			}
 		}
 	}
-
 	public bool Selected { get { return selected; } }
-	public GameObject GameEntity { get { return gameObject; } }
 }

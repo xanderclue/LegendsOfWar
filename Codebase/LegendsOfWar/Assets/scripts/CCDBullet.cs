@@ -1,11 +1,8 @@
 using UnityEngine;
-
 public class CCDBullet : MonoBehaviour
 {
-
 	public float life;
 	Rigidbody body;
-
 	void Start()
 	{
 		body = GetComponent<Rigidbody>();
@@ -13,15 +10,13 @@ public class CCDBullet : MonoBehaviour
 		Physics.IgnoreLayerCollision( 31, 31 );
 		CheckCollision();
 	}
-
 	void Update()
 	{
 		CheckCollision();
 		life -= Time.deltaTime;
-		if ( life <= 0 )
-		{ Destroy( this.gameObject ); }
+		if ( life <= 0.0f )
+			Destroy( gameObject );
 	}
-
 	void CheckCollision()
 	{
 		Ray ray = new Ray( transform.position, body.velocity );
@@ -36,9 +31,6 @@ public class CCDBullet : MonoBehaviour
 			Debug.DrawLine( ray.origin, ray.origin + body.velocity * Time.deltaTime, Color.yellow );
 		}
 		else
-		{
 			Debug.DrawLine( ray.origin, ray.origin + body.velocity * Time.deltaTime, Color.white );
-		}
 	}
-
 }

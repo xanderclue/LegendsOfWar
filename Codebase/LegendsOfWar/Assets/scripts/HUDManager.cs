@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class HUDManager : MonoBehaviour
 {
 	[SerializeField]
 	Text characterName = null;
-
 	[SerializeField]
-	private GameObject start = null, NoStart = null, InGameInfo = null,
-		LoreInfo = null, abilityInfo = null, iconsPanel = null;
-
+	private GameObject start = null, NoStart = null, InGameInfo = null, LoreInfo = null, abilityInfo = null, iconsPanel = null;
 	TurnManager turnManager;
 	void Start()
 	{
@@ -25,16 +21,13 @@ public class HUDManager : MonoBehaviour
 	{
 		if ( turnManager == null || GameObject.Find( "Characters" ) == null )
 			return;
-
 		if ( CharacterSelectionManager.LegendChoice )
 		{
 			info = CharacterSelectionManager.heroInfo;
 			abilities = info.GetComponent<HeroAbilities>();
-			LoreInfo.GetComponentInChildren<Text>().text =
-				Options.Japanese ? info.roaa : info.Lore;
+			LoreInfo.GetComponentInChildren<Text>().text = Options.Japanese ? info.roaa : info.Lore;
 			abilityInfo.GetComponentInChildren<Text>().text = abilities.abilityInfo;
 		}
-
 		if ( start != null || NoStart != null || InGameInfo != null || LoreInfo != null )
 		{
 			if ( CharacterSelectionManager.Instance.Available[ turnManager.CurrentInt ] )
@@ -62,9 +55,7 @@ public class HUDManager : MonoBehaviour
 		}
 	}
 	[SerializeField]
-	Text tHealth = null, tMana = null,
-		tDamage = null, tAttackRange = null,
-		tDps = null, tDifficulty = null;
+	Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null, tDifficulty = null;
 	void SetGameInfo()
 	{
 		info = CharacterSelectionManager.heroInfo;
@@ -75,9 +66,7 @@ public class HUDManager : MonoBehaviour
 			tMana.text = "MP : " + info.MaxMana;
 			tDamage.text = "攻撃力 : " + info.Damage;
 			tAttackRange.text = "攻撃範囲 : " + info.Range;
-			tDps.text = "火力 : " +
-				( info.AttackSpeed *
-				info.Damage );
+			tDps.text = "火力 : " + ( info.AttackSpeed * info.Damage );
 			switch ( info.difficulty )
 			{
 				case Difficulty.Easy:

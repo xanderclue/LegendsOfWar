@@ -1,20 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
-
-
 public class TankAbilityE : AbilityEBase
 {
-
 	public CollisionDetector coll;
 	GameObject AbilityEParticle;
-
-
 	public float Edamage;
-
 	List<Info> slowed;
-
-
 	protected override void Start()
 	{
 		base.Start();
@@ -22,18 +13,14 @@ public class TankAbilityE : AbilityEBase
 		AbilityEParticle.GetComponent<ParticleSystem>().Stop();
 		slowed = new List<Info>();
 	}
-
-
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
 		AbilityEParticle.GetComponent<Transform>().localPosition = new Vector3( GameObject.FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.x, 1, GameObject.FindGameObjectWithTag( "Hero" ).GetComponent<Transform>().localPosition.z );
 		AbilityEParticle.GetComponent<ParticleSystem>().Play();
-
-		if ( coll != null )
+		if ( coll )
 			coll.DealDamage( Slow );
 	}
-
 	void Slow( Info entity )
 	{
 		if ( entity )
@@ -48,21 +35,13 @@ public class TankAbilityE : AbilityEBase
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
-		if ( slowed.Count != 0 && slowed != null )
-			for ( int i = 0; i < slowed.Count; i++ )
-			{
+		if ( slowed.Count != 0 )
+			for ( int i = 0; i < slowed.Count; ++i )
 				if ( slowed[ i ] != null )
-				{
-					slowed[ i ].gameObject.GetComponent<NavMeshAgent>().speed += 10;
-				}
-			}
+					slowed[ i ].gameObject.GetComponent<NavMeshAgent>().speed += 10.0f;
 		slowed.Clear();
-		AbilityEParticle.GetComponent<Transform>().localPosition -= new Vector3( 0, 10 );
+		AbilityEParticle.GetComponent<Transform>().localPosition -= new Vector3( 0.0f, 10.0f );
 		AbilityEParticle.GetComponent<ParticleSystem>().Stop();
 		AbilityEParticle.GetComponent<ParticleSystem>().Clear();
-
 	}
-
-
-
 }

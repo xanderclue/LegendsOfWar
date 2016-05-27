@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class MovementScript : MonoBehaviour
 {
 	[SerializeField]
@@ -11,44 +10,31 @@ public class MovementScript : MonoBehaviour
 	protected bool rayHit = false;
 	[SerializeField]
 	protected bool m_attackMOve = false;
-
-	public bool CanEngage
-	{
-		get { return m_attackMOve; }
-	}
-
+	public bool CanEngage { get { return m_attackMOve; } }
 	protected virtual void Start()
 	{
 		GameManager.Hud.GrabHit += MovementScript_GrabHit;
 	}
-
-	void OnDestoy() { GameManager.Hud.GrabHit -= MovementScript_GrabHit; }
-
+	void OnDestoy()
+	{
+		GameManager.Hud.GrabHit -= MovementScript_GrabHit;
+	}
 	void MovementScript_GrabHit( RaycastHit _hit )
 	{
 		hit = _hit;
 		rayHit = true;
 	}
-
-	protected Transform TargetPosition
-	{
-		get { return targetPosition; }
-	}
-
-	public void SetTarget( Transform target, float distance = 0 )
+	protected Transform TargetPosition { get { return targetPosition; } }
+	public void SetTarget( Transform target, float distance )
 	{
 		targetPosition = target;
 		combatRange = distance;
 		inCombat = true;
 	}
-
 	public void Disengage()
 	{
 		inCombat = false;
 	}
-
 	public bool WithinRange { get { return withinRange; } }
 	public bool InCombat { get { return inCombat; } }
-
-
 }

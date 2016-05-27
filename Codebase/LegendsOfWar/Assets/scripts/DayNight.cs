@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class DayNight : MonoBehaviour
 {
 	public float dayNightCycleDuration = 5.0f;

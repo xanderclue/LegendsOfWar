@@ -1,5 +1,2 @@
 ﻿using UnityEngine;
-
-public class TutMinionEnd : MonoBehaviour
-{
-}
+public class TutMinionEnd : MonoBehaviour { }

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 enum CamTransitionState { OnMain, Main2Hero, OnHero, Hero2Main }
-
 public class HeroCamScript : MonoBehaviour
 {
 	[SerializeField]
@@ -22,7 +20,6 @@ public class HeroCamScript : MonoBehaviour
 	Button buttonSwitch;
 	Text textSwitch;
 	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
-
 	public static bool onHero
 	{
 		get
@@ -44,11 +41,8 @@ public class HeroCamScript : MonoBehaviour
 			return inst.info.Alive;
 		}
 	}
-
 	bool cameraReady = false;
-
 	static string enterHM, exitHM;
-
 	void Start()
 	{
 		mainCam = mainCameraTransform.gameObject.GetComponent<Camera>();
@@ -60,18 +54,22 @@ public class HeroCamScript : MonoBehaviour
 		green = new Color( 0.49f, 0.6f, 0.0f );
 		red = new Color( 0.9f, 0.14f, 0.0f );
 		mouseVerticalStart = -0.5f * Input.mousePosition.y;
-
 		Options.onChangedLanguage += SetHMStrings;
 		SetHMStrings();
 	}
-
 	void OnDestroy()
 	{
 		Options.onChangedLanguage -= SetHMStrings;
 	}
-
-	public static Camera HeroCam { get { if ( inst ) return inst.heroCam; return null; } }
-
+	public static Camera HeroCam
+	{
+		get
+		{
+			if ( inst )
+				return inst.heroCam;
+			return null;
+		}
+	}
 	void SetHMStrings()
 	{
 		if ( Options.Japanese )
@@ -82,9 +80,7 @@ public class HeroCamScript : MonoBehaviour
 			exitHM = "(C) Exit Hero Mode";
 		}
 	}
-
 	float targetFOV = 60.0f;
-
 	float maxDistance, forceDistance;
 	RaycastHit[ ] hits;
 	string hitLayerName;
@@ -97,29 +93,26 @@ public class HeroCamScript : MonoBehaviour
 		{
 			hitLayerName = LayerMask.LayerToName( hit.collider.gameObject.layer );
 			if ( "Terrain" == hitLayerName || "Trees and Rocks" == hitLayerName )
-			{
 				if ( hit.distance <= forceDistance )
 					forceDistance = hit.distance;
-			}
 		}
 		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * ( forceDistance / maxDistance ) + heroCenter.position;
 	}
-
 	Color green, red;
-
 	float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
 	float mouseVerticalStart;
 	public static float MouseVertical
 	{
 		get { return inst ? inst.mouseVerticalStart : 0.0f; }
-		set { if ( inst ) inst.mouseVerticalStart = value; }
+		set
+		{
+			if ( inst )
+				inst.mouseVerticalStart = value;
+		}
 	}
-
 	void Update()
 	{
-		Cursor.visible = !GameManager.GameRunning || !onHero
-			|| StateID.STATE_SHOP == ApplicationManager.Instance.GetAppState()
-		|| heroCamDisabler.disabledCameraMovement;
+		Cursor.visible = !GameManager.GameRunning || !onHero || StateID.STATE_SHOP == ApplicationManager.Instance.GetAppState() || heroCamDisabler.disabledCameraMovement;
 		if ( !cameraReady )
 		{
 			GetHeroInfo();
@@ -159,7 +152,6 @@ public class HeroCamScript : MonoBehaviour
 				break;
 		}
 	}
-
 	float currentVertical;
 	void MouseVerticalAxis()
 	{
@@ -171,17 +163,12 @@ public class HeroCamScript : MonoBehaviour
 		if ( Input.GetMouseButton( 2 ) )
 		{
 			currentVertical = Input.mousePosition.y;
-			float newVert = verticalRotation - ( currentVertical - mouseVerticalStart );
-			if ( newVert >= maxVert )
-				newVert = maxVert;
-			if ( newVert <= minVert )
-				newVert = minVert;
+			float newVert = Mathf.Clamp( verticalRotation + mouseVerticalStart - currentVertical, minVert, maxVert );
 			float vertChange = newVert - verticalRotation;
 			verticalRotation = newVert;
 			heroCenter.Rotate( heroCenter.right, vertChange, Space.World );
 		}
 	}
-
 	void GetHeroInfo()
 	{
 		GameObject player;
@@ -192,7 +179,6 @@ public class HeroCamScript : MonoBehaviour
 			if ( info )
 			{
 				heroCenter = info.heroCenter;
-
 				heroTransformMax = new GameObject( "MaxTransf" ).transform;
 				heroTransformMax.SetParent( heroCenter );
 				heroTransform = new GameObject( "HeroCamTransform" ).transform;
@@ -211,7 +197,6 @@ public class HeroCamScript : MonoBehaviour
 			}
 		}
 	}
-
 	public void SwitchView()
 	{
 		if ( !info )
@@ -219,38 +204,32 @@ public class HeroCamScript : MonoBehaviour
 		switch ( state )
 		{
 			case CamTransitionState.OnMain:
-				if ( info.Alive )
-				{
-					heroCam.fieldOfView = mainCam.fieldOfView;
-					transform.position = mainCameraTransform.position;
-					transform.rotation = mainCameraTransform.rotation;
-					heroCam.enabled = true;
-					mainCam.enabled = false;
-					state = CamTransitionState.Main2Hero;
-					AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
-				}
+				if ( !info.Alive )
+					return;
+				heroCam.fieldOfView = mainCam.fieldOfView;
+				transform.position = mainCameraTransform.position;
+				transform.rotation = mainCameraTransform.rotation;
+				heroCam.enabled = true;
+				mainCam.enabled = false;
+				state = CamTransitionState.Main2Hero;
 				break;
 			case CamTransitionState.Main2Hero:
 				state = CamTransitionState.Hero2Main;
-				AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
 				break;
 			case CamTransitionState.OnHero:
 				state = CamTransitionState.Hero2Main;
-				AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
 				HudTextShowsQWER = true;
 				break;
 			case CamTransitionState.Hero2Main:
-				if ( info.Alive )
-				{
-					state = CamTransitionState.Main2Hero;
-					AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
-				}
+				if ( !info.Alive )
+					return;
+				state = CamTransitionState.Main2Hero;
 				break;
 			default:
 				break;
 		}
+		AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
 	}
-
 	void CamOnMain()
 	{
 		if ( Input.GetKeyDown( switchViewKey ) && info.Alive )
@@ -263,7 +242,6 @@ public class HeroCamScript : MonoBehaviour
 			state = CamTransitionState.Main2Hero;
 		}
 	}
-
 	void CamMain2Hero()
 	{
 		if ( !info.Alive )
@@ -291,7 +269,6 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
-
 	void CamOnHero()
 	{
 		if ( !info.Alive )
@@ -315,7 +292,6 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.transform.rotation = heroTransform.rotation;
 		}
 	}
-
 	void CamHero2Main()
 	{
 		if ( Input.GetKeyDown( switchViewKey ) )
@@ -335,25 +311,14 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
-
 	[SerializeField]
-	Text
-		hudTextAbilityQ = null,
-		hudTextAbilityW = null,
-		hudTextAbilityE = null,
-		hudTextAbilityR = null;
-
+	Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null, hudTextAbilityR = null;
 	public delegate void voidDel();
 	public static event voidDel OnOnHero;
-
 	private bool hudTextShowsQWER = true;
 	private bool HudTextShowsQWER
 	{
-		get
-		{
-			return hudTextShowsQWER;
-		}
-
+		get { return hudTextShowsQWER; }
 		set
 		{
 			hudTextShowsQWER = value;

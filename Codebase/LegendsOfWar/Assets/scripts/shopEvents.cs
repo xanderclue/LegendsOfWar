@@ -1,34 +1,28 @@
 ﻿using UnityEngine;
-
 public class shopEvents : MonoBehaviour
 {
 	[SerializeField]
 	Team team = Team.BLUE_TEAM;
 	[SerializeField]
 	GameObject laneSelectPanel = null;
-
 	string selectedItem;
-
 	void Awake()
 	{
 		ClosePanel();
 		ShopManager.Instance.UpdateValues = true;
 	}
-
 	public void OpenPanel( string item )
 	{
 		laneSelect = true;
 		selectedItem = item;
 		laneSelectPanel.SetActive( true );
 	}
-
 	public void ClosePanel()
 	{
 		laneSelect = false;
 		selectedItem = null;
 		laneSelectPanel.SetActive( false );
 	}
-
 	public void BuyMinion( int lane )
 	{
 		switch ( selectedItem )
@@ -46,75 +40,60 @@ public class shopEvents : MonoBehaviour
 				return;
 		}
 	}
-
 	public void PurchaseFreezeShot()
 	{
 		ShopManager.Instance.PurchaseFreezingShot( team );
 	}
-
 	public void PurchaseExplosiveShot()
 	{
 		ShopManager.Instance.PurchaseExplosiveShot( team );
 	}
-
 	public void PurchaseRevive()
 	{
 		ShopManager.Instance.PurchaseInstaRevive( team );
 	}
-
 	public void PurchaseStrikerUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.SLvl );
 	}
-
 	public void PurchaseTankUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.TLvl );
 	}
-
 	public void PurchaseCasterUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.CLvl );
 	}
-
 	public void PurchaseQUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.QLvl );
 	}
-
 	public void PurchaseWUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.WLvl );
 	}
-
 	public void PurchaseEUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.ELvl );
 	}
-
 	public void PurchaseRUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.RLvl );
 	}
-
 	bool upgrade;
 	bool laneSelect;
 	float updateTimer, timer;
-
 	void Start()
 	{
 		upgrade = false;
 		updateTimer = timer = 3.0f;
 	}
-
 	void Update()
 	{
 		if ( upgrade )
 		{
 			if ( timer > 0.0f )
-			{
 				timer -= Time.deltaTime;
-			}
 			else
 			{
 				timer = updateTimer;
@@ -124,10 +103,6 @@ public class shopEvents : MonoBehaviour
 		if ( laneSelect )
 			RecieveLaneInputs();
 	}
-
-
-
-
 	void RecieveLaneInputs()
 	{
 		if ( Input.GetKeyDown( KeyCode.UpArrow ) )

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class TowerManager : MonoBehaviour
 {
 	[SerializeField]
@@ -12,13 +11,11 @@ public class TowerManager : MonoBehaviour
 	public ExplosiveProjectileInfo explosiveInfo = null;
 	[SerializeField]
 	bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false, blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
-
 	bool blueShotChanged = false;
 	public bool BlueShotChanged { get { return blueShotChanged; } }
 	bool redShotChanged = false;
 	public bool RedShotChanged { get { return redShotChanged; } }
 	float blueTimer = 0.1f, redTimer = 0.1f;
-
 	void Update()
 	{
 		if ( blueShotChanged && blueTimer < 0.0f )
@@ -28,18 +25,14 @@ public class TowerManager : MonoBehaviour
 		}
 		else if ( blueShotChanged )
 			blueTimer -= Time.deltaTime;
-
 		if ( redShotChanged && redTimer < 0.0f )
 		{
 			redShotChanged = false;
 			redTimer = 0.1f;
 		}
 		else if ( redShotChanged )
-		{
 			redTimer -= Time.deltaTime;
-		}
 	}
-
 	public Items GetActiveShot( Team team )
 	{
 		switch ( team )
@@ -60,10 +53,11 @@ public class TowerManager : MonoBehaviour
 				else if ( blueExplosiveActive )
 					return Items.ExplosiveShot;
 				break;
+			default:
+				break;
 		}
 		return Items.Caster;
 	}
-
 	public bool CheckIfShotActive( Team team, Items shotType )
 	{
 		switch ( shotType )
@@ -87,7 +81,6 @@ public class TowerManager : MonoBehaviour
 				return false;
 		}
 	}
-
 	public void ActivateShotType( Team team, Items shotType )
 	{
 		if ( shotType == Items.NormalShot || shotType == Items.FreezeShot || shotType == Items.ExplosiveShot )
@@ -113,15 +106,15 @@ public class TowerManager : MonoBehaviour
 					else
 						redExplosiveActive = true;
 					break;
+				default:
+					break;
 			}
-
 			if ( team == Team.BLUE_TEAM )
 				blueShotChanged = true;
 			else
 				redShotChanged = true;
 		}
 	}
-
 	void DeactivateShots( Team team )
 	{
 		if ( team == Team.BLUE_TEAM )
@@ -129,7 +122,6 @@ public class TowerManager : MonoBehaviour
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;
 	}
-
 	static TowerManager instance = null;
 	public static TowerManager Instance
 	{
@@ -144,6 +136,12 @@ public class TowerManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake() { instance = this; }
-	void OnDestroy() { instance = null; }
+	void Awake()
+	{
+		instance = this;
+	}
+	void OnDestroy()
+	{
+		instance = null;
+	}
 }

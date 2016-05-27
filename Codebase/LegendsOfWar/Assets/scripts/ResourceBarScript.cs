@@ -1,19 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class ResourceBarScript : MonoBehaviour
 {
 	[SerializeField]
 	GameObject host = null;
-
 	Info stats;
 	Image bar = null;
-
 	[SerializeField]
 	bool attachedToHUD = false;
-
 	public bool isMana = false;
-
 	void Start()
 	{
 		stats = host.GetComponent<Info>();
@@ -27,7 +22,6 @@ public class ResourceBarScript : MonoBehaviour
 		heroUiTrans = HeroUIScript.Instance.transform;
 		rectTransform = GetComponent<RectTransform>();
 	}
-
 	bool notHero = true;
 	Vector3 high, low;
 	static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
@@ -39,9 +33,7 @@ public class ResourceBarScript : MonoBehaviour
 			bar.fillAmount = ( ( stats as HeroInfo ).Mana / ( stats as HeroInfo ).MaxMana );
 		else
 			bar.fillAmount = stats.HP / stats.MAXHP;
-
 		if ( !attachedToHUD )
-		{
 			if ( HeroCamScript.onHero && notHero )
 			{
 				transform.localPosition = low;
@@ -55,8 +47,6 @@ public class ResourceBarScript : MonoBehaviour
 				rectTransform.Rotate( Vector3.up, -transform.rotation.eulerAngles.y, Space.World );
 				gameObject.layer = 5;
 			}
-		}
 	}
-
-	public GameObject Host { set { host = value; } get { return host; } }
+	public GameObject Host { get { return host; } set { host = value; } }
 }

@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class HeroAttack : AttackScript
 {
 	private HeroInfo info;
 	List<Transform> targets;
-
 	ProximityCompare comparer = new ProximityCompare();
 	float attackDelay;
 	float attackTimer = 0.0f;
@@ -19,7 +17,6 @@ public class HeroAttack : AttackScript
 		attackDelay = 1.0f / info.AttackSpeed;
 		info.Destroyed += targets.Clear;
 	}
-
 	void AttackTriggerEnter( GameObject obj )
 	{
 		if ( this.isActiveAndEnabled )
@@ -31,7 +28,6 @@ public class HeroAttack : AttackScript
 						targets.Add( obj.transform );
 			}
 	}
-
 	float AsoundTimer = 1.0f;
 	void Update()
 	{
@@ -50,12 +46,10 @@ public class HeroAttack : AttackScript
 			}
 		}
 	}
-
 	void FixedUpdate()
 	{
 		attackTimer -= Time.fixedDeltaTime;
 	}
-
 	void AttackTriggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
@@ -65,15 +59,10 @@ public class HeroAttack : AttackScript
 			targets.Reverse( 1, targets.Count - 1 );
 		}
 	}
-
 	void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
-			if ( targets[ i ] && targets[ i ].gameObject.activeInHierarchy )
-				continue;
-			else
-			{
-				targets.RemoveAt( i ); --i;
-			}
+			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+				targets.RemoveAt( i-- );
 	}
 }

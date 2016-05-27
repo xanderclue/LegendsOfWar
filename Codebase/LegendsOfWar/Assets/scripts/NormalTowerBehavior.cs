@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class NormalTowerBehavior : MonoBehaviour
 {
 	[SerializeField]
@@ -9,21 +8,17 @@ public class NormalTowerBehavior : MonoBehaviour
 	Transform projectileSpawnPoint = null;
 	[SerializeField]
 	Detector detector = null;
-
 	List<Transform> targets;
 	NormalProjectileInfo info;
 	float fireTimer;
-
 	void Awake()
 	{
 		targets = new List<Transform>();
 		info = TowerManager.Instance.normalInfo;
-
 		detector.CreateTrigger( info.AgroRange );
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
 	}
-
 	void AddTarget( GameObject obj )
 	{
 		if ( obj )
@@ -33,22 +28,19 @@ public class NormalTowerBehavior : MonoBehaviour
 				targets.Add( obj.transform );
 		}
 	}
-
 	void RemoveTarget( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-
 	void Update()
 	{
 		targets.RemoveAll( item => item == null );
-
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.NormalShot ) )
 		{
 			if ( fireTimer <= 0.0f )
 			{
 				if ( targets != null && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject )
-
+				{
 					if ( !targets[ 0 ].gameObject.activeInHierarchy )
 						RemoveTarget( targets[ 0 ].gameObject );
 					else
@@ -56,12 +48,12 @@ public class NormalTowerBehavior : MonoBehaviour
 						FireAtTarget();
 						fireTimer = info.AttackSpeed;
 					}
+				}
 			}
 			else
 				fireTimer -= Time.deltaTime;
 		}
 	}
-
 	void FireAtTarget()
 	{
 		if ( GameManager.GameEnded )

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class AudioManager : MonoBehaviour
 {
 	static Transform listenerTransform = null;
@@ -7,7 +6,6 @@ public class AudioManager : MonoBehaviour
 	static AudioSource SfxSource = null;
 	[SerializeField]
 	AudioSource clickSoundSource = null;
-
 	public static Vector3 ListenerPosition
 	{
 		get
@@ -17,44 +15,9 @@ public class AudioManager : MonoBehaviour
 			return Vector3.zero;
 		}
 	}
-
 	[SerializeField]
-	private AudioClip
-		gameBGM = null,
-		menuBGM = null,
-		endGameBGM = null,
-		HeroCam = null,
-		WaveSpawn = null,
-		TowerProjectile = null,
-		PortalDestroyed = null,
-		PortalAttacked = null,
-		TowerDestroyed = null,
-		TowerAttacked = null,
-		MinionAttack = null,
-		MinionAttacked = null,
-		MinionDeath = null,
-		HeroAttacked = null,
-		HeroDeath = null,
-		ClickSound = null;
-
-	public static AudioClip
-		bgmGame,
-		bgmMenu,
-		bgmEndGame,
-		sfxHeroCam,
-		sfxWaveSpawn,
-		sfxTowerProjectile,
-		sfxPortalDestroyed,
-		sfxPortalAttacked,
-		sfxTowerDestroyed,
-		sfxTowerAttacked,
-		sfxMinionAttack,
-		sfxMinionAttacked,
-		sfxMinionDeath,
-		sfxHeroAttacked,
-		sfxHeroDeath,
-		sfxClickSound;
-
+	private AudioClip gameBGM = null, menuBGM = null, endGameBGM = null, HeroCam = null, WaveSpawn = null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed = null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null, HeroAttacked = null, HeroDeath = null, ClickSound = null;
+	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn, sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed, sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked, sfxHeroDeath, sfxClickSound;
 	static AudioManager instance = null;
 	public static AudioManager Instance { get { return instance; } }
 	void Awake()
@@ -97,22 +60,16 @@ public class AudioManager : MonoBehaviour
 	void Start()
 	{
 		clickSoundSource.clip = ClickSound;
-
 		Options.onChangedBgmVolume += OnChangedBgmVol;
 		Options.onChangedSfxVolume += OnChangedSfxVol;
-
 		BgmSource = GetComponent<AudioSource>();
-
 		if ( gameBGM && menuBGM )
 			BGM_Switch();
 		else
 			Destroy( gameObject );
-
 		FindListener();
-
 		OnChangedBgmVol();
 		OnChangedSfxVol();
-
 	}
 	void FindListener()
 	{
@@ -148,7 +105,6 @@ public class AudioManager : MonoBehaviour
 		instance.clickSoundSource.volume = Options.sfxVolume;
 		instance.clickSoundSource.PlayOneShot( sfxClickSound );
 	}
-
 	public static void PlaySoundEffect( AudioClip ac )
 	{
 		if ( SfxSource )
@@ -174,42 +130,33 @@ public class AudioManager : MonoBehaviour
 			case StateID.STATE_HELP:
 			case StateID.STATE_SELECTION:
 			case StateID.STATE_INTRODUCTION:
+				if ( BgmSource.clip != gameBGM )
 				{
-					if ( BgmSource.clip != gameBGM )
-					{
-						BgmSource.Stop();
-						BgmSource.clip = gameBGM;
-						BgmSource.Play();
-					}
+					BgmSource.Stop();
+					BgmSource.clip = gameBGM;
+					BgmSource.Play();
 				}
 				break;
-
 			case StateID.STATE_GAME_WON:
 			case StateID.STATE_GAME_LOST:
 			case StateID.STATE_GAME_DRAW:
+				if ( BgmSource.clip != endGameBGM )
 				{
-					if ( BgmSource.clip != endGameBGM )
-					{
-						BgmSource.Stop();
-						BgmSource.clip = endGameBGM;
-						BgmSource.Play();
-					}
+					BgmSource.Stop();
+					BgmSource.clip = endGameBGM;
+					BgmSource.Play();
 				}
 				break;
-
 			case StateID.STATE_MAIN_MENU:
 			case StateID.STATE_CREDITS:
 			case StateID.STATE_EXIT:
+				if ( BgmSource.clip != menuBGM )
 				{
-					if ( BgmSource.clip != menuBGM )
-					{
-						BgmSource.Stop();
-						BgmSource.clip = menuBGM;
-						BgmSource.Play();
-					}
+					BgmSource.Stop();
+					BgmSource.clip = menuBGM;
+					BgmSource.Play();
 				}
 				break;
-
 			default:
 				break;
 		}
@@ -238,7 +185,6 @@ public class AudioManager : MonoBehaviour
 		if ( SfxSource )
 			clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
 	}
-
 	static AudioSource singleAud = null;
 	public static void KillSingle()
 	{
@@ -246,8 +192,7 @@ public class AudioManager : MonoBehaviour
 			singleAud.mute = true;
 		singleAud = null;
 	}
-	public static void PlayClipRaw( AudioClip clp, Transform loc = null,
-		bool isVoice = false, bool single = false )
+	public static void PlayClipRaw( AudioClip clp, Transform loc = null, bool isVoice = false, bool single = false )
 	{
 		if ( !clp )
 			return;

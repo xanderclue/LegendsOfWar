@@ -1,24 +1,16 @@
 ﻿using UnityEngine;
-
 public class CasterWZoneBehavior : MonoBehaviour
 {
 	public float zoneDuration;
 	[SerializeField]
-	Effect m_effect;
+	Effect m_effect = null;
 	public bool Activate = false;
-
 	void OnParticleCollision( GameObject _other )
 	{
 		if ( _other.GetComponentInParent<StatusEffects>() )
-		{
 			if ( _other.GetComponent<Info>().team == Team.RED_TEAM )
-			{
 				StatusEffects.Inflict( _other.gameObject, m_effect.CreateEffect() );
-
-			}
-		}
 	}
-
 	void Update()
 	{
 		if ( Activate )

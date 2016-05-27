@@ -1,5 +1,1 @@
-﻿
-public class NormalProjectileInfo : BaseProjectileInfo
-{
-
-}
+﻿public class NormalProjectileInfo : BaseProjectileInfo { }

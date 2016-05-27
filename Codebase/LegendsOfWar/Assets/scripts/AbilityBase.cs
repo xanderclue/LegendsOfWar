@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
-
 public abstract class AbilityBase : MonoBehaviour
 {
 	[SerializeField]
 	protected Effect m_effect;
 	public Sprite abilityIcon;
-
-	public Effect Effect
-	{
-		get { return m_effect; }
-	}
+	public Effect Effect { get { return m_effect; } }
 	protected float cooldownTimer = 0.0f;
 	[SerializeField]
 	protected float cooldownTime = 10.0f;
@@ -19,14 +14,10 @@ public abstract class AbilityBase : MonoBehaviour
 	protected GameObject cursor = null;
 	[SerializeField]
 	protected Texture2D CursorIcon = null;
-
-
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
-
 	protected bool aimingSkill = false;
 	protected HeroInfo heroInfo;
-
 	protected virtual void Start()
 	{
 		if ( m_effect.m_name == "" )
@@ -35,14 +26,20 @@ public abstract class AbilityBase : MonoBehaviour
 			cooldownTime = m_effect.m_duration;
 		heroInfo = GetComponentInParent<HeroInfo>();
 		cursor = GameManager.cursor;
-		if ( CursorIcon != null )
+		if ( CursorIcon )
 			hotSpot.Set( CursorIcon.width * 0.5f, CursorIcon.height * 0.5f );
 	}
 	public float Timer { get { return cooldownTimer; } set { cooldownTimer = value; } }
 	public bool AbilityOn
 	{
 		get { return abilityOn; }
-		set { if ( value ) TryCast(); else AbilityDeactivate(); }
+		set
+		{
+			if ( value )
+				TryCast();
+			else
+				AbilityDeactivate();
+		}
 	}
 	protected virtual void AbilityActivate()
 	{
@@ -74,19 +71,14 @@ public abstract class AbilityBase : MonoBehaviour
 	public bool EnoughMana { get { return heroInfo.Mana >= abilityCost; } }
 	protected void ToggleCursor( bool _bool )
 	{
-
-		if ( cursor != null )
-		{
+		if ( cursor )
 			if ( !( Input.GetKey( KeyCode.Q ) || Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.E ) || Input.GetKey( KeyCode.R ) ) )
 				cursor.SetActive( _bool );
-		}
-
 		if ( _bool )
 			Cursor.SetCursor( CursorIcon, hotSpot, cursorMode );
 		else
 			Cursor.SetCursor( null, Vector2.zero, cursorMode );
 	}
-
 	public string abilityDescEn = "";
 	public string abilityDescJp = "";
 	public string abilityNameEn = "Ability";

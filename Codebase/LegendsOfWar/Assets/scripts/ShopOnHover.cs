@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
-
 public class ShopOnHover : MonoBehaviour
 {
 	enum Description { Q, W, E, R, DEFAULT };
-
 	[SerializeField]
 	Description disc = Description.Q;
-
 	bool isHovering = false;
 	[SerializeField]
 	string textEn = "", textJp = "";
-
 	void Start()
 	{
 		HeroAbilities abilities = GameManager.Instance.Player.GetComponent<HeroAbilities>();
@@ -35,33 +31,27 @@ public class ShopOnHover : MonoBehaviour
 			default:
 				break;
 		}
-
 	}
-
 	public void OnHover()
 	{
 		isHovering = true;
 	}
-
 	public void OnExit()
 	{
 		isHovering = false;
 	}
-
 	void OnGUI()
 	{
 		if ( isHovering == true )
 			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
-
 	void GenerateBox( string words )
 	{
 		GUIStyle style = new GUIStyle( GUI.skin.box );
 		style.normal.textColor = Color.green;
 		style.fontSize = 20;
-
 		Rect labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
-		labelRect.x = Input.mousePosition.x + 25;
+		labelRect.x = Input.mousePosition.x + 25.0f;
 		labelRect.y = Screen.height - Input.mousePosition.y;
 		GUI.Box( labelRect, words, style );
 	}

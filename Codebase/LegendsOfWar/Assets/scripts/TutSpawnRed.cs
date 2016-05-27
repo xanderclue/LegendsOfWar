@@ -1,23 +1,17 @@
 ﻿using UnityEngine;
-
 public class TutSpawnRed : MonoBehaviour
 {
-
 	[SerializeField]
 	GameObject IntroductionManager;
-
 	[SerializeField]
 	GameObject Health;
 	[SerializeField]
 	GameObject Hero;
-
 	public bool Battle;
 	void Start()
 	{
 		Battle = false;
 	}
-
-
 	void OnTriggerEnter()
 	{
 		Hero.SetActive( true );
@@ -27,6 +21,5 @@ public class TutSpawnRed : MonoBehaviour
 		IntroductionManager.GetComponent<IntroManager>().SpawnRedStrikerMinion();
 		Battle = true;
 		this.gameObject.SetActive( false );
-
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class RedTowrDestryed : MonoBehaviour
 {
 	[SerializeField]
@@ -8,11 +7,9 @@ public class RedTowrDestryed : MonoBehaviour
 	{
 		aiManager = FindObjectOfType<EnemyAIManager>();
 	}
-
-
 	void OnDisable()
 	{
-		if ( aiManager != null )
+		if ( aiManager )
 			aiManager.Destroyed();
 	}
 }

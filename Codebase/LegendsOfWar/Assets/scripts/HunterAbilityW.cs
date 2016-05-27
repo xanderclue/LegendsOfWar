@@ -1,73 +1,52 @@
 ﻿using UnityEngine;
-
 public class HunterAbilityW : AbilityWBase
 {
 	[SerializeField]
 	float range = 0.0f, speed = 0.0f, damage = 0.0f;
 	[SerializeField]
 	GameObject projectile = null, arrowSpawn = null;
-
 	[SerializeField]
 	GameObject Icon = null;
-
 	GameObject activeIcon = null;
-
 	Info target = null;
 	float originalSpeed = 0.0f;
 	RaycastHit hit;
-
-
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
 		if ( EnoughMana )
-			if ( ( ( Input.GetKeyDown( KeyCode.W ) && !HeroCamScript.onHero ) ||
-				Input.GetKeyDown( KeyCode.Alpha2 ) ||
-				Input.GetKeyDown( KeyCode.Keypad2 ) ) && cooldownTimer <= 0.0f )
-			{
+			if ( ( ( Input.GetKeyDown( KeyCode.W ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha2 ) || Input.GetKeyDown( KeyCode.Keypad2 ) ) && cooldownTimer <= 0.0f )
 				if ( TargetSelected() )
 					TryCast();
-			}
-
 		if ( !target && activeIcon && activeIcon.GetComponent<SpriteRenderer>().enabled )
 			activeIcon.GetComponent<SpriteRenderer>().enabled = false;
 	}
-
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
 		StopTarget();
 	}
-
-	MarkedEnemyIcon mei;
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
-
 		if ( target )
 			target.GetComponent<NavMeshAgent>().speed = originalSpeed;
-
 		if ( activeIcon && activeIcon.GetComponent<SpriteRenderer>() )
 			activeIcon.GetComponent<SpriteRenderer>().enabled = false;
 	}
-
 	bool TargetSelected()
 	{
 		Ray ray = new Ray( transform.position, transform.forward );
-
 		if ( Physics.SphereCast( ray, 5.0f, out hit, range, 9, QueryTriggerInteraction.Collide ) )
-		{
 			if ( hit.collider.GetComponent<NavMeshAgent>() && hit.collider.GetComponent<Info>() && hit.collider.GetComponent<Info>().team != GetComponentInParent<Info>().team )
 			{
 				target = hit.collider.gameObject.GetComponent<Info>();
 				return true;
 			}
-		}
 		return false;
 	}
-
 	void StopTarget()
 	{
 		originalSpeed = target.GetComponent<NavMeshAgent>().speed;

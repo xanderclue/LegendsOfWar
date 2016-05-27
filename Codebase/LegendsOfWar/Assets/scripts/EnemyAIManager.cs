@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class EnemyAIManager : MonoBehaviour
 {
 	public enum HeroLocation { TOP_Lane, MID_Lane, BOT_Lane, Close, TOO_Close, Unknown };
-
 	[Header( "Needed stuff" )]
 	public PortalInfo redPortal = null;
 	public PortalInfo bluePortal = null;
@@ -14,7 +12,6 @@ public class EnemyAIManager : MonoBehaviour
 	public BcWeapon lazer = null;
 	public GameObject lastResortParticle = null;
 	public Detector attackRange = null;
-
 	[Header( "Logic variables" )]
 	[Range( 0.0f, 100.0f )]
 	public float dangerTreshold = 0.0f;
@@ -23,8 +20,6 @@ public class EnemyAIManager : MonoBehaviour
 	[Range( 0.0f, 5000.0f )]
 	public float remainingHealth = 0;
 	public HeroLocation heroPresence = HeroLocation.Unknown;
-
-
 	[Header( "Timers" )]
 	[Range( 0.0f, 80.0f )]
 	public float siegeTimer = 0.0f;
@@ -32,7 +27,6 @@ public class EnemyAIManager : MonoBehaviour
 	public float reinforcementsTimer = 0.0f;
 	[Range( 0.0f, 30.0f )]
 	public float lastResortTimer = 3.0f;
-
 #if DEBUG
 	[Header( "Enabled Behaviors" )]
 	public bool m_spawnSiegeMinion = false;
@@ -44,7 +38,6 @@ public class EnemyAIManager : MonoBehaviour
 	public bool m_extraSiegeMinion = false;
 	public bool m_lastResort = false;
 #endif
-
 	public static bool spawnSiegeMinion = false;
 	public static bool reinforcements = false;
 	public static bool towerMovement = false;
@@ -53,15 +46,11 @@ public class EnemyAIManager : MonoBehaviour
 	public static bool upgradeSiege = false;
 	public static bool extraSiegeMinion = false;
 	public static bool lastResort = false;
-
-
 	[Header( "Minion Prefabs" )]
 	public GameObject siegeMinion = null;
 	public GameObject redStriker = null;
 	public GameObject redTank = null;
 	public GameObject redCaster = null;
-
-
 	float reinforcementsTime = 40;
 	float siegeTime = 60.0f;
 	float lastResortTime = 20.0f;
@@ -74,20 +63,18 @@ public class EnemyAIManager : MonoBehaviour
 	float maxTime = 900.0f;
 	GameObject min_go;
 	NavMeshAgent nma;
-	const float halfsqrt2 = 0.707106781f;
-	static readonly Quaternion
-		faceLeft = new Quaternion( 0.0f, -halfsqrt2, 0.0f, halfsqrt2 ),
-		faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ),
-		faceDown = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+	static readonly Quaternion faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
 	List<Transform> targets = new List<Transform>();
 	GameObject Hero = null;
-
-
-	float CalcSelfRecovery()
+	float CalcSelfRecovery
 	{
-		return ( selfRecoveryBase + selfRecoveryGrowth * ( ( ( ( redPortal.MAXHP - redPortal.HP ) / redPortal.MAXHP ) * selfRecoveryBase ) + ( 0.0175f * ( maxTime - GameManager.Instance.Timer ) ) ) );
+		get
+		{
+			return selfRecoveryBase + selfRecoveryGrowth * ( ( ( ( redPortal.MAXHP - redPortal.HP )
+				/ redPortal.MAXHP ) * selfRecoveryBase ) + ( 0.0175f * ( maxTime - GameManager.
+				Instance.Timer ) ) );
+		}
 	}
-
 	void Start()
 	{
 		remainingHealth = redPortal.HP;
@@ -96,27 +83,21 @@ public class EnemyAIManager : MonoBehaviour
 		attackRange.triggerExit += AttackRange_triggerExit;
 		attackRange.CreateTrigger( 210.0f );
 	}
-
 	void AttackRange_triggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-
 	void AttackRange_triggerEnter( GameObject obj )
 	{
 		if ( redPortal.Alive )
-		{
 			if ( obj && obj.CompareTag( "Minion" ) )
 				if ( obj.GetComponent<Info>().team == Team.BLUE_TEAM )
 					targets.Add( obj.transform );
-		}
 	}
-
 	public void Destroyed()
 	{
 		--towersRemaining;
 	}
-
 	void Update()
 	{
 #if DEBUG
@@ -133,7 +114,6 @@ public class EnemyAIManager : MonoBehaviour
 			lazer.autofire = false;
 		remainingHealth = redPortal.HP;
 		dangerTreshold = ( ( timeCost - ( ( GameManager.Instance.Timer / maxTime ) * timeCost ) ) + ( healthCost - ( ( redPortal.HP / redPortal.MAXHP ) * healthCost ) ) + ( 5 - towersRemaining ) * towerCost );
-
 		lazer.bulletPrefab.GetComponent<SiegeProjectile>().damage = GetComponentInParent<PortalInfo>().Damage * towersRemaining;
 		if ( LastResortActive == false )
 			switch ( GetTriggered( dangerTreshold ) )
@@ -229,25 +209,21 @@ public class EnemyAIManager : MonoBehaviour
 				default:
 					break;
 			}
-
 		if ( spawnSiegeMinion )
 			siegeTimer -= Time.deltaTime;
-
 		if ( reinforcements )
 			reinforcementsTimer -= Time.deltaTime;
-
 		if ( lastResort && lastResortTimer >= 15.0f )
 			LastResortActive = true;
-
 		if ( redPortal.Alive && selfRecover )
 		{
-			redPortal.HP = remainingHealth + ( CalcSelfRecovery() * Time.deltaTime );
+			redPortal.HP = remainingHealth + CalcSelfRecovery * Time.deltaTime;
 			if ( LastResortActive )
 			{
 				lastResortParticle.GetComponent<ParticleSystem>().Play();
 				lastResortTimer -= Time.deltaTime;
 				selfRecoveryBase *= 3;
-				redPortal.HP = remainingHealth + ( CalcSelfRecovery() * Time.deltaTime );
+				redPortal.HP = remainingHealth + CalcSelfRecovery * Time.deltaTime;
 				if ( lastResortTimer <= 0.0f )
 					LastResortActive = false;
 			}
@@ -258,32 +234,26 @@ public class EnemyAIManager : MonoBehaviour
 				lastResortTimer = System.Math.Min( lastResortTime, ( lastResortTimer + Time.deltaTime * 0.6f ) );
 			}
 		}
-		if ( spawnSiegeMinion && siegeTimer <= 0 )
+		if ( spawnSiegeMinion && siegeTimer <= 0.0f )
 		{
-
 			SpawnSiegeMinion( Team.RED_TEAM, heroPresence );
 			if ( extraSiegeMinion )
 				SpawnSiegeMinion( Team.RED_TEAM, heroPresence );
 			siegeTimer = siegeTime;
 		}
-
-		if ( reinforcements && reinforcementsTimer <= 0 )
+		if ( reinforcements && reinforcementsTimer <= 0.0f )
 		{
 			SetupMinion( Instantiate( redCaster, redPortal.LeftSpawn[ 0 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redStriker, redPortal.LeftSpawn[ 3 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redTank, redPortal.LeftSpawn[ 1 ].position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-
 			SetupMinion( Instantiate( redCaster, redPortal.MidSpawn[ 0 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redStriker, redPortal.MidSpawn[ 4 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redTank, redPortal.MidSpawn[ 2 ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-
 			SetupMinion( Instantiate( redCaster, redPortal.RightSpawn[ 0 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redStriker, redPortal.RightSpawn[ 4 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
 			SetupMinion( Instantiate( redTank, redPortal.RightSpawn[ 2 ].position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
 			reinforcementsTimer = reinforcementsTime;
 		}
-
-
 		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <= 130.0f )
 			heroPresence = HeroLocation.TOO_Close;
 		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <= 210.0f )
@@ -295,29 +265,24 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			heroPresence = HeroLocation.MID_Lane;
 		if ( heroPresence == HeroLocation.TOO_Close )
-		{
 			redPortal.DmgDamp = 16.555f * towersRemaining;
-		}
 		else
-			redPortal.DmgDamp = 10 * towersRemaining;
-
-
+			redPortal.DmgDamp = 10.0f * towersRemaining;
 	}
 	enum DangerLevel { MINIMAL, LOW, MEDIUM, MODERATE, HIGH, CRITICAL, EXTREME };
-
 	DangerLevel GetTriggered( float _num )
 	{
-		if ( dangerTreshold >= 90 )
+		if ( dangerTreshold >= 90.0f )
 			return DangerLevel.EXTREME;
-		else if ( dangerTreshold >= 75 )
+		else if ( dangerTreshold >= 75.0f )
 			return DangerLevel.CRITICAL;
-		else if ( _num >= 60 )
+		else if ( _num >= 60.0f )
 			return DangerLevel.HIGH;
-		else if ( _num >= 45 )
+		else if ( _num >= 45.0f )
 			return DangerLevel.MODERATE;
-		else if ( _num >= 30 )
+		else if ( _num >= 30.0f )
 			return DangerLevel.MEDIUM;
-		else if ( _num >= 12 )
+		else if ( _num >= 12.0f )
 			return DangerLevel.LOW;
 		else
 			return DangerLevel.MINIMAL;
@@ -331,7 +296,7 @@ public class EnemyAIManager : MonoBehaviour
 	{
 #if DEBUG
 		second -= Time.fixedDeltaTime;
-		temp += ( ( CalcSelfRecovery() ) * Time.fixedDeltaTime );
+		temp += CalcSelfRecovery * Time.fixedDeltaTime;
 		if ( second <= 0.0f )
 		{
 			temp2 = temp;
@@ -339,7 +304,7 @@ public class EnemyAIManager : MonoBehaviour
 			temp = 0.0f;
 		}
 #endif
-		if ( lazer == null )
+		if ( !lazer )
 			return;
 		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 		{
@@ -347,12 +312,7 @@ public class EnemyAIManager : MonoBehaviour
 			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 				AttackRange_triggerExit( targets[ 0 ].gameObject );
 		}
-		if ( heroPresence == HeroLocation.TOO_Close && Hero.GetComponent<Info>().Alive )
-		{
-			portalLazer.transform.LookAt( Hero.transform );
-			lazer.autofire = true;
-		}
-		else if ( huntHero && heroPresence == HeroLocation.Close && Hero.GetComponent<Info>().Alive )
+		if ( ( heroPresence == HeroLocation.TOO_Close || huntHero && heroPresence == HeroLocation.Close ) && Hero.GetComponent<Info>().Alive )
 		{
 			portalLazer.transform.LookAt( Hero.transform );
 			lazer.autofire = true;
@@ -370,18 +330,12 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			lazer.autofire = false;
 	}
-
 	void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
-			if ( targets[ i ] && targets[ i ].gameObject.activeInHierarchy )
-				continue;
-			else
-			{
+			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
 				targets.RemoveAt( i-- );
-			}
 	}
-
 	void SetupMinion( Object _minion, Path lane, Team team )
 	{
 		min_go = _minion as GameObject;
@@ -390,7 +344,6 @@ public class EnemyAIManager : MonoBehaviour
 		nma.enabled = true;
 		nma.destination = bluePortal.gameObject.transform.position;
 	}
-
 	public void SpawnTankMinion( Team team, int lane )
 	{
 		switch ( lane )
@@ -408,7 +361,6 @@ public class EnemyAIManager : MonoBehaviour
 				return;
 		}
 	}
-
 	public void SpawnCasterMinion( Team team, int lane )
 	{
 		switch ( lane )
@@ -449,9 +401,6 @@ public class EnemyAIManager : MonoBehaviour
 		{
 			case HeroLocation.BOT_Lane:
 				SetupMinion( Instantiate( siegeMinion, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].position, faceUp ), Path.SOUTH_PATH, Team.RED_TEAM );
-				break;
-			case HeroLocation.MID_Lane:
-				SetupMinion( Instantiate( siegeMinion, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
 				break;
 			case HeroLocation.TOP_Lane:
 				SetupMinion( Instantiate( siegeMinion, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].position, faceDown ), Path.NORTH_PATH, Team.RED_TEAM );

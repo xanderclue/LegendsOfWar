@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class AbilityIcon : MonoBehaviour
 {
 	[SerializeField]
 	Image q = null, w = null, e = null, r = null;
 	HeroAbilities abilities = null;
-
 	void SetIcons()
 	{
 		if ( CharacterSelectionManager.LegendChoice )
@@ -19,6 +17,12 @@ public class AbilityIcon : MonoBehaviour
 			r.sprite = abilities.abilityR.abilityIcon;
 		}
 	}
-	void Update() { SetIcons(); }
-	public void Force() { SetIcons(); }
+	void Update()
+	{
+		SetIcons();
+	}
+	public void Force()
+	{
+		SetIcons();
+	}
 }

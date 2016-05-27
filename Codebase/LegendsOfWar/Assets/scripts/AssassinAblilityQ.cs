@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
-
 public class AssassinAblilityQ : AbilityQBase
 {
-
-
 	[SerializeField]
 	GameObject Target = null;
 	[SerializeField]
@@ -12,33 +9,23 @@ public class AssassinAblilityQ : AbilityQBase
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
-
 	[SerializeField]
-	GameObject Indicator;
-
+	GameObject Indicator = null;
 	bool aiming, waitForCast;
-
 	protected override void Start()
 	{
 		base.Start();
 		Indicator.SetActive( false );
 	}
-
-
-
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
-
 		if ( !aiming )
 		{
 			Indicator.SetActive( false );
-
-			if ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) ||
-			Input.GetKeyDown( KeyCode.Alpha1 ) ||
-			Input.GetKeyDown( KeyCode.Keypad1 ) )
+			if ( ( Input.GetKeyDown( KeyCode.Q ) && !HeroCamScript.onHero ) || Input.GetKeyDown( KeyCode.Alpha1 ) || Input.GetKeyDown( KeyCode.Keypad1 ) )
 				aiming = true;
 		}
 		if ( !EnoughMana )
@@ -46,7 +33,6 @@ public class AssassinAblilityQ : AbilityQBase
 		if ( aiming )
 		{
 			Indicator.SetActive( true );
-
 			if ( Input.GetMouseButtonDown( 0 ) )
 			{
 				waitForCast = false;
@@ -56,7 +42,6 @@ public class AssassinAblilityQ : AbilityQBase
 				aiming = false;
 		}
 	}
-
 	protected override void AbilityActivate()
 	{
 		if ( waitForCast )
@@ -69,26 +54,19 @@ public class AssassinAblilityQ : AbilityQBase
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
-
 		Indicator.SetActive( false );
 	}
-
 	protected void FireAtTarget( Transform _target, float _speed, float _damage )
 	{
-
-		if ( null == _target.gameObject )
-			return;
-
-		SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as GameObject ).GetComponent<SkillShot>();
-		p.speed = _speed;
-		p.damage = _damage;
-		p.target = _target;
-		p.Shooter = weapon;
-
-		p.effect = m_effect.CreateEffect();
-		p.Fire();
-
+		if ( _target )
+		{
+			SkillShot p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as GameObject ).GetComponent<SkillShot>();
+			p.speed = _speed;
+			p.damage = _damage;
+			p.target = _target;
+			p.Shooter = weapon;
+			p.effect = m_effect.CreateEffect();
+			p.Fire();
+		}
 	}
-
-
 }

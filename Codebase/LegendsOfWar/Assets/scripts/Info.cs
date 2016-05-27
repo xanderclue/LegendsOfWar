@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-
 public enum Team { RED_TEAM, BLUE_TEAM };
-
 public class Info : MonoBehaviour
 {
 	private float currHP;
@@ -10,9 +8,7 @@ public class Info : MonoBehaviour
 	private bool isAlive = false;
 	public Team team = Team.BLUE_TEAM;
 	protected bool dontDestroy = false;
-
 	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
-
 	[SerializeField]
 	protected float attackSpeed, agroRange, attackRange, damage;
 	public float DmgAmp
@@ -25,13 +21,11 @@ public class Info : MonoBehaviour
 		get { return dmgDamp; }
 		set { dmgDamp = value; }
 	}
-
 	protected virtual void Start()
 	{
 		currHP = MaxHP;
 		isAlive = true;
 	}
-
 	public virtual void TakeDamage( float damage )
 	{
 		if ( !isAlive || damage <= 0.0f )
@@ -56,7 +50,6 @@ public class Info : MonoBehaviour
 				Destroyed();
 		}
 	}
-
 	public bool Alive
 	{
 		get { return isAlive; }
@@ -86,7 +79,6 @@ public class Info : MonoBehaviour
 		}
 	}
 	public float MAXHP { get { return MaxHP; } set { MaxHP = value; } }
-
 	public delegate void HpChangedEvent();
 	public event HpChangedEvent Attacked, Destroyed;
 }

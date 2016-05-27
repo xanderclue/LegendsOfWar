@@ -1,108 +1,99 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class IntroManager : MonoBehaviour
 {
 	static IntroManager inst = null;
 	public static IntroManager instance { get { return inst; } }
-
 	bool PlayedIntro = false;
 	bool HeroInstanciate = false;
-	enum STATES
-	{
-		STATE_INTRO,
-		STATE_HERO,
-		STATE_MINION,
-		STATE_MAIN,
-		STATE_END,
-
-		STATE_TOTAL
-	}
+	enum STATES { STATE_INTRO, STATE_HERO, STATE_MINION, STATE_MAIN, STATE_END, STATE_TOTAL }
 	STATES currentState = STATES.STATE_INTRO;
-	public void NextState() { currentState += 1; }
+	public void NextState()
+	{
+		currentState += 1;
+	}
 	[SerializeField]
-	GameObject IntroSequence;
+	GameObject IntroSequence = null;
 	[SerializeField]
-	GameObject MainGame;
+	GameObject MainGame = null;
 	[SerializeField]
-	GameObject GameHUD;
-
+	GameObject GameHUD = null;
 	[SerializeField]
-	GameObject RedTankMinion;
+	GameObject RedTankMinion = null;
 	[SerializeField]
-	GameObject RedStrikerMinion;
+	GameObject RedStrikerMinion = null;
 	[SerializeField]
-	GameObject RedCasterMinion;
+	GameObject RedCasterMinion = null;
 	[SerializeField]
-	GameObject BlueTankMinion;
+	GameObject BlueTankMinion = null;
 	[SerializeField]
-	GameObject BlueStrikerMinion;
+	GameObject BlueStrikerMinion = null;
 	[SerializeField]
-	GameObject BlueCasterMinion;
-
+	GameObject BlueCasterMinion = null;
 	[SerializeField]
-	GameObject HeroTutorial;
+	GameObject HeroTutorial = null;
 	[SerializeField]
-	GameObject HeroHUD;
-
+	GameObject HeroHUD = null;
 	[SerializeField]
 	GameObject[ ] RedSpawns;
-
 	[SerializeField]
-	GameObject[ ] HeroInstructions;
-
+	GameObject[ ] HeroInstructions = null;
 	[SerializeField]
-	GameObject MechanicsList;
+	GameObject MechanicsList = null;
 	[SerializeField]
-	GameObject[ ] Mechanics;
-
+	GameObject[ ] Mechanics = null;
 	[SerializeField]
-	GameObject RedSpawn;
-
+	GameObject RedSpawn = null;
 	[SerializeField]
-	GameObject End;
-
+	GameObject End = null;
 	[SerializeField]
-	GameObject Ending;
-
-
+	GameObject Ending = null;
 	bool SpawnMinionTutRed = false;
-	public void ToggleSpawnMinionRed() { SpawnMinionTutRed = !SpawnMinionTutRed; }
+	public void ToggleSpawnMinionRed()
+	{
+		SpawnMinionTutRed = !SpawnMinionTutRed;
+	}
 	bool SpawnMinionTutBlue = false;
-	public void ToggleSpawnMinionBlue() { SpawnMinionTutBlue = !SpawnMinionTutBlue; }
+	public void ToggleSpawnMinionBlue()
+	{
+		SpawnMinionTutBlue = !SpawnMinionTutBlue;
+	}
 	bool firstswitch = false;
-
 	[SerializeField]
-	GameObject[ ] MinionRedSpawns;
+	GameObject[ ] MinionRedSpawns = null;
 	[SerializeField]
-	GameObject[ ] MinionBlueSpawns;
+	GameObject[ ] MinionBlueSpawns = null;
 	[SerializeField]
-	GameObject MoveMainCam;
+	GameObject MoveMainCam = null;
 	[SerializeField]
-	GameObject RedTower;
+	GameObject RedTower = null;
 	[SerializeField]
-	GameObject MinionEnd;
-
-
+	GameObject MinionEnd = null;
 	[SerializeField]
-	GameObject Death;
+	GameObject Death = null;
 	[SerializeField]
-	GameObject Player;
+	GameObject Player = null;
 	bool Welcome, Camera, Movement;
-	public void ToggleWelcome() { Welcome = !Welcome; }
-	public void ToggleCamera() { Camera = !Camera; }
-	public void ToggleMovement() { Movement = !Movement; }
-
+	public void ToggleWelcome()
+	{
+		Welcome = !Welcome;
+	}
+	public void ToggleCamera()
+	{
+		Camera = !Camera;
+	}
+	public void ToggleMovement()
+	{
+		Movement = !Movement;
+	}
 	void Start()
 	{
 		PlayedIntro = false;
 		HeroInstanciate = false;
 		pause = false;
 		Welcome = Camera = Movement = false;
-
 		StartCoroutine( LateStart( 0.001f ) );
 	}
-
 	IEnumerator LateStart( float waitTime )
 	{
 		yield return new WaitForSeconds( waitTime );
@@ -110,19 +101,12 @@ public class IntroManager : MonoBehaviour
 		GameHUD.SetActive( false );
 		HeroTutorial.SetActive( false );
 		HeroHUD.SetActive( false );
-
 		for ( int i = 0; i < HeroInstructions.Length - 1; ++i )
-		{
 			HeroInstructions[ i ].SetActive( false );
-		}
-
 		MechanicsList.SetActive( false );
 		for ( int i = 0; i < Mechanics.Length - 1; ++i )
-		{
 			Mechanics[ i ].SetActive( false );
-		}
 	}
-
 	void Update()
 	{
 		Player = GameManager.Instance.Player;
@@ -130,7 +114,6 @@ public class IntroManager : MonoBehaviour
 		{
 			case STATES.STATE_INTRO:
 				break;
-
 			case STATES.STATE_HERO:
 				if ( HeroInstanciate == false )
 				{
@@ -139,7 +122,6 @@ public class IntroManager : MonoBehaviour
 					HeroCamScript.inst.SwitchView();
 					HeroInstanciate = true;
 					HeroInstructions[ 0 ].SetActive( true );
-
 				}
 				if ( Welcome == true )
 				{
@@ -163,7 +145,6 @@ public class IntroManager : MonoBehaviour
 				if ( RedSpawn.GetComponent<TutSpawnRed>().Battle == true )
 				{
 					GameObject[ ] Minions = GameObject.FindGameObjectsWithTag( "Minion" );
-
 					if ( Minions.Length <= 1 )
 					{
 						RedSpawn.GetComponent<TutSpawnRed>().Battle = false;
@@ -172,7 +153,6 @@ public class IntroManager : MonoBehaviour
 					}
 				}
 				break;
-
 			case STATES.STATE_MINION:
 				if ( SpawnMinionTutRed == true )
 				{
@@ -185,7 +165,6 @@ public class IntroManager : MonoBehaviour
 					SpawnRedStrikerMinion();
 					SpawnRedStrikerMinion();
 					SpawnRedStrikerMinion();
-
 					SpawnMinionTutRed = false;
 				}
 				if ( SpawnMinionTutBlue == true )
@@ -209,24 +188,16 @@ public class IntroManager : MonoBehaviour
 					MinionEnd.SetActive( true );
 				}
 				break;
-
 			default:
 				break;
 		}
-
-
 		if ( PlayedIntro == false )
-		{
 			if ( Input.GetKeyDown( KeyCode.Return ) )
 			{
 				PlayedIntro = true;
 				IntroSequence.SetActive( false );
 				currentState = STATES.STATE_HERO;
-
 			}
-		}
-
-
 		if ( Input.GetKeyDown( KeyCode.Backspace ) )
 		{
 			SpawnRedTankMinion();
@@ -234,52 +205,38 @@ public class IntroManager : MonoBehaviour
 			SpawnRedStrikerMinion();
 		}
 		if ( Player != null && Player.activeInHierarchy == false )
-		{
 			Death.SetActive( true );
-
-		}
 	}
-
-
-
 	public void SpawnRedTankMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( RedTankMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
 	public void SpawnRedCasterMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( RedCasterMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
 	public void SpawnRedStrikerMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( RedStrikerMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
-
 	public void SpawnBlueTankMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( BlueTankMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
 	public void SpawnBlueCasterMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( BlueCasterMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
 	public void SpawnBlueStrikerMinion()
 	{
 		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-
 		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
 	}
-
 	public bool pause = false;
 	public void TogglePause()
 	{

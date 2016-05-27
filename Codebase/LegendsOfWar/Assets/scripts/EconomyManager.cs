@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
-
 public class EconomyManager : MonoBehaviour
 {
 	float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	[SerializeField]
 	float startingAmount = 100.0f, waveAmount = 10.0f;
-
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;
 	}
-
 	public bool TakeGold( Team team, float amount )
 	{
 		switch ( team )
@@ -34,7 +31,6 @@ public class EconomyManager : MonoBehaviour
 		}
 		return false;
 	}
-
 	public void GiveGold( Team team, float amount )
 	{
 		if ( amount <= 0.0f )
@@ -53,19 +49,15 @@ public class EconomyManager : MonoBehaviour
 		if ( OnGainGold != null )
 			OnGainGold();
 	}
-
 	public delegate void goldChangedEvent();
 	public event goldChangedEvent OnGainGold;
-
 	public void NewWave()
 	{
 		GiveGold( Team.BLUE_TEAM, waveAmount );
 		GiveGold( Team.RED_TEAM, waveAmount );
 	}
-
 	public float BlueGold { get { return blueTeamGold; } }
 	public float RedGold { get { return redTeamGold; } }
-
 	static EconomyManager instance = null;
 	public static EconomyManager Instance
 	{
@@ -80,6 +72,13 @@ public class EconomyManager : MonoBehaviour
 			return instance;
 		}
 	}
-	void Awake() { instance = this; }
-	void OnDestroy() { if ( this == instance ) instance = null; }
+	void Awake()
+	{
+		instance = this;
+	}
+	void OnDestroy()
+	{
+		if ( this == instance )
+			instance = null;
+	}
 }

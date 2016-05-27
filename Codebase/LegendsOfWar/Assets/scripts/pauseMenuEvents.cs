@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class pauseMenuEvents : MonoBehaviour
 {
 	[SerializeField]
 	GameObject eventSystem = null;
-
 	[SerializeField]
 	Button[ ] buttons = null;
-
 	static pauseMenuEvents inst = null;
 	public static bool EventSystem
 	{
@@ -20,18 +17,15 @@ public class pauseMenuEvents : MonoBehaviour
 				button.enabled = value;
 		}
 	}
-
 	void Awake()
 	{
 		inst = this;
 	}
-
 	void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 			Unpause();
 	}
-
 	public void Unpause()
 	{
 		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_PAUSED )

@@ -1,33 +1,24 @@
 ﻿using UnityEngine;
-
 public class HeroInfo : Info
 {
 	float mana;
 	float respawnTimer;
-	int deathCount;
 	public Sprite heroIcon;
 	public float Damage { get { return damage; } set { damage = value; } }
 	public float Range { get { return attackRange; } }
 	public float AttackSpeed { get { return attackSpeed; } }
 	public float AgroRange { get { return agroRange; } }
-
 	[SerializeField]
 	float maxMana = 100.0f;
-
 	public float manaRegen = 7.5f;
-
 	[SerializeField]
 	public string Lore = "", roaa = "";
-
 	public Transform thirdPerson = null;
 	public Transform heroCenter = null;
 	HeroMovement movement;
-
-
 	public float respawnTime = 9.0f, respawnIncrement = 3.0f;
 	[HideInInspector]
 	public HeroAudio heroAudio;
-
 	void Update()
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
@@ -41,7 +32,6 @@ public class HeroInfo : Info
 			Deidle();
 		}
 	}
-
 	float tauntTimer = 0.0f;
 	void PlayTaunt()
 	{
@@ -54,7 +44,6 @@ public class HeroInfo : Info
 		else if ( heroAudio.CHeroTaunt2 )
 			tauntTimer = heroAudio.PlayClip( "HeroTaunt2" );
 	}
-
 	protected override void Start()
 	{
 		base.Start();
@@ -91,23 +80,19 @@ public class HeroInfo : Info
 		HeroUIScript.Mana( manaCost, transform );
 		return true;
 	}
-
 	void HeroAttacked()
 	{
 		overlay.Flash( HP, MAXHP );
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroAttacked, transform.position );
 		HeroUIScript.HeroBeingAttacked = true;
 	}
-
 	void HeroDeath()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroDeath, transform.position );
 		respawnTimer = respawnTime;
 		respawnTime += respawnIncrement;
-		++deathCount;
 		mana = 0.0f;
 	}
-
 	public float Mana { get { return mana; } }
 	public float MaxMana { get { return maxMana; } }
 	public bool waitingRespawn { get { return ( !Alive && respawnTimer <= 0.0f ); } }
@@ -118,9 +103,7 @@ public class HeroInfo : Info
 		mana = maxMana;
 		Alive = true;
 	}
-
 	public Difficulty difficulty = Difficulty.Easy;
-
 	public string heroNameEn = "Player";
 	public string heroNameJp = "プレイヤー";
 }

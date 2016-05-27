@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class GoldGainGlow : MonoBehaviour
 {
 	Image image;
@@ -9,12 +8,10 @@ public class GoldGainGlow : MonoBehaviour
 	float activeTimer = 0.0f;
 	[SerializeField]
 	float activeTime = 1.0f;
-
 	void Awake()
 	{
 		image = GetComponent<Image>();
 	}
-
 	void Start()
 	{
 		EconomyManager.Instance.OnGainGold += GoldGained;
@@ -22,7 +19,6 @@ public class GoldGainGlow : MonoBehaviour
 		highlightedColor = originalColor;
 		highlightedColor.r = highlightedColor.b = 0.0f;
 	}
-
 	void Update()
 	{
 		activeTimer -= Time.deltaTime;
@@ -31,7 +27,6 @@ public class GoldGainGlow : MonoBehaviour
 		else
 			image.color = originalColor;
 	}
-
 	void GoldGained()
 	{
 		activeTimer = activeTime;

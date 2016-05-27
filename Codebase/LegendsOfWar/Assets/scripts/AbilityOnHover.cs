@@ -7,20 +7,17 @@ public class AbilityOnHover : MonoBehaviour
 	GameObject legend;
 	AbilityBase ability;
 	[SerializeField]
-	char abilityChoice;
+	char abilityChoice = '\0';
 	string textEn, textJp;
-
 	void Start()
 	{
 		CharacterSelectionManager.OnChangedCharacter += changedCharacter;
 		changedCharacter();
 	}
-
 	void OnDestroy()
 	{
 		CharacterSelectionManager.OnChangedCharacter -= changedCharacter;
 	}
-
 	void changedCharacter()
 	{
 		legend = CharacterSelectionManager.LegendChoice;
@@ -37,17 +34,14 @@ public class AbilityOnHover : MonoBehaviour
 		}
 		textEn = textJp = "";
 	}
-
 	void Update()
 	{
 		if ( !ability )
 			changedCharacter();
 	}
-
 	AbilityBase GetAbility()
 	{
 		if ( abilities )
-		{
 			switch ( abilityChoice )
 			{
 				case 'Q':
@@ -69,35 +63,28 @@ public class AbilityOnHover : MonoBehaviour
 				default:
 					break;
 			}
-		}
 		return null;
 	}
-
 	public void OnMouseEnter()
 	{
 		isHovering = true;
 	}
-
 	public void OnMouseExit()
 	{
 		isHovering = false;
 	}
-
 	void OnGUI()
 	{
 		if ( isHovering )
 			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
-
 	void GenerateBox( string words )
 	{
 		if ( words.Length <= 0 )
 			return;
-
 		GUIStyle style = new GUIStyle( GUI.skin.box );
 		style.normal.textColor = Color.cyan;
 		style.fontSize = 24;
-
 		Rect labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
 		labelRect.x = Input.mousePosition.x + 25;
 		labelRect.y = Screen.height - Input.mousePosition.y;

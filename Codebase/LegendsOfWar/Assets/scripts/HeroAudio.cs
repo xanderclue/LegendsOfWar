@@ -1,46 +1,24 @@
 ﻿using UnityEngine;
-
 public class HeroAudio : MonoBehaviour
 {
-	public AudioClip
-	CHeroTaunt1 = null,
-	CHeroTaunt2 = null,
-	CHeroIdle1 = null,
-	CHeroIdle2 = null,
-	CHeroSelected = null,
-	CHeroAttack = null,
-	CHeroCastAbilityQ = null,
-	CHeroCastAbilityW = null,
-	CHeroCastAbilityE = null,
-	CHeroCastAbilityR = null;
+	public AudioClip CHeroTaunt1 = null, CHeroTaunt2 = null, CHeroIdle1 = null, CHeroIdle2 = null, CHeroSelected = null, CHeroAttack = null, CHeroCastAbilityQ = null, CHeroCastAbilityW = null, CHeroCastAbilityE = null, CHeroCastAbilityR = null;
 	[SerializeField]
-	private string
-	JHeroTaunt1 = "",
-	JHeroTaunt2 = "",
-	JHeroIdle1 = "",
-	JHeroIdle2 = "",
-	JHeroSelected = "",
-	JHeroAttack = "",
-	JHeroCastAbilityQ = "",
-	JHeroCastAbilityW = "",
-	JHeroCastAbilityE = "",
-	JHeroCastAbilityR = "";
+	private string JHeroTaunt1 = "", JHeroTaunt2 = "", JHeroIdle1 = "", JHeroIdle2 = "", JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "", JHeroCastAbilityE = "", JHeroCastAbilityR = "";
 	AudioSource source;
-
 	void Start()
 	{
 		source = GetComponent<AudioSource>();
 		Options.onChangedVoiceVolume += SetVoiceVolume;
 		SetVoiceVolume();
 	}
-
-	void OnDestroy() { Options.onChangedVoiceVolume -= SetVoiceVolume; }
-
+	void OnDestroy()
+	{
+		Options.onChangedVoiceVolume -= SetVoiceVolume;
+	}
 	void SetVoiceVolume()
 	{
 		source.volume = Options.voiceVolume;
 	}
-
 	public float PlayClip( string clip )
 	{
 		AudioClip clp = null;
@@ -90,7 +68,6 @@ public class HeroAudio : MonoBehaviour
 			default:
 				break;
 		}
-
 		if ( clp )
 		{
 			if ( clp == CHeroSelected )
@@ -103,7 +80,6 @@ public class HeroAudio : MonoBehaviour
 		}
 		return 0.0f;
 	}
-
 	void HeroSelectedSound()
 	{
 		if ( CHeroSelected )

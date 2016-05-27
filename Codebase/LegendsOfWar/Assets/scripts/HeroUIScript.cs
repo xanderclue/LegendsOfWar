@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class HeroUIScript : MonoBehaviour
 {
 	[SerializeField]
@@ -9,7 +8,6 @@ public class HeroUIScript : MonoBehaviour
 	public static float heroDamageNotifTimer = 0.0f;
 	[SerializeField]
 	float AttackedNotificationDuration = 5.0f;
-
 	static HeroUIScript inst;
 	public static HeroUIScript Instance { get { return inst; } }
 	void Awake()
@@ -20,21 +18,14 @@ public class HeroUIScript : MonoBehaviour
 	{
 		heroDamageNotifTimer = 0.0f;
 	}
-
 	public static void Damage( float amount, Vector3 position )
 	{
-		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>()
-			.CreateNumber( -amount, position, inst.damageNumberHeight,
-			inst.damageNumberDuration, Color.red );
+		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount, position, inst.damageNumberHeight, inst.damageNumberDuration, Color.red );
 	}
-
 	public static void Mana( float amount, Transform transf )
 	{
-		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>()
-			.CreateNumber( -amount, transf, inst.damageNumberHeight,
-			inst.damageNumberDuration, Color.blue );
+		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount, transf, inst.damageNumberHeight, inst.damageNumberDuration, Color.blue );
 	}
-
 	void Update()
 	{
 		if ( HeroCamScript.onHero || !HeroCamScript.heroAlive )
@@ -43,17 +34,17 @@ public class HeroUIScript : MonoBehaviour
 		if ( heroWarning )
 			heroWarning.mute = !HeroBeingAttacked;
 	}
-
 	public static bool HeroBeingAttacked
 	{
 		get { return heroDamageNotifTimer > 0.0f; }
 		set
 		{
-			heroDamageNotifTimer = ( value && !HeroCamScript.onHero ) ?
-			  ( inst.AttackedNotificationDuration ) : 0.0f;
+			if ( value && !HeroCamScript.onHero )
+				heroDamageNotifTimer = inst.AttackedNotificationDuration;
+			else
+				heroDamageNotifTimer = -0.0f;
 		}
 	}
-
 	[SerializeField]
 	AudioSource heroWarning = null;
 }

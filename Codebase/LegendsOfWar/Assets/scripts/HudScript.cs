@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class HudScript : MonoBehaviour
 {
 	public Camera minimapCam = null;
@@ -15,14 +14,12 @@ public class HudScript : MonoBehaviour
 	[SerializeField]
 	Button q = null, w = null, e = null, r = null;
 	Image qIm, wIm, eIm, rIm;
-
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
-
 	void Start()
 	{
 		hero = GameManager.Instance.Player;
-		if ( null == hero )
+		if ( !hero )
 			hero = FindObjectOfType<HeroInfo>().gameObject;
 		abilities = hero.GetComponent<HeroAbilities>();
 		q.onClick.AddListener( abilities.abilityQ.TryCast );
@@ -49,9 +46,7 @@ public class HudScript : MonoBehaviour
 			tmr = 0.0f;
 		timer.text = Options.Japanese ? "秒読み：" : "Time left: ";
 		if ( tmr >= 60.0f )
-			timer.text +=
-				System.Math.DivRem( ( int )tmr + 1, 60, out tempSec ).ToString( "D2" )
-				+ ':' + tempSec.ToString( "D2" );
+			timer.text += System.Math.DivRem( ( int )tmr + 1, 60, out tempSec ).ToString( "D2" ) + ':' + tempSec.ToString( "D2" );
 		else
 			timer.text += tmr.ToString( tmr > 10.0f ? "F1" : "F2" );
 		if ( Options.Japanese )
@@ -68,7 +63,7 @@ public class HudScript : MonoBehaviour
 	Text heroBeingAttackedText = null;
 	ColorBlock BrightColor;
 	float buttonHmAnimTime = 0.0f;
-	Color high = new Color( 1.0f, 0.0f, 0.0f ), low = new Color( 0.9f, 0.0f, 0.0f );
+	Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
 	void ButtonHMAnim()
 	{
 		if ( HeroUIScript.HeroBeingAttacked )
@@ -92,7 +87,6 @@ public class HudScript : MonoBehaviour
 			buttonHM.colors = ColorBlock.defaultColorBlock;
 		}
 	}
-
 	float qtim, wtim, etim, rtim;
 	void Cooldowns()
 	{

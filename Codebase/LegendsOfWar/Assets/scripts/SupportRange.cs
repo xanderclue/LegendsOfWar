@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
 public class SupportRange : MonoBehaviour
 {
 	public static List<Collider> supportedEntities = new List<Collider>();
 	List<Collider> mySupportedEntities;
 	List<Collider> nearbyEnemies;
-
 	void Awake()
 	{
 		mySupportedEntities = new List<Collider>();
 		nearbyEnemies = new List<Collider>();
 	}
-
 	void OnTriggerEnter( Collider col )
 	{
 		Info info = col.gameObject.GetComponent<Info>();
-		if ( null != info )
+		if ( info )
 		{
 			if ( info.team == GetComponentInParent<HeroInfo>().team )
 			{
@@ -28,7 +25,6 @@ public class SupportRange : MonoBehaviour
 		}
 		ClearNullsSelf();
 	}
-
 	void OnTriggerExit( Collider col )
 	{
 		ClearNullsSelf();
@@ -44,7 +40,6 @@ public class SupportRange : MonoBehaviour
 				nearbyEnemies.Remove( col );
 		}
 	}
-
 	public static bool InSupportRange( GameObject entity )
 	{
 		ClearNulls();
@@ -53,33 +48,28 @@ public class SupportRange : MonoBehaviour
 				return true;
 		return false;
 	}
-
 	static void ClearNulls()
 	{
 		for ( int i = 0; i < supportedEntities.Count; ++i )
 			if ( !supportedEntities[ i ] )
-			{ supportedEntities.RemoveAt( i ); --i; }
+				supportedEntities.RemoveAt( i-- );
 	}
-
 	void ClearNullsSelf()
 	{
 		ClearNulls();
 		for ( int i = 0; i < mySupportedEntities.Count; ++i )
 			if ( !mySupportedEntities[ i ] )
-			{ mySupportedEntities.RemoveAt( i ); --i; }
-
+				mySupportedEntities.RemoveAt( i-- );
 		for ( int i = 0; i < nearbyEnemies.Count; ++i )
 			if ( !nearbyEnemies[ i ] )
-			{ nearbyEnemies.RemoveAt( i ); --i; }
+				nearbyEnemies.RemoveAt( i-- );
 	}
-
 	public void ApplyToAlliesInRange( System.Action<Info> action )
 	{
 		ClearNullsSelf();
 		foreach ( Collider col in mySupportedEntities )
 			action( col.gameObject.GetComponent<Info>() );
 	}
-
 	public void ApplyToEnemiesInRange( System.Action<Info> action )
 	{
 		ClearNullsSelf();

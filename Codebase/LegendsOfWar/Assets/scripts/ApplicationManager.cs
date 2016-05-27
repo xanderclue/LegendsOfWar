@@ -1,21 +1,10 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-
-public enum StateID
-{
-	STATE_MAIN_MENU, STATE_OPTIONS_MENU,
-	STATE_INGAME, STATE_PAUSED, STATE_INTRODUCTION,
-	STATE_GAME_WON, STATE_GAME_LOST,
-	STATE_CREDITS, STATE_EXIT,
-	STATE_HELP, STATE_GAME_DRAW,
-	STATE_SHOP, STATE_SELECTION
-};
-
+public enum StateID { STATE_MAIN_MENU, STATE_OPTIONS_MENU, STATE_INGAME, STATE_PAUSED, STATE_INTRODUCTION, STATE_GAME_WON, STATE_GAME_LOST, STATE_CREDITS, STATE_EXIT, STATE_HELP, STATE_GAME_DRAW, STATE_SHOP, STATE_SELECTION };
 public class ApplicationManager : MonoBehaviour
 {
 	public bool transitioning = false;
 	public StateID currentState = StateID.STATE_MAIN_MENU, prevState = StateID.STATE_MAIN_MENU;
-
 	public void ChangeAppState( string nextState )
 	{
 		switch ( nextState )
@@ -63,21 +52,19 @@ public class ApplicationManager : MonoBehaviour
 				break;
 		}
 	}
-
 	public void ChangeAppState( StateID nextState )
 	{
-		if ( nextState == currentState )
-			return;
-		prevState = currentState;
-		currentState = nextState;
-		transitioning = true;
+		if ( nextState != currentState )
+		{
+			prevState = currentState;
+			currentState = nextState;
+			transitioning = true;
+		}
 	}
-
 	public StateID GetAppState()
 	{
 		return currentState;
 	}
-
 	static ApplicationManager instance = null;
 	public static ApplicationManager Instance
 	{
@@ -87,8 +74,7 @@ public class ApplicationManager : MonoBehaviour
 			{
 				instance = FindObjectOfType<ApplicationManager>();
 				if ( !instance )
-					instance = new GameObject( "ApplicationManager" )
-						.AddComponent<ApplicationManager>();
+					instance = new GameObject( "ApplicationManager" ).AddComponent<ApplicationManager>();
 			}
 			return instance;
 		}
@@ -98,18 +84,22 @@ public class ApplicationManager : MonoBehaviour
 		if ( instance )
 			Destroy( this );
 		else
+		{
 			instance = this;
-		DontDestroyOnLoad( gameObject );
-		if ( SceneManager.GetActiveScene().name == "WorldMap" )
-			currentState = StateID.STATE_INGAME;
+			DontDestroyOnLoad( gameObject );
+			if ( SceneManager.GetActiveScene().name == "WorldMap" )
+				currentState = StateID.STATE_INGAME;
+		}
 	}
-	void OnDestroy() { if ( this == instance ) instance = null; }
-
+	void OnDestroy()
+	{
+		if ( this == instance )
+			instance = null;
+	}
 	public static void ReturnToPreviousState()
 	{
 		Instance.ChangeAppState( Instance.prevState );
 	}
-
 	void Update()
 	{
 		if ( transitioning )
@@ -156,14 +146,13 @@ public class ApplicationManager : MonoBehaviour
 					{
 						SceneManager.UnloadScene( "OptionsMenu" );
 						pauseMenuEvents.EventSystem = true;
-						Time.timeScale = 0.0f;
 					}
 					else
 					{
 						GameManager.eventSystem = false;
 						SceneManager.LoadScene( "PauseScreen", LoadSceneMode.Additive );
-						Time.timeScale = 0.0f;
 					}
+					Time.timeScale = 0.0f;
 					break;
 				case StateID.STATE_GAME_WON:
 					GameManager.eventSystem = false;
@@ -205,13 +194,8 @@ public class ApplicationManager : MonoBehaviour
 			}
 			transitioning = false;
 		}
-		CheckAppManageInput();
-	}
-	void CheckAppManageInput()
-	{
 		if ( Input.GetKeyDown( KeyCode.F12 ) )
 			Options.toggleLanguage_Static();
-
 		if ( Input.GetKey( KeyCode.F11 ) )
 			Time.timeScale = Mathf.Min( Time.timeScale * 1.01f, 100.0f );
 		else if ( Input.GetKey( KeyCode.F10 ) )

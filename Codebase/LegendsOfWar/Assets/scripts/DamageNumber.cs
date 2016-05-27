@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class DamageNumber : MonoBehaviour
 {
 	[SerializeField]
@@ -12,7 +11,6 @@ public class DamageNumber : MonoBehaviour
 	Transform orig;
 	bool followingTransform = false;
 	float heightF = 0.0f;
-
 	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color textColor )
 	{
 		low = startPos;
@@ -23,7 +21,6 @@ public class DamageNumber : MonoBehaviour
 		transform.position = low;
 		ready = true;
 	}
-
 	public void CreateNumber( float number, Transform startTransform, float height, float duration, Color textColor )
 	{
 		CreateNumber( number, startTransform.position + 10.0f * Vector3.up, height, duration, textColor );
@@ -31,14 +28,12 @@ public class DamageNumber : MonoBehaviour
 		orig = startTransform;
 		followingTransform = true;
 	}
-
 	void Start()
 	{
 		transform.LookAt( 2.0f * transform.position - HeroUIScript.Instance.transform.position );
 		if ( !ready )
 			textObject.text = "";
 	}
-
 	void Update()
 	{
 		if ( ready )

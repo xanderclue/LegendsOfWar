@@ -1,25 +1,10 @@
 ﻿using UnityEngine;
-
 enum TurnState { Still, Left, Right, Fix }
-
-enum Character
-{
-	Default,
-	Support,
-	Hunter,
-	Tanker,
-	Character_5,
-	Character_6,
-	Character_7,
-	Assassin,
-	Total
-}
-
+enum Character { Default, Support, Hunter, Tanker, Character_5, Character_6, Character_7, Assassin, Total }
 public class TurnManager : MonoBehaviour
 {
 	static TurnManager inst;
 	public static TurnManager Instance { get { return inst; } }
-
 	[SerializeField]
 	menuEvents menuEventsObj = null;
 	[SerializeField]
@@ -28,13 +13,10 @@ public class TurnManager : MonoBehaviour
 	private float rotationSpeed = 5.0f;
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
-
 	[SerializeField]
 	Light[ ] spotlights = null;
-
 	int c;
 	const int m = ( int )Character.Total - 1;
-
 	Character next
 	{
 		get
@@ -58,7 +40,6 @@ public class TurnManager : MonoBehaviour
 		}
 	}
 	public int CurrentInt { get { return ( int )current; } }
-
 	public void TurnRight()
 	{
 		spLight = false;
@@ -73,7 +54,6 @@ public class TurnManager : MonoBehaviour
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
 	}
-
 	public void TurnLeft()
 	{
 		spLight = false;
@@ -88,26 +68,21 @@ public class TurnManager : MonoBehaviour
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
 	}
-
 	void PlayVoice()
 	{
 		sub.SetSub( "", -0.0f );
 		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
 	}
-
 	bool spLight { set { spotlights[ ( int )current ].enabled = value; } }
-
 	void Awake()
 	{
 		inst = this;
 	}
-
 	void Start()
 	{
 		CharacterSelectionManager.Instance.Index = CurrentInt;
 		spLight = true;
 	}
-
 	void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.LeftArrow ) )
@@ -141,24 +116,11 @@ public class TurnManager : MonoBehaviour
 			if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
 				menuEventsObj.ChangeAppState( "STATE_HELP" );
 	}
-
 	void OnDestroy()
 	{
 		inst = null;
 	}
-
-	static Quaternion[ ] rotations = new Quaternion[ ]
-	{
-		Quaternion.Euler( 0.0f, 0.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 45.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 90.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 135.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 180.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 225.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 270.0f, 0.0f ),
-		Quaternion.Euler( 0.0f, 315.0f, 0.0f )
-	};
-
+	static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f ), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f, 225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f, 0.0f ) };
 	private bool check( Quaternion rot )
 	{
 		return Quaternion.Angle( rot, rotations[ CurrentInt ] ) < 3.0f;

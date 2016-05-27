@@ -1,29 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class localizationScript : MonoBehaviour
 {
 	[SerializeField]
 	string english = "", japanese = "";
 	Text text;
 	bool pendingChange = false;
-
 	void Awake()
 	{
 		text = GetComponent<Text>();
 	}
-
 	void Start()
 	{
 		Options.onChangedLanguage += changeText;
 		changeText();
 	}
-
 	void OnDestroy()
 	{
 		Options.onChangedLanguage -= changeText;
 	}
-
 	void Update()
 	{
 		if ( pendingChange )
@@ -33,7 +28,6 @@ public class localizationScript : MonoBehaviour
 			changeText();
 		}
 	}
-
 	void changeText()
 	{
 		if ( text == null )

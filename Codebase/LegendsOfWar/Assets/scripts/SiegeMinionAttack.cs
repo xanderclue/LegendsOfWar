@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class SiegeMinionAttack : AttackScript
 {
-
 	[SerializeField]
 	List<Transform> targets;
-
 	SiegeMinionInfo sMinioninfo;
 	MinionMovement movement;
 	BcWeapon weaponDetails;
-
 	ProximityCompare poo = new ProximityCompare();
 	void Start()
 	{
@@ -23,43 +19,35 @@ public class SiegeMinionAttack : AttackScript
 		if ( EnemyAIManager.upgradeSiege )
 		{
 			weaponDetails = weapon.GetComponentInChildren<BcWeapon>();
-			weaponDetails.reloadTime = sMinioninfo.ReloadTime * 0.85f;
-			weaponDetails.clipSize = sMinioninfo.ClipSize * 2;
+			weaponDetails.reloadTime = sMinioninfo.reloadTime * 0.85f;
+			weaponDetails.clipSize = sMinioninfo.clipSize * 2;
 			weaponDetails.rateOfFire = sMinioninfo.AttackSpeed * 1.2f;
-			weaponDetails.bulletsPerShot = sMinioninfo.BulletsPerShot + 2;
+			weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot + 2;
 			weaponDetails.bulletPrefab.GetComponent<SiegeProjectile>().damage = sMinioninfo.Damage * 1.5f;
 			GetComponent<NavMeshAgent>().speed = sMinioninfo.MovementSpeed * 1.8f;
 		}
 		else
 		{
 			weaponDetails = weapon.GetComponentInChildren<BcWeapon>();
-			weaponDetails.reloadTime = sMinioninfo.ReloadTime;
-			weaponDetails.clipSize = sMinioninfo.ClipSize;
+			weaponDetails.reloadTime = sMinioninfo.reloadTime;
+			weaponDetails.clipSize = sMinioninfo.clipSize;
 			weaponDetails.rateOfFire = sMinioninfo.AttackSpeed;
-			weaponDetails.bulletsPerShot = sMinioninfo.BulletsPerShot;
+			weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot;
 			weaponDetails.bulletPrefab.GetComponent<SiegeProjectile>().damage = sMinioninfo.Damage;
 		}
-		weaponDetails.currentAmmo = 0;
+		weaponDetails.currentAmmo = 0.0f;
 	}
-
 	void AttackTriggerEnter( GameObject obj )
 	{
 		if ( this.isActiveAndEnabled )
-		{
 			if ( obj && obj.activeInHierarchy )
 			{
 				Info targ = obj.GetComponent<Info>();
 				if ( targ )
-				{
 					if ( targ.team != sMinioninfo.team )
-					{
 						targets.Add( obj.transform );
-					}
-				}
 			}
-		}
 	}
-
 	void Update()
 	{
 		if ( EnemyAIManager.huntHero )
@@ -72,14 +60,12 @@ public class SiegeMinionAttack : AttackScript
 			else
 				movement.Disengage();
 		}
-		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
+		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 		{
 			movement.Disengage();
 			Nil();
 			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
-			{
 				AttackTriggerExit( targets[ 0 ].gameObject );
-			}
 		}
 		else if ( movement.InCombat && movement.WithinRange )
 		{
@@ -87,12 +73,8 @@ public class SiegeMinionAttack : AttackScript
 			weaponDetails.Shoot();
 		}
 		else if ( !movement.InCombat )
-		{
 			movement.SetTarget( targets[ 0 ], sMinioninfo.Range );
-		}
 	}
-
-
 	void AttackTriggerExit( GameObject obj )
 	{
 		targets.Remove( obj.transform );
@@ -102,15 +84,10 @@ public class SiegeMinionAttack : AttackScript
 			targets.Reverse( 1, targets.Count - 1 );
 		}
 	}
-
 	void Nil()
 	{
 		for ( int i = 0; i < targets.Count; ++i )
-			if ( targets[ i ] && targets[ i ].gameObject.activeInHierarchy )
-				continue;
-			else
-			{
-				targets.RemoveAt( i ); --i;
-			}
+			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+				targets.RemoveAt( i-- );
 	}
 }

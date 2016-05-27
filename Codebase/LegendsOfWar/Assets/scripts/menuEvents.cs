@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class menuEvents : MonoBehaviour
 {
 	[SerializeField]
@@ -13,14 +12,13 @@ public class menuEvents : MonoBehaviour
 	{
 		AudioManager.PlayClickSound();
 	}
-
 	public void GoBack()
 	{
 		ApplicationManager.ReturnToPreviousState();
 	}
 	public void Loading()
 	{
-		if ( loading != null )
+		if ( loading )
 			loading.SetActive( true );
 	}
 }

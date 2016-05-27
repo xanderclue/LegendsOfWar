@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class ProximityCompare : IComparer<Transform>
 {
 	public int Compare( Transform _obja, Transform _objb )
@@ -11,7 +10,6 @@ public class ProximityCompare : IComparer<Transform>
 			return 0;
 	}
 }
-
 public class AttackScript : MonoBehaviour
 {
 	protected MinionInfo Minioninfo;
@@ -20,7 +18,6 @@ public class AttackScript : MonoBehaviour
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
-
 	ProjectileBehaviour p;
 	protected void FireAtTarget( Transform _target, float _speed, float _damage )
 	{

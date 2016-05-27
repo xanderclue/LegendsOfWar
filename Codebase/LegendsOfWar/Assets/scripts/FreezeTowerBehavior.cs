@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class FreezeTowerBehavior : MonoBehaviour
 {
 	[SerializeField]
@@ -9,43 +8,34 @@ public class FreezeTowerBehavior : MonoBehaviour
 	Transform projectileSpawnPoint = null;
 	[SerializeField]
 	Detector detector = null;
-
 	List<Transform> targets;
 	FreezeProjectileInfo info;
 	float fireTimer;
-
 	void Awake()
 	{
 		targets = new List<Transform>();
 		info = TowerManager.Instance.freezeInfo;
-
 		detector.CreateTrigger( info.AgroRange );
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
 	}
-
 	void AddTarget( GameObject obj )
 	{
 		if ( obj )
 		{
 			Info targ = obj.GetComponent<Info>();
 			if ( targ )
-			{
 				if ( targ.team != team )
 					targets.Add( obj.transform );
-			}
 		}
 	}
-
 	void RemoveTarget( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-
 	void Update()
 	{
 		targets.RemoveAll( item => item == null );
-
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.FreezeShot ) && fireTimer <= 0.0f && targets.Count > 0 )
 		{
 			if ( !targets[ 0 ].gameObject.activeInHierarchy )
@@ -59,7 +49,6 @@ public class FreezeTowerBehavior : MonoBehaviour
 		else
 			fireTimer -= Time.deltaTime;
 	}
-
 	void FireAtTarget()
 	{
 		if ( GameManager.GameEnded )

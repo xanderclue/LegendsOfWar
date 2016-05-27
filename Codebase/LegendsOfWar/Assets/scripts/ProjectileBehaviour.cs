@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-
 public class ProjectileBehaviour : MonoBehaviour
 {
 	public float speed;
 	public Transform target = null;
 	public float damage;
 	private bool isFired = false;
-
 	void FixedUpdate()
 	{
 		if ( isFired )
@@ -20,12 +18,10 @@ public class ProjectileBehaviour : MonoBehaviour
 				Destroy( gameObject );
 		}
 	}
-
 	public void Fire()
 	{
 		isFired = true;
 	}
-
 	void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject == target.gameObject )
@@ -34,17 +30,17 @@ public class ProjectileBehaviour : MonoBehaviour
 			Destroy( gameObject );
 		}
 	}
-
 	void Update()
 	{
-		if ( GameManager.GameEnded )
-			Destroy( gameObject );
-		else if ( projectileTimer <= 0.0f )
+		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
 			Destroy( gameObject );
 		else if ( isFired )
 			projectileTimer -= Time.deltaTime;
 	}
 	float projectileTimer;
 	public float projectileLifetime = 3.0f;
-	void Start() { projectileTimer = projectileLifetime; }
+	void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
 }

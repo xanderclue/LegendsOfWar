@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class ExplosiveTowerBehavior : MonoBehaviour
 {
 	[SerializeField]
@@ -9,21 +8,17 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 	Transform projectileSpawnPoint = null;
 	[SerializeField]
 	Detector detector = null;
-
 	List<Transform> targets;
 	ExplosiveProjectileInfo info;
 	float fireTimer;
-
 	void Awake()
 	{
 		targets = new List<Transform>();
 		info = TowerManager.Instance.explosiveInfo;
-
 		detector.CreateTrigger( info.AgroRange );
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
 	}
-
 	void AddTarget( GameObject obj )
 	{
 		if ( obj )
@@ -33,16 +28,13 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 				targets.Add( obj.transform );
 		}
 	}
-
 	void RemoveTarget( GameObject obj )
 	{
 		targets.Remove( obj.transform );
 	}
-
 	void Update()
 	{
 		targets.RemoveAll( item => item == null );
-
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.ExplosiveShot ) && fireTimer <= 0.0f && targets.Count > 0 )
 		{
 			if ( !targets[ 0 ].gameObject.activeInHierarchy )
@@ -56,7 +48,6 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 		else
 			fireTimer -= Time.deltaTime;
 	}
-
 	void FireAtTarget()
 	{
 		if ( GameManager.GameEnded )

@@ -39,9 +39,7 @@ public class SupportAbilityW : AbilityWBase
 			{
 				temp.soulDefense = true;
 				applied.Add( temp );
-				( Instantiate( Icon, temp.transform.position,
-					temp.transform.rotation ) as GameObject )
-					.transform.parent = temp.transform;
+				( Instantiate( Icon, temp.transform.position, temp.transform.rotation ) as GameObject ).transform.parent = temp.transform;
 			}
 		}
 	}

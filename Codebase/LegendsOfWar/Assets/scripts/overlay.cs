@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class overlay : MonoBehaviour
 {
 	static overlay inst = null;

@@ -1,24 +1,17 @@
 ﻿using UnityEngine;
-
 enum Move_State { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE };
-
 public enum Path { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 };
-
-
 public class MinionMovement : MovementScript
 {
 	NavMeshAgent agent;
 	public Transform goal;
 	bool followingNav = true;
 	LineRenderer line;
-
 	MinionInfo info;
 	Interactive interactive;
-
 	[SerializeField]
 	Move_State m_state, m_prevState;
 	Path m_path;
-
 	void SetState( Move_State _state )
 	{
 		switch ( _state )
@@ -28,9 +21,6 @@ public class MinionMovement : MovementScript
 			case Move_State.DISENGAGE_STATE:
 				m_state = _state;
 				break;
-			case Move_State.LANING_STATE:
-			case Move_State.COMMAND_STATE:
-			case Move_State.IDLE_STATE:
 			default:
 				m_prevState = m_state;
 				m_state = _state;
@@ -53,11 +43,9 @@ public class MinionMovement : MovementScript
 	void Start2()
 	{
 		agent = GetComponent<NavMeshAgent>();
-
 		m_state = m_prevState = Move_State.LANING_STATE;
 		info = GetComponent<MinionInfo>();
 		interactive = GetComponent<Interactive>();
-
 		if ( Team.RED_TEAM == info.team )
 		{
 			goal = GameManager.BluePortalTransform;
@@ -65,16 +53,11 @@ public class MinionMovement : MovementScript
 				agent.destination = goal.position;
 		}
 		else
-		{
 			goal = GameManager.RedPortalTransform;
-		}
 	}
-
 	void Update()
 	{
-
 		if ( GameManager.GameRunning )
-		{
 			switch ( m_state )
 			{
 				case Move_State.LANING_STATE:
@@ -84,9 +67,7 @@ public class MinionMovement : MovementScript
 					if ( info.type != MinionClass.SIEGE_MINION )
 						line.enabled = false;
 					if ( inCombat )
-					{
 						SetState( Move_State.ENGAGE_STATE );
-					}
 					else if ( !followingNav )
 					{
 						followingNav = true;
@@ -96,7 +77,6 @@ public class MinionMovement : MovementScript
 							ChangeLane( Path.NORTH_PATH );
 						else
 							ChangeLane( Path.CENTER_PATH );
-
 						agent.destination = goal.position;
 					}
 					if ( !interactive.Selected )
@@ -109,7 +89,7 @@ public class MinionMovement : MovementScript
 					if ( info.type != MinionClass.SIEGE_MINION )
 					{
 						line.enabled = true;
-						var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
 						line.SetPositions( temp );
 					}
 					if ( m_path != Path.ANY_PATH )
@@ -168,29 +148,19 @@ public class MinionMovement : MovementScript
 				default:
 					break;
 			}
-		}
 	}
-
-
 	public void ChangeLane( Path _newPath = Path.ANY_PATH )
 	{
 		if ( !followingNav )
-		{
 			m_path = Path.ANY_PATH;
-		}
 		else
-		{
 			m_path = _newPath;
-		}
 		if ( !agent )
 			Start2();
 		agent.areaMask = ( int )m_path;
 		if ( agent.isPathStale )
-		{
 			agent.ResetPath();
-		}
 	}
-
 	bool CheckForInput()
 	{
 		if ( HeroCamScript.onHero )
@@ -205,7 +175,7 @@ public class MinionMovement : MovementScript
 				agent.SetDestination( hit.point );
 				if ( info.type != MinionClass.SIEGE_MINION )
 				{
-					var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+					Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
 					line.SetPositions( temp );
 				}
 				SetState( Move_State.COMMAND_STATE );
@@ -220,7 +190,7 @@ public class MinionMovement : MovementScript
 					agent.SetDestination( hit.point );
 					if ( info.type != MinionClass.SIEGE_MINION )
 					{
-						var temp = new Vector3[ ] { transform.localPosition, agent.destination };
+						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
 						line.SetPositions( temp );
 					}
 					SetState( Move_State.COMMAND_STATE );

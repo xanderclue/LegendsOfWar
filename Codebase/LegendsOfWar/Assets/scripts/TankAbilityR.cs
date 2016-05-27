@@ -1,3 +1,1 @@
-﻿public class TankAbilityR : AbilityRBase
-{
-}
+﻿public class TankAbilityR : AbilityRBase { }

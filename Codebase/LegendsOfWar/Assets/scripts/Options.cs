@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class Options : MonoBehaviour
 {
 	public delegate void optionsChangedEvent();
@@ -8,7 +7,6 @@ public class Options : MonoBehaviour
 	public static event optionsChangedEvent onChangedBgmVolume;
 	public static event optionsChangedEvent onChangedSfxVolume;
 	public static event optionsChangedEvent onChangedVoiceVolume;
-
 	public static bool IsAdditive { get; set; }
 	public static SystemLanguage applicationLanguage { get; private set; }
 	public static float bgmVolume { get; private set; }
@@ -24,22 +22,18 @@ public class Options : MonoBehaviour
 		sfxVolume = 0.8f;
 		voiceVolume = 1.0f;
 		language = "English";
-
 		bgmVolume = PlayerPrefs.GetFloat( "MusicVolume", bgmVolume );
 		PlayerPrefs.SetFloat( "MusicVolume", bgmVolume );
 		if ( onChangedBgmVolume != null )
 			onChangedBgmVolume();
-
 		sfxVolume = PlayerPrefs.GetFloat( "SfxVolume", sfxVolume );
 		PlayerPrefs.SetFloat( "SfxVolume", sfxVolume );
 		if ( onChangedSfxVolume != null )
 			onChangedSfxVolume();
-
 		voiceVolume = PlayerPrefs.GetFloat( "VoiceVolume", voiceVolume );
 		PlayerPrefs.SetFloat( "VoiceVolume", voiceVolume );
 		if ( onChangedVoiceVolume != null )
 			onChangedVoiceVolume();
-
 		language = PlayerPrefs.GetString( "Language", language );
 		PlayerPrefs.SetString( "Language", language );
 		applicationLanguage = "Japanese" == language ?
@@ -47,12 +41,10 @@ public class Options : MonoBehaviour
 		if ( onChangedLanguage != null )
 			onChangedLanguage();
 	}
-
 	[SerializeField]
 	Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
 	[SerializeField]
 	GameObject menuCam = null;
-
 	void Awake()
 	{
 		if ( IsAdditive )
@@ -74,7 +66,7 @@ public class Options : MonoBehaviour
 		AudioManager.PlaySoundEffect( AudioManager.sfxTowerAttacked );
 	}
 	[SerializeField]
-	AudioClip voice;
+	AudioClip voice = null;
 	public void PlayVoiceSound()
 	{
 		AudioManager.PlayClipRaw( voice, null, true );
@@ -115,12 +107,8 @@ public class Options : MonoBehaviour
 				applicationLanguage = SystemLanguage.English;
 				break;
 		}
-
 		PlayerPrefs.SetString( "Language", Japanese ? "Japanese" : "English" );
-
 		if ( onChangedLanguage != null )
 			onChangedLanguage();
 	}
-
-
 }
