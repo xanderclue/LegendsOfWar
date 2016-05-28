@@ -4,8 +4,8 @@ public class BarNumeric : MonoBehaviour
 {
 	[SerializeField]
 	private Text hpText = null, manaText = null;
-
 	private HeroInfo info;
+
 	private void Start()
 	{
 		info = GameManager.Instance.Player.GetComponent<HeroInfo>();

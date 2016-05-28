@@ -5,8 +5,11 @@ public class shopEvents : MonoBehaviour
 	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
 	private GameObject laneSelectPanel = null;
-
 	private string selectedItem;
+	private bool upgrade;
+	private bool laneSelect;
+	private float updateTimer, timer;
+
 	private void Awake()
 	{
 		ClosePanel();
@@ -81,9 +84,6 @@ public class shopEvents : MonoBehaviour
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.RLvl );
 	}
-	private bool upgrade;
-	private bool laneSelect;
-	private float updateTimer, timer;
 	private void Start()
 	{
 		upgrade = false;

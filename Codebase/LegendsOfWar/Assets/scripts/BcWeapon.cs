@@ -33,13 +33,13 @@ public class BcWeapon : MonoBehaviour
 	public AudioClip reloadingSound;
 	public AudioClip reloadedSound;
 	public AudioClip emptyClickSound;
-
 	private float bulletMass = 1f;
 	private bool isReloading;
 	private float shootTimer;
 	private float reloadTimer;
 	private float lastTriggerValue;
 	private bool triggerPushed;
+
 	private void Start()
 	{
 		isReloading = false;

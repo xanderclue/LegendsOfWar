@@ -14,14 +14,14 @@ public class ShopManager : MonoBehaviour
 		tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5,
 		casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
 	private static ShopManager instance = null;
-
+	private bool updateValues = false;
 	private int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	public int[ ] Purchases { get { return purchases; } }
 	private int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
-	public int[ ] minionUGPrices { get { return MinionUGPrices; } }
 	private int[ ] AbilityUGPrices = new int[ 3 ] { 0, 0, 0 };
-	[HideInInspector]
-	public bool UpdateValues = false;
+
+	public bool UpdateValues { get { return updateValues; } set { updateValues = value; } }
+	public int[ ] Purchases { get { return purchases; } }
+	public int[ ] minionUGPrices { get { return MinionUGPrices; } }
 	private void Start()
 	{
 		MinionUGPrices[ 0 ] = MinionUG1Cost;

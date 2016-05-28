@@ -3,12 +3,13 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
 	public float projectileLifetime = 3.0f;
-
 	private ExplosiveProjectileInfo info;
 	private Collider[ ] victims;
 	private Team team;
 	private bool fired, aoeActive = false;
 	private float effectTime = 3.0f;
+	private float projectileTimer;
+
 	private void Awake()
 	{
 		info = TowerManager.Instance.explosiveInfo;
@@ -74,7 +75,6 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 		else if ( fired )
 			projectileTimer -= Time.deltaTime;
 	}
-	private float projectileTimer;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

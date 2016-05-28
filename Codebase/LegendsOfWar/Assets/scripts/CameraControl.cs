@@ -21,19 +21,26 @@ public class CameraControl : MonoBehaviour
 	public static Rect Selection = new Rect( 0, 0, 0, 0 );
 	private static CameraControl inst = null;
 	private static Camera main, vantage, current;
-
 	private Vector3 StartClick = -Vector3.one;
 	private Vector3 Origin;
 	private Vector3 Difference;
+	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
+		1.0f;
+	private float aspectRatio = 0.0f;
+	private bool followPlayer = false;
+	private float zoomTemp;
+	private RaycastHit hit;
+	private float mousePosX;
+	private float mousePosY;
+	private Vector3 newPos = new Vector3();
+	private Info playerInfo;
+	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
+
 	public static CameraControl instance { get { return inst; } }
 	private void Awake()
 	{
 		inst = this;
 	}
-	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
-		1.0f;
-	private float aspectRatio = 0.0f;
-	private bool followPlayer = false;
 	public static Camera Main { get { return main; } }
 	public static Camera Vantage { get { return vantage; } }
 	public static Camera Current
@@ -75,8 +82,6 @@ public class CameraControl : MonoBehaviour
 	{
 		mainCam.transform.position = new Vector3( 1000.0f, 500.0f, 333.0f );
 	}
-	private float zoomTemp;
-	private RaycastHit hit;
 	private void Update()
 	{
 		if ( !GameManager.GameRunning )
@@ -135,9 +140,6 @@ public class CameraControl : MonoBehaviour
 			GUI.DrawTexture( Selection, SelectionHighlight );
 		}
 	}
-	private float mousePosX;
-	private float mousePosY;
-	private Vector3 newPos = new Vector3();
 	private void LateUpdate()
 	{
 		if ( !GameManager.GameRunning )
@@ -183,8 +185,6 @@ public class CameraControl : MonoBehaviour
 				followPlayer = false;
 		}
 	}
-	private Info playerInfo;
-	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
 	private void RecalcZoomLimits()
 	{
 		aspectRatio = mainCam.aspect;

@@ -9,12 +9,12 @@ public class TowerManager : MonoBehaviour
 	private bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false,
 		blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
 	private static TowerManager instance = null;
-
 	private bool blueShotChanged = false;
-	public bool BlueShotChanged { get { return blueShotChanged; } }
 	private bool redShotChanged = false;
-	public bool RedShotChanged { get { return redShotChanged; } }
 	private float blueTimer = 0.1f, redTimer = 0.1f;
+
+	public bool BlueShotChanged { get { return blueShotChanged; } }
+	public bool RedShotChanged { get { return redShotChanged; } }
 	private void Update()
 	{
 		if ( blueShotChanged && blueTimer < 0.0f )

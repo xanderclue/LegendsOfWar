@@ -8,13 +8,14 @@ public class MinionMovement : MovementScript
 	public Transform goal;
 	[SerializeField]
 	private Move_State m_state, m_prevState;
-
 	private NavMeshAgent agent;
 	private bool followingNav = true;
 	private LineRenderer line;
 	private MinionInfo info;
 	private Interactive interactive;
 	private Path m_path;
+	private SkinnedMeshRenderer temp_smr;
+
 	private void SetState( Move_State _state )
 	{
 		switch ( _state )
@@ -30,7 +31,6 @@ public class MinionMovement : MovementScript
 				break;
 		}
 	}
-	private SkinnedMeshRenderer temp_smr;
 	protected override void Start()
 	{
 		base.Start();

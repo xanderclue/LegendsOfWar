@@ -6,6 +6,7 @@ public class PostEffectsBase : MonoBehaviour
 	protected bool supportHDRTextures = true;
 	protected bool supportDX11 = false;
 	protected bool isSupported = true;
+
 	protected Material CheckShaderAndCreateMaterial( Shader s, Material m2Create )
 	{
 		if ( !s )

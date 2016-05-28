@@ -3,9 +3,9 @@ public class Interactive : MonoBehaviour
 {
 	[SerializeField]
 	private bool selected = false;
-
 	private GameObject Circle;
 	private MinionInfo info;
+
 	private void Start()
 	{
 		Circle = transform.Find( "Selection Circle" ).gameObject;

@@ -6,8 +6,8 @@ public class DayNight : MonoBehaviour
 	private Transform sun = null, moon = null;
 	public delegate void DayNightEvent();
 	public static event DayNightEvent OnDay, OnNight;
-
 	private bool night;
+
 	private void Update()
 	{
 		transform.Rotate( Vector3.right, 360.0f / dayNightCycleDuration * Time.deltaTime );

@@ -3,8 +3,9 @@ public class NormalProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
 	public float projectileLifetime = 2.0f;
-
 	private bool fired = false;
+	private float projectileTimer;
+
 	private void FixedUpdate()
 	{
 		if ( !target || !target.gameObject.activeInHierarchy )
@@ -37,7 +38,6 @@ public class NormalProjectileBehavior : MonoBehaviour
 		else if ( fired )
 			projectileTimer -= Time.deltaTime;
 	}
-	private float projectileTimer;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

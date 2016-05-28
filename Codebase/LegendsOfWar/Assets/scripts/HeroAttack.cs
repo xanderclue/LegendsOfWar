@@ -7,6 +7,8 @@ public class HeroAttack : AttackScript
 	private ProximityCompare comparer = new ProximityCompare();
 	private float attackDelay;
 	private float attackTimer = 0.0f;
+	private float AsoundTimer = 1.0f;
+
 	private void Start()
 	{
 		info = GetComponent<HeroInfo>();
@@ -28,7 +30,6 @@ public class HeroAttack : AttackScript
 						targets.Add( obj.transform );
 			}
 	}
-	private float AsoundTimer = 1.0f;
 	private void Update()
 	{
 		if ( GameManager.GameEnded )

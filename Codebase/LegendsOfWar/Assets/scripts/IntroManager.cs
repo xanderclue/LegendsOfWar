@@ -54,26 +54,26 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	private GameObject Player = null;
 	public bool pause = false;
-
 	private bool PlayedIntro = false;
 	private bool HeroInstanciate = false;
 	private STATES currentState = STATES.STATE_INTRO;
+	private bool SpawnMinionTutRed = false;
+	private bool SpawnMinionTutBlue = false;
+	private bool firstswitch = false;
+	private bool Welcome, Camera, Movement;
+
 	public void NextState()
 	{
 		currentState += 1;
 	}
-	private bool SpawnMinionTutRed = false;
 	public void ToggleSpawnMinionRed()
 	{
 		SpawnMinionTutRed = !SpawnMinionTutRed;
 	}
-	private bool SpawnMinionTutBlue = false;
 	public void ToggleSpawnMinionBlue()
 	{
 		SpawnMinionTutBlue = !SpawnMinionTutBlue;
 	}
-	private bool firstswitch = false;
-	private bool Welcome, Camera, Movement;
 	public void ToggleWelcome()
 	{
 		Welcome = !Welcome;

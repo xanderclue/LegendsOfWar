@@ -21,12 +21,22 @@ public class HeroCamScript : MonoBehaviour
 	public static event voidDel OnOnHero;
 	public static HeroCamScript inst;
 	private static string enterHM, exitHM;
-
 	private Camera mainCam, heroCam;
 	private float tValue = 0.0f;
 	private CamTransitionState state = CamTransitionState.OnMain;
 	private Button buttonSwitch;
 	private Text textSwitch;
+	private bool cameraReady = false;
+	private float targetFOV = 60.0f;
+	private float maxDistance, forceDistance;
+	private RaycastHit[ ] hits;
+	private string hitLayerName;
+	private Color green, red;
+	private float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
+	private float mouseVerticalStart;
+	private bool hudTextShowsQWER = true;
+	private float currentVertical;
+
 	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
 	public static bool onHero
 	{
@@ -49,7 +59,6 @@ public class HeroCamScript : MonoBehaviour
 			return inst.info.Alive;
 		}
 	}
-	private bool cameraReady = false;
 	private void Start()
 	{
 		mainCam = mainCameraTransform.gameObject.GetComponent<Camera>();
@@ -87,10 +96,6 @@ public class HeroCamScript : MonoBehaviour
 			exitHM = "(C) Exit Hero Mode";
 		}
 	}
-	private float targetFOV = 60.0f;
-	private float maxDistance, forceDistance;
-	private RaycastHit[ ] hits;
-	private string hitLayerName;
 	private void CalcHeroCamPosition()
 	{
 		maxDistance = Vector3.Distance( heroCenter.position, heroTransformMax.position );
@@ -107,9 +112,6 @@ public class HeroCamScript : MonoBehaviour
 		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * (
 			forceDistance / maxDistance ) + heroCenter.position;
 	}
-	private Color green, red;
-	private float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
-	private float mouseVerticalStart;
 	public static float MouseVertical
 	{
 		get { return inst ? inst.mouseVerticalStart : 0.0f; }
@@ -162,7 +164,6 @@ public class HeroCamScript : MonoBehaviour
 				break;
 		}
 	}
-	private float currentVertical;
 	private void MouseVerticalAxis()
 	{
 		if ( GameManager.Tutorial )
@@ -328,7 +329,6 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
-	private bool hudTextShowsQWER = true;
 	private bool HudTextShowsQWER
 	{
 		get { return hudTextShowsQWER; }

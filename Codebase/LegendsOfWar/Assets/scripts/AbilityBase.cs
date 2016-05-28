@@ -17,13 +17,15 @@ public abstract class AbilityBase : MonoBehaviour
 	public string abilityNameEn = "Ability";
 	public string abilityNameJp = "スペル";
 	public float abilityCost = 10.0f;
-
-	public Effect Effect { get { return m_effect; } }
+	protected bool abilityEnabled = true;
 	protected float cooldownTimer = 0.0f;
 	protected bool abilityOn = false;
 	protected float skillTimer = 0.0f;
 	protected bool aimingSkill = false;
 	protected HeroInfo heroInfo;
+
+	public bool AbilityEnabled { get { return abilityEnabled; } set { abilityEnabled = value; } }
+	public Effect Effect { get { return m_effect; } }
 	protected virtual void Start()
 	{
 		if ( m_effect.m_name == "" )
@@ -86,6 +88,4 @@ public abstract class AbilityBase : MonoBehaviour
 		else
 			Cursor.SetCursor( null, Vector2.zero, cursorMode );
 	}
-	[HideInInspector]
-	public bool abilityEnabled = true;
 }

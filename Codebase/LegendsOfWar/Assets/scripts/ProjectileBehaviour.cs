@@ -5,8 +5,9 @@ public class ProjectileBehaviour : MonoBehaviour
 	public Transform target = null;
 	public float damage;
 	public float projectileLifetime = 3.0f;
-
 	private bool isFired = false;
+	private float projectileTimer;
+
 	private void FixedUpdate()
 	{
 		if ( isFired )
@@ -39,7 +40,6 @@ public class ProjectileBehaviour : MonoBehaviour
 		else if ( isFired )
 			projectileTimer -= Time.deltaTime;
 	}
-	private float projectileTimer;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

@@ -17,10 +17,16 @@ public class HudScript : MonoBehaviour
 	private Text heroBeingAttackedText = null;
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
-
 	private HeroAbilities abilities;
 	private RaycastHit hit;
 	private Image qIm, wIm, eIm, rIm;
+	private int tempSec;
+	private float tmr;
+	private ColorBlock BrightColor;
+	private float buttonHmAnimTime = 0.0f;
+	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
+	private float qtim, wtim, etim, rtim;
+
 	private void Start()
 	{
 		hero = GameManager.Instance.Player;
@@ -38,8 +44,6 @@ public class HudScript : MonoBehaviour
 		BrightColor = ColorBlock.defaultColorBlock;
 		BrightColor.colorMultiplier = 1.5f;
 	}
-	private int tempSec;
-	private float tmr;
 	private void Update()
 	{
 		ButtonHMAnim();
@@ -65,9 +69,6 @@ public class HudScript : MonoBehaviour
 		blueGold.text = ( Options.Japanese ? "金 " : "Gold: " ) + EconomyManager.Instance.BlueGold;
 		Cooldowns();
 	}
-	private ColorBlock BrightColor;
-	private float buttonHmAnimTime = 0.0f;
-	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
 	private void ButtonHMAnim()
 	{
 		if ( HeroUIScript.HeroBeingAttacked )
@@ -91,7 +92,6 @@ public class HudScript : MonoBehaviour
 			buttonHM.colors = ColorBlock.defaultColorBlock;
 		}
 	}
-	private float qtim, wtim, etim, rtim;
 	private void Cooldowns()
 	{
 		if ( abilities )

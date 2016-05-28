@@ -3,8 +3,8 @@ public class TankAbilityQ : AbilityQBase
 {
 	public ParticleSystem AbilityQParticle;
 	public float increaseHP;
-
 	private float heromaxhp;
+
 	protected override void Start()
 	{
 		base.Start();

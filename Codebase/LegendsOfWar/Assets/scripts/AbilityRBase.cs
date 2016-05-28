@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 public abstract class AbilityRBase : AbilityBase
 {
+	private HeroMovement movement;
+
 	protected override void Update()
 	{
 		base.Update();
@@ -10,7 +12,6 @@ public abstract class AbilityRBase : AbilityBase
 		ToggleCursor( ( Input.GetKey( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKey(
 			KeyCode.Alpha4 ) || Input.GetKey( KeyCode.Keypad4 ) );
 	}
-	private HeroMovement movement;
 	protected override void Start()
 	{
 		base.Start();

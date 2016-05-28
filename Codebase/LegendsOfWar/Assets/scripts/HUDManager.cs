@@ -10,18 +10,18 @@ public class HUDManager : MonoBehaviour
 	[SerializeField]
 	private Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null,
 		tDifficulty = null;
-
 	private TurnManager turnManager;
+	private HeroInfo info;
+	private HeroAbilities abilities;
+	private AbilityIcon aIcon;
+	private HeroIcon hIcon;
+
 	private void Start()
 	{
 		turnManager = GetComponent<TurnManager>();
 		aIcon = iconsPanel.GetComponent<AbilityIcon>();
 		hIcon = iconsPanel.GetComponent<HeroIcon>();
 	}
-	private HeroInfo info;
-	private HeroAbilities abilities;
-	private AbilityIcon aIcon;
-	private HeroIcon hIcon;
 	private void Update()
 	{
 		if ( turnManager == null || GameObject.Find( "Characters" ) == null )

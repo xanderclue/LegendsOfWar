@@ -4,11 +4,11 @@ public class GoldGainGlow : MonoBehaviour
 {
 	[SerializeField]
 	private float activeTime = 1.0f;
-
 	private Image image;
 	private Color originalColor;
 	private Color highlightedColor;
 	private float activeTimer = 0.0f;
+
 	private void Awake()
 	{
 		image = GetComponent<Image>();

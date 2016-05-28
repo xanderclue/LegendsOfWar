@@ -6,6 +6,7 @@ public class SiegeProjectile : MonoBehaviour
 	[SerializeField]
 	private bool lazer = false;
 	public float projectileLifetime = 2.0f;
+	private float projectileTimer;
 
 	private void OnTriggerEnter( Collider col )
 	{
@@ -33,7 +34,6 @@ public class SiegeProjectile : MonoBehaviour
 		else
 			projectileTimer -= Time.deltaTime;
 	}
-	private float projectileTimer;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

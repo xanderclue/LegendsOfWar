@@ -19,11 +19,11 @@ public class TurnManager : MonoBehaviour
 		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
 			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
 				0.0f ) };
-
-	public static TurnManager Instance { get { return inst; } }
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
 	private int c;
+
+	public static TurnManager Instance { get { return inst; } }
 	private Character next
 	{
 		get

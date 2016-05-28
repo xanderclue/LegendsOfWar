@@ -13,16 +13,17 @@ public class HeroInfo : Info
 	public Difficulty difficulty = Difficulty.Easy;
 	public string heroNameEn = "Player";
 	public string heroNameJp = "プレイヤー";
-
 	private float mana;
 	private float respawnTimer;
+	private HeroMovement movement;
+	private float tauntTimer = 0.0f;
+	private float idleTimer;
+
+	public HeroAudio heroAudio { get; private set; }
 	public float Damage { get { return damage; } set { damage = value; } }
 	public float Range { get { return attackRange; } }
 	public float AttackSpeed { get { return attackSpeed; } }
 	public float AgroRange { get { return agroRange; } }
-	private HeroMovement movement;
-	[HideInInspector]
-	public HeroAudio heroAudio;
 	private void Update()
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
@@ -36,7 +37,6 @@ public class HeroInfo : Info
 			Deidle();
 		}
 	}
-	private float tauntTimer = 0.0f;
 	private void PlayTaunt()
 	{
 		if ( tauntTimer >= 0.0f )
@@ -61,7 +61,6 @@ public class HeroInfo : Info
 		heroAudio = GetComponent<HeroAudio>();
 		idleTimer = 8.0f;
 	}
-	private float idleTimer;
 	private void PlayIdle()
 	{
 		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )

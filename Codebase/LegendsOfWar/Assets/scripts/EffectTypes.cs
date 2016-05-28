@@ -10,9 +10,9 @@ public class Effect
 	public float m_tickRate = 1.0f;
 	public bool m_stackable;
 	public int m_stacks;
-
 	private float m_elapsedTime = 0.0f;
 	private float m_tickTimer = 0.0f;
+
 	public bool Ticked( float _time = 0.0f )
 	{
 		m_tickTimer += _time;

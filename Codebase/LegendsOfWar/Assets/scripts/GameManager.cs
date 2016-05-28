@@ -50,6 +50,16 @@ public class GameManager : MonoBehaviour
 	public static float topSplitZ, botSplitZ;
 	public static List<HeroAbilities> abilities;
 	private static GameManager instance = null;
+	private bool gameRunning = false;
+	private float waveTimer;
+	private float timer;
+	private int wave = 0;
+	private MinionInfo[ ] endminions;
+	private GameObject min_go;
+	private NavMeshAgent nma;
+	private bool gameEnded = false;
+	private bool shopActive = false;
+	private List<HeroInfo> heros = null;
 
 	public static bool Tutorial
 	{
@@ -60,12 +70,8 @@ public class GameManager : MonoBehaviour
 			return false;
 		}
 	}
-	private bool gameRunning = false;
 	public static HudScript Hud { get { return instance.hudScript; } }
 	public static GameObject cursor { get { return instance.cursorObject; } }
-	private float waveTimer;
-	private float timer;
-	private int wave = 0;
 	public static bool Avail { get { return instance != null; } }
 	public static bool GameRunning
 	{
@@ -79,9 +85,6 @@ public class GameManager : MonoBehaviour
 	}
 	public static Transform RedPortalTransform { get { return Instance.redPortal.transform; } }
 	public static Transform BluePortalTransform { get { return Instance.bluePortal.transform; } }
-	private MinionInfo[ ] endminions;
-	private GameObject min_go;
-	private NavMeshAgent nma;
 	private void SetupMinion( Object _minion, Path lane, Team team )
 	{
 		min_go = _minion as GameObject;
@@ -167,7 +170,6 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.StartingGame();
 		ResetUpgrades();
 	}
-	private bool gameEnded = false;
 	public static bool GameEnded { get { return instance.gameEnded; } }
 	public void EndGame()
 	{
@@ -280,7 +282,6 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds( 4.0f );
 		EndGame();
 	}
-	private bool shopActive = false;
 	private void Update()
 	{
 		if ( !gameRunning || gameEnded )
@@ -333,7 +334,6 @@ public class GameManager : MonoBehaviour
 			abs.abilityR.Timer -= Time.deltaTime;
 		}
 	}
-	private List<HeroInfo> heros = null;
 	public void AddHero( HeroInfo info )
 	{
 		heros.Add( info );
@@ -383,9 +383,9 @@ public class GameManager : MonoBehaviour
 		if ( tutorial )
 		{
 			HeroAbilities abilities = Player.GetComponent<HeroAbilities>();
-			abilities.abilityW.abilityEnabled = false;
-			abilities.abilityE.abilityEnabled = false;
-			abilities.abilityR.abilityEnabled = false;
+			abilities.abilityW.AbilityEnabled = false;
+			abilities.abilityE.AbilityEnabled = false;
+			abilities.abilityR.AbilityEnabled = false;
 		}
 	}
 	public void SpawnStrikerMinion( Team team, int lane )

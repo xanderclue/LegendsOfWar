@@ -8,9 +8,13 @@ public class ResourceBarScript : MonoBehaviour
 	private bool attachedToHUD = false;
 	public bool isMana = false;
 	private static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
-
 	private Info stats;
 	private Image bar = null;
+	private bool notHero = true;
+	private Vector3 high, low;
+	private Transform heroUiTrans;
+	private RectTransform rectTransform;
+
 	private void Start()
 	{
 		stats = host.GetComponent<Info>();
@@ -24,10 +28,6 @@ public class ResourceBarScript : MonoBehaviour
 		heroUiTrans = HeroUIScript.Instance.transform;
 		rectTransform = GetComponent<RectTransform>();
 	}
-	private bool notHero = true;
-	private Vector3 high, low;
-	private Transform heroUiTrans;
-	private RectTransform rectTransform;
 	private void Update()
 	{
 		if ( isMana )

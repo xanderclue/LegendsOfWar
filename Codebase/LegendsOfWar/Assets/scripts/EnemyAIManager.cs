@@ -59,7 +59,6 @@ public class EnemyAIManager : MonoBehaviour
 	private static readonly Quaternion faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f,
 		0.707106781f ), faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion
 		( 0.0f, 1.0f, 0.0f, 0.0f );
-
 	private float reinforcementsTime = 40;
 	private float siegeTime = 60.0f;
 	private float lastResortTime = 20.0f;
@@ -74,6 +73,10 @@ public class EnemyAIManager : MonoBehaviour
 	private NavMeshAgent nma;
 	private List<Transform> targets = new List<Transform>();
 	private GameObject Hero = null;
+#if DEBUG
+	private float second = 1.0f;
+#endif
+
 	private float CalcSelfRecovery
 	{
 		get
@@ -309,9 +312,6 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			return DangerLevel.MINIMAL;
 	}
-#if DEBUG
-	private float second = 1.0f;
-#endif
 	private void FixedUpdate()
 	{
 #if DEBUG

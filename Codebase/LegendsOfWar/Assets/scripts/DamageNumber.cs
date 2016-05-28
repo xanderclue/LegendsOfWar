@@ -4,7 +4,6 @@ public class DamageNumber : MonoBehaviour
 {
 	[SerializeField]
 	private Text textObject = null;
-
 	private Vector3 low, high;
 	private float maxDurationInv = 0.0f;
 	private float tValue = 0.0f;
@@ -12,6 +11,7 @@ public class DamageNumber : MonoBehaviour
 	private Transform orig;
 	private bool followingTransform = false;
 	private float heightF = 0.0f;
+
 	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color
 		textColor )
 	{

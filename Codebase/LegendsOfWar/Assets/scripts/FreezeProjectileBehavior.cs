@@ -6,10 +6,16 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	[SerializeField]
 	private Detector AreaOfEffect = null;
 	public float projectileLifetime = 4.0f;
-
 	private FreezeProjectileInfo info;
 	private Team team;
 	private bool fired = false;
+	private List<Transform> victims;
+	private List<NavMeshAgent> slowTargets;
+	private float aoeTimer, heroSpeed = 105, minionSpeed = 15;
+	private bool aoeActive, targetsAreSlowed, skip;
+	private int repeat;
+	private float projectileTimer;
+
 	private void Awake()
 	{
 		info = TowerManager.Instance.freezeInfo;
@@ -50,11 +56,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			CreateAOEZone();
 		}
 	}
-	private List<Transform> victims;
-	private List<NavMeshAgent> slowTargets;
-	private float aoeTimer, heroSpeed = 105, minionSpeed = 15;
-	private bool aoeActive, targetsAreSlowed, skip;
-	private int repeat;
 	private void CreateAOEZone()
 	{
 		aoeActive = targetsAreSlowed = true;
@@ -145,7 +146,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 				projectileTimer -= Time.deltaTime;
 		}
 	}
-	private float projectileTimer;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

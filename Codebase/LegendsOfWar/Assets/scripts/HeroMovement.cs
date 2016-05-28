@@ -6,9 +6,16 @@ public class HeroMovement : MovementScript
 	private bool m_AttMvKey = false;
 	[SerializeField]
 	private MOVE_State m_state, m_prevState;
-
 	private NavMeshAgent agent;
 	private HeroInfo info;
+	private float prevMousePos, currMousePos, currentRot;
+	private bool shiftKeyPressed;
+	private Vector3 rot;
+	private Vector3 newVel;
+	private float tValue = 0.0f;
+	private bool moving = false;
+	private NavMeshHit nmhit;
+
 	protected override void Start()
 	{
 		base.Start();
@@ -153,9 +160,6 @@ public class HeroMovement : MovementScript
 		}
 		return false;
 	}
-	private float prevMousePos, currMousePos, currentRot;
-	private bool shiftKeyPressed;
-	private Vector3 rot;
 	public bool SprintingAbility { private get; set; }
 	private void TPStart()
 	{
@@ -164,9 +168,6 @@ public class HeroMovement : MovementScript
 		SprintingAbility = false;
 		agent.angularSpeed = 0.0f;
 	}
-	private Vector3 newVel;
-	private float tValue = 0.0f;
-	private bool moving = false;
 	private void TPUpdate()
 	{
 		shiftKeyPressed = Input.GetKey( KeyCode.LeftShift ) || Input.GetKey( KeyCode.RightShift );
@@ -240,7 +241,6 @@ public class HeroMovement : MovementScript
 		rot.y = currentRot;
 		transform.rotation = Quaternion.Euler( rot );
 	}
-	private NavMeshHit nmhit;
 	public void ResetToSpawn()
 	{
 		NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, NavMesh.AllAreas

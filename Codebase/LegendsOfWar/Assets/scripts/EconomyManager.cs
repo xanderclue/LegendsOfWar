@@ -6,8 +6,8 @@ public class EconomyManager : MonoBehaviour
 	public delegate void goldChangedEvent();
 	public event goldChangedEvent OnGainGold;
 	private static EconomyManager instance = null;
-
 	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
+
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;

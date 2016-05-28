@@ -4,9 +4,9 @@ public class TankAbilityW : AbilityWBase
 	public bool skillON = false;
 	public float Wdamage;
 	public CollisionDetector coll;
-
 	private GameObject AbilityWParticle;
 	private HeroMovement movement;
+
 	protected override void Start()
 	{
 		base.Start();

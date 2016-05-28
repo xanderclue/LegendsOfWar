@@ -4,8 +4,8 @@ public class HeroIcon : MonoBehaviour
 {
 	[SerializeField]
 	private Image heroIcon = null;
-
 	private HeroInfo info = null;
+
 	private void SetIcon()
 	{
 		if ( CharacterSelectionManager.LegendChoice )
