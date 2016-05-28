@@ -2,21 +2,25 @@
 public enum Difficulty { Easy, Hard }
 public class HeroInfo : Info
 {
-	private float mana;
-	private float respawnTimer;
 	public Sprite heroIcon;
-	public float Damage { get { return damage; } set { damage = value; } }
-	public float Range { get { return attackRange; } }
-	public float AttackSpeed { get { return attackSpeed; } }
-	public float AgroRange { get { return agroRange; } }
 	[SerializeField]
 	private float maxMana = 100.0f;
 	public float manaRegen = 7.5f;
 	public string Lore = "", roaa = "";
 	public Transform thirdPerson = null;
 	public Transform heroCenter = null;
-	private HeroMovement movement;
 	public float respawnTime = 9.0f, respawnIncrement = 3.0f;
+	public Difficulty difficulty = Difficulty.Easy;
+	public string heroNameEn = "Player";
+	public string heroNameJp = "プレイヤー";
+
+	private float mana;
+	private float respawnTimer;
+	public float Damage { get { return damage; } set { damage = value; } }
+	public float Range { get { return attackRange; } }
+	public float AttackSpeed { get { return attackSpeed; } }
+	public float AgroRange { get { return agroRange; } }
+	private HeroMovement movement;
 	[HideInInspector]
 	public HeroAudio heroAudio;
 	private void Update()
@@ -103,7 +107,4 @@ public class HeroInfo : Info
 		mana = maxMana;
 		Alive = true;
 	}
-	public Difficulty difficulty = Difficulty.Easy;
-	public string heroNameEn = "Player";
-	public string heroNameJp = "プレイヤー";
 }

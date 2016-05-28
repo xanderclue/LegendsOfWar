@@ -5,14 +5,15 @@ public enum Path
 { NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }
 public class MinionMovement : MovementScript
 {
-	private NavMeshAgent agent;
 	public Transform goal;
+	[SerializeField]
+	private Move_State m_state, m_prevState;
+
+	private NavMeshAgent agent;
 	private bool followingNav = true;
 	private LineRenderer line;
 	private MinionInfo info;
 	private Interactive interactive;
-	[SerializeField]
-	private Move_State m_state, m_prevState;
 	private Path m_path;
 	private void SetState( Move_State _state )
 	{

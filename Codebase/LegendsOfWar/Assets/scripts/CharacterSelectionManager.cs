@@ -3,6 +3,7 @@ public class CharacterSelectionManager : MonoBehaviour
 {
 	public GameObject[ ] Legends;
 	public int Index;
+
 	private static CharacterSelectionManager inst;
 	public static CharacterSelectionManager Instance { get { return inst; } }
 	private bool[ ] available;
@@ -27,7 +28,7 @@ public class CharacterSelectionManager : MonoBehaviour
 		for ( int i = 0; i < Legends.Length; ++i )
 			available[ i ] = Legends[ i ];
 	}
-	static public GameObject LegendChoice
+	public static GameObject LegendChoice
 	{ get { return inst ? inst.Legends[ inst.Index ] : null; } }
-	static public HeroInfo heroInfo { get { return LegendChoice.GetComponent<HeroInfo>(); } }
+	public static HeroInfo heroInfo { get { return LegendChoice.GetComponent<HeroInfo>(); } }
 }

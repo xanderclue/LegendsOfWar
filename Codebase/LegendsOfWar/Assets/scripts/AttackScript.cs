@@ -12,12 +12,13 @@ public class ProximityCompare : IComparer<Transform>
 }
 public class AttackScript : MonoBehaviour
 {
-	protected MinionInfo Minioninfo;
-	protected HeroInfo Heroinfo;
 	[SerializeField]
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
+
+	protected MinionInfo Minioninfo;
+	protected HeroInfo Heroinfo;
 	private ProjectileBehaviour p;
 	protected void FireAtTarget( Transform _target, float _speed, float _damage )
 	{

@@ -2,15 +2,16 @@
 public enum Team { RED_TEAM, BLUE_TEAM }
 public class Info : MonoBehaviour
 {
-	private float currHP;
 	[SerializeField]
 	private float MaxHP;
-	private bool isAlive = false;
 	public Team team = Team.BLUE_TEAM;
-	protected bool dontDestroy = false;
-	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
 	[SerializeField]
 	protected float attackSpeed, agroRange, attackRange, damage;
+
+	private float currHP;
+	private bool isAlive = false;
+	protected bool dontDestroy = false;
+	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
 	public float DmgAmp
 	{
 		get { return dmgAmp; }

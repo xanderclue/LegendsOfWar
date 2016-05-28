@@ -3,8 +3,9 @@ using System.Collections.Generic;
 public class TankAbilityE : AbilityEBase
 {
 	public CollisionDetector coll;
-	private GameObject AbilityEParticle;
 	public float Edamage;
+
+	private GameObject AbilityEParticle;
 	private List<Info> slowed;
 	protected override void Start()
 	{

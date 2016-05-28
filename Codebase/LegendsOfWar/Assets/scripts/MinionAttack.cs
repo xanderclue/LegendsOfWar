@@ -4,11 +4,12 @@ public class MinionAttack : AttackScript
 {
 	[SerializeField]
 	private List<Transform> targets;
+	[SerializeField]
+	private ParticleSystem attackParticles = null;
+
 	private MinionMovement movement;
 	private ProximityCompare poo = new ProximityCompare();
 	private float second = 1.0f;
-	[SerializeField]
-	private ParticleSystem attackParticles = null;
 	private float effectTime = 0.5f;
 	private bool psEnabled = false;
 	private void Start()

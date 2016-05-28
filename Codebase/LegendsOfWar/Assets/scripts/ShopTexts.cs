@@ -6,6 +6,7 @@ public class ShopTexts : MonoBehaviour
 	private Text heroName = null, abilityQName = null, abilityWName = null, abilityEName = null,
 		abilityRName = null, abilityQCost = null, abilityWCost = null, abilityECost = null,
 		abilityRCost = null;
+
 	private void Start()
 	{
 		Options.onChangedLanguage += SetTexts;

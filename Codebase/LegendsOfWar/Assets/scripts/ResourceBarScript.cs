@@ -4,11 +4,12 @@ public class ResourceBarScript : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject host = null;
-	private Info stats;
-	private Image bar = null;
 	[SerializeField]
 	private bool attachedToHUD = false;
 	public bool isMana = false;
+
+	private Info stats;
+	private Image bar = null;
 	private void Start()
 	{
 		stats = host.GetComponent<Info>();

@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
+	[SerializeField]
+	private AudioSource clickSoundSource = null;
+	[SerializeField]
+	private AudioClip gameBGM = null, menuBGM = null, endGameBGM = null, HeroCam = null, WaveSpawn =
+		null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed
+		= null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null
+		, HeroAttacked = null, HeroDeath = null, ClickSound = null;
+
 	private static Transform listenerTransform = null;
 	private static AudioSource BgmSource;
 	private static AudioSource SfxSource = null;
-	[SerializeField]
-	private AudioSource clickSoundSource = null;
 	public static Vector3 ListenerPosition
 	{
 		get
@@ -15,11 +21,6 @@ public class AudioManager : MonoBehaviour
 			return Vector3.zero;
 		}
 	}
-	[SerializeField]
-	private AudioClip gameBGM = null, menuBGM = null, endGameBGM = null, HeroCam = null, WaveSpawn =
-		null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed
-		= null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null
-		, HeroAttacked = null, HeroDeath = null, ClickSound = null;
 	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn,
 		sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
 		sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,

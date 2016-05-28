@@ -7,6 +7,7 @@ public class HunterAbilityW : AbilityWBase
 	private GameObject projectile = null, arrowSpawn = null;
 	[SerializeField]
 	private GameObject Icon = null;
+
 	private GameObject activeIcon = null;
 	private Info target = null;
 	private float originalSpeed = 0.0f;

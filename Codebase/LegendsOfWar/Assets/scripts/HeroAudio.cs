@@ -8,6 +8,7 @@ public class HeroAudio : MonoBehaviour
 	private string JHeroTaunt1 = "", JHeroTaunt2 = "", JHeroIdle1 = "", JHeroIdle2 = "",
 		JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "",
 		JHeroCastAbilityE = "", JHeroCastAbilityR = "";
+
 	private AudioSource source;
 	private void Start()
 	{

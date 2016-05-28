@@ -4,6 +4,7 @@ public class SiegeMinionAttack : AttackScript
 {
 	[SerializeField]
 	private List<Transform> targets;
+
 	private SiegeMinionInfo sMinioninfo;
 	private MinionMovement movement;
 	private BcWeapon weaponDetails;

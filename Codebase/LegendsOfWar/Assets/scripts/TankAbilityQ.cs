@@ -2,8 +2,9 @@
 public class TankAbilityQ : AbilityQBase
 {
 	public ParticleSystem AbilityQParticle;
-	private float heromaxhp;
 	public float increaseHP;
+
+	private float heromaxhp;
 	protected override void Start()
 	{
 		base.Start();

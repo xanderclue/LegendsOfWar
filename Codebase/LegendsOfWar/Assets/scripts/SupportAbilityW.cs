@@ -4,6 +4,7 @@ public class SupportAbilityW : AbilityWBase
 {
 	[SerializeField]
 	private GameObject Icon = null;
+
 	private List<MinionInfo> applied = new List<MinionInfo>();
 	private SupportRange supprang;
 	protected override void Start()

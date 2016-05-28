@@ -4,18 +4,24 @@ public abstract class AbilityBase : MonoBehaviour
 	[SerializeField]
 	protected Effect m_effect;
 	public Sprite abilityIcon;
-	public Effect Effect { get { return m_effect; } }
-	protected float cooldownTimer = 0.0f;
 	[SerializeField]
 	protected float cooldownTime = 10.0f;
-	protected bool abilityOn = false;
-	protected float skillTimer = 0.0f;
 	[SerializeField]
 	protected GameObject cursor = null;
 	[SerializeField]
 	protected Texture2D CursorIcon = null;
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
+	public string abilityDescEn = "";
+	public string abilityDescJp = "";
+	public string abilityNameEn = "Ability";
+	public string abilityNameJp = "スペル";
+	public float abilityCost = 10.0f;
+
+	public Effect Effect { get { return m_effect; } }
+	protected float cooldownTimer = 0.0f;
+	protected bool abilityOn = false;
+	protected float skillTimer = 0.0f;
 	protected bool aimingSkill = false;
 	protected HeroInfo heroInfo;
 	protected virtual void Start()
@@ -80,11 +86,6 @@ public abstract class AbilityBase : MonoBehaviour
 		else
 			Cursor.SetCursor( null, Vector2.zero, cursorMode );
 	}
-	public string abilityDescEn = "";
-	public string abilityDescJp = "";
-	public string abilityNameEn = "Ability";
-	public string abilityNameJp = "スペル";
-	public float abilityCost = 10.0f;
 	[HideInInspector]
 	public bool abilityEnabled = true;
 }

@@ -11,6 +11,7 @@ public class AssassinAblilityQ : AbilityQBase
 	protected GameObject weapon, projectile;
 	[SerializeField]
 	private GameObject Indicator = null;
+
 	private bool aiming, waitForCast;
 	protected override void Start()
 	{

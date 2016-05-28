@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 public class TankAbilityW : AbilityWBase
 {
-	private GameObject AbilityWParticle;
 	public bool skillON = false;
 	public float Wdamage;
-	private HeroMovement movement;
 	public CollisionDetector coll;
+
+	private GameObject AbilityWParticle;
+	private HeroMovement movement;
 	protected override void Start()
 	{
 		base.Start();

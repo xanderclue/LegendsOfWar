@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 public class ExplosiveProjectileBehavior : MonoBehaviour
 {
+	public Transform target = null;
+	public float projectileLifetime = 3.0f;
+
 	private ExplosiveProjectileInfo info;
 	private Collider[ ] victims;
 	private Team team;
-	public Transform target = null;
 	private bool fired, aoeActive = false;
 	private float effectTime = 3.0f;
 	private void Awake()
@@ -73,7 +75,6 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 			projectileTimer -= Time.deltaTime;
 	}
 	private float projectileTimer;
-	public float projectileLifetime = 3.0f;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

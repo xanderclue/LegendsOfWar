@@ -5,6 +5,7 @@ public class HunterAbilityE : AbilityEBase
 	private float range = 0.0f, speed = 0.0f, abilityAdditionalDamage = 0.0f;
 	[SerializeField]
 	private GameObject projectile = null, arrowSpawn = null, visualTarget = null;
+
 	private bool aiming = false;
 	protected override void Update()
 	{

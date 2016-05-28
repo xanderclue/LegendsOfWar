@@ -8,6 +8,8 @@ public class SkillShot : MonoBehaviour
 	public bool MarkingAttack = false;
 	public GameObject Shooter = null;
 	public Effect effect = new Effect();
+	public float projectileLifetime = 2.0f;
+
 	private bool isFired = false;
 	private void FixedUpdate()
 	{
@@ -49,7 +51,6 @@ public class SkillShot : MonoBehaviour
 			projectileTimer -= Time.deltaTime;
 	}
 	private float projectileTimer;
-	public float projectileLifetime = 2.0f;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

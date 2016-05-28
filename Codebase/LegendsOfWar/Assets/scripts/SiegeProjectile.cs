@@ -5,6 +5,8 @@ public class SiegeProjectile : MonoBehaviour
 	public float damage;
 	[SerializeField]
 	private bool lazer = false;
+	public float projectileLifetime = 2.0f;
+
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject.GetComponent<Info>() )
@@ -32,7 +34,6 @@ public class SiegeProjectile : MonoBehaviour
 			projectileTimer -= Time.deltaTime;
 	}
 	private float projectileTimer;
-	public float projectileLifetime = 2.0f;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

@@ -7,16 +7,6 @@ public class GameManager : MonoBehaviour
 {
 	[SerializeField]
 	private bool tutorial = false;
-	public static bool Tutorial
-	{
-		get
-		{
-			if ( instance )
-				return instance.tutorial;
-			return false;
-		}
-	}
-	public static bool WebPlayerMode = false;
 	[SerializeField]
 	private PortalInfo redPortal = null;
 	[SerializeField]
@@ -27,25 +17,48 @@ public class GameManager : MonoBehaviour
 	private GameObject blueTankMinion = null, blueCasterMinion = null, blueStrikerMinion = null;
 	[SerializeField]
 	private EventSystem uiEventSystem = null;
-	private bool gameRunning = false;
 	[SerializeField]
 	private float maxTime = 900.0f;
 	[SerializeField]
 	private float waveTime = 60.0f;
 	[SerializeField]
 	private HudScript hudScript = null;
-	public static HudScript Hud { get { return instance.hudScript; } }
-	public static float topSplitZ, botSplitZ;
 	[SerializeField]
 	private GameObject cursorObject = null;
+	[SerializeField]
+	private Transform HeroSpawnPoint = null;
+	public GameObject Player;
+	public ParticleSystem BoomRed;
+	public ParticleSystem BoomBlue;
+	public ParticleSystem ExitRed;
+	public ParticleSystem ExitBlue;
+	[SerializeField]
+	private GameObject defaultHeroPrefab = null;
+	[SerializeField]
+	private Transform topSplit = null, botSplit = null;
+	[SerializeField]
+	private List<Button> buttons = null;
+	[SerializeField]
+	private ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
+
+	public static bool Tutorial
+	{
+		get
+		{
+			if ( instance )
+				return instance.tutorial;
+			return false;
+		}
+	}
+	public static bool WebPlayerMode = false;
+	private bool gameRunning = false;
+	public static HudScript Hud { get { return instance.hudScript; } }
+	public static float topSplitZ, botSplitZ;
 	public static GameObject cursor { get { return instance.cursorObject; } }
 	private float waveTimer;
 	private float timer;
 	private int wave = 0;
 	public static List<HeroAbilities> abilities;
-	[SerializeField]
-	private Transform HeroSpawnPoint = null;
-	public GameObject Player;
 	public static bool Avail { get { return instance != null; } }
 	public static bool GameRunning
 	{
@@ -59,10 +72,6 @@ public class GameManager : MonoBehaviour
 	}
 	public static Transform RedPortalTransform { get { return Instance.redPortal.transform; } }
 	public static Transform BluePortalTransform { get { return Instance.bluePortal.transform; } }
-	public ParticleSystem BoomRed;
-	public ParticleSystem BoomBlue;
-	public ParticleSystem ExitRed;
-	public ParticleSystem ExitBlue;
 	private MinionInfo[ ] endminions;
 	private GameObject min_go;
 	private NavMeshAgent nma;
@@ -196,8 +205,6 @@ public class GameManager : MonoBehaviour
 				button.enabled = value;
 		}
 	}
-	[SerializeField]
-	private GameObject defaultHeroPrefab = null;
 	private static GameManager instance = null;
 	public static GameManager Instance
 	{
@@ -212,8 +219,6 @@ public class GameManager : MonoBehaviour
 			return instance;
 		}
 	}
-	[SerializeField]
-	private Transform topSplit = null, botSplit = null;
 	private void Awake()
 	{
 		if ( instance )
@@ -343,8 +348,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 	public static Vector3 blueHeroSpawnPosition { get { return Instance.HeroSpawnPoint.position; } }
-	[SerializeField]
-	private List<Button> buttons = null;
 	private void ResetUpgrades()
 	{
 		MinionInfo info;
@@ -368,8 +371,6 @@ public class GameManager : MonoBehaviour
 		if ( hero.team == team && !hero.Alive )
 			hero.RespawnTimer = 0.0f;
 	}
-	[SerializeField]
-	private ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
 	public void SpawnHero()
 	{
 		if ( CharacterSelectionManager.Instance )

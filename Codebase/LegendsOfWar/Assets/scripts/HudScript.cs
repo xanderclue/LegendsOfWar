@@ -9,10 +9,15 @@ public class HudScript : MonoBehaviour
 	public Text qCD, wCD, eCD, rCD;
 	[SerializeField]
 	private GameObject hero = null;
-	private HeroAbilities abilities;
-	private RaycastHit hit;
 	[SerializeField]
 	private Button q = null, w = null, e = null, r = null;
+	[SerializeField]
+	private Button buttonHM = null;
+	[SerializeField]
+	private Text heroBeingAttackedText = null;
+
+	private HeroAbilities abilities;
+	private RaycastHit hit;
 	private Image qIm, wIm, eIm, rIm;
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
@@ -60,10 +65,6 @@ public class HudScript : MonoBehaviour
 		blueGold.text = ( Options.Japanese ? "金 " : "Gold: " ) + EconomyManager.Instance.BlueGold;
 		Cooldowns();
 	}
-	[SerializeField]
-	private Button buttonHM = null;
-	[SerializeField]
-	private Text heroBeingAttackedText = null;
 	private ColorBlock BrightColor;
 	private float buttonHmAnimTime = 0.0f;
 	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );

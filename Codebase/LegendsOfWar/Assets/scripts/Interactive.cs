@@ -3,9 +3,9 @@ public class Interactive : MonoBehaviour
 {
 	[SerializeField]
 	private bool selected = false;
+
 	private GameObject Circle;
 	private MinionInfo info;
-	public static bool minSelected = false;
 	private void Start()
 	{
 		Circle = transform.Find( "Selection Circle" ).gameObject;
@@ -28,13 +28,9 @@ public class Interactive : MonoBehaviour
 				{
 					Circle.SetActive( true );
 					Circle.transform.Rotate( Vector3.up, 60.0f * Time.deltaTime, Space.World );
-					minSelected = true;
 				}
 				else
-				{
 					Circle.SetActive( false );
-					minSelected = false;
-				}
 			}
 		}
 	}

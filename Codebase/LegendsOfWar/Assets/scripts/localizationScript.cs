@@ -4,6 +4,7 @@ public class localizationScript : MonoBehaviour
 {
 	[SerializeField]
 	private string english = "", japanese = "";
+
 	private Text text;
 	private bool pendingChange = false;
 	private void Awake()

@@ -9,6 +9,8 @@ public class HeroAbilities : MonoBehaviour
 	private AbilityEBase e = null;
 	[SerializeField]
 	private AbilityRBase r = null;
+	public string heroClassEn = "", heroClassJp = "";
+
 	public AbilityQBase abilityQ { get { return q; } }
 	public AbilityWBase abilityW { get { return w; } }
 	public AbilityEBase abilityE { get { return e; } }
@@ -21,7 +23,6 @@ public class HeroAbilities : MonoBehaviour
 	{
 		GameManager.abilities.Remove( this );
 	}
-	public string heroClassEn = "", heroClassJp = "";
 	public string abilityInfo
 	{
 		get

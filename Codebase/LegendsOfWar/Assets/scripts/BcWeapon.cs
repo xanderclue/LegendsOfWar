@@ -33,6 +33,7 @@ public class BcWeapon : MonoBehaviour
 	public AudioClip reloadingSound;
 	public AudioClip reloadedSound;
 	public AudioClip emptyClickSound;
+
 	private float bulletMass = 1f;
 	private bool isReloading;
 	private float shootTimer;
@@ -373,6 +374,7 @@ public class BcWeaponEditor : Editor
 	public SerializedProperty emptyClickSound;
 	public bool speedEditMode;
 	public bool lifeEditMode;
+
 	private void SerializeProperties()
 	{
 		test = this.serializedObject.FindProperty( "test" );

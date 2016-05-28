@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
-	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	[SerializeField]
 	private float startingAmount = 100.0f, waveAmount = 10.0f;
+
+	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;

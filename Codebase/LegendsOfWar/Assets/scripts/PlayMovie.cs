@@ -5,6 +5,7 @@ public class PlayMovie : MonoBehaviour
 	private MovieTexture myMovie = null;
 	[SerializeField]
 	private AudioClip LegendsOfWarMovieBGM = null;
+
 	private void Start()
 	{
 		myMovie.Play();

@@ -6,6 +6,7 @@ public class pauseMenuEvents : MonoBehaviour
 	private GameObject eventSystem = null;
 	[SerializeField]
 	private Button[ ] buttons = null;
+
 	private static pauseMenuEvents inst = null;
 	public static bool EventSystem
 	{

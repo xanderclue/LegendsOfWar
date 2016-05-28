@@ -2,9 +2,10 @@
 using UnityEngine.UI;
 public class HeroRespawnTimer : MonoBehaviour
 {
-	private HeroInfo info;
 	[SerializeField]
 	private Text text = null;
+
+	private HeroInfo info;
 	private void Start()
 	{
 		info = GameManager.Instance.Player.GetComponent<HeroInfo>();

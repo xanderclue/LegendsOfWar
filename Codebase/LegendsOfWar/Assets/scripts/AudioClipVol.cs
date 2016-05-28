@@ -2,8 +2,9 @@
 public class AudioClipVol : MonoBehaviour
 {
 	public AudioSource aud;
-	private float maxDist, dist;
 	public bool isVoice = false;
+
+	private float maxDist, dist;
 	private void Start()
 	{
 		if ( !aud )

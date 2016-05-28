@@ -10,6 +10,7 @@ public class ApplicationManager : MonoBehaviour
 {
 	public bool transitioning = false;
 	public StateID currentState = StateID.STATE_MAIN_MENU, prevState = StateID.STATE_MAIN_MENU;
+
 	public void ChangeAppState( string nextState )
 	{
 		switch ( nextState )

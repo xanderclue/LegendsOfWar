@@ -8,6 +8,7 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 	private Transform projectileSpawnPoint = null;
 	[SerializeField]
 	private Detector detector = null;
+
 	private List<Transform> targets;
 	private ExplosiveProjectileInfo info;
 	private float fireTimer;

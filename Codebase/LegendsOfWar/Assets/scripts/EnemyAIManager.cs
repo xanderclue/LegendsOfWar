@@ -52,6 +52,11 @@ public class EnemyAIManager : MonoBehaviour
 	public GameObject redStriker = null;
 	public GameObject redTank = null;
 	public GameObject redCaster = null;
+#if DEBUG
+	public float temp;
+	public float temp2 = 0.0f;
+#endif
+
 	private float reinforcementsTime = 40;
 	private float siegeTime = 60.0f;
 	private float lastResortTime = 20.0f;
@@ -305,9 +310,7 @@ public class EnemyAIManager : MonoBehaviour
 			return DangerLevel.MINIMAL;
 	}
 #if DEBUG
-	public float temp;
 	private float second = 1.0f;
-	public float temp2 = 0.0f;
 #endif
 	private void FixedUpdate()
 	{

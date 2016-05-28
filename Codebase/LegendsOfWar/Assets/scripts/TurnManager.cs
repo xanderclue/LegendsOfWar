@@ -4,18 +4,19 @@ public enum Character
 { Default, Support, Hunter, Tanker, Character_5, Character_6, Character_7, Assassin, Total }
 public class TurnManager : MonoBehaviour
 {
-	private static TurnManager inst;
-	public static TurnManager Instance { get { return inst; } }
 	[SerializeField]
 	private menuEvents menuEventsObj = null;
 	[SerializeField]
 	private Transform CharacterSelectionSpace = null;
 	[SerializeField]
 	private float rotationSpeed = 5.0f;
-	private TurnState turnState = TurnState.Fix;
-	private Character current = 0;
 	[SerializeField]
 	private Light[ ] spotlights = null;
+
+	private static TurnManager inst;
+	public static TurnManager Instance { get { return inst; } }
+	private TurnState turnState = TurnState.Fix;
+	private Character current = 0;
 	private int c;
 	private const int m = ( int )Character.Total - 1;
 	private Character next

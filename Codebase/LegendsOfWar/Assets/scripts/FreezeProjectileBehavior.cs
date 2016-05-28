@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 public class FreezeProjectileBehavior : MonoBehaviour
 {
+	public Transform target = null;
+	[SerializeField]
+	private Detector AreaOfEffect = null;
+	public float projectileLifetime = 4.0f;
+
 	private FreezeProjectileInfo info;
 	private Team team;
-	public Transform target = null;
 	private bool fired = false;
 	private void Awake()
 	{
@@ -46,8 +50,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			CreateAOEZone();
 		}
 	}
-	[SerializeField]
-	private Detector AreaOfEffect = null;
 	private List<Transform> victims;
 	private List<NavMeshAgent> slowTargets;
 	private float aoeTimer, heroSpeed = 105, minionSpeed = 15;
@@ -144,7 +146,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		}
 	}
 	private float projectileTimer;
-	public float projectileLifetime = 4.0f;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

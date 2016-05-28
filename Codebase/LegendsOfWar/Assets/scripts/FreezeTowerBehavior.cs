@@ -8,6 +8,7 @@ public class FreezeTowerBehavior : MonoBehaviour
 	private Transform projectileSpawnPoint = null;
 	[SerializeField]
 	private Detector detector = null;
+
 	private List<Transform> targets;
 	private FreezeProjectileInfo info;
 	private float fireTimer;

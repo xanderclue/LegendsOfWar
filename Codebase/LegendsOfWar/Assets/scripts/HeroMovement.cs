@@ -2,11 +2,12 @@
 public enum MOVE_State { COMBAT_STATE, MOVE_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
 public class HeroMovement : MovementScript
 {
-	private NavMeshAgent agent;
 	[SerializeField]
 	private bool m_AttMvKey = false;
 	[SerializeField]
 	private MOVE_State m_state, m_prevState;
+
+	private NavMeshAgent agent;
 	private HeroInfo info;
 	protected override void Start()
 	{

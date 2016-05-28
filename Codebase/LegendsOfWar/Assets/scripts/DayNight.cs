@@ -4,6 +4,7 @@ public class DayNight : MonoBehaviour
 	public float dayNightCycleDuration = 5.0f;
 	[SerializeField]
 	private Transform sun = null, moon = null;
+
 	private bool night;
 	public delegate void DayNightEvent();
 	public static event DayNightEvent OnDay, OnNight;

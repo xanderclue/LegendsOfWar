@@ -6,18 +6,22 @@ public class HeroCamScript : MonoBehaviour
 	[SerializeField]
 	private Transform mainCameraTransform = null, heroTransform = null, heroTransformMax = null,
 		heroCenter = null;
-	private Camera mainCam, heroCam;
-	private float tValue = 0.0f;
-	private CamTransitionState state = CamTransitionState.OnMain;
 	[SerializeField]
 	private KeyCode switchViewKey = KeyCode.C;
 	[SerializeField]
 	private float transitionSpeed = 1.5f;
-	public static HeroCamScript inst;
 	[SerializeField]
 	private HeroInfo info = null;
 	[SerializeField]
 	private GameObject switchButton = null;
+	[SerializeField]
+	private Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null,
+		hudTextAbilityR = null;
+
+	private Camera mainCam, heroCam;
+	private float tValue = 0.0f;
+	private CamTransitionState state = CamTransitionState.OnMain;
+	public static HeroCamScript inst;
 	private Button buttonSwitch;
 	private Text textSwitch;
 	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
@@ -322,9 +326,6 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
-	[SerializeField]
-	private Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null,
-		hudTextAbilityR = null;
 	public delegate void voidDel();
 	public static event voidDel OnOnHero;
 	private bool hudTextShowsQWER = true;

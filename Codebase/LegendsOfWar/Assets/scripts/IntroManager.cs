@@ -3,15 +3,6 @@ using System.Collections;
 public enum STATES { STATE_INTRO, STATE_HERO, STATE_MINION, STATE_MAIN, STATE_END, STATE_TOTAL }
 public class IntroManager : MonoBehaviour
 {
-	private static IntroManager inst = null;
-	public static IntroManager instance { get { return inst; } }
-	private bool PlayedIntro = false;
-	private bool HeroInstanciate = false;
-	private STATES currentState = STATES.STATE_INTRO;
-	public void NextState()
-	{
-		currentState += 1;
-	}
 	[SerializeField]
 	private GameObject IntroSequence = null;
 	[SerializeField]
@@ -35,7 +26,7 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	private GameObject HeroHUD = null;
 	[SerializeField]
-	private GameObject[ ] RedSpawns;
+	private GameObject[ ] RedSpawns = null;
 	[SerializeField]
 	private GameObject[ ] HeroInstructions = null;
 	[SerializeField]
@@ -48,17 +39,6 @@ public class IntroManager : MonoBehaviour
 	private GameObject End = null;
 	[SerializeField]
 	private GameObject Ending = null;
-	private bool SpawnMinionTutRed = false;
-	public void ToggleSpawnMinionRed()
-	{
-		SpawnMinionTutRed = !SpawnMinionTutRed;
-	}
-	private bool SpawnMinionTutBlue = false;
-	public void ToggleSpawnMinionBlue()
-	{
-		SpawnMinionTutBlue = !SpawnMinionTutBlue;
-	}
-	private bool firstswitch = false;
 	[SerializeField]
 	private GameObject[ ] MinionRedSpawns = null;
 	[SerializeField]
@@ -73,6 +53,28 @@ public class IntroManager : MonoBehaviour
 	private GameObject Death = null;
 	[SerializeField]
 	private GameObject Player = null;
+	public bool pause = false;
+
+	private static IntroManager inst = null;
+	public static IntroManager instance { get { return inst; } }
+	private bool PlayedIntro = false;
+	private bool HeroInstanciate = false;
+	private STATES currentState = STATES.STATE_INTRO;
+	public void NextState()
+	{
+		currentState += 1;
+	}
+	private bool SpawnMinionTutRed = false;
+	public void ToggleSpawnMinionRed()
+	{
+		SpawnMinionTutRed = !SpawnMinionTutRed;
+	}
+	private bool SpawnMinionTutBlue = false;
+	public void ToggleSpawnMinionBlue()
+	{
+		SpawnMinionTutBlue = !SpawnMinionTutBlue;
+	}
+	private bool firstswitch = false;
 	private bool Welcome, Camera, Movement;
 	public void ToggleWelcome()
 	{
@@ -240,7 +242,6 @@ public class IntroManager : MonoBehaviour
 		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
 			face );
 	}
-	public bool pause = false;
 	public void TogglePause()
 	{
 		pause = !pause;

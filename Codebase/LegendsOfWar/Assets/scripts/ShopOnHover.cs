@@ -4,9 +4,10 @@ public class ShopOnHover : MonoBehaviour
 {
 	[SerializeField]
 	private Description disc = Description.Q;
-	private bool isHovering = false;
 	[SerializeField]
 	private string textEn = "", textJp = "";
+
+	private bool isHovering = false;
 	private void Start()
 	{
 		HeroAbilities abilities = GameManager.Instance.Player.GetComponent<HeroAbilities>();

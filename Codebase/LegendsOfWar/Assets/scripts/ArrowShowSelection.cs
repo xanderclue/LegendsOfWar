@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 public class ArrowShowSelection : MonoBehaviour
 {
-	private Vector3 newVector;
 	[SerializeField]
 	private GameObject top = null, center = null, bot = null;
+
+	private Vector3 newVector;
 	private void Start()
 	{
 		top.SetActive( false );

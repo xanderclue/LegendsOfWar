@@ -5,6 +5,7 @@ public class CasterE : AbilityEBase
 	private GameObject m_Burn = null;
 	[SerializeField]
 	private GameObject m_targetingSystem = null;
+
 	private ParticleSystem m_targetingEffect = null;
 	private RaycastHit m_targetHit;
 	protected override void Start()

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 public class Detector : MonoBehaviour
 {
-	public delegate void triggerEvent( GameObject obj );
-	public event triggerEvent triggerEnter, triggerExit;
 	[SerializeField]
 	private SphereCollider detectionSphere = null;
+
+	public delegate void triggerEvent( GameObject obj );
+	public event triggerEvent triggerEnter, triggerExit;
 	private void Start()
 	{
 		if ( !detectionSphere )

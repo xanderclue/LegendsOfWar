@@ -3,13 +3,14 @@ public class MovementScript : MonoBehaviour
 {
 	[SerializeField]
 	protected bool inCombat = false;
+	[SerializeField]
+	protected bool m_attackMOve = false;
+
 	protected bool withinRange = false;
 	protected float combatRange = 0;
 	private Transform targetPosition;
 	protected RaycastHit hit;
 	protected bool rayHit = false;
-	[SerializeField]
-	protected bool m_attackMOve = false;
 	public bool CanEngage { get { return m_attackMOve; } }
 	protected virtual void Start()
 	{

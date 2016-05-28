@@ -5,6 +5,7 @@ public class shopEvents : MonoBehaviour
 	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
 	private GameObject laneSelectPanel = null;
+
 	private string selectedItem;
 	private void Awake()
 	{

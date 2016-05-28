@@ -2,6 +2,8 @@
 public class NormalProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
+	public float projectileLifetime = 2.0f;
+
 	private bool fired = false;
 	private void FixedUpdate()
 	{
@@ -36,7 +38,6 @@ public class NormalProjectileBehavior : MonoBehaviour
 			projectileTimer -= Time.deltaTime;
 	}
 	private float projectileTimer;
-	public float projectileLifetime = 2.0f;
 	private void Start()
 	{
 		projectileTimer = projectileLifetime;

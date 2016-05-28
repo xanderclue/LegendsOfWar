@@ -8,6 +8,7 @@ public class NormalTowerBehavior : MonoBehaviour
 	private Transform projectileSpawnPoint = null;
 	[SerializeField]
 	private Detector detector = null;
+
 	private List<Transform> targets;
 	private NormalProjectileInfo info;
 	private float fireTimer;

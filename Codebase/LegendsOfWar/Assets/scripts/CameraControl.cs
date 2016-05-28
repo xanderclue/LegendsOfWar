@@ -2,16 +2,6 @@
 public class CameraControl : MonoBehaviour
 {
 	public Texture2D SelectionHighlight = null;
-	public static Rect Selection = new Rect( 0, 0, 0, 0 );
-	private Vector3 StartClick = -Vector3.one;
-	private Vector3 Origin;
-	private Vector3 Difference;
-	private static CameraControl inst = null;
-	public static CameraControl instance { get { return inst; } }
-	private void Awake()
-	{
-		inst = this;
-	}
 	[SerializeField]
 	private Camera mainCam = null;
 	[SerializeField]
@@ -24,10 +14,21 @@ public class CameraControl : MonoBehaviour
 	private float zoomSpeed = 1.0f, moveSpeed = 1.0f;
 	[SerializeField]
 	private float worldMaxX = 1200.0f, worldMinX = 0.0f, worldMaxZ = 700.0f, worldMinZ = 0.0f;
+	public GameObject player;
+
+	public static Rect Selection = new Rect( 0, 0, 0, 0 );
+	private Vector3 StartClick = -Vector3.one;
+	private Vector3 Origin;
+	private Vector3 Difference;
+	private static CameraControl inst = null;
+	public static CameraControl instance { get { return inst; } }
+	private void Awake()
+	{
+		inst = this;
+	}
 	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
 		1.0f;
 	private float aspectRatio = 0.0f;
-	public GameObject player;
 	private bool followPlayer = false;
 	private static Camera main, vantage, current;
 	public static Camera Main { get { return main; } }

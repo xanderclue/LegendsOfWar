@@ -19,6 +19,7 @@ public class GlobalFog : PostEffectsBase
 	[Tooltip( "Push fog away from the camera by this amount" )]
 	public float startDistance = 0.0f;
 	public Shader fogShader = null;
+
 	private Material fogMaterial = null;
 	public override bool CheckResources()
 	{

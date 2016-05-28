@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 public class init : MonoBehaviour
 {
-	private static bool appInited = false;
 	[SerializeField]
 	private bool illegalStart = false;
-	private static init inst;
 	[SerializeField]
 	private GameObject audioManager = null;
+
+	private static bool appInited = false;
+	private static init inst;
 	private void Awake()
 	{
 		inst = this;

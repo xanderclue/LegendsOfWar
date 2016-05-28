@@ -5,6 +5,7 @@ public class MinionInfo : Info
 	public MinionClass type;
 	[SerializeField]
 	private int movementSpeed = 0;
+
 	public int MovementSpeed { get { return movementSpeed; } }
 	public float Damage { get { return damage; } set { damage = value; } }
 	public float Range { get { return attackRange; } set { attackRange = value; } }

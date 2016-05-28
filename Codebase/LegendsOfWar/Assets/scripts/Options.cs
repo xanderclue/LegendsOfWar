@@ -2,6 +2,13 @@
 using UnityEngine.UI;
 public class Options : MonoBehaviour
 {
+	[SerializeField]
+	private Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
+	[SerializeField]
+	private GameObject menuCam = null;
+	[SerializeField]
+	private AudioClip voice = null;
+
 	public delegate void optionsChangedEvent();
 	public static event optionsChangedEvent onChangedLanguage;
 	public static event optionsChangedEvent onChangedBgmVolume;
@@ -41,10 +48,6 @@ public class Options : MonoBehaviour
 		if ( onChangedLanguage != null )
 			onChangedLanguage();
 	}
-	[SerializeField]
-	private Slider bgmSlider = null, sfxSlider = null, voiceSlider = null;
-	[SerializeField]
-	private GameObject menuCam = null;
 	private void Awake()
 	{
 		if ( IsAdditive )
@@ -65,8 +68,6 @@ public class Options : MonoBehaviour
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxTowerAttacked );
 	}
-	[SerializeField]
-	private AudioClip voice = null;
 	public void PlayVoiceSound()
 	{
 		AudioManager.PlayClipRaw( voice, null, true );
