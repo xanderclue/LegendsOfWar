@@ -15,19 +15,18 @@ public class PortalInfo : Info
 	{ get { return minionSpawnPointRight; } }
 	public float Damage
 	{ get { return damage; } }
-
 	protected override void Start()
 	{
 		base.Start();
 		Attacked += OnPortalAttacked;
 		Destroyed += OnPortalDestroy;
 	}
-	private void OnPortalDestroy()
-	{
-		AudioManager.PlaySoundEffect( AudioManager.sfxPortalDestroyed );
-	}
 	private void OnPortalAttacked()
 	{
 		AudioManager.PlaySoundEffect( AudioManager.sfxPortalAttacked, transform.position );
+	}
+	private void OnPortalDestroy()
+	{
+		AudioManager.PlaySoundEffect( AudioManager.sfxPortalDestroyed );
 	}
 }

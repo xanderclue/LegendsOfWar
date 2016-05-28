@@ -3,7 +3,6 @@ public class NightLight : MonoBehaviour
 {
 	[SerializeField]
 	private Light nightLight = null;
-
 	private void Start()
 	{
 		DayNight.OnDay += OnDay;

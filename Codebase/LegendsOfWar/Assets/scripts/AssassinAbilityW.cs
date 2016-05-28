@@ -11,7 +11,22 @@ public class AssassinAbilityW : AbilityWBase
 	protected GameObject weapon, projectile;
 	public GameObject[ ] Marked;
 	private static int MarkNum = 0;
-
+	public bool MarkHit( GameObject _mark )
+	{
+		if ( MarkNum <= 3 )
+		{
+			if ( MarkNum >= 1 )
+			{
+				if ( Marked[ MarkNum - 1 ] != _mark )
+					MarkNum = 0;
+				if ( MarkNum == 3 )
+					MarkNum = 0;
+			}
+			Marked[ MarkNum++ ] = _mark;
+			return true;
+		}
+		return false;
+	}
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
@@ -31,21 +46,5 @@ public class AssassinAbilityW : AbilityWBase
 			p.effect = m_effect.CreateEffect();
 			p.Fire();
 		}
-	}
-	public bool MarkHit( GameObject _mark )
-	{
-		if ( MarkNum <= 3 )
-		{
-			if ( MarkNum >= 1 )
-			{
-				if ( Marked[ MarkNum - 1 ] != _mark )
-					MarkNum = 0;
-				if ( MarkNum == 3 )
-					MarkNum = 0;
-			}
-			Marked[ MarkNum++ ] = _mark;
-			return true;
-		}
-		return false;
 	}
 }

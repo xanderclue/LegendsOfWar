@@ -8,7 +8,6 @@ public class SupportAbilityW : AbilityWBase
 	private SupportRange supprang;
 	private MarkedEnemyIcon mei;
 	private MinionInfo temp;
-
 	protected override void Start()
 	{
 		base.Start();

@@ -15,12 +15,32 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	private bool aoeActive, targetsAreSlowed, skip;
 	private int repeat;
 	private float projectileTimer;
-
+	public void Fire( Team theTeam )
+	{
+		team = theTeam;
+		fired = true;
+		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
+			GetComponentInChildren<ParticleSystem>().Stop();
+	}
 	private void Awake()
 	{
 		info = TowerManager.Instance.freezeInfo;
 		victims = new List<Transform>();
 		slowTargets = new List<NavMeshAgent>();
+	}
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( !aoeActive )
+		{
+			if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+				Destroy( gameObject );
+			else if ( fired )
+				projectileTimer -= Time.deltaTime;
+		}
 	}
 	private void FixedUpdate()
 	{
@@ -41,13 +61,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
 		if ( !target || !target.gameObject.activeInHierarchy )
 			Destroy( gameObject );
 	}
-	public void Fire( Team theTeam )
-	{
-		team = theTeam;
-		fired = true;
-		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
-			GetComponentInChildren<ParticleSystem>().Stop();
-	}
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( target != null && !aoeActive && col.gameObject == target.gameObject )
@@ -55,6 +68,29 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			col.gameObject.GetComponent<Info>().TakeDamage( info.Damage );
 			CreateAOEZone();
 		}
+	}
+	private void AddTarget( GameObject obj )
+	{
+		skip = true;
+		if ( obj )
+		{
+			Info targ = obj.GetComponent<Info>();
+			if ( targ && targ.team != team )
+			{
+				victims.Add( obj.transform );
+				if ( obj.gameObject.GetComponent<NavMeshAgent>() )
+				{
+					if ( slowTargets.Contains( obj.gameObject.GetComponent<NavMeshAgent>() ) )
+						skip = false;
+					if ( skip )
+						slowTargets.Add( obj.gameObject.GetComponent<NavMeshAgent>() );
+				}
+			}
+		}
+	}
+	private void RemoveTarget( GameObject obj )
+	{
+		victims.Remove( obj.transform );
 	}
 	private void CreateAOEZone()
 	{
@@ -112,42 +148,5 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	{
 		foreach ( Transform victim in victims )
 			victim.gameObject.GetComponent<Info>().TakeDamage( info.aoeDamagePerTick );
-	}
-	private void AddTarget( GameObject obj )
-	{
-		skip = true;
-		if ( obj )
-		{
-			Info targ = obj.GetComponent<Info>();
-			if ( targ && targ.team != team )
-			{
-				victims.Add( obj.transform );
-				if ( obj.gameObject.GetComponent<NavMeshAgent>() )
-				{
-					if ( slowTargets.Contains( obj.gameObject.GetComponent<NavMeshAgent>() ) )
-						skip = false;
-					if ( skip )
-						slowTargets.Add( obj.gameObject.GetComponent<NavMeshAgent>() );
-				}
-			}
-		}
-	}
-	private void RemoveTarget( GameObject obj )
-	{
-		victims.Remove( obj.transform );
-	}
-	private void Update()
-	{
-		if ( !aoeActive )
-		{
-			if ( GameManager.GameEnded || projectileTimer <= 0.0f )
-				Destroy( gameObject );
-			else if ( fired )
-				projectileTimer -= Time.deltaTime;
-		}
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

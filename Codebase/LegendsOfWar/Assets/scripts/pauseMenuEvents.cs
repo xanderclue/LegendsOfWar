@@ -17,7 +17,11 @@ public class pauseMenuEvents : MonoBehaviour
 				button.enabled = value;
 		}
 	}
-
+	public void Unpause()
+	{
+		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_PAUSED )
+			GameManager.Instance.Unpause();
+	}
 	private void Awake()
 	{
 		inst = this;
@@ -26,10 +30,5 @@ public class pauseMenuEvents : MonoBehaviour
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 			Unpause();
-	}
-	public void Unpause()
-	{
-		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_PAUSED )
-			GameManager.Instance.Unpause();
 	}
 }

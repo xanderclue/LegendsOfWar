@@ -6,7 +6,16 @@ public class ShopTexts : MonoBehaviour
 	private Text heroName = null, abilityQName = null, abilityWName = null, abilityEName = null,
 		abilityRName = null, abilityQCost = null, abilityWCost = null, abilityECost = null,
 		abilityRCost = null;
-
+	private static string getVertical( string inputText )
+	{
+		string outputText = "";
+		for ( int i = 0; i < inputText.Length; ++i )
+			if ( 'ー' == inputText[ i ] )
+				outputText += "｜\n";
+			else
+				outputText += inputText[ i ] + "\n";
+		return outputText;
+	}
 	private void Start()
 	{
 		Options.onChangedLanguage += SetTexts;
@@ -63,15 +72,5 @@ public class ShopTexts : MonoBehaviour
 			abilityEName.text = abilities.abilityE.abilityNameEn;
 			abilityRName.text = abilities.abilityR.abilityNameEn;
 		}
-	}
-	private static string getVertical( string inputText )
-	{
-		string outputText = "";
-		for ( int i = 0; i < inputText.Length; ++i )
-			if ( 'ー' == inputText[ i ] )
-				outputText += "｜\n";
-			else
-				outputText += inputText[ i ] + "\n";
-		return outputText;
 	}
 }

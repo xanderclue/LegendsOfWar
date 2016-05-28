@@ -7,7 +7,6 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	public Sprite buttonOver = null;
 	public Sprite buttonPushed = null;
 	public bool OnOff = false;
-
 	public void OnPointerEnter( PointerEventData even )
 	{
 		OnOff = true;

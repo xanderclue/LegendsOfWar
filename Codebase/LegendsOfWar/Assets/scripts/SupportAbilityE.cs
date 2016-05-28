@@ -3,7 +3,6 @@ public class SupportAbilityE : AbilityEBase
 {
 	private SupportRange supprang;
 	private ParticleSystem ps;
-
 	protected override void Start()
 	{
 		base.Start();
@@ -16,6 +15,12 @@ public class SupportAbilityE : AbilityEBase
 		supprang.ApplyToEnemiesInRange( Cyclone );
 		ps.Play();
 	}
+	protected override void AbilityDeactivate()
+	{
+		base.AbilityDeactivate();
+		ps.Stop();
+		ps.Clear();
+	}
 	private void Cyclone( Info entity )
 	{
 		if ( entity )
@@ -25,11 +30,5 @@ public class SupportAbilityE : AbilityEBase
 					entity.TakeDamage( 10.0f );
 					( entity as MinionInfo ).Cyclone();
 				}
-	}
-	protected override void AbilityDeactivate()
-	{
-		base.AbilityDeactivate();
-		ps.Stop();
-		ps.Clear();
 	}
 }

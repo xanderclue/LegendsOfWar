@@ -9,54 +9,40 @@ public class BcWeapon : MonoBehaviour
 	[Tooltip( "Add here any axis from the Input Settings to fire when using that axis" )]
 	public string triggerAxis = "Fire1";
 	public bool isSemiAutomatic = true;
-	public float horizontalSpread = 0;
-	public float verticalSpread = 0;
-	public float rateOfFire = 1;
+	public float horizontalSpread = 0.0f;
+	public float verticalSpread = 0.0f;
+	public float rateOfFire = 1.0f;
 	public int clipSize = 10;
-	public float reloadTime = 1;
+	public float reloadTime = 1.0f;
 	[Header( "Bullet Options" )]
 	public GameObject bulletPrefab;
 	public int bulletsPerShot = 1;
-	public float bulletLife = 5;
+	public float bulletLife = 5.0f;
 	public Vector3 bulletAcceleration;
 	public Vector3 bulletGlobalAcceleration;
-	public float bulletSpeed = 5;
-	public float bulletSpeedDelta = 0;
+	public float bulletSpeed = 5.0f;
+	public float bulletSpeedDelta = 0.0f;
 	public float accelerationScale;
 	[Header( "Gizmo Options" )]
 	public bool showDisplayHandles = false;
-	public float displayScale = 1;
-	public Vector3 displayOffset = -Vector3.one * 10 + Vector3.right * 20;
+	public float displayScale = 1.0f;
+	public Vector3 displayOffset = Vector3.one * -10.0f + Vector3.right * 20.0f;
 	public float currentAmmo;
 	[Header( "Sound Options" )]
 	public AudioClip shootSound;
 	public AudioClip reloadingSound;
 	public AudioClip reloadedSound;
 	public AudioClip emptyClickSound;
-	private float bulletMass = 1f;
+	private float bulletMass = 1.0f;
 	private bool isReloading;
 	private float shootTimer;
 	private float reloadTimer;
 	private float lastTriggerValue;
 	private bool triggerPushed;
-
-	private void Start()
+	private static bool RoughlyEqual( float a, float b )
 	{
-		isReloading = false;
-		currentAmmo = clipSize;
-		shootTimer = 0.0f;
-	}
-	private void Update()
-	{
-		triggerPushed = Input.GetAxis( triggerAxis ) > lastTriggerValue;
-		lastTriggerValue = Input.GetAxis( triggerAxis );
-		if ( autofire || Input.GetAxis( triggerAxis ) > 0.0f )
-			if ( isSemiAutomatic || triggerPushed )
-				Shoot();
-		if ( !isReloading && shootTimer > 0.0f )
-			shootTimer -= Time.deltaTime;
-		if ( currentAmmo <= 0 && shootTimer <= 0.0f )
-			Reload();
+		float treshold = 0.01f;
+		return ( Mathf.Abs( a - b ) < treshold );
 	}
 	public void Reload()
 	{
@@ -125,11 +111,37 @@ public class BcWeapon : MonoBehaviour
 		else
 			return result;
 	}
-	private void OnDrawGizmosSelected()
+	public int IsOverCannon()
 	{
-		DrawGizmos();
+		if ( displayOffset.y > 0 )
+			return 1;
+		if ( displayOffset.y < 0 )
+			return -1;
+		return 0;
 	}
-	private void DrawGizmos()
+	public Vector3 ShotEnd( Vector3 initialSpeed, float time, Color color )
+	{
+		return DrawTrajectory( transform.position, initialSpeed, time, color, false );
+	}
+	private void Start()
+	{
+		isReloading = false;
+		currentAmmo = clipSize;
+		shootTimer = 0.0f;
+	}
+	private void Update()
+	{
+		triggerPushed = Input.GetAxis( triggerAxis ) > lastTriggerValue;
+		lastTriggerValue = Input.GetAxis( triggerAxis );
+		if ( autofire || Input.GetAxis( triggerAxis ) > 0.0f )
+			if ( isSemiAutomatic || triggerPushed )
+				Shoot();
+		if ( !isReloading && shootTimer > 0.0f )
+			shootTimer -= Time.deltaTime;
+		if ( currentAmmo <= 0 && shootTimer <= 0.0f )
+			Reload();
+	}
+	private void OnDrawGizmosSelected()
 	{
 		if ( this.enabled )
 		{
@@ -275,14 +287,6 @@ public class BcWeapon : MonoBehaviour
 			DestroyImmediate( hull );
 		}
 	}
-	public int IsOverCannon()
-	{
-		if ( displayOffset.y > 0 )
-			return 1;
-		if ( displayOffset.y < 0 )
-			return -1;
-		return 0;
-	}
 	private Vector3 DrawTrajectory( Vector3 pos, Vector3 vel, float time, Color color, bool draw =
 		true )
 	{
@@ -299,10 +303,6 @@ public class BcWeapon : MonoBehaviour
 			vel += ( accel ) * accelerationScale;
 		}
 		return pos;
-	}
-	public Vector3 ShotEnd( Vector3 initialSpeed, float time, Color color )
-	{
-		return DrawTrajectory( transform.position, initialSpeed, time, color, false );
 	}
 	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time, Color color, bool draw = true )
 	{
@@ -339,11 +339,6 @@ public class BcWeapon : MonoBehaviour
 				ExceptionLine( vert, check );
 		}
 	}
-	private static bool RoughlyEqual( float a, float b )
-	{
-		float treshold = 0.01f;
-		return ( Mathf.Abs( a - b ) < treshold );
-	}
 }
 #if UNITY_EDITOR
 [CustomEditor( typeof( BcWeapon ) )]
@@ -374,32 +369,6 @@ public class BcWeaponEditor : Editor
 	public SerializedProperty emptyClickSound;
 	public bool speedEditMode;
 	public bool lifeEditMode;
-
-	private void SerializeProperties()
-	{
-		test = this.serializedObject.FindProperty( "test" );
-		bulletPrefab = this.serializedObject.FindProperty( "bulletPrefab" );
-		horizontalSpread = this.serializedObject.FindProperty( "horizontalSpread" );
-		verticalSpread = this.serializedObject.FindProperty( "verticalSpread" );
-		displayOffset = this.serializedObject.FindProperty( "displayOffset" );
-		bulletAcceleration = this.serializedObject.FindProperty( "bulletAcceleration" );
-		bulletSpeed = this.serializedObject.FindProperty( "bulletSpeed" );
-		bulletSpeedDelta = this.serializedObject.FindProperty( "bulletSpeedDelta" );
-		bulletLife = this.serializedObject.FindProperty( "bulletLife" );
-		rateOfFire = this.serializedObject.FindProperty( "rateOfFire" );
-		clipSize = this.serializedObject.FindProperty( "clipSize" );
-		displayScale = this.serializedObject.FindProperty( "displayScale" );
-		bulletsPerShot = this.serializedObject.FindProperty( "bulletsPerShot" );
-		showDisplayHandles = this.serializedObject.FindProperty( "showDisplayHandles" );
-		bulletGlobalAcceleration = this.serializedObject.FindProperty( "bulletGlobalAcceleration" );
-		reloadTime = this.serializedObject.FindProperty( "reloadTime" );
-		gizmosFlag = this.serializedObject.FindProperty( "gizmosFlag" );
-		isSemiAutomatic = this.serializedObject.FindProperty( "isSemiAutomatic" );
-		shootSound = this.serializedObject.FindProperty( "shootSound" );
-		reloadingSound = this.serializedObject.FindProperty( "reloadingSound" );
-		reloadedSound = this.serializedObject.FindProperty( "reloadedSound" );
-		emptyClickSound = this.serializedObject.FindProperty( "emptyClickSound" );
-	}
 	private void OnSceneGUI()
 	{
 		Vector3 offset, vec;
@@ -452,6 +421,31 @@ public class BcWeaponEditor : Editor
 				Mathf.Round( 100 * Vector3.Distance( tW.transform.position, position ) ) / 100 +
 				" m" );
 		}
+	}
+	private void SerializeProperties()
+	{
+		test = this.serializedObject.FindProperty( "test" );
+		bulletPrefab = this.serializedObject.FindProperty( "bulletPrefab" );
+		horizontalSpread = this.serializedObject.FindProperty( "horizontalSpread" );
+		verticalSpread = this.serializedObject.FindProperty( "verticalSpread" );
+		displayOffset = this.serializedObject.FindProperty( "displayOffset" );
+		bulletAcceleration = this.serializedObject.FindProperty( "bulletAcceleration" );
+		bulletSpeed = this.serializedObject.FindProperty( "bulletSpeed" );
+		bulletSpeedDelta = this.serializedObject.FindProperty( "bulletSpeedDelta" );
+		bulletLife = this.serializedObject.FindProperty( "bulletLife" );
+		rateOfFire = this.serializedObject.FindProperty( "rateOfFire" );
+		clipSize = this.serializedObject.FindProperty( "clipSize" );
+		displayScale = this.serializedObject.FindProperty( "displayScale" );
+		bulletsPerShot = this.serializedObject.FindProperty( "bulletsPerShot" );
+		showDisplayHandles = this.serializedObject.FindProperty( "showDisplayHandles" );
+		bulletGlobalAcceleration = this.serializedObject.FindProperty( "bulletGlobalAcceleration" );
+		reloadTime = this.serializedObject.FindProperty( "reloadTime" );
+		gizmosFlag = this.serializedObject.FindProperty( "gizmosFlag" );
+		isSemiAutomatic = this.serializedObject.FindProperty( "isSemiAutomatic" );
+		shootSound = this.serializedObject.FindProperty( "shootSound" );
+		reloadingSound = this.serializedObject.FindProperty( "reloadingSound" );
+		reloadedSound = this.serializedObject.FindProperty( "reloadedSound" );
+		emptyClickSound = this.serializedObject.FindProperty( "emptyClickSound" );
 	}
 }
 #endif

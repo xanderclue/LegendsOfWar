@@ -29,24 +29,6 @@ public class TowerManager : MonoBehaviour
 	{ get { return blueShotChanged; } }
 	public bool RedShotChanged
 	{ get { return redShotChanged; } }
-
-	private void Update()
-	{
-		if ( blueShotChanged && blueTimer < 0.0f )
-		{
-			blueShotChanged = false;
-			blueTimer = 0.1f;
-		}
-		else if ( blueShotChanged )
-			blueTimer -= Time.deltaTime;
-		if ( redShotChanged && redTimer < 0.0f )
-		{
-			redShotChanged = false;
-			redTimer = 0.1f;
-		}
-		else if ( redShotChanged )
-			redTimer -= Time.deltaTime;
-	}
 	public Items GetActiveShot( Team team )
 	{
 		switch ( team )
@@ -130,19 +112,36 @@ public class TowerManager : MonoBehaviour
 				redShotChanged = true;
 		}
 	}
+	private void Awake()
+	{
+		instance = this;
+	}
+	private void Update()
+	{
+		if ( blueShotChanged && blueTimer < 0.0f )
+		{
+			blueShotChanged = false;
+			blueTimer = 0.1f;
+		}
+		else if ( blueShotChanged )
+			blueTimer -= Time.deltaTime;
+		if ( redShotChanged && redTimer < 0.0f )
+		{
+			redShotChanged = false;
+			redTimer = 0.1f;
+		}
+		else if ( redShotChanged )
+			redTimer -= Time.deltaTime;
+	}
+	private void OnDestroy()
+	{
+		instance = null;
+	}
 	private void DeactivateShots( Team team )
 	{
 		if ( team == Team.BLUE_TEAM )
 			blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;
-	}
-	private void Awake()
-	{
-		instance = this;
-	}
-	private void OnDestroy()
-	{
-		instance = null;
 	}
 }

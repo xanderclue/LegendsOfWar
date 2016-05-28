@@ -8,7 +8,6 @@ public class TutSpawnRed : MonoBehaviour
 	[SerializeField]
 	private GameObject Hero;
 	public bool Battle;
-
 	private void Start()
 	{
 		Battle = false;

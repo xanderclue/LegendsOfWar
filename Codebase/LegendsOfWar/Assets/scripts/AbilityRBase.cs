@@ -2,7 +2,11 @@
 public abstract class AbilityRBase : AbilityBase
 {
 	private HeroMovement movement;
-
+	protected override void Start()
+	{
+		base.Start();
+		movement = GetComponentInParent<HeroMovement>();
+	}
 	protected override void Update()
 	{
 		base.Update();
@@ -11,11 +15,6 @@ public abstract class AbilityRBase : AbilityBase
 			TryCast();
 		ToggleCursor( ( Input.GetKey( KeyCode.R ) && !HeroCamScript.onHero ) || Input.GetKey(
 			KeyCode.Alpha4 ) || Input.GetKey( KeyCode.Keypad4 ) );
-	}
-	protected override void Start()
-	{
-		base.Start();
-		movement = GetComponentInParent<HeroMovement>();
 	}
 	protected override void AbilityActivate()
 	{

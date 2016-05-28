@@ -5,7 +5,32 @@ public class SupportRange : MonoBehaviour
 	public static List<Collider> supportedEntities = new List<Collider>();
 	private List<Collider> mySupportedEntities;
 	private List<Collider> nearbyEnemies;
-
+	public static bool InSupportRange( GameObject entity )
+	{
+		ClearNulls();
+		foreach ( Collider col in supportedEntities )
+			if ( col.gameObject == entity )
+				return true;
+		return false;
+	}
+	private static void ClearNulls()
+	{
+		for ( int i = 0; i < supportedEntities.Count; ++i )
+			if ( !supportedEntities[ i ] )
+				supportedEntities.RemoveAt( i-- );
+	}
+	public void ApplyToAlliesInRange( System.Action<Info> action )
+	{
+		ClearNullsSelf();
+		foreach ( Collider col in mySupportedEntities )
+			action( col.gameObject.GetComponent<Info>() );
+	}
+	public void ApplyToEnemiesInRange( System.Action<Info> action )
+	{
+		ClearNullsSelf();
+		foreach ( Collider col in mySupportedEntities )
+			action( col.gameObject.GetComponent<Info>() );
+	}
 	private void Awake()
 	{
 		mySupportedEntities = new List<Collider>();
@@ -41,20 +66,6 @@ public class SupportRange : MonoBehaviour
 				nearbyEnemies.Remove( col );
 		}
 	}
-	public static bool InSupportRange( GameObject entity )
-	{
-		ClearNulls();
-		foreach ( Collider col in supportedEntities )
-			if ( col.gameObject == entity )
-				return true;
-		return false;
-	}
-	private static void ClearNulls()
-	{
-		for ( int i = 0; i < supportedEntities.Count; ++i )
-			if ( !supportedEntities[ i ] )
-				supportedEntities.RemoveAt( i-- );
-	}
 	private void ClearNullsSelf()
 	{
 		ClearNulls();
@@ -64,17 +75,5 @@ public class SupportRange : MonoBehaviour
 		for ( int i = 0; i < nearbyEnemies.Count; ++i )
 			if ( !nearbyEnemies[ i ] )
 				nearbyEnemies.RemoveAt( i-- );
-	}
-	public void ApplyToAlliesInRange( System.Action<Info> action )
-	{
-		ClearNullsSelf();
-		foreach ( Collider col in mySupportedEntities )
-			action( col.gameObject.GetComponent<Info>() );
-	}
-	public void ApplyToEnemiesInRange( System.Action<Info> action )
-	{
-		ClearNullsSelf();
-		foreach ( Collider col in mySupportedEntities )
-			action( col.gameObject.GetComponent<Info>() );
 	}
 }

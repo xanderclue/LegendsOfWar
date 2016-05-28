@@ -24,15 +24,6 @@ public class HeroUIScript : MonoBehaviour
 				heroDamageNotifTimer = -0.0f;
 		}
 	}
-
-	private void Awake()
-	{
-		inst = this;
-	}
-	private void Start()
-	{
-		heroDamageNotifTimer = 0.0f;
-	}
 	public static void Damage( float amount, Vector3 position )
 	{
 		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount,
@@ -42,6 +33,14 @@ public class HeroUIScript : MonoBehaviour
 	{
 		Instantiate( inst.damageNumberPrefab ).GetComponent<DamageNumber>().CreateNumber( -amount,
 			transf, inst.damageNumberHeight, inst.damageNumberDuration, Color.blue );
+	}
+	private void Awake()
+	{
+		inst = this;
+	}
+	private void Start()
+	{
+		heroDamageNotifTimer = 0.0f;
 	}
 	private void Update()
 	{

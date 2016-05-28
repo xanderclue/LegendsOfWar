@@ -20,12 +20,31 @@ public class GlobalFog : PostEffectsBase
 	public float startDistance = 0.0f;
 	public Shader fogShader = null;
 	private Material fogMaterial = null;
-
 	public override bool CheckResources()
 	{
 		CheckSupport( true );
 		fogMaterial = CheckShaderAndCreateMaterial( fogShader, fogMaterial );
 		return isSupported;
+	}
+	private static void CustomGraphicsBlit( RenderTexture source, RenderTexture dest, Material
+		fxMaterial, int passNr )
+	{
+		RenderTexture.active = dest;
+		fxMaterial.SetTexture( "_MainTex", source );
+		GL.PushMatrix();
+		GL.LoadOrtho();
+		fxMaterial.SetPass( passNr );
+		GL.Begin( GL.QUADS );
+		GL.MultiTexCoord2( 0, 0.0f, 0.0f );
+		GL.Vertex3( 0.0f, 0.0f, 3.0f );
+		GL.MultiTexCoord2( 0, 1.0f, 0.0f );
+		GL.Vertex3( 1.0f, 0.0f, 2.0f );
+		GL.MultiTexCoord2( 0, 1.0f, 1.0f );
+		GL.Vertex3( 1.0f, 1.0f, 1.0f );
+		GL.MultiTexCoord2( 0, 0.0f, 1.0f );
+		GL.Vertex3( 0.0f, 1.0f, 0.0f );
+		GL.End();
+		GL.PopMatrix();
 	}
 	[ImageEffectOpaque]
 	private void OnRenderImage( RenderTexture source, RenderTexture destination )
@@ -94,25 +113,5 @@ public class GlobalFog : PostEffectsBase
 		}
 		else
 			Graphics.Blit( source, destination );
-	}
-	private static void CustomGraphicsBlit( RenderTexture source, RenderTexture dest, Material
-		fxMaterial, int passNr )
-	{
-		RenderTexture.active = dest;
-		fxMaterial.SetTexture( "_MainTex", source );
-		GL.PushMatrix();
-		GL.LoadOrtho();
-		fxMaterial.SetPass( passNr );
-		GL.Begin( GL.QUADS );
-		GL.MultiTexCoord2( 0, 0.0f, 0.0f );
-		GL.Vertex3( 0.0f, 0.0f, 3.0f );
-		GL.MultiTexCoord2( 0, 1.0f, 0.0f );
-		GL.Vertex3( 1.0f, 0.0f, 2.0f );
-		GL.MultiTexCoord2( 0, 1.0f, 1.0f );
-		GL.Vertex3( 1.0f, 1.0f, 1.0f );
-		GL.MultiTexCoord2( 0, 0.0f, 1.0f );
-		GL.Vertex3( 0.0f, 1.0f, 0.0f );
-		GL.End();
-		GL.PopMatrix();
 	}
 }

@@ -56,12 +56,6 @@ public class Info : MonoBehaviour
 		get { return MaxHP; }
 		set { MaxHP = value; }
 	}
-
-	protected virtual void Start()
-	{
-		currHP = MaxHP;
-		isAlive = true;
-	}
 	public virtual void TakeDamage( float damage )
 	{
 		if ( !isAlive || damage <= 0.0f )
@@ -86,5 +80,10 @@ public class Info : MonoBehaviour
 			if ( null != Destroyed )
 				Destroyed();
 		}
+	}
+	protected virtual void Start()
+	{
+		currHP = MaxHP;
+		isAlive = true;
 	}
 }

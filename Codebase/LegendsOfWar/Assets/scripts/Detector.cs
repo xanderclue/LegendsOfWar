@@ -5,18 +5,17 @@ public class Detector : MonoBehaviour
 	private SphereCollider detectionSphere = null;
 	public delegate void triggerEvent( GameObject obj );
 	public event triggerEvent triggerEnter, triggerExit;
-
-	private void Start()
-	{
-		if ( !detectionSphere )
-			detectionSphere = GetComponent<SphereCollider>();
-	}
 	public void CreateTrigger( float _radius )
 	{
 		if ( !detectionSphere )
 			detectionSphere = gameObject.AddComponent<SphereCollider>();
 		detectionSphere.isTrigger = true;
 		detectionSphere.radius = _radius / transform.parent.lossyScale.x;
+	}
+	private void Start()
+	{
+		if ( !detectionSphere )
+			detectionSphere = GetComponent<SphereCollider>();
 	}
 	private void OnTriggerEnter( Collider col )
 	{

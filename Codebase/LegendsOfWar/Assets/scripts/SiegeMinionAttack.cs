@@ -8,7 +8,6 @@ public class SiegeMinionAttack : AttackScript
 	private MinionMovement movement;
 	private BcWeapon weaponDetails;
 	private ProximityCompare poo = new ProximityCompare();
-
 	private void Start()
 	{
 		sMinioninfo = GetComponent<SiegeMinionInfo>();
@@ -39,17 +38,6 @@ public class SiegeMinionAttack : AttackScript
 		}
 		weaponDetails.currentAmmo = 0.0f;
 	}
-	private void AttackTriggerEnter( GameObject obj )
-	{
-		if ( this.isActiveAndEnabled )
-			if ( obj && obj.activeInHierarchy )
-			{
-				Info targ = obj.GetComponent<Info>();
-				if ( targ )
-					if ( targ.team != sMinioninfo.team )
-						targets.Add( obj.transform );
-			}
-	}
 	private void Update()
 	{
 		if ( EnemyAIManager.huntHero )
@@ -78,6 +66,17 @@ public class SiegeMinionAttack : AttackScript
 		}
 		else if ( !movement.InCombat )
 			movement.SetTarget( targets[ 0 ], sMinioninfo.Range );
+	}
+	private void AttackTriggerEnter( GameObject obj )
+	{
+		if ( this.isActiveAndEnabled )
+			if ( obj && obj.activeInHierarchy )
+			{
+				Info targ = obj.GetComponent<Info>();
+				if ( targ )
+					if ( targ.team != sMinioninfo.team )
+						targets.Add( obj.transform );
+			}
 	}
 	private void AttackTriggerExit( GameObject obj )
 	{

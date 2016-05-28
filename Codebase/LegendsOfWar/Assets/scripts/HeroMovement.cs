@@ -17,7 +17,15 @@ public class HeroMovement : MovementScript
 	private NavMeshHit nmhit;
 	public bool SprintingAbility
 	{ private get; set; }
-
+	public void ResetToSpawn()
+	{
+		NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, NavMesh.AllAreas
+			);
+		transform.position = new Vector3( nmhit.position.x, agent.baseOffset * transform.localScale.
+			y, nmhit.position.z );
+		transform.rotation = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f );
+		currentRot = transform.rotation.eulerAngles.y;
+	}
 	protected override void Start()
 	{
 		base.Start();
@@ -25,21 +33,6 @@ public class HeroMovement : MovementScript
 		m_state = m_prevState = MOVE_State.IDLE_STATE;
 		info = GetComponent<HeroInfo>();
 		TPStart();
-	}
-	private void SetState( MOVE_State _state )
-	{
-		switch ( _state )
-		{
-			case MOVE_State.COMBAT_STATE:
-			case MOVE_State.ENGAGE_STATE:
-			case MOVE_State.DISENGAGE_STATE:
-				m_state = _state;
-				break;
-			default:
-				m_prevState = m_state;
-				m_state = _state;
-				break;
-		}
 	}
 	private void Update()
 	{
@@ -107,60 +100,6 @@ public class HeroMovement : MovementScript
 					break;
 			}
 		}
-	}
-	private bool CheckInput()
-	{
-		m_AttMvKey = Input.GetKey( KeyCode.A );
-		if ( Input.GetMouseButtonDown( 1 ) )
-		{
-			if ( m_AttMvKey )
-			{
-				if ( CameraControl.instance.CameraFollowsPlayer )
-				{
-					if ( rayHit )
-					{
-						rayHit = false;
-						if ( agent.enabled )
-							agent.destination = hit.point;
-						m_attackMOve = true;
-						SetState( MOVE_State.MOVE_STATE );
-					}
-					else if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.
-						mousePosition ), out hit ) )
-					{
-						if ( agent.enabled )
-							agent.destination = hit.point;
-						m_attackMOve = true;
-						SetState( MOVE_State.MOVE_STATE );
-					}
-					return true;
-				}
-			}
-			else
-			{
-				if ( CameraControl.instance.CameraFollowsPlayer )
-				{
-					if ( rayHit )
-					{
-						rayHit = false;
-						m_attackMOve = false;
-						if ( agent.enabled )
-							agent.destination = hit.point;
-						SetState( MOVE_State.MOVE_STATE );
-					}
-					else if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.
-						mousePosition ), out hit ) )
-					{
-						if ( agent.enabled )
-							agent.destination = hit.point;
-						m_attackMOve = false;
-						SetState( MOVE_State.MOVE_STATE );
-					}
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	private void TPStart()
 	{
@@ -242,13 +181,73 @@ public class HeroMovement : MovementScript
 		rot.y = currentRot;
 		transform.rotation = Quaternion.Euler( rot );
 	}
-	public void ResetToSpawn()
+	private void SetState( MOVE_State _state )
 	{
-		NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, NavMesh.AllAreas
-			);
-		transform.position = new Vector3( nmhit.position.x, agent.baseOffset * transform.localScale.
-			y, nmhit.position.z );
-		transform.rotation = new Quaternion( 0.0f, 0.707106781f, 0.0f, 0.707106781f );
-		currentRot = transform.rotation.eulerAngles.y;
+		switch ( _state )
+		{
+			case MOVE_State.COMBAT_STATE:
+			case MOVE_State.ENGAGE_STATE:
+			case MOVE_State.DISENGAGE_STATE:
+				m_state = _state;
+				break;
+			default:
+				m_prevState = m_state;
+				m_state = _state;
+				break;
+		}
+	}
+	private bool CheckInput()
+	{
+		m_AttMvKey = Input.GetKey( KeyCode.A );
+		if ( Input.GetMouseButtonDown( 1 ) )
+		{
+			if ( m_AttMvKey )
+			{
+				if ( CameraControl.instance.CameraFollowsPlayer )
+				{
+					if ( rayHit )
+					{
+						rayHit = false;
+						if ( agent.enabled )
+							agent.destination = hit.point;
+						m_attackMOve = true;
+						SetState( MOVE_State.MOVE_STATE );
+					}
+					else if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.
+						mousePosition ), out hit ) )
+					{
+						if ( agent.enabled )
+							agent.destination = hit.point;
+						m_attackMOve = true;
+						SetState( MOVE_State.MOVE_STATE );
+					}
+					return true;
+				}
+			}
+			else
+			{
+				if ( CameraControl.instance.CameraFollowsPlayer )
+				{
+					if ( rayHit )
+					{
+						rayHit = false;
+						m_attackMOve = false;
+						if ( agent.enabled )
+							agent.destination = hit.point;
+						SetState( MOVE_State.MOVE_STATE );
+					}
+					else if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.
+						mousePosition ), out hit ) )
+					{
+						if ( agent.enabled )
+							agent.destination = hit.point;
+						m_attackMOve = false;
+						SetState( MOVE_State.MOVE_STATE );
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

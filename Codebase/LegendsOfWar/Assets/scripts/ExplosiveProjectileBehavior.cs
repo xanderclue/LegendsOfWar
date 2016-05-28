@@ -9,10 +9,27 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 	private bool fired, aoeActive = false;
 	private float effectTime = 3.0f;
 	private float projectileTimer;
-
+	public void Fire( Team theTeam )
+	{
+		team = theTeam;
+		fired = true;
+		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
+			GetComponentInChildren<ParticleSystem>().Stop();
+	}
 	private void Awake()
 	{
 		info = TowerManager.Instance.explosiveInfo;
+	}
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( GameManager.GameEnded || ( projectileTimer <= 0.0f && !aoeActive ) )
+			Destroy( gameObject );
+		else if ( fired )
+			projectileTimer -= Time.deltaTime;
 	}
 	private void FixedUpdate()
 	{
@@ -32,13 +49,6 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 			PlayEffect();
 		if ( !target || !target.gameObject.activeInHierarchy )
 			Destroy( gameObject );
-	}
-	public void Fire( Team theTeam )
-	{
-		team = theTeam;
-		fired = true;
-		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
-			GetComponentInChildren<ParticleSystem>().Stop();
 	}
 	private void OnTriggerEnter( Collider col )
 	{
@@ -67,16 +77,5 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 			Destroy( gameObject );
 		else
 			effectTime -= Time.deltaTime;
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || ( projectileTimer <= 0.0f && !aoeActive ) )
-			Destroy( gameObject );
-		else if ( fired )
-			projectileTimer -= Time.deltaTime;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

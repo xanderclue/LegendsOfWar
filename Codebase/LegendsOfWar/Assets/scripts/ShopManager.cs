@@ -40,17 +40,6 @@ public class ShopManager : MonoBehaviour
 	{ get { return purchases; } }
 	public int[ ] minionUGPrices
 	{ get { return MinionUGPrices; } }
-
-	private void Start()
-	{
-		MinionUGPrices[ 0 ] = MinionUG1Cost;
-		MinionUGPrices[ 1 ] = MinionUG2Cost;
-		MinionUGPrices[ 2 ] = MinionUG3Cost;
-		MinionUGPrices[ 3 ] = MinionUG3Cost;
-		AbilityUGPrices[ 0 ] = AbilityUG1Cost;
-		AbilityUGPrices[ 1 ] = AbilityUG2Cost;
-		AbilityUGPrices[ 2 ] = AbilityUG3Cost;
-	}
 	public void PurchaseFreezingShot( Team team )
 	{
 		if ( EconomyManager.Instance.TakeGold( team, FreezingShotCost ) )
@@ -158,6 +147,16 @@ public class ShopManager : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
+	}
+	private void Start()
+	{
+		MinionUGPrices[ 0 ] = MinionUG1Cost;
+		MinionUGPrices[ 1 ] = MinionUG2Cost;
+		MinionUGPrices[ 2 ] = MinionUG3Cost;
+		MinionUGPrices[ 3 ] = MinionUG3Cost;
+		AbilityUGPrices[ 0 ] = AbilityUG1Cost;
+		AbilityUGPrices[ 1 ] = AbilityUG2Cost;
+		AbilityUGPrices[ 2 ] = AbilityUG3Cost;
 	}
 	private void OnDestroy()
 	{

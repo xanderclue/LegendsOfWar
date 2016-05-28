@@ -4,7 +4,6 @@ public class MarkedEnemyIcon : MonoBehaviour
 	[SerializeField]
 	private string m_name;
 	public bool AutoMaticDestroy = true;
-
 	private void Start()
 	{
 		if ( transform.parent.name == "AbilityW" )

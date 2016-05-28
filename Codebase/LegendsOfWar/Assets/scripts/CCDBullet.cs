@@ -3,7 +3,6 @@ public class CCDBullet : MonoBehaviour
 {
 	public float life;
 	private Rigidbody body;
-
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();

@@ -7,7 +7,14 @@ public class ShopOnHover : MonoBehaviour
 	[SerializeField]
 	private string textEn = "", textJp = "";
 	private bool isHovering = false;
-
+	public void OnHover()
+	{
+		isHovering = true;
+	}
+	public void OnExit()
+	{
+		isHovering = false;
+	}
 	private void Start()
 	{
 		HeroAbilities abilities = GameManager.Instance.Player.GetComponent<HeroAbilities>();
@@ -32,14 +39,6 @@ public class ShopOnHover : MonoBehaviour
 			default:
 				break;
 		}
-	}
-	public void OnHover()
-	{
-		isHovering = true;
-	}
-	public void OnExit()
-	{
-		isHovering = false;
 	}
 	private void OnGUI()
 	{

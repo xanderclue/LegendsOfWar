@@ -11,7 +11,6 @@ public class HunterAbilityW : AbilityWBase
 	private Info target = null;
 	private float originalSpeed = 0.0f;
 	private RaycastHit hit;
-
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;

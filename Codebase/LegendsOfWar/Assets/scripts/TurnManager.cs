@@ -50,7 +50,6 @@ public class TurnManager : MonoBehaviour
 			return ( Character )c;
 		}
 	}
-
 	public void TurnRight()
 	{
 		spLight = false;
@@ -78,11 +77,6 @@ public class TurnManager : MonoBehaviour
 		turnState = TurnState.Left;
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
-	}
-	private void PlayVoice()
-	{
-		sub.SetSub( "", -0.0f );
-		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
 	}
 	private void Awake()
 	{
@@ -129,6 +123,11 @@ public class TurnManager : MonoBehaviour
 	private void OnDestroy()
 	{
 		inst = null;
+	}
+	private void PlayVoice()
+	{
+		sub.SetSub( "", -0.0f );
+		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
 	}
 	private bool check( Quaternion rot )
 	{

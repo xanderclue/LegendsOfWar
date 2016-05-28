@@ -6,7 +6,6 @@ public class TankAbilityW : AbilityWBase
 	public CollisionDetector coll;
 	private GameObject AbilityWParticle;
 	private HeroMovement movement;
-
 	protected override void Start()
 	{
 		base.Start();

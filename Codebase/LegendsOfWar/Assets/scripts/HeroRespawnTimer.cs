@@ -5,7 +5,6 @@ public class HeroRespawnTimer : MonoBehaviour
 	[SerializeField]
 	private Text text = null;
 	private HeroInfo info;
-
 	private void Start()
 	{
 		info = GameManager.Instance.Player.GetComponent<HeroInfo>();

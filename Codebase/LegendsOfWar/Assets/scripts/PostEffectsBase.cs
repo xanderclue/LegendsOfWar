@@ -6,7 +6,18 @@ public class PostEffectsBase : MonoBehaviour
 	protected bool supportHDRTextures = true;
 	protected bool supportDX11 = false;
 	protected bool isSupported = true;
-
+	public virtual bool CheckResources()
+	{
+		return isSupported;
+	}
+	public bool Dx11Support()
+	{
+		return supportDX11;
+	}
+	protected void Start()
+	{
+		CheckResources();
+	}
 	protected Material CheckShaderAndCreateMaterial( Shader s, Material m2Create )
 	{
 		if ( !s )
@@ -49,21 +60,9 @@ public class PostEffectsBase : MonoBehaviour
 				return null;
 		}
 	}
-	private void OnEnable()
-	{
-		isSupported = true;
-	}
 	protected bool CheckSupport()
 	{
 		return CheckSupport( false );
-	}
-	public virtual bool CheckResources()
-	{
-		return isSupported;
-	}
-	protected void Start()
-	{
-		CheckResources();
 	}
 	protected bool CheckSupport( bool needDepth )
 	{
@@ -94,16 +93,6 @@ public class PostEffectsBase : MonoBehaviour
 			return false;
 		}
 		return true;
-	}
-	public bool Dx11Support()
-	{
-		return supportDX11;
-	}
-	private bool CheckShader( Shader s )
-	{
-		if ( !s.isSupported )
-			NotSupported();
-		return false;
 	}
 	protected void NotSupported()
 	{
@@ -155,5 +144,15 @@ public class PostEffectsBase : MonoBehaviour
 			GL.End();
 		}
 		GL.PopMatrix();
+	}
+	private void OnEnable()
+	{
+		isSupported = true;
+	}
+	private bool CheckShader( Shader s )
+	{
+		if ( !s.isSupported )
+			NotSupported();
+		return false;
 	}
 }

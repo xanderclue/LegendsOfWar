@@ -31,29 +31,6 @@ public class MinionInfo : Info
 	}
 	public float AgroRange
 	{ get { return agroRange; } }
-
-	protected override void Start()
-	{
-		base.Start();
-		Attacked += MinionAttacked;
-		Destroyed += MinionDeath;
-		baseDamage = damage;
-	}
-	private void MinionAttacked()
-	{
-		AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttacked, transform.position );
-	}
-	private void MinionDeath()
-	{
-		AudioManager.PlaySoundEffect( AudioManager.sfxMinionDeath, transform.position );
-	}
-	private void Update()
-	{
-		if ( SupportRange.InSupportRange( gameObject ) )
-			damage = baseDamage * 1.5f;
-		else
-			damage = baseDamage;
-	}
 	public override void TakeDamage( float damage )
 	{
 		if ( soulDefense )
@@ -64,5 +41,27 @@ public class MinionInfo : Info
 	public void Cyclone()
 	{
 		baseDamage *= 0.75f;
+	}
+	protected override void Start()
+	{
+		base.Start();
+		Attacked += MinionAttacked;
+		Destroyed += MinionDeath;
+		baseDamage = damage;
+	}
+	private void Update()
+	{
+		if ( SupportRange.InSupportRange( gameObject ) )
+			damage = baseDamage * 1.5f;
+		else
+			damage = baseDamage;
+	}
+	private void MinionAttacked()
+	{
+		AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttacked, transform.position );
+	}
+	private void MinionDeath()
+	{
+		AudioManager.PlaySoundEffect( AudioManager.sfxMinionDeath, transform.position );
 	}
 }

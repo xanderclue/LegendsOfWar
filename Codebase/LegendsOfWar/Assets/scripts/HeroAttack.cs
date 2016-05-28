@@ -8,7 +8,6 @@ public class HeroAttack : AttackScript
 	private float attackDelay;
 	private float attackTimer = 0.0f;
 	private float AsoundTimer = 1.0f;
-
 	private void Start()
 	{
 		info = GetComponent<HeroInfo>();
@@ -18,17 +17,6 @@ public class HeroAttack : AttackScript
 		targets = new List<Transform>();
 		attackDelay = 1.0f / info.AttackSpeed;
 		info.Destroyed += targets.Clear;
-	}
-	private void AttackTriggerEnter( GameObject obj )
-	{
-		if ( this.isActiveAndEnabled )
-			if ( obj && obj.activeInHierarchy )
-			{
-				Info targ = obj.GetComponent<Info>();
-				if ( targ )
-					if ( targ.team != info.team )
-						targets.Add( obj.transform );
-			}
 	}
 	private void Update()
 	{
@@ -50,6 +38,17 @@ public class HeroAttack : AttackScript
 	private void FixedUpdate()
 	{
 		attackTimer -= Time.fixedDeltaTime;
+	}
+	private void AttackTriggerEnter( GameObject obj )
+	{
+		if ( this.isActiveAndEnabled )
+			if ( obj && obj.activeInHierarchy )
+			{
+				Info targ = obj.GetComponent<Info>();
+				if ( targ )
+					if ( targ.team != info.team )
+						targets.Add( obj.transform );
+			}
 	}
 	private void AttackTriggerExit( GameObject obj )
 	{

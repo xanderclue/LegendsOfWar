@@ -19,7 +19,6 @@ public class ResourceBarScript : MonoBehaviour
 		get { return host; }
 		set { host = value; }
 	}
-
 	private void Start()
 	{
 		stats = host.GetComponent<Info>();

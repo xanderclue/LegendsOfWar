@@ -26,7 +26,6 @@ public class HudScript : MonoBehaviour
 	private float buttonHmAnimTime = 0.0f;
 	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
 	private float qtim, wtim, etim, rtim;
-
 	private void Start()
 	{
 		hero = GameManager.Instance.Player;

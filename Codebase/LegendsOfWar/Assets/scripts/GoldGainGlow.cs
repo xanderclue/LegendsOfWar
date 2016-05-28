@@ -8,7 +8,6 @@ public class GoldGainGlow : MonoBehaviour
 	private Color originalColor;
 	private Color highlightedColor;
 	private float activeTimer = 0.0f;
-
 	private void Awake()
 	{
 		image = GetComponent<Image>();

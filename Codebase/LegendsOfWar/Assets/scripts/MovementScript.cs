@@ -18,7 +18,16 @@ public class MovementScript : MonoBehaviour
 	{ get { return inCombat; } }
 	protected Transform TargetPosition
 	{ get { return targetPosition; } }
-
+	public void SetTarget( Transform target, float distance )
+	{
+		targetPosition = target;
+		combatRange = distance;
+		inCombat = true;
+	}
+	public void Disengage()
+	{
+		inCombat = false;
+	}
 	protected virtual void Start()
 	{
 		GameManager.Hud.GrabHit += MovementScript_GrabHit;
@@ -31,15 +40,5 @@ public class MovementScript : MonoBehaviour
 	{
 		hit = _hit;
 		rayHit = true;
-	}
-	public void SetTarget( Transform target, float distance )
-	{
-		targetPosition = target;
-		combatRange = distance;
-		inCombat = true;
-	}
-	public void Disengage()
-	{
-		inCombat = false;
 	}
 }

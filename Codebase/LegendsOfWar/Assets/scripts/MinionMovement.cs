@@ -15,21 +15,17 @@ public class MinionMovement : MovementScript
 	private Interactive interactive;
 	private Path m_path;
 	private SkinnedMeshRenderer temp_smr;
-
-	private void SetState( Move_State _state )
+	public void ChangeLane( Path _newPath = Path.ANY_PATH )
 	{
-		switch ( _state )
-		{
-			case Move_State.COMBAT_STATE:
-			case Move_State.ENGAGE_STATE:
-			case Move_State.DISENGAGE_STATE:
-				m_state = _state;
-				break;
-			default:
-				m_prevState = m_state;
-				m_state = _state;
-				break;
-		}
+		if ( !followingNav )
+			m_path = Path.ANY_PATH;
+		else
+			m_path = _newPath;
+		if ( !agent )
+			Start2();
+		agent.areaMask = ( int )m_path;
+		if ( agent.isPathStale )
+			agent.ResetPath();
 	}
 	protected override void Start()
 	{
@@ -42,21 +38,6 @@ public class MinionMovement : MovementScript
 		temp_smr = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
 		if ( temp_smr )
 			line.material = temp_smr.material;
-	}
-	private void Start2()
-	{
-		agent = GetComponent<NavMeshAgent>();
-		m_state = m_prevState = Move_State.LANING_STATE;
-		info = GetComponent<MinionInfo>();
-		interactive = GetComponent<Interactive>();
-		if ( Team.RED_TEAM == info.team )
-		{
-			goal = GameManager.BluePortalTransform;
-			if ( agent.enabled )
-				agent.destination = goal.position;
-		}
-		else
-			goal = GameManager.RedPortalTransform;
 	}
 	private void Update()
 	{
@@ -154,17 +135,35 @@ public class MinionMovement : MovementScript
 					break;
 			}
 	}
-	public void ChangeLane( Path _newPath = Path.ANY_PATH )
+	private void Start2()
 	{
-		if ( !followingNav )
-			m_path = Path.ANY_PATH;
+		agent = GetComponent<NavMeshAgent>();
+		m_state = m_prevState = Move_State.LANING_STATE;
+		info = GetComponent<MinionInfo>();
+		interactive = GetComponent<Interactive>();
+		if ( Team.RED_TEAM == info.team )
+		{
+			goal = GameManager.BluePortalTransform;
+			if ( agent.enabled )
+				agent.destination = goal.position;
+		}
 		else
-			m_path = _newPath;
-		if ( !agent )
-			Start2();
-		agent.areaMask = ( int )m_path;
-		if ( agent.isPathStale )
-			agent.ResetPath();
+			goal = GameManager.RedPortalTransform;
+	}
+	private void SetState( Move_State _state )
+	{
+		switch ( _state )
+		{
+			case Move_State.COMBAT_STATE:
+			case Move_State.ENGAGE_STATE:
+			case Move_State.DISENGAGE_STATE:
+				m_state = _state;
+				break;
+			default:
+				m_prevState = m_state;
+				m_state = _state;
+				break;
+		}
 	}
 	private bool CheckForInput()
 	{

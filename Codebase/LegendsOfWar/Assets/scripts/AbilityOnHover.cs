@@ -8,11 +8,28 @@ public class AbilityOnHover : MonoBehaviour
 	private GameObject legend;
 	private AbilityBase ability;
 	private string textEn, textJp;
-
+	public void OnMouseEnter()
+	{
+		isHovering = true;
+	}
+	public void OnMouseExit()
+	{
+		isHovering = false;
+	}
 	private void Start()
 	{
 		CharacterSelectionManager.OnChangedCharacter += changedCharacter;
 		changedCharacter();
+	}
+	private void Update()
+	{
+		if ( !ability )
+			changedCharacter();
+	}
+	private void OnGUI()
+	{
+		if ( isHovering )
+			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
 	private void OnDestroy()
 	{
@@ -33,11 +50,6 @@ public class AbilityOnHover : MonoBehaviour
 			}
 		}
 		textEn = textJp = "";
-	}
-	private void Update()
-	{
-		if ( !ability )
-			changedCharacter();
 	}
 	private AbilityBase GetAbility()
 	{
@@ -64,19 +76,6 @@ public class AbilityOnHover : MonoBehaviour
 					break;
 			}
 		return null;
-	}
-	public void OnMouseEnter()
-	{
-		isHovering = true;
-	}
-	public void OnMouseExit()
-	{
-		isHovering = false;
-	}
-	private void OnGUI()
-	{
-		if ( isHovering )
-			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
 	private void GenerateBox( string words )
 	{

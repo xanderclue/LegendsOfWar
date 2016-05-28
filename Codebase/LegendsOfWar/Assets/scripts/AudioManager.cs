@@ -26,16 +26,75 @@ public class AudioManager : MonoBehaviour
 			return Vector3.zero;
 		}
 	}
-
-	private void Awake()
+	public static void PlayClickSound()
 	{
-		if ( instance )
-			Destroy( gameObject );
-		else
+		instance.clickSoundSource.volume = Options.sfxVolume;
+		instance.clickSoundSource.PlayOneShot( sfxClickSound );
+	}
+	public static void PlaySoundEffect( AudioClip ac )
+	{
+		if ( SfxSource )
 		{
-			instance = this;
-			DontDestroyOnLoad( gameObject );
-			InitStatic();
+			SfxSource.volume = Options.sfxVolume;
+			if ( sfxClickSound == ac )
+				PlayClickSound();
+			else if ( ac )
+				SfxSource.PlayOneShot( ac );
+		}
+		else
+			PlaySoundEffect( ac, Vector3.zero );
+	}
+	public static void PlaySoundEffect( AudioClip ac, Vector3 _position )
+	{
+		PlayClipAtPoint( ac, _position );
+	}
+	public static void PlayClipRaw( AudioClip clp, Transform loc = null, bool isVoice = false, bool
+		single = false )
+	{
+		if ( !clp )
+			return;
+		GameObject temp = new GameObject( "AudioClipRaw" );
+		if ( loc )
+			temp.transform.position = loc.position;
+		else
+			temp.transform.position = ListenerPosition;
+		AudioSource aud = temp.AddComponent<AudioSource>();
+		if ( single )
+		{
+			KillSingle();
+			singleAud = aud;
+		}
+		aud.clip = clp;
+		aud.volume = 0.0f;
+		if ( isVoice )
+		{
+			AudioClipVol acv = temp.AddComponent<AudioClipVol>();
+			acv.aud = aud;
+			acv.isVoice = true;
+		}
+		else
+			temp.AddComponent<AudioClipVol>().aud = aud;
+		aud.Play();
+		Destroy( temp, clp.length );
+	}
+	public static void KillSingle()
+	{
+		if ( singleAud )
+			singleAud.mute = true;
+		singleAud = null;
+	}
+	private static void PlayClipAtPoint( AudioClip clip, Vector3 _position )
+	{
+		if ( clip )
+		{
+			GameObject temp = new GameObject( "AudioClip" );
+			temp.transform.position = _position;
+			AudioSource aud = temp.AddComponent<AudioSource>();
+			aud.clip = clip;
+			aud.volume = 0.0f;
+			temp.AddComponent<AudioClipVol>().aud = aud;
+			aud.Play();
+			Destroy( temp, clip.length );
 		}
 	}
 	public void InitStatic()
@@ -57,12 +116,16 @@ public class AudioManager : MonoBehaviour
 		sfxHeroDeath = HeroDeath;
 		sfxClickSound = ClickSound;
 	}
-	private void OnDestroy()
+	private void Awake()
 	{
-		if ( this == instance )
-			instance = null;
-		Options.onChangedBgmVolume -= OnChangedBgmVol;
-		Options.onChangedSfxVolume -= OnChangedSfxVol;
+		if ( instance )
+			Destroy( gameObject );
+		else
+		{
+			instance = this;
+			DontDestroyOnLoad( gameObject );
+			InitStatic();
+		}
 	}
 	private void Start()
 	{
@@ -77,6 +140,28 @@ public class AudioManager : MonoBehaviour
 		FindListener();
 		OnChangedBgmVol();
 		OnChangedSfxVol();
+	}
+	private void Update()
+	{
+		FindListener();
+		BGM_Switch();
+	}
+	private void OnDestroy()
+	{
+		if ( this == instance )
+			instance = null;
+		Options.onChangedBgmVolume -= OnChangedBgmVol;
+		Options.onChangedSfxVolume -= OnChangedSfxVol;
+	}
+	private void OnChangedBgmVol()
+	{
+		if ( BgmSource )
+			BgmSource.volume = Options.bgmVolume;
+	}
+	private void OnChangedSfxVol()
+	{
+		if ( SfxSource )
+			clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
 	}
 	private void FindListener()
 	{
@@ -101,33 +186,6 @@ public class AudioManager : MonoBehaviour
 			SfxSource.volume = Options.sfxVolume;
 		}
 		BgmSource.transform.position = ListenerPosition;
-	}
-	private void Update()
-	{
-		FindListener();
-		BGM_Switch();
-	}
-	public static void PlayClickSound()
-	{
-		instance.clickSoundSource.volume = Options.sfxVolume;
-		instance.clickSoundSource.PlayOneShot( sfxClickSound );
-	}
-	public static void PlaySoundEffect( AudioClip ac )
-	{
-		if ( SfxSource )
-		{
-			SfxSource.volume = Options.sfxVolume;
-			if ( sfxClickSound == ac )
-				PlayClickSound();
-			else if ( ac )
-				SfxSource.PlayOneShot( ac );
-		}
-		else
-			PlaySoundEffect( ac, Vector3.zero );
-	}
-	public static void PlaySoundEffect( AudioClip ac, Vector3 _position )
-	{
-		PlayClipAtPoint( ac, _position );
 	}
 	private void BGM_Switch()
 	{
@@ -167,64 +225,5 @@ public class AudioManager : MonoBehaviour
 			default:
 				break;
 		}
-	}
-	private static void PlayClipAtPoint( AudioClip clip, Vector3 _position )
-	{
-		if ( clip )
-		{
-			GameObject temp = new GameObject( "AudioClip" );
-			temp.transform.position = _position;
-			AudioSource aud = temp.AddComponent<AudioSource>();
-			aud.clip = clip;
-			aud.volume = 0.0f;
-			temp.AddComponent<AudioClipVol>().aud = aud;
-			aud.Play();
-			Destroy( temp, clip.length );
-		}
-	}
-	private void OnChangedBgmVol()
-	{
-		if ( BgmSource )
-			BgmSource.volume = Options.bgmVolume;
-	}
-	private void OnChangedSfxVol()
-	{
-		if ( SfxSource )
-			clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
-	}
-	public static void KillSingle()
-	{
-		if ( singleAud )
-			singleAud.mute = true;
-		singleAud = null;
-	}
-	public static void PlayClipRaw( AudioClip clp, Transform loc = null, bool isVoice = false, bool
-		single = false )
-	{
-		if ( !clp )
-			return;
-		GameObject temp = new GameObject( "AudioClipRaw" );
-		if ( loc )
-			temp.transform.position = loc.position;
-		else
-			temp.transform.position = ListenerPosition;
-		AudioSource aud = temp.AddComponent<AudioSource>();
-		if ( single )
-		{
-			KillSingle();
-			singleAud = aud;
-		}
-		aud.clip = clp;
-		aud.volume = 0.0f;
-		if ( isVoice )
-		{
-			AudioClipVol acv = temp.AddComponent<AudioClipVol>();
-			acv.aud = aud;
-			acv.isVoice = true;
-		}
-		else
-			temp.AddComponent<AudioClipVol>().aud = aud;
-		aud.Play();
-		Destroy( temp, clp.length );
 	}
 }

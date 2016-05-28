@@ -24,10 +24,27 @@ public class EconomyManager : MonoBehaviour
 	{ get { return blueTeamGold; } }
 	public float RedGold
 	{ get { return redTeamGold; } }
-
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;
+	}
+	public void GiveGold( Team team, float amount )
+	{
+		if ( amount <= 0.0f )
+			return;
+		switch ( team )
+		{
+			case Team.RED_TEAM:
+				redTeamGold += amount;
+				break;
+			case Team.BLUE_TEAM:
+				blueTeamGold += amount;
+				break;
+			default:
+				break;
+		}
+		if ( OnGainGold != null )
+			OnGainGold();
 	}
 	public bool TakeGold( Team team, float amount )
 	{
@@ -51,24 +68,6 @@ public class EconomyManager : MonoBehaviour
 				break;
 		}
 		return false;
-	}
-	public void GiveGold( Team team, float amount )
-	{
-		if ( amount <= 0.0f )
-			return;
-		switch ( team )
-		{
-			case Team.RED_TEAM:
-				redTeamGold += amount;
-				break;
-			case Team.BLUE_TEAM:
-				blueTeamGold += amount;
-				break;
-			default:
-				break;
-		}
-		if ( OnGainGold != null )
-			OnGainGold();
 	}
 	public void NewWave()
 	{

@@ -11,7 +11,6 @@ public class DamageNumber : MonoBehaviour
 	private Transform orig;
 	private bool followingTransform = false;
 	private float heightF = 0.0f;
-
 	public void CreateNumber( float number, Vector3 startPos, float height, float duration, Color
 		textColor )
 	{

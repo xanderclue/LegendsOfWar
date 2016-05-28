@@ -5,7 +5,10 @@ public class StatusEffects : MonoBehaviour
 	private IList<Effect> m_stats;
 	public IList<Effect> Stats
 	{ get { return m_stats; } }
-
+	public static void Inflict( GameObject _target, Effect _effect )
+	{
+		StatusEffectsManager.Instance.AddStatus( _target.GetInstanceID().ToString(), _effect );
+	}
 	public void Apply( Effect _effect )
 	{
 		if ( !_effect.Expired( Time.deltaTime ) )
@@ -60,10 +63,6 @@ public class StatusEffects : MonoBehaviour
 	{
 		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
 			;
-	}
-	public static void Inflict( GameObject _target, Effect _effect )
-	{
-		StatusEffectsManager.Instance.AddStatus( _target.GetInstanceID().ToString(), _effect );
 	}
 	private void Update()
 	{

@@ -5,7 +5,14 @@ public class AbilityIcon : MonoBehaviour
 	[SerializeField]
 	private Image q = null, w = null, e = null, r = null;
 	private HeroAbilities abilities = null;
-
+	public void Force()
+	{
+		SetIcons();
+	}
+	private void Update()
+	{
+		SetIcons();
+	}
 	private void SetIcons()
 	{
 		if ( CharacterSelectionManager.LegendChoice )
@@ -17,13 +24,5 @@ public class AbilityIcon : MonoBehaviour
 			e.sprite = abilities.abilityE.abilityIcon;
 			r.sprite = abilities.abilityR.abilityIcon;
 		}
-	}
-	private void Update()
-	{
-		SetIcons();
-	}
-	public void Force()
-	{
-		SetIcons();
 	}
 }

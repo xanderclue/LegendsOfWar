@@ -6,7 +6,6 @@ public class TankAbilityE : AbilityEBase
 	public float Edamage;
 	private GameObject AbilityEParticle;
 	private List<Info> slowed;
-
 	protected override void Start()
 	{
 		base.Start();
@@ -24,17 +23,6 @@ public class TankAbilityE : AbilityEBase
 		if ( coll )
 			coll.DealDamage( Slow );
 	}
-	private void Slow( Info entity )
-	{
-		if ( entity )
-			if ( entity is MinionInfo )
-			{
-				if ( entity != null )
-					slowed.Add( entity );
-				entity.TakeDamage( Edamage );
-				entity.gameObject.GetComponent<NavMeshAgent>().speed -= 10;
-			}
-	}
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
@@ -46,5 +34,16 @@ public class TankAbilityE : AbilityEBase
 		AbilityEParticle.GetComponent<Transform>().localPosition -= new Vector3( 0.0f, 10.0f );
 		AbilityEParticle.GetComponent<ParticleSystem>().Stop();
 		AbilityEParticle.GetComponent<ParticleSystem>().Clear();
+	}
+	private void Slow( Info entity )
+	{
+		if ( entity )
+			if ( entity is MinionInfo )
+			{
+				if ( entity != null )
+					slowed.Add( entity );
+				entity.TakeDamage( Edamage );
+				entity.gameObject.GetComponent<NavMeshAgent>().speed -= 10;
+			}
 	}
 }

@@ -5,7 +5,6 @@ public class TowerRangeIndicator : MonoBehaviour
 	private Transform circle = null;
 	[SerializeField]
 	private Team team = Team.RED_TEAM;
-
 	private void Awake()
 	{
 		GetComponent<MeshRenderer>().material.color = Color.red;

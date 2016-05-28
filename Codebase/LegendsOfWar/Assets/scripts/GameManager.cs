@@ -123,83 +123,6 @@ public class GameManager : MonoBehaviour
 	{ get { return wave; } }
 	public List<HeroInfo> Heros
 	{ get { return heros; } }
-
-	private void SetupMinion( Object _minion, Path lane, Team team )
-	{
-		min_go = _minion as GameObject;
-		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
-		nma = min_go.GetComponent<NavMeshAgent>();
-		nma.enabled = true;
-		if ( team == Team.BLUE_TEAM )
-			nma.destination = RedPortalTransform.position;
-		else
-			nma.destination = BluePortalTransform.position;
-	}
-	private void SpawnMinionWaves()
-	{
-		SetupMinion( Instantiate( redCasterMinion, redPortal.LeftSpawn[ 0 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 3 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 4 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 1 ].position, faceDown ), Path
-			.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 2 ].position, faceDown ), Path
-			.SOUTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redCasterMinion, redPortal.MidSpawn[ 0 ].position, faceLeft ),
-			Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 3 ].position, faceLeft ),
-			Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 4 ].position, faceLeft ),
-			Path.CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 1 ].position, faceLeft ), Path.
-			CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 2 ].position, faceLeft ), Path.
-			CENTER_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redCasterMinion, redPortal.RightSpawn[ 0 ].position, faceUp ),
-			Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 3 ].position, faceUp ),
-			Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 4 ].position, faceUp ),
-			Path.NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 1 ].position, faceUp ), Path.
-			NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 2 ].position, faceUp ), Path.
-			NORTH_PATH, Team.RED_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ 0 ].position, faceUp ),
-			Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 3 ].position, faceUp ),
-			Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 4 ].position, faceUp ),
-			Path.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 1 ].position, faceUp ), Path
-			.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 2 ].position, faceUp ), Path
-			.NORTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ 0 ].position, faceRight ),
-			Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 3 ].position, faceRight ),
-			Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 4 ].position, faceRight ),
-			Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 1 ].position, faceRight ),
-			Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 2 ].position, faceRight ),
-			Path.CENTER_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ 0 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 3 ].position, faceDown )
-			, Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 4 ].position, faceDown )
-			, Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 1 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.BLUE_TEAM );
-		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 2 ].position, faceDown ),
-			Path.SOUTH_PATH, Team.BLUE_TEAM );
-		EconomyManager.Instance.NewWave();
-		AudioManager.PlaySoundEffect( AudioManager.sfxWaveSpawn );
-	}
 	public void InitiateGame()
 	{
 		gameRunning = true;
@@ -209,17 +132,26 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.StartingGame();
 		ResetUpgrades();
 	}
-	public void EndGame()
+	public void SpawnHero()
 	{
-		gameEnded = true;
-		gameRunning = false;
-		ResetUpgrades();
-		if ( bluePortal.HP < redPortal.HP )
-			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_LOST );
-		else if ( bluePortal.HP > redPortal.HP )
-			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_WON );
+		if ( CharacterSelectionManager.Instance )
+			Player = Instantiate( CharacterSelectionManager.LegendChoice, HeroSpawnPoint.position,
+				faceRight ) as GameObject;
 		else
-			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_DRAW );
+			Player = Instantiate( defaultHeroPrefab, HeroSpawnPoint.position, faceRight ) as
+				GameObject;
+		heroHealthPanel.Host = heroManaPanel.Host = Player;
+		if ( tutorial )
+		{
+			HeroAbilities abilities = Player.GetComponent<HeroAbilities>();
+			abilities.abilityW.AbilityEnabled = false;
+			abilities.abilityE.AbilityEnabled = false;
+			abilities.abilityR.AbilityEnabled = false;
+		}
+	}
+	public void AddHero( HeroInfo info )
+	{
+		heros.Add( info );
 	}
 	public void Pause()
 	{
@@ -239,165 +171,10 @@ public class GameManager : MonoBehaviour
 	{
 		ApplicationManager.Instance.ChangeAppState( StateID.STATE_INGAME );
 	}
-	private void Awake()
-	{
-		if ( instance )
-			Destroy( this );
-		else
-		{
-			instance = this;
-			abilities = new List<HeroAbilities>();
-			heros = new List<HeroInfo>();
-			topSplitZ = topSplit.position.z;
-			botSplitZ = botSplit.position.z;
-			SpawnHero();
-		}
-	}
-	private void OnDestroy()
-	{
-		if ( this == instance )
-			instance = null;
-	}
-	private void Start()
-	{
-		InitiateGame();
-		BoomBlue.gameObject.SetActive( false );
-		BoomRed.gameObject.SetActive( false );
-		ExitBlue.gameObject.SetActive( false );
-		ExitRed.gameObject.SetActive( false );
-	}
-	private IEnumerator GameEnding()
-	{
-		gameEnded = true;
-		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_SHOP )
-			ExitShop();
-		if ( redPortal.HP <= 0.0f )
-		{
-			if ( OnBlueWin != null )
-				OnBlueWin();
-			if ( !BoomRed.isPlaying )
-				BoomRed.gameObject.SetActive( true );
-		}
-		else if ( bluePortal.HP <= 0.0f )
-		{
-			if ( OnRedWin != null )
-				OnRedWin();
-			if ( !BoomBlue.isPlaying )
-				BoomBlue.gameObject.SetActive( true );
-		}
-		endminions = FindObjectsOfType<MinionInfo>();
-		foreach ( MinionInfo endminion in endminions )
-			Destroy( endminion.gameObject );
-		yield return new WaitForSeconds( 4.0f );
-		redPortal.gameObject.SetActive( false );
-		bluePortal.gameObject.SetActive( false );
-		if ( redPortal.HP <= 0.0f )
-			ExitRed.gameObject.SetActive( true );
-		else if ( bluePortal.HP <= 0.0f )
-			ExitBlue.gameObject.SetActive( true );
-		yield return new WaitForSeconds( 4.0f );
-		EndGame();
-	}
-	private void Update()
-	{
-		if ( !gameRunning || gameEnded )
-			return;
-		if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() !=
-			StateID.STATE_SHOP )
-			Pause();
-		else if ( Input.GetKeyDown( KeyCode.Tab ) )
-		{
-			if ( !shopActive )
-			{
-				shopActive = true;
-				EnterShop();
-			}
-			else
-			{
-				shopActive = false;
-				ExitShop();
-			}
-		}
-		else if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() ==
-			StateID.STATE_SHOP )
-			ExitShop();
-		else if ( timer <= 0.0f || redPortal.HP <= 0.0f || bluePortal.HP <= 0.0f )
-			StartCoroutine( GameEnding() );
-		else
-		{
-			timer -= Time.deltaTime;
-			waveTimer -= Time.deltaTime;
-			if ( waveTimer <= 0.0f )
-			{
-				waveTimer = waveTime;
-				++wave;
-				SpawnMinionWaves();
-			}
-			DoAbilityCooldowns();
-			RespawnTimers();
-		}
-	}
-	private void DoAbilityCooldowns()
-	{
-		foreach ( HeroAbilities abs in abilities )
-		{
-			abs.abilityQ.Timer -= Time.deltaTime;
-			abs.abilityW.Timer -= Time.deltaTime;
-			abs.abilityE.Timer -= Time.deltaTime;
-			abs.abilityR.Timer -= Time.deltaTime;
-		}
-	}
-	public void AddHero( HeroInfo info )
-	{
-		heros.Add( info );
-	}
-	private void RespawnTimers()
-	{
-		foreach ( HeroInfo hero in heros )
-		{
-			hero.RespawnTimer -= Time.deltaTime;
-			if ( hero.waitingRespawn )
-				hero.Respawn();
-		}
-	}
-	private void ResetUpgrades()
-	{
-		MinionInfo info;
-		info = blueCasterMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 290.0f;
-		info.AttackSpeed = 0.7f;
-		info.Range = 50.0f;
-		info.Damage = 30.0f;
-		info = blueTankMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 515.0f;
-		info.AttackSpeed = 0.8f;
-		info.Damage = 60.0f;
-		info = blueStrikerMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 380.0f;
-		info.AttackSpeed = 0.8f;
-		info.Damage = 50.0f;
-	}
 	public void InstaRespawn( Team team, HeroInfo hero )
 	{
 		if ( hero.team == team && !hero.Alive )
 			hero.RespawnTimer = 0.0f;
-	}
-	public void SpawnHero()
-	{
-		if ( CharacterSelectionManager.Instance )
-			Player = Instantiate( CharacterSelectionManager.LegendChoice, HeroSpawnPoint.position,
-				faceRight ) as GameObject;
-		else
-			Player = Instantiate( defaultHeroPrefab, HeroSpawnPoint.position, faceRight ) as
-				GameObject;
-		heroHealthPanel.Host = heroManaPanel.Host = Player;
-		if ( tutorial )
-		{
-			HeroAbilities abilities = Player.GetComponent<HeroAbilities>();
-			abilities.abilityW.AbilityEnabled = false;
-			abilities.abilityE.AbilityEnabled = false;
-			abilities.abilityR.AbilityEnabled = false;
-		}
 	}
 	public void SpawnStrikerMinion( Team team, int lane )
 	{
@@ -520,5 +297,227 @@ public class GameManager : MonoBehaviour
 			info.AttackSpeed += ShopManager.Instance.casterAttackspeedUpgrade;
 			info.Range += ShopManager.Instance.casterRangeUpgrade;
 		}
+	}
+	public void EndGame()
+	{
+		gameEnded = true;
+		gameRunning = false;
+		ResetUpgrades();
+		if ( bluePortal.HP < redPortal.HP )
+			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_LOST );
+		else if ( bluePortal.HP > redPortal.HP )
+			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_WON );
+		else
+			ApplicationManager.Instance.ChangeAppState( StateID.STATE_GAME_DRAW );
+	}
+	private void Awake()
+	{
+		if ( instance )
+			Destroy( this );
+		else
+		{
+			instance = this;
+			abilities = new List<HeroAbilities>();
+			heros = new List<HeroInfo>();
+			topSplitZ = topSplit.position.z;
+			botSplitZ = botSplit.position.z;
+			SpawnHero();
+		}
+	}
+	private void Start()
+	{
+		InitiateGame();
+		BoomBlue.gameObject.SetActive( false );
+		BoomRed.gameObject.SetActive( false );
+		ExitBlue.gameObject.SetActive( false );
+		ExitRed.gameObject.SetActive( false );
+	}
+	private void Update()
+	{
+		if ( !gameRunning || gameEnded )
+			return;
+		if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() !=
+			StateID.STATE_SHOP )
+			Pause();
+		else if ( Input.GetKeyDown( KeyCode.Tab ) )
+		{
+			if ( !shopActive )
+			{
+				shopActive = true;
+				EnterShop();
+			}
+			else
+			{
+				shopActive = false;
+				ExitShop();
+			}
+		}
+		else if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() ==
+			StateID.STATE_SHOP )
+			ExitShop();
+		else if ( timer <= 0.0f || redPortal.HP <= 0.0f || bluePortal.HP <= 0.0f )
+			StartCoroutine( GameEnding() );
+		else
+		{
+			timer -= Time.deltaTime;
+			waveTimer -= Time.deltaTime;
+			if ( waveTimer <= 0.0f )
+			{
+				waveTimer = waveTime;
+				++wave;
+				SpawnMinionWaves();
+			}
+			DoAbilityCooldowns();
+			RespawnTimers();
+		}
+	}
+	private void OnDestroy()
+	{
+		if ( this == instance )
+			instance = null;
+	}
+	private void SpawnMinionWaves()
+	{
+		SetupMinion( Instantiate( redCasterMinion, redPortal.LeftSpawn[ 0 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 3 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.LeftSpawn[ 4 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 1 ].position, faceDown ), Path
+			.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.LeftSpawn[ 2 ].position, faceDown ), Path
+			.SOUTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redCasterMinion, redPortal.MidSpawn[ 0 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 3 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.MidSpawn[ 4 ].position, faceLeft ),
+			Path.CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 1 ].position, faceLeft ), Path.
+			CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.MidSpawn[ 2 ].position, faceLeft ), Path.
+			CENTER_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redCasterMinion, redPortal.RightSpawn[ 0 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 3 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redStrikerMinion, redPortal.RightSpawn[ 4 ].position, faceUp ),
+			Path.NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 1 ].position, faceUp ), Path.
+			NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( redTankMinion, redPortal.RightSpawn[ 2 ].position, faceUp ), Path.
+			NORTH_PATH, Team.RED_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.LeftSpawn[ 0 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 3 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.LeftSpawn[ 4 ].position, faceUp ),
+			Path.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 1 ].position, faceUp ), Path
+			.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.LeftSpawn[ 2 ].position, faceUp ), Path
+			.NORTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.MidSpawn[ 0 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 3 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.MidSpawn[ 4 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 1 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.MidSpawn[ 2 ].position, faceRight ),
+			Path.CENTER_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueCasterMinion, bluePortal.RightSpawn[ 0 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 3 ].position, faceDown )
+			, Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueStrikerMinion, bluePortal.RightSpawn[ 4 ].position, faceDown )
+			, Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 1 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
+		SetupMinion( Instantiate( blueTankMinion, bluePortal.RightSpawn[ 2 ].position, faceDown ),
+			Path.SOUTH_PATH, Team.BLUE_TEAM );
+		EconomyManager.Instance.NewWave();
+		AudioManager.PlaySoundEffect( AudioManager.sfxWaveSpawn );
+	}
+	private void SetupMinion( Object _minion, Path lane, Team team )
+	{
+		min_go = _minion as GameObject;
+		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
+		nma = min_go.GetComponent<NavMeshAgent>();
+		nma.enabled = true;
+		if ( team == Team.BLUE_TEAM )
+			nma.destination = RedPortalTransform.position;
+		else
+			nma.destination = BluePortalTransform.position;
+	}
+	private void DoAbilityCooldowns()
+	{
+		foreach ( HeroAbilities abs in abilities )
+		{
+			abs.abilityQ.Timer -= Time.deltaTime;
+			abs.abilityW.Timer -= Time.deltaTime;
+			abs.abilityE.Timer -= Time.deltaTime;
+			abs.abilityR.Timer -= Time.deltaTime;
+		}
+	}
+	private void RespawnTimers()
+	{
+		foreach ( HeroInfo hero in heros )
+		{
+			hero.RespawnTimer -= Time.deltaTime;
+			if ( hero.waitingRespawn )
+				hero.Respawn();
+		}
+	}
+	private void ResetUpgrades()
+	{
+		MinionInfo info;
+		info = blueCasterMinion.GetComponent<MinionInfo>();
+		info.MAXHP = 290.0f;
+		info.AttackSpeed = 0.7f;
+		info.Range = 50.0f;
+		info.Damage = 30.0f;
+		info = blueTankMinion.GetComponent<MinionInfo>();
+		info.MAXHP = 515.0f;
+		info.AttackSpeed = 0.8f;
+		info.Damage = 60.0f;
+		info = blueStrikerMinion.GetComponent<MinionInfo>();
+		info.MAXHP = 380.0f;
+		info.AttackSpeed = 0.8f;
+		info.Damage = 50.0f;
+	}
+	private IEnumerator GameEnding()
+	{
+		gameEnded = true;
+		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_SHOP )
+			ExitShop();
+		if ( redPortal.HP <= 0.0f )
+		{
+			if ( OnBlueWin != null )
+				OnBlueWin();
+			if ( !BoomRed.isPlaying )
+				BoomRed.gameObject.SetActive( true );
+		}
+		else if ( bluePortal.HP <= 0.0f )
+		{
+			if ( OnRedWin != null )
+				OnRedWin();
+			if ( !BoomBlue.isPlaying )
+				BoomBlue.gameObject.SetActive( true );
+		}
+		endminions = FindObjectsOfType<MinionInfo>();
+		foreach ( MinionInfo endminion in endminions )
+			Destroy( endminion.gameObject );
+		yield return new WaitForSeconds( 4.0f );
+		redPortal.gameObject.SetActive( false );
+		bluePortal.gameObject.SetActive( false );
+		if ( redPortal.HP <= 0.0f )
+			ExitRed.gameObject.SetActive( true );
+		else if ( bluePortal.HP <= 0.0f )
+			ExitBlue.gameObject.SetActive( true );
+		yield return new WaitForSeconds( 4.0f );
+		EndGame();
 	}
 }

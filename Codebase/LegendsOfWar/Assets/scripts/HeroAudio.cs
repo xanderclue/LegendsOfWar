@@ -9,21 +9,6 @@ public class HeroAudio : MonoBehaviour
 		JHeroSelected = "", JHeroAttack = "", JHeroCastAbilityQ = "", JHeroCastAbilityW = "",
 		JHeroCastAbilityE = "", JHeroCastAbilityR = "";
 	private AudioSource source;
-
-	private void Start()
-	{
-		source = GetComponent<AudioSource>();
-		Options.onChangedVoiceVolume += SetVoiceVolume;
-		SetVoiceVolume();
-	}
-	private void OnDestroy()
-	{
-		Options.onChangedVoiceVolume -= SetVoiceVolume;
-	}
-	private void SetVoiceVolume()
-	{
-		source.volume = Options.voiceVolume;
-	}
 	public float PlayClip( string clip )
 	{
 		AudioClip clp = null;
@@ -84,6 +69,20 @@ public class HeroAudio : MonoBehaviour
 			return clp.length;
 		}
 		return 0.0f;
+	}
+	private void Start()
+	{
+		source = GetComponent<AudioSource>();
+		Options.onChangedVoiceVolume += SetVoiceVolume;
+		SetVoiceVolume();
+	}
+	private void OnDestroy()
+	{
+		Options.onChangedVoiceVolume -= SetVoiceVolume;
+	}
+	private void SetVoiceVolume()
+	{
+		source.volume = Options.voiceVolume;
 	}
 	private void HeroSelectedSound()
 	{

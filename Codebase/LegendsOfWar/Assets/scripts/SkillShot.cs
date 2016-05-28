@@ -11,7 +11,21 @@ public class SkillShot : MonoBehaviour
 	public float projectileLifetime = 2.0f;
 	private bool isFired = false;
 	private float projectileTimer;
-
+	public void Fire()
+	{
+		isFired = true;
+	}
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+			Destroy( gameObject );
+		else if ( isFired )
+			projectileTimer -= Time.deltaTime;
+	}
 	private void FixedUpdate()
 	{
 		if ( isFired )
@@ -22,10 +36,6 @@ public class SkillShot : MonoBehaviour
 			else
 				Destroy( gameObject );
 		}
-	}
-	public void Fire()
-	{
-		isFired = true;
 	}
 	private void OnTriggerEnter( Collider col )
 	{
@@ -43,16 +53,5 @@ public class SkillShot : MonoBehaviour
 				if ( !HitMultiTarget )
 					Destroy( gameObject );
 			}
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
-			Destroy( gameObject );
-		else if ( isFired )
-			projectileTimer -= Time.deltaTime;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

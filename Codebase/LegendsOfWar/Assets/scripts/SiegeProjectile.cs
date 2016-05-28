@@ -7,7 +7,17 @@ public class SiegeProjectile : MonoBehaviour
 	private bool lazer = false;
 	public float projectileLifetime = 2.0f;
 	private float projectileTimer;
-
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+			Destroy( gameObject );
+		else
+			projectileTimer -= Time.deltaTime;
+	}
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject.GetComponent<Info>() )
@@ -26,16 +36,5 @@ public class SiegeProjectile : MonoBehaviour
 				}
 				Destroy( this.gameObject );
 			}
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
-			Destroy( gameObject );
-		else
-			projectileTimer -= Time.deltaTime;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

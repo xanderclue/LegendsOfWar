@@ -7,7 +7,21 @@ public class ProjectileBehaviour : MonoBehaviour
 	public float projectileLifetime = 3.0f;
 	private bool isFired = false;
 	private float projectileTimer;
-
+	public void Fire()
+	{
+		isFired = true;
+	}
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+			Destroy( gameObject );
+		else if ( isFired )
+			projectileTimer -= Time.deltaTime;
+	}
 	private void FixedUpdate()
 	{
 		if ( isFired )
@@ -21,10 +35,6 @@ public class ProjectileBehaviour : MonoBehaviour
 				Destroy( gameObject );
 		}
 	}
-	public void Fire()
-	{
-		isFired = true;
-	}
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject == target.gameObject )
@@ -32,16 +42,5 @@ public class ProjectileBehaviour : MonoBehaviour
 			col.gameObject.GetComponent<Info>().TakeDamage( damage );
 			Destroy( gameObject );
 		}
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
-			Destroy( gameObject );
-		else if ( isFired )
-			projectileTimer -= Time.deltaTime;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

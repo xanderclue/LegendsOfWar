@@ -7,7 +7,6 @@ public class Interactive : MonoBehaviour
 	private MinionInfo info;
 	public bool Selected
 	{ get { return selected; } }
-
 	private void Start()
 	{
 		Circle = transform.Find( "Selection Circle" ).gameObject;

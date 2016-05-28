@@ -61,7 +61,6 @@ public class IntroManager : MonoBehaviour
 	private bool SpawnMinionTutBlue = false;
 	private bool firstswitch = false;
 	private bool Welcome, Camera, Movement;
-
 	public void NextState()
 	{
 		currentState += 1;
@@ -86,6 +85,44 @@ public class IntroManager : MonoBehaviour
 	{
 		Movement = !Movement;
 	}
+	public void SpawnRedTankMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( RedTankMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+	}
+	public void SpawnRedCasterMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( RedCasterMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+	}
+	public void SpawnRedStrikerMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( RedStrikerMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
+	}
+	public void SpawnBlueTankMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( BlueTankMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
+	}
+	public void SpawnBlueCasterMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( BlueCasterMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
+	}
+	public void SpawnBlueStrikerMinion()
+	{
+		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
+		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
+			face );
+	}
+	public void TogglePause()
+	{
+		pause = !pause;
+		Time.timeScale = 1.0f - Time.timeScale;
+	}
 	private void Start()
 	{
 		PlayedIntro = false;
@@ -93,19 +130,6 @@ public class IntroManager : MonoBehaviour
 		pause = false;
 		Welcome = Camera = Movement = false;
 		StartCoroutine( LateStart( 0.001f ) );
-	}
-	private IEnumerator LateStart( float waitTime )
-	{
-		yield return new WaitForSeconds( waitTime );
-		MainGame.SetActive( false );
-		GameHUD.SetActive( false );
-		HeroTutorial.SetActive( false );
-		HeroHUD.SetActive( false );
-		for ( int i = 0; i < HeroInstructions.Length - 1; ++i )
-			HeroInstructions[ i ].SetActive( false );
-		MechanicsList.SetActive( false );
-		for ( int i = 0; i < Mechanics.Length - 1; ++i )
-			Mechanics[ i ].SetActive( false );
 	}
 	private void Update()
 	{
@@ -207,42 +231,17 @@ public class IntroManager : MonoBehaviour
 		if ( Player != null && Player.activeInHierarchy == false )
 			Death.SetActive( true );
 	}
-	public void SpawnRedTankMinion()
+	private IEnumerator LateStart( float waitTime )
 	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( RedTankMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
-	}
-	public void SpawnRedCasterMinion()
-	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( RedCasterMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
-	}
-	public void SpawnRedStrikerMinion()
-	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( RedStrikerMinion, RedSpawns[ Random.Range( 0, 5 ) ].transform.position, face );
-	}
-	public void SpawnBlueTankMinion()
-	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueTankMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
-			face );
-	}
-	public void SpawnBlueCasterMinion()
-	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueCasterMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
-			face );
-	}
-	public void SpawnBlueStrikerMinion()
-	{
-		Quaternion face = new Quaternion( 0.0f, 1.0f, 0.0f, 0.0f );
-		Instantiate( BlueStrikerMinion, MinionBlueSpawns[ Random.Range( 0, 5 ) ].transform.position,
-			face );
-	}
-	public void TogglePause()
-	{
-		pause = !pause;
-		Time.timeScale = 1.0f - Time.timeScale;
+		yield return new WaitForSeconds( waitTime );
+		MainGame.SetActive( false );
+		GameHUD.SetActive( false );
+		HeroTutorial.SetActive( false );
+		HeroHUD.SetActive( false );
+		for ( int i = 0; i < HeroInstructions.Length - 1; ++i )
+			HeroInstructions[ i ].SetActive( false );
+		MechanicsList.SetActive( false );
+		for ( int i = 0; i < Mechanics.Length - 1; ++i )
+			Mechanics[ i ].SetActive( false );
 	}
 }

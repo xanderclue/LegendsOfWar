@@ -85,7 +85,88 @@ public class EnemyAIManager : MonoBehaviour
 				Instance.Timer ) ) );
 		}
 	}
-
+	public void SpawnTankMinion( Team team, int lane )
+	{
+		switch ( lane )
+		{
+			case 1:
+				SetupMinion( Instantiate( redTank, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
+					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
+				break;
+			case 2:
+				SetupMinion( Instantiate( redTank, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
+					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
+				break;
+			case 3:
+				SetupMinion( Instantiate( redTank, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
+					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
+				break;
+			default:
+				return;
+		}
+	}
+	public void SpawnCasterMinion( Team team, int lane )
+	{
+		switch ( lane )
+		{
+			case 1:
+				SetupMinion( Instantiate( redCaster, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
+					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
+				break;
+			case 2:
+				SetupMinion( Instantiate( redCaster, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
+					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
+				break;
+			case 3:
+				SetupMinion( Instantiate( redCaster, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
+					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
+				break;
+			default:
+				return;
+		}
+	}
+	public void SpawnStrikerMinion( Team team, int lane )
+	{
+		switch ( lane )
+		{
+			case 1:
+				SetupMinion( Instantiate( redStriker, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
+					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
+				break;
+			case 2:
+				SetupMinion( Instantiate( redStriker, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
+					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
+				break;
+			case 3:
+				SetupMinion( Instantiate( redStriker, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
+					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
+				break;
+			default:
+				return;
+		}
+	}
+	public void SpawnSiegeMinion( Team team, HeroLocation lane )
+	{
+		switch ( lane )
+		{
+			case HeroLocation.BOT_Lane:
+				SetupMinion( Instantiate( siegeMinion, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
+					position, faceUp ), Path.SOUTH_PATH, Team.RED_TEAM );
+				break;
+			case HeroLocation.TOP_Lane:
+				SetupMinion( Instantiate( siegeMinion, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
+					position, faceDown ), Path.NORTH_PATH, Team.RED_TEAM );
+				break;
+			default:
+				SetupMinion( Instantiate( siegeMinion, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
+					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
+				return;
+		}
+	}
+	public void Destroyed()
+	{
+		--towersRemaining;
+	}
 	private void Start()
 	{
 		remainingHealth = redPortal.HP;
@@ -93,21 +174,6 @@ public class EnemyAIManager : MonoBehaviour
 		attackRange.triggerEnter += AttackRange_triggerEnter;
 		attackRange.triggerExit += AttackRange_triggerExit;
 		attackRange.CreateTrigger( 210.0f );
-	}
-	private void AttackRange_triggerExit( GameObject obj )
-	{
-		targets.Remove( obj.transform );
-	}
-	private void AttackRange_triggerEnter( GameObject obj )
-	{
-		if ( redPortal.Alive )
-			if ( obj && obj.CompareTag( "Minion" ) )
-				if ( obj.GetComponent<Info>().team == Team.BLUE_TEAM )
-					targets.Add( obj.transform );
-	}
-	public void Destroyed()
-	{
-		--towersRemaining;
 	}
 	private void Update()
 	{
@@ -295,23 +361,6 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			redPortal.DmgDamp = 10.0f * towersRemaining;
 	}
-	private DangerLevel GetTriggered( float _num )
-	{
-		if ( dangerTreshold >= 90.0f )
-			return DangerLevel.EXTREME;
-		else if ( dangerTreshold >= 75.0f )
-			return DangerLevel.CRITICAL;
-		else if ( _num >= 60.0f )
-			return DangerLevel.HIGH;
-		else if ( _num >= 45.0f )
-			return DangerLevel.MODERATE;
-		else if ( _num >= 30.0f )
-			return DangerLevel.MEDIUM;
-		else if ( _num >= 12.0f )
-			return DangerLevel.LOW;
-		else
-			return DangerLevel.MINIMAL;
-	}
 	private void FixedUpdate()
 	{
 #if DEBUG
@@ -352,11 +401,16 @@ public class EnemyAIManager : MonoBehaviour
 		else
 			lazer.autofire = false;
 	}
-	private void Nil()
+	private void AttackRange_triggerExit( GameObject obj )
 	{
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
+		targets.Remove( obj.transform );
+	}
+	private void AttackRange_triggerEnter( GameObject obj )
+	{
+		if ( redPortal.Alive )
+			if ( obj && obj.CompareTag( "Minion" ) )
+				if ( obj.GetComponent<Info>().team == Team.BLUE_TEAM )
+					targets.Add( obj.transform );
 	}
 	private void SetupMinion( Object _minion, Path lane, Team team )
 	{
@@ -366,82 +420,27 @@ public class EnemyAIManager : MonoBehaviour
 		nma.enabled = true;
 		nma.destination = bluePortal.gameObject.transform.position;
 	}
-	public void SpawnTankMinion( Team team, int lane )
+	private DangerLevel GetTriggered( float _num )
 	{
-		switch ( lane )
-		{
-			case 1:
-				SetupMinion( Instantiate( redTank, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
-					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-				break;
-			case 2:
-				SetupMinion( Instantiate( redTank, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
-					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-				break;
-			case 3:
-				SetupMinion( Instantiate( redTank, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
-					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-				break;
-			default:
-				return;
-		}
+		if ( dangerTreshold >= 90.0f )
+			return DangerLevel.EXTREME;
+		else if ( dangerTreshold >= 75.0f )
+			return DangerLevel.CRITICAL;
+		else if ( _num >= 60.0f )
+			return DangerLevel.HIGH;
+		else if ( _num >= 45.0f )
+			return DangerLevel.MODERATE;
+		else if ( _num >= 30.0f )
+			return DangerLevel.MEDIUM;
+		else if ( _num >= 12.0f )
+			return DangerLevel.LOW;
+		else
+			return DangerLevel.MINIMAL;
 	}
-	public void SpawnCasterMinion( Team team, int lane )
+	private void Nil()
 	{
-		switch ( lane )
-		{
-			case 1:
-				SetupMinion( Instantiate( redCaster, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
-					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-				break;
-			case 2:
-				SetupMinion( Instantiate( redCaster, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
-					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-				break;
-			case 3:
-				SetupMinion( Instantiate( redCaster, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
-					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-				break;
-			default:
-				return;
-		}
-	}
-	public void SpawnStrikerMinion( Team team, int lane )
-	{
-		switch ( lane )
-		{
-			case 1:
-				SetupMinion( Instantiate( redStriker, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
-					position, faceUp ), Path.NORTH_PATH, Team.RED_TEAM );
-				break;
-			case 2:
-				SetupMinion( Instantiate( redStriker, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
-					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-				break;
-			case 3:
-				SetupMinion( Instantiate( redStriker, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
-					position, faceDown ), Path.SOUTH_PATH, Team.RED_TEAM );
-				break;
-			default:
-				return;
-		}
-	}
-	public void SpawnSiegeMinion( Team team, HeroLocation lane )
-	{
-		switch ( lane )
-		{
-			case HeroLocation.BOT_Lane:
-				SetupMinion( Instantiate( siegeMinion, redPortal.LeftSpawn[ Random.Range( 0, 5 ) ].
-					position, faceUp ), Path.SOUTH_PATH, Team.RED_TEAM );
-				break;
-			case HeroLocation.TOP_Lane:
-				SetupMinion( Instantiate( siegeMinion, redPortal.RightSpawn[ Random.Range( 0, 5 ) ].
-					position, faceDown ), Path.NORTH_PATH, Team.RED_TEAM );
-				break;
-			default:
-				SetupMinion( Instantiate( siegeMinion, redPortal.MidSpawn[ Random.Range( 0, 5 ) ].
-					position, faceLeft ), Path.CENTER_PATH, Team.RED_TEAM );
-				return;
-		}
+		for ( int i = 0; i < targets.Count; ++i )
+			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+				targets.RemoveAt( i-- );
 	}
 }

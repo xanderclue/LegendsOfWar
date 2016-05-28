@@ -37,7 +37,15 @@ public abstract class AbilityBase : MonoBehaviour
 	}
 	public bool EnoughMana
 	{ get { return heroInfo.Mana >= abilityCost; } }
-
+	public void TryCast()
+	{
+		if ( GameManager.GameRunning )
+			if ( abilityEnabled )
+				if ( gameObject.activeInHierarchy )
+					if ( cooldownTimer <= 0.0f )
+						if ( heroInfo.UseMana( abilityCost ) )
+							AbilityActivate();
+	}
 	protected virtual void Start()
 	{
 		if ( m_effect.m_name == "" )
@@ -48,6 +56,12 @@ public abstract class AbilityBase : MonoBehaviour
 		cursor = GameManager.cursor;
 		if ( CursorIcon )
 			hotSpot.Set( CursorIcon.width * 0.5f, CursorIcon.height * 0.5f );
+	}
+	protected virtual void Update()
+	{
+		skillTimer -= Time.deltaTime;
+		if ( abilityOn && skillTimer <= 0.0f )
+			AbilityDeactivate();
 	}
 	protected virtual void AbilityActivate()
 	{
@@ -60,21 +74,6 @@ public abstract class AbilityBase : MonoBehaviour
 	{
 		abilityOn = false;
 		skillTimer = 0.0f;
-	}
-	public void TryCast()
-	{
-		if ( GameManager.GameRunning )
-			if ( abilityEnabled )
-				if ( gameObject.activeInHierarchy )
-					if ( cooldownTimer <= 0.0f )
-						if ( heroInfo.UseMana( abilityCost ) )
-							AbilityActivate();
-	}
-	protected virtual void Update()
-	{
-		skillTimer -= Time.deltaTime;
-		if ( abilityOn && skillTimer <= 0.0f )
-			AbilityDeactivate();
 	}
 	protected void ToggleCursor( bool _bool )
 	{

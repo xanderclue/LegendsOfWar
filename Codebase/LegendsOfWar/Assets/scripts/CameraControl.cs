@@ -64,7 +64,29 @@ public class CameraControl : MonoBehaviour
 				followPlayer = value;
 		}
 	}
-
+	public void ToggleCam()
+	{
+		if ( vantageCam.enabled )
+			SwitchToMainCam();
+		else
+			SwitchToVantageCam();
+		ResetMinimapCam();
+	}
+	public void SwitchToMainCam()
+	{
+		current = mainCam;
+		if ( !HeroCamScript.onHero )
+			mainCam.enabled = true;
+		vantageCam.enabled = false;
+		camBorder.enabled = true;
+	}
+	public void SwitchToVantageCam()
+	{
+		current = vantageCam;
+		vantageCam.enabled = true;
+		mainCam.enabled = false;
+		camBorder.enabled = false;
+	}
 	private void Awake()
 	{
 		inst = this;
@@ -80,20 +102,6 @@ public class CameraControl : MonoBehaviour
 		HeroCamScript.OnOnHero += OnOnHero;
 		GameManager.OnBlueWin += OnBlueWin;
 		GameManager.OnRedWin += OnRedWin;
-	}
-	private void OnDestroy()
-	{
-		HeroCamScript.OnOnHero -= OnOnHero;
-		GameManager.OnBlueWin -= OnBlueWin;
-		GameManager.OnRedWin -= OnRedWin;
-	}
-	private void OnRedWin()
-	{
-		mainCam.transform.position = new Vector3( 200.0f, 500.0f, 333.0f );
-	}
-	private void OnBlueWin()
-	{
-		mainCam.transform.position = new Vector3( 1000.0f, 500.0f, 333.0f );
 	}
 	private void Update()
 	{
@@ -121,36 +129,6 @@ public class CameraControl : MonoBehaviour
 			zoomTemp = Input.GetAxis( "Mouse ScrollWheel" ) + Input.GetAxis( "-=" );
 			if ( 0.0f != zoomTemp )
 				ZoomCam( -zoomTemp * zoomSpeed );
-		}
-	}
-	private void CheckCamera()
-	{
-		if ( Input.GetMouseButtonDown( 0 ) && !HeroCamScript.onHero )
-			StartClick = Input.mousePosition;
-		if ( Input.GetMouseButtonUp( 0 ) )
-			StartClick = -Vector3.one;
-		if ( Input.GetMouseButton( 0 ) )
-		{
-			Selection = new Rect( StartClick.x, Screen.height - StartClick.y, Input.mousePosition.x
-				- StartClick.x, StartClick.y - Input.mousePosition.y );
-			if ( Selection.width < 0.0f )
-			{
-				Selection.x += Selection.width;
-				Selection.width = -Selection.width;
-			}
-			if ( Selection.height < 0.0f )
-			{
-				Selection.y += Selection.height;
-				Selection.height = -Selection.height;
-			}
-		}
-	}
-	private void OnGUI()
-	{
-		if ( StartClick != -Vector3.one )
-		{
-			GUI.color = guiCol;
-			GUI.DrawTexture( Selection, SelectionHighlight );
 		}
 	}
 	private void LateUpdate()
@@ -198,6 +176,59 @@ public class CameraControl : MonoBehaviour
 				followPlayer = false;
 		}
 	}
+	private void OnGUI()
+	{
+		if ( StartClick != -Vector3.one )
+		{
+			GUI.color = guiCol;
+			GUI.DrawTexture( Selection, SelectionHighlight );
+		}
+	}
+	private void OnDestroy()
+	{
+		HeroCamScript.OnOnHero -= OnOnHero;
+		GameManager.OnBlueWin -= OnBlueWin;
+		GameManager.OnRedWin -= OnRedWin;
+	}
+	private void OnRedWin()
+	{
+		mainCam.transform.position = new Vector3( 200.0f, 500.0f, 333.0f );
+	}
+	private void OnBlueWin()
+	{
+		mainCam.transform.position = new Vector3( 1000.0f, 500.0f, 333.0f );
+	}
+	private void OnOnHero()
+	{
+		if ( !mainCam )
+			return;
+		mainCam.orthographicSize = 100.0f;
+		camBorder.transform.localScale = new Vector3( 0.2086875f * mainCam.aspect, 0.371f, 1.0f );
+		mainCam.fieldOfView = onHeroFov;
+		RecalcBoundaries();
+	}
+	private void CheckCamera()
+	{
+		if ( Input.GetMouseButtonDown( 0 ) && !HeroCamScript.onHero )
+			StartClick = Input.mousePosition;
+		if ( Input.GetMouseButtonUp( 0 ) )
+			StartClick = -Vector3.one;
+		if ( Input.GetMouseButton( 0 ) )
+		{
+			Selection = new Rect( StartClick.x, Screen.height - StartClick.y, Input.mousePosition.x
+				- StartClick.x, StartClick.y - Input.mousePosition.y );
+			if ( Selection.width < 0.0f )
+			{
+				Selection.x += Selection.width;
+				Selection.width = -Selection.width;
+			}
+			if ( Selection.height < 0.0f )
+			{
+				Selection.y += Selection.height;
+				Selection.height = -Selection.height;
+			}
+		}
+	}
 	private void RecalcZoomLimits()
 	{
 		aspectRatio = mainCam.aspect;
@@ -224,34 +255,6 @@ public class CameraControl : MonoBehaviour
 				, minXPos, maxXPos ), mainCam.transform.position.y, Mathf.Clamp( mainCam.transform.
 				position.z + dz, minZPos, maxZPos ) );
 	}
-	public void SwitchToMainCam()
-	{
-		current = mainCam;
-		if ( !HeroCamScript.onHero )
-			mainCam.enabled = true;
-		vantageCam.enabled = false;
-		camBorder.enabled = true;
-	}
-	public void SwitchToVantageCam()
-	{
-		current = vantageCam;
-		vantageCam.enabled = true;
-		mainCam.enabled = false;
-		camBorder.enabled = false;
-	}
-	private void ResetMinimapCam()
-	{
-		minimapCam.enabled = false;
-		minimapCam.enabled = true;
-	}
-	public void ToggleCam()
-	{
-		if ( vantageCam.enabled )
-			SwitchToMainCam();
-		else
-			SwitchToVantageCam();
-		ResetMinimapCam();
-	}
 	private void ZoomCam( float deltaSize )
 	{
 		if ( HeroCamScript.onHero )
@@ -264,13 +267,9 @@ public class CameraControl : MonoBehaviour
 			transform.position.y );
 		RecalcBoundaries();
 	}
-	private void OnOnHero()
+	private void ResetMinimapCam()
 	{
-		if ( !mainCam )
-			return;
-		mainCam.orthographicSize = 100.0f;
-		camBorder.transform.localScale = new Vector3( 0.2086875f * mainCam.aspect, 0.371f, 1.0f );
-		mainCam.fieldOfView = onHeroFov;
-		RecalcBoundaries();
+		minimapCam.enabled = false;
+		minimapCam.enabled = true;
 	}
 }

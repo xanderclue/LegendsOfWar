@@ -7,7 +7,6 @@ public class CasterE : AbilityEBase
 	private GameObject m_targetingSystem = null;
 	private ParticleSystem m_targetingEffect = null;
 	private RaycastHit m_targetHit;
-
 	protected override void Start()
 	{
 		base.Start();
@@ -16,29 +15,6 @@ public class CasterE : AbilityEBase
 		m_targetingEffect = m_targetingSystem.GetComponent<ParticleSystem>();
 		m_targetingEffect.Stop();
 		m_targetingEffect.Clear();
-	}
-	private void FixedUpdate()
-	{
-		if ( aimingSkill )
-			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
-				m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.
-					RED_TEAM )
-				{
-					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
-						.position;
-					m_targetingEffect.Play();
-					return;
-				}
-		if ( m_targetingEffect.isPlaying )
-			ResetSystem();
-	}
-	private void ResetSystem()
-	{
-		if ( m_targetingEffect.isPlaying )
-			m_targetingEffect.Stop();
-		m_targetingEffect.Clear();
-		m_targetingSystem.transform.localPosition = Vector3.zero;
 	}
 	protected override void Update()
 	{
@@ -68,5 +44,28 @@ public class CasterE : AbilityEBase
 			StatusEffects.Inflict( m_targetHit.collider.gameObject, Effect.CreateEffect() );
 			base.AbilityActivate();
 		}
+	}
+	private void FixedUpdate()
+	{
+		if ( aimingSkill )
+			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
+				m_targetHit, 150.0f, 1 ) )
+				if ( m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.
+					RED_TEAM )
+				{
+					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
+						.position;
+					m_targetingEffect.Play();
+					return;
+				}
+		if ( m_targetingEffect.isPlaying )
+			ResetSystem();
+	}
+	private void ResetSystem()
+	{
+		if ( m_targetingEffect.isPlaying )
+			m_targetingEffect.Stop();
+		m_targetingEffect.Clear();
+		m_targetingSystem.transform.localPosition = Vector3.zero;
 	}
 }

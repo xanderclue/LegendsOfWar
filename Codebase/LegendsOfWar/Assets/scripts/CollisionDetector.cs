@@ -4,7 +4,12 @@ public class CollisionDetector : MonoBehaviour
 {
 	public List<Collider> targetedEnemies;
 	public TankAbilityW w = null;
-
+	public void DealDamage( System.Action<Info> action )
+	{
+		foreach ( Collider _target in targetedEnemies )
+			if ( _target )
+				action( _target.gameObject.GetComponent<Info>() );
+	}
 	private void Awake()
 	{
 		targetedEnemies = new List<Collider>();
@@ -20,11 +25,5 @@ public class CollisionDetector : MonoBehaviour
 	{
 		if ( _target.GetComponent<Info>() != null )
 			targetedEnemies.Remove( _target );
-	}
-	public void DealDamage( System.Action<Info> action )
-	{
-		foreach ( Collider _target in targetedEnemies )
-			if ( _target )
-				action( _target.gameObject.GetComponent<Info>() );
 	}
 }

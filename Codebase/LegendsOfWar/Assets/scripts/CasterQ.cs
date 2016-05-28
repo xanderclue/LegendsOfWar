@@ -7,7 +7,6 @@ public class CasterQ : AbilityQBase
 	private GameObject m_targetingSystem = null;
 	private ParticleSystem m_targetingEffect = null;
 	private RaycastHit m_targetHit;
-
 	protected override void Start()
 	{
 		base.Start();
@@ -17,29 +16,6 @@ public class CasterQ : AbilityQBase
 		m_targetingEffect.Stop();
 		m_targetingEffect.Clear();
 		cooldownTime = 0.8f;
-	}
-	private void FixedUpdate()
-	{
-		if ( aimingSkill )
-			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
-				m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.tag == "Minion" && m_targetHit.collider.
-					gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
-				{
-					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
-						.position;
-					m_targetingEffect.Play();
-					return;
-				}
-		if ( m_targetingEffect.isPlaying )
-			ResetSystem();
-	}
-	private void ResetSystem()
-	{
-		if ( m_targetingEffect.isPlaying )
-			m_targetingEffect.Stop();
-		m_targetingEffect.Clear();
-		m_targetingSystem.transform.localPosition = Vector3.zero;
 	}
 	protected override void Update()
 	{
@@ -71,5 +47,28 @@ public class CasterQ : AbilityQBase
 				m_damage );
 			base.AbilityActivate();
 		}
+	}
+	private void FixedUpdate()
+	{
+		if ( aimingSkill )
+			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
+				m_targetHit, 150.0f, 1 ) )
+				if ( m_targetHit.collider.gameObject.tag == "Minion" && m_targetHit.collider.
+					gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
+				{
+					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
+						.position;
+					m_targetingEffect.Play();
+					return;
+				}
+		if ( m_targetingEffect.isPlaying )
+			ResetSystem();
+	}
+	private void ResetSystem()
+	{
+		if ( m_targetingEffect.isPlaying )
+			m_targetingEffect.Stop();
+		m_targetingEffect.Clear();
+		m_targetingSystem.transform.localPosition = Vector3.zero;
 	}
 }

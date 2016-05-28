@@ -31,7 +31,6 @@ public class HeroAbilities : MonoBehaviour
 				abilityDescEn;
 		}
 	}
-
 	private void Start()
 	{
 		GameManager.abilities.Add( this );

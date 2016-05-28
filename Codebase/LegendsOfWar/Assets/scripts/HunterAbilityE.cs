@@ -6,7 +6,6 @@ public class HunterAbilityE : AbilityEBase
 	[SerializeField]
 	private GameObject projectile = null, arrowSpawn = null, visualTarget = null;
 	private bool aiming = false;
-
 	protected override void Update()
 	{
 		Vector3 pos = transform.position + transform.forward * 50.0f;

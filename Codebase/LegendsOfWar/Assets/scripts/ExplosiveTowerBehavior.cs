@@ -11,7 +11,6 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 	private List<Transform> targets;
 	private ExplosiveProjectileInfo info;
 	private float fireTimer;
-
 	private void Awake()
 	{
 		targets = new List<Transform>();
@@ -19,19 +18,6 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 		detector.CreateTrigger( info.AgroRange );
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
-	}
-	private void AddTarget( GameObject obj )
-	{
-		if ( obj )
-		{
-			Info targ = obj.GetComponent<Info>();
-			if ( targ && targ.team != team )
-				targets.Add( obj.transform );
-		}
-	}
-	private void RemoveTarget( GameObject obj )
-	{
-		targets.Remove( obj.transform );
 	}
 	private void Update()
 	{
@@ -49,6 +35,19 @@ public class ExplosiveTowerBehavior : MonoBehaviour
 		}
 		else
 			fireTimer -= Time.deltaTime;
+	}
+	private void AddTarget( GameObject obj )
+	{
+		if ( obj )
+		{
+			Info targ = obj.GetComponent<Info>();
+			if ( targ && targ.team != team )
+				targets.Add( obj.transform );
+		}
+	}
+	private void RemoveTarget( GameObject obj )
+	{
+		targets.Remove( obj.transform );
 	}
 	private void FireAtTarget()
 	{

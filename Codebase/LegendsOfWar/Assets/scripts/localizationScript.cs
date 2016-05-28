@@ -6,7 +6,6 @@ public class localizationScript : MonoBehaviour
 	private string english = "", japanese = "";
 	private Text text;
 	private bool pendingChange = false;
-
 	private void Awake()
 	{
 		text = GetComponent<Text>();
@@ -16,10 +15,6 @@ public class localizationScript : MonoBehaviour
 		Options.onChangedLanguage += changeText;
 		changeText();
 	}
-	private void OnDestroy()
-	{
-		Options.onChangedLanguage -= changeText;
-	}
 	private void Update()
 	{
 		if ( pendingChange )
@@ -28,6 +23,10 @@ public class localizationScript : MonoBehaviour
 			text = GetComponent<Text>();
 			changeText();
 		}
+	}
+	private void OnDestroy()
+	{
+		Options.onChangedLanguage -= changeText;
 	}
 	private void changeText()
 	{

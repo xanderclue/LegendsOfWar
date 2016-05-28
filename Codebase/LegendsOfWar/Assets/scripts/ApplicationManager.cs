@@ -25,7 +25,10 @@ public class ApplicationManager : MonoBehaviour
 			return instance;
 		}
 	}
-
+	public static void ReturnToPreviousState()
+	{
+		Instance.ChangeAppState( Instance.prevState );
+	}
 	public void ChangeAppState( string nextState )
 	{
 		switch ( nextState )
@@ -97,15 +100,6 @@ public class ApplicationManager : MonoBehaviour
 			if ( SceneManager.GetActiveScene().name == "WorldMap" )
 				currentState = StateID.STATE_INGAME;
 		}
-	}
-	private void OnDestroy()
-	{
-		if ( this == instance )
-			instance = null;
-	}
-	public static void ReturnToPreviousState()
-	{
-		Instance.ChangeAppState( Instance.prevState );
 	}
 	private void Update()
 	{
@@ -209,5 +203,10 @@ public class ApplicationManager : MonoBehaviour
 			Time.timeScale = Mathf.Max( 0.0f, Time.timeScale * 0.99f );
 		else if ( Input.GetKey( KeyCode.F9 ) && GameManager.GameRunning )
 			Time.timeScale = 1.0f;
+	}
+	private void OnDestroy()
+	{
+		if ( this == instance )
+			instance = null;
 	}
 }

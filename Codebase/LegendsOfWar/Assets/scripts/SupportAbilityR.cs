@@ -1,7 +1,6 @@
 ﻿public class SupportAbilityR : AbilityRBase
 {
 	private Info[ ] entities;
-
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();

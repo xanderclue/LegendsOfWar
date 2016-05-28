@@ -12,7 +12,6 @@ public class heroCamDisabler : MonoBehaviour
 			return false;
 		}
 	}
-
 	private void Awake()
 	{
 		if ( null == disablers )

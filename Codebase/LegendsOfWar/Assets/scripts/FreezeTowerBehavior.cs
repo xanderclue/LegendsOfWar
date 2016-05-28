@@ -11,7 +11,6 @@ public class FreezeTowerBehavior : MonoBehaviour
 	private List<Transform> targets;
 	private FreezeProjectileInfo info;
 	private float fireTimer;
-
 	private void Awake()
 	{
 		targets = new List<Transform>();
@@ -19,20 +18,6 @@ public class FreezeTowerBehavior : MonoBehaviour
 		detector.CreateTrigger( info.AgroRange );
 		detector.triggerEnter += AddTarget;
 		detector.triggerExit += RemoveTarget;
-	}
-	private void AddTarget( GameObject obj )
-	{
-		if ( obj )
-		{
-			Info targ = obj.GetComponent<Info>();
-			if ( targ )
-				if ( targ.team != team )
-					targets.Add( obj.transform );
-		}
-	}
-	private void RemoveTarget( GameObject obj )
-	{
-		targets.Remove( obj.transform );
 	}
 	private void Update()
 	{
@@ -50,6 +35,20 @@ public class FreezeTowerBehavior : MonoBehaviour
 		}
 		else
 			fireTimer -= Time.deltaTime;
+	}
+	private void AddTarget( GameObject obj )
+	{
+		if ( obj )
+		{
+			Info targ = obj.GetComponent<Info>();
+			if ( targ )
+				if ( targ.team != team )
+					targets.Add( obj.transform );
+		}
+	}
+	private void RemoveTarget( GameObject obj )
+	{
+		targets.Remove( obj.transform );
 	}
 	private void FireAtTarget()
 	{

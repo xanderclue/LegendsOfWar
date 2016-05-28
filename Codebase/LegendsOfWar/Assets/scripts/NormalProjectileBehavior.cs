@@ -5,7 +5,22 @@ public class NormalProjectileBehavior : MonoBehaviour
 	public float projectileLifetime = 2.0f;
 	private bool fired = false;
 	private float projectileTimer;
-
+	public void Fire()
+	{
+		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );
+		fired = true;
+	}
+	private void Start()
+	{
+		projectileTimer = projectileLifetime;
+	}
+	private void Update()
+	{
+		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+			Destroy( gameObject );
+		else if ( fired )
+			projectileTimer -= Time.deltaTime;
+	}
 	private void FixedUpdate()
 	{
 		if ( !target || !target.gameObject.activeInHierarchy )
@@ -17,11 +32,6 @@ public class NormalProjectileBehavior : MonoBehaviour
 				ProjectileSpeed * Time.fixedDeltaTime, Space.World );
 		}
 	}
-	public void Fire()
-	{
-		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );
-		fired = true;
-	}
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( target && col.gameObject == target.gameObject )
@@ -30,16 +40,5 @@ public class NormalProjectileBehavior : MonoBehaviour
 				);
 			Destroy( gameObject );
 		}
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
-			Destroy( gameObject );
-		else if ( fired )
-			projectileTimer -= Time.deltaTime;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
 	}
 }

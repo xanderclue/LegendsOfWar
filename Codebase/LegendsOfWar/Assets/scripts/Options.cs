@@ -27,7 +27,6 @@ public class Options : MonoBehaviour
 	{ get { return SystemLanguage.Japanese == applicationLanguage; } }
 	private static string language
 	{ get; set; }
-
 	public static void Init()
 	{
 		IsAdditive = false;
@@ -55,21 +54,20 @@ public class Options : MonoBehaviour
 		if ( onChangedLanguage != null )
 			onChangedLanguage();
 	}
-	private void Awake()
+	public static void toggleLanguage_Static()
 	{
-		if ( IsAdditive )
-			menuCam.SetActive( false );
-	}
-	private void Start()
-	{
-		bgmSlider.normalizedValue = bgmVolume;
-		sfxSlider.normalizedValue = sfxVolume;
-		voiceSlider.normalizedValue = voiceVolume;
-	}
-	private void Update()
-	{
-		if ( Input.GetKeyDown( KeyCode.Escape ) )
-			ApplicationManager.ReturnToPreviousState();
+		switch ( applicationLanguage )
+		{
+			case SystemLanguage.English:
+				applicationLanguage = SystemLanguage.Japanese;
+				break;
+			default:
+				applicationLanguage = SystemLanguage.English;
+				break;
+		}
+		PlayerPrefs.SetString( "Language", Japanese ? "Japanese" : "English" );
+		if ( onChangedLanguage != null )
+			onChangedLanguage();
 	}
 	public void PlayTestSound()
 	{
@@ -104,19 +102,20 @@ public class Options : MonoBehaviour
 	{
 		toggleLanguage_Static();
 	}
-	public static void toggleLanguage_Static()
+	private void Awake()
 	{
-		switch ( applicationLanguage )
-		{
-			case SystemLanguage.English:
-				applicationLanguage = SystemLanguage.Japanese;
-				break;
-			default:
-				applicationLanguage = SystemLanguage.English;
-				break;
-		}
-		PlayerPrefs.SetString( "Language", Japanese ? "Japanese" : "English" );
-		if ( onChangedLanguage != null )
-			onChangedLanguage();
+		if ( IsAdditive )
+			menuCam.SetActive( false );
+	}
+	private void Start()
+	{
+		bgmSlider.normalizedValue = bgmVolume;
+		sfxSlider.normalizedValue = sfxVolume;
+		voiceSlider.normalizedValue = voiceVolume;
+	}
+	private void Update()
+	{
+		if ( Input.GetKeyDown( KeyCode.Escape ) )
+			ApplicationManager.ReturnToPreviousState();
 	}
 }

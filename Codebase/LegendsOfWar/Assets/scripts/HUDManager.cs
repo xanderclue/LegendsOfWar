@@ -15,7 +15,6 @@ public class HUDManager : MonoBehaviour
 	private HeroAbilities abilities;
 	private AbilityIcon aIcon;
 	private HeroIcon hIcon;
-
 	private void Start()
 	{
 		turnManager = GetComponent<TurnManager>();

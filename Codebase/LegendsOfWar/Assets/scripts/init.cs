@@ -7,12 +7,6 @@ public class init : MonoBehaviour
 	private GameObject audioManager = null;
 	private static bool appInited = false;
 	private static init inst;
-
-	private void Awake()
-	{
-		inst = this;
-		InitApp();
-	}
 	public static void InitApp()
 	{
 		if ( !appInited )
@@ -29,6 +23,11 @@ public class init : MonoBehaviour
 	}
 	public void Init()
 	{
+		InitApp();
+	}
+	private void Awake()
+	{
+		inst = this;
 		InitApp();
 	}
 }

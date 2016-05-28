@@ -42,7 +42,38 @@ public class HeroInfo : Info
 		get { return respawnTimer; }
 		set { respawnTimer = value; }
 	}
-
+	public void Deidle()
+	{
+		idleTimer = 25.0f;
+	}
+	public bool UseMana( float manaCost )
+	{
+		if ( mana - manaCost >= 0.0f )
+			mana -= manaCost;
+		else
+			return false;
+		HeroUIScript.Mana( manaCost, transform );
+		return true;
+	}
+	public void Respawn()
+	{
+		movement.ResetToSpawn();
+		mana = maxMana;
+		Alive = true;
+	}
+	protected override void Start()
+	{
+		base.Start();
+		movement = GetComponent<HeroMovement>();
+		mana = maxMana;
+		dontDestroy = true;
+		Attacked += HeroAttacked;
+		Destroyed += HeroDeath;
+		if ( GameManager.Avail )
+			GameManager.Instance.AddHero( this );
+		heroAudio = GetComponent<HeroAudio>();
+		idleTimer = 8.0f;
+	}
 	private void Update()
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
@@ -67,19 +98,6 @@ public class HeroInfo : Info
 		else if ( heroAudio.CHeroTaunt2 )
 			tauntTimer = heroAudio.PlayClip( "HeroTaunt2" );
 	}
-	protected override void Start()
-	{
-		base.Start();
-		movement = GetComponent<HeroMovement>();
-		mana = maxMana;
-		dontDestroy = true;
-		Attacked += HeroAttacked;
-		Destroyed += HeroDeath;
-		if ( GameManager.Avail )
-			GameManager.Instance.AddHero( this );
-		heroAudio = GetComponent<HeroAudio>();
-		idleTimer = 8.0f;
-	}
 	private void PlayIdle()
 	{
 		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
@@ -88,19 +106,6 @@ public class HeroInfo : Info
 			heroAudio.PlayClip( "HeroIdle1" );
 		else if ( heroAudio.CHeroIdle2 )
 			heroAudio.PlayClip( "HeroIdle2" );
-	}
-	public void Deidle()
-	{
-		idleTimer = 25.0f;
-	}
-	public bool UseMana( float manaCost )
-	{
-		if ( mana - manaCost >= 0.0f )
-			mana -= manaCost;
-		else
-			return false;
-		HeroUIScript.Mana( manaCost, transform );
-		return true;
 	}
 	private void HeroAttacked()
 	{
@@ -114,11 +119,5 @@ public class HeroInfo : Info
 		respawnTimer = respawnTime;
 		respawnTime += respawnIncrement;
 		mana = 0.0f;
-	}
-	public void Respawn()
-	{
-		movement.ResetToSpawn();
-		mana = maxMana;
-		Alive = true;
 	}
 }

@@ -9,12 +9,6 @@ public class shopEvents : MonoBehaviour
 	private bool upgrade;
 	private bool laneSelect;
 	private float updateTimer, timer;
-
-	private void Awake()
-	{
-		ClosePanel();
-		ShopManager.Instance.UpdateValues = true;
-	}
 	public void OpenPanel( string item )
 	{
 		laneSelect = true;
@@ -83,6 +77,11 @@ public class shopEvents : MonoBehaviour
 	public void PurchaseRUpgrade()
 	{
 		ShopManager.Instance.PurchaseUpgrade( team, Items.RLvl );
+	}
+	private void Awake()
+	{
+		ClosePanel();
+		ShopManager.Instance.UpdateValues = true;
 	}
 	private void Start()
 	{

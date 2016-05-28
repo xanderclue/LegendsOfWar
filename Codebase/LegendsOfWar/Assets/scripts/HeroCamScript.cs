@@ -99,7 +99,39 @@ public class HeroCamScript : MonoBehaviour
 			}
 		}
 	}
-
+	public void SwitchView()
+	{
+		if ( !info )
+			return;
+		switch ( state )
+		{
+			case CamTransitionState.OnMain:
+				if ( !info.Alive )
+					return;
+				heroCam.fieldOfView = mainCam.fieldOfView;
+				transform.position = mainCameraTransform.position;
+				transform.rotation = mainCameraTransform.rotation;
+				heroCam.enabled = true;
+				mainCam.enabled = false;
+				state = CamTransitionState.Main2Hero;
+				break;
+			case CamTransitionState.Main2Hero:
+				state = CamTransitionState.Hero2Main;
+				break;
+			case CamTransitionState.OnHero:
+				state = CamTransitionState.Hero2Main;
+				HudTextShowsQWER = true;
+				break;
+			case CamTransitionState.Hero2Main:
+				if ( !info.Alive )
+					return;
+				state = CamTransitionState.Main2Hero;
+				break;
+			default:
+				break;
+		}
+		AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
+	}
 	private void Start()
 	{
 		mainCam = mainCameraTransform.gameObject.GetComponent<Camera>();
@@ -113,36 +145,6 @@ public class HeroCamScript : MonoBehaviour
 		mouseVerticalStart = -0.5f * Input.mousePosition.y;
 		Options.onChangedLanguage += SetHMStrings;
 		SetHMStrings();
-	}
-	private void OnDestroy()
-	{
-		Options.onChangedLanguage -= SetHMStrings;
-	}
-	private void SetHMStrings()
-	{
-		if ( Options.Japanese )
-			enterHM = exitHM = "(C) ヒーロ モード";
-		else
-		{
-			enterHM = "(C) Enter Hero Mode";
-			exitHM = "(C) Exit Hero Mode";
-		}
-	}
-	private void CalcHeroCamPosition()
-	{
-		maxDistance = Vector3.Distance( heroCenter.position, heroTransformMax.position );
-		hits = Physics.RaycastAll( heroCenter.position, heroTransformMax.position - heroCenter.
-			position, maxDistance );
-		forceDistance = maxDistance;
-		foreach ( RaycastHit hit in hits )
-		{
-			hitLayerName = LayerMask.LayerToName( hit.collider.gameObject.layer );
-			if ( "Terrain" == hitLayerName || "Trees and Rocks" == hitLayerName )
-				if ( hit.distance <= forceDistance )
-					forceDistance = hit.distance;
-		}
-		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * (
-			forceDistance / maxDistance ) + heroCenter.position;
 	}
 	private void Update()
 	{
@@ -186,6 +188,36 @@ public class HeroCamScript : MonoBehaviour
 			default:
 				break;
 		}
+	}
+	private void OnDestroy()
+	{
+		Options.onChangedLanguage -= SetHMStrings;
+	}
+	private void SetHMStrings()
+	{
+		if ( Options.Japanese )
+			enterHM = exitHM = "(C) ヒーロ モード";
+		else
+		{
+			enterHM = "(C) Enter Hero Mode";
+			exitHM = "(C) Exit Hero Mode";
+		}
+	}
+	private void CalcHeroCamPosition()
+	{
+		maxDistance = Vector3.Distance( heroCenter.position, heroTransformMax.position );
+		hits = Physics.RaycastAll( heroCenter.position, heroTransformMax.position - heroCenter.
+			position, maxDistance );
+		forceDistance = maxDistance;
+		foreach ( RaycastHit hit in hits )
+		{
+			hitLayerName = LayerMask.LayerToName( hit.collider.gameObject.layer );
+			if ( "Terrain" == hitLayerName || "Trees and Rocks" == hitLayerName )
+				if ( hit.distance <= forceDistance )
+					forceDistance = hit.distance;
+		}
+		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * (
+			forceDistance / maxDistance ) + heroCenter.position;
 	}
 	private void MouseVerticalAxis()
 	{
@@ -233,39 +265,6 @@ public class HeroCamScript : MonoBehaviour
 				}
 			}
 		}
-	}
-	public void SwitchView()
-	{
-		if ( !info )
-			return;
-		switch ( state )
-		{
-			case CamTransitionState.OnMain:
-				if ( !info.Alive )
-					return;
-				heroCam.fieldOfView = mainCam.fieldOfView;
-				transform.position = mainCameraTransform.position;
-				transform.rotation = mainCameraTransform.rotation;
-				heroCam.enabled = true;
-				mainCam.enabled = false;
-				state = CamTransitionState.Main2Hero;
-				break;
-			case CamTransitionState.Main2Hero:
-				state = CamTransitionState.Hero2Main;
-				break;
-			case CamTransitionState.OnHero:
-				state = CamTransitionState.Hero2Main;
-				HudTextShowsQWER = true;
-				break;
-			case CamTransitionState.Hero2Main:
-				if ( !info.Alive )
-					return;
-				state = CamTransitionState.Main2Hero;
-				break;
-			default:
-				break;
-		}
-		AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
 	}
 	private void CamOnMain()
 	{

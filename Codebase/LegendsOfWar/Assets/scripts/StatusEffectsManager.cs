@@ -19,14 +19,6 @@ public class StatusEffectsManager : MonoBehaviour
 			return inst;
 		}
 	}
-
-	private void Awake()
-	{
-		if ( inst )
-			Destroy( this );
-		else
-			inst = this;
-	}
 	public void AddStatus( string _nameKey, Effect _effect )
 	{
 		if ( !objects.ContainsKey( _nameKey ) )
@@ -69,5 +61,12 @@ public class StatusEffectsManager : MonoBehaviour
 			return objects[ _nameKey ][ _skillName ].m_stacks;
 		else
 			return 0;
+	}
+	private void Awake()
+	{
+		if ( inst )
+			Destroy( this );
+		else
+			inst = this;
 	}
 }

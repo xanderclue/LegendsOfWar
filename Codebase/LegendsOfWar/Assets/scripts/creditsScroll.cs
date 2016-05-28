@@ -4,7 +4,6 @@ public class creditsScroll : MonoBehaviour
 	[SerializeField]
 	private float speed = 0.0f, initialY = 0.0f, finalY = 0.0f;
 	private Vector3 position;
-
 	private void Start()
 	{
 		position = transform.localPosition;

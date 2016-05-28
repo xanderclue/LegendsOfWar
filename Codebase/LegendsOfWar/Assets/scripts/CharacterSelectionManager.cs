@@ -15,7 +15,6 @@ public class CharacterSelectionManager : MonoBehaviour
 	{ get { return LegendChoice.GetComponent<HeroInfo>(); } }
 	public bool[ ] Available
 	{ get { return available; } }
-
 	public static void ChangedCharacter()
 	{
 		if ( OnChangedCharacter != null )

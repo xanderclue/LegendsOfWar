@@ -11,7 +11,6 @@ public class MinionAttack : AttackScript
 	private float second = 1.0f;
 	private float effectTime = 0.5f;
 	private bool psEnabled = false;
-
 	private void Start()
 	{
 		Minioninfo = GetComponent<MinionInfo>();
@@ -20,17 +19,6 @@ public class MinionAttack : AttackScript
 		attackTrigger.triggerExit += AttackTriggerExit;
 		targets = new List<Transform>();
 		movement = GetComponent<MinionMovement>();
-	}
-	private void AttackTriggerEnter( GameObject obj )
-	{
-		if ( this.isActiveAndEnabled )
-			if ( obj && obj.activeInHierarchy )
-			{
-				Info targ = obj.GetComponent<Info>();
-				if ( targ )
-					if ( targ.team != Minioninfo.team )
-						targets.Add( obj.transform );
-			}
 	}
 	private void Update()
 	{
@@ -67,6 +55,17 @@ public class MinionAttack : AttackScript
 			attackParticles.Stop();
 			effectTime = 0.25f;
 		}
+	}
+	private void AttackTriggerEnter( GameObject obj )
+	{
+		if ( this.isActiveAndEnabled )
+			if ( obj && obj.activeInHierarchy )
+			{
+				Info targ = obj.GetComponent<Info>();
+				if ( targ )
+					if ( targ.team != Minioninfo.team )
+						targets.Add( obj.transform );
+			}
 	}
 	private void AttackTriggerExit( GameObject obj )
 	{
