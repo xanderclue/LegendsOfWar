@@ -10,8 +10,8 @@ public class AssassinAbilityW : AbilityWBase
 	[SerializeField]
 	protected GameObject weapon, projectile;
 	public GameObject[ ] Marked;
-
 	private static int MarkNum = 0;
+
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();

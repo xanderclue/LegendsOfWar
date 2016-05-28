@@ -8,10 +8,16 @@ public class AudioManager : MonoBehaviour
 		null, TowerProjectile = null, PortalDestroyed = null, PortalAttacked = null, TowerDestroyed
 		= null, TowerAttacked = null, MinionAttack = null, MinionAttacked = null, MinionDeath = null
 		, HeroAttacked = null, HeroDeath = null, ClickSound = null;
-
+	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn,
+	sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
+	sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,
+	sfxHeroDeath, sfxClickSound;
 	private static Transform listenerTransform = null;
 	private static AudioSource BgmSource;
 	private static AudioSource SfxSource = null;
+	private static AudioManager instance = null;
+	private static AudioSource singleAud = null;
+
 	public static Vector3 ListenerPosition
 	{
 		get
@@ -21,11 +27,6 @@ public class AudioManager : MonoBehaviour
 			return Vector3.zero;
 		}
 	}
-	public static AudioClip bgmGame, bgmMenu, bgmEndGame, sfxHeroCam, sfxWaveSpawn,
-		sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
-		sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,
-		sfxHeroDeath, sfxClickSound;
-	private static AudioManager instance = null;
 	public static AudioManager Instance { get { return instance; } }
 	private void Awake()
 	{
@@ -192,7 +193,6 @@ public class AudioManager : MonoBehaviour
 		if ( SfxSource )
 			clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
 	}
-	private static AudioSource singleAud = null;
 	public static void KillSingle()
 	{
 		if ( singleAud )

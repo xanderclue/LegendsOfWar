@@ -10,6 +10,7 @@ public class ApplicationManager : MonoBehaviour
 {
 	public bool transitioning = false;
 	public StateID currentState = StateID.STATE_MAIN_MENU, prevState = StateID.STATE_MAIN_MENU;
+	private static ApplicationManager instance = null;
 
 	public void ChangeAppState( string nextState )
 	{
@@ -71,7 +72,6 @@ public class ApplicationManager : MonoBehaviour
 	{
 		return currentState;
 	}
-	private static ApplicationManager instance = null;
 	public static ApplicationManager Instance
 	{
 		get

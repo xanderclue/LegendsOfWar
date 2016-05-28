@@ -3,6 +3,7 @@ using UnityEngine.UI;
 public class overlay : MonoBehaviour
 {
 	private static overlay inst = null;
+
 	private float invDuration = 0.0f, time = 0.0f, level = 0.0f;
 	private Image image;
 	private Color empty = new Color( 0.0f, 0.0f, 0.0f, 0.0f );

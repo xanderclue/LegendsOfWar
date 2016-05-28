@@ -5,6 +5,7 @@ public class EconomyManager : MonoBehaviour
 	private float startingAmount = 100.0f, waveAmount = 10.0f;
 	public delegate void goldChangedEvent();
 	public event goldChangedEvent OnGainGold;
+	private static EconomyManager instance = null;
 
 	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	public void StartingGame()
@@ -59,7 +60,6 @@ public class EconomyManager : MonoBehaviour
 	}
 	public float BlueGold { get { return blueTeamGold; } }
 	public float RedGold { get { return redTeamGold; } }
-	private static EconomyManager instance = null;
 	public static EconomyManager Instance
 	{
 		get

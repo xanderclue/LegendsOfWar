@@ -18,12 +18,13 @@ public class CameraControl : MonoBehaviour
 	private const float scrollDistance = 2.5f;
 	private static readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
 	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
-
 	public static Rect Selection = new Rect( 0, 0, 0, 0 );
+	private static CameraControl inst = null;
+	private static Camera main, vantage, current;
+
 	private Vector3 StartClick = -Vector3.one;
 	private Vector3 Origin;
 	private Vector3 Difference;
-	private static CameraControl inst = null;
 	public static CameraControl instance { get { return inst; } }
 	private void Awake()
 	{
@@ -33,7 +34,6 @@ public class CameraControl : MonoBehaviour
 		1.0f;
 	private float aspectRatio = 0.0f;
 	private bool followPlayer = false;
-	private static Camera main, vantage, current;
 	public static Camera Main { get { return main; } }
 	public static Camera Vantage { get { return vantage; } }
 	public static Camera Current

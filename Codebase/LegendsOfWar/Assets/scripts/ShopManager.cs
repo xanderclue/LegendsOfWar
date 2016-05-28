@@ -13,6 +13,7 @@ public class ShopManager : MonoBehaviour
 	public float strikerHpUpgrade = 10, strikerDamageUpgrade = 5, strikerAttackspeedUpgrade = 10,
 		tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5,
 		casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
+	private static ShopManager instance = null;
 
 	private int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	public int[ ] Purchases { get { return purchases; } }
@@ -135,7 +136,6 @@ public class ShopManager : MonoBehaviour
 		}
 		UpdateValues = true;
 	}
-	private static ShopManager instance = null;
 	public static ShopManager Instance
 	{
 		get

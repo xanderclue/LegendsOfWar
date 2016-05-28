@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class heroCamDisabler : MonoBehaviour
 {
 	private static List<heroCamDisabler> disablers;
+
 	private void Awake()
 	{
 		if ( null == disablers )

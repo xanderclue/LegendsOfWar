@@ -5,6 +5,7 @@ public class sub : MonoBehaviour
 	private static sub inst = null;
 	private static Text text = null;
 	private static float timer = -0.0f;
+
 	private void Awake()
 	{
 		inst = this;

@@ -8,6 +8,7 @@ public class TowerManager : MonoBehaviour
 	[SerializeField]
 	private bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false,
 		blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
+	private static TowerManager instance = null;
 
 	private bool blueShotChanged = false;
 	public bool BlueShotChanged { get { return blueShotChanged; } }
@@ -121,7 +122,6 @@ public class TowerManager : MonoBehaviour
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;
 	}
-	private static TowerManager instance = null;
 	public static TowerManager Instance
 	{
 		get

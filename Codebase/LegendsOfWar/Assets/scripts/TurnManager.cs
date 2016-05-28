@@ -13,8 +13,13 @@ public class TurnManager : MonoBehaviour
 	[SerializeField]
 	private Light[ ] spotlights = null;
 	private const int m = ( int )Character.Total - 1;
-
 	private static TurnManager inst;
+	private static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f
+		), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
+		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
+			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
+				0.0f ) };
+
 	public static TurnManager Instance { get { return inst; } }
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
@@ -122,11 +127,6 @@ public class TurnManager : MonoBehaviour
 	{
 		inst = null;
 	}
-	private static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f
-		), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
-		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
-			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
-				0.0f ) };
 	private bool check( Quaternion rot )
 	{
 		return Quaternion.Angle( rot, rotations[ CurrentInt ] ) < 3.0f;

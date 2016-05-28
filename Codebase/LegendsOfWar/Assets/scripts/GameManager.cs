@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
 		0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp
 		= new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f,
 			0.0f );
+	public static bool WebPlayerMode = false;
+	public static float topSplitZ, botSplitZ;
+	public static List<HeroAbilities> abilities;
+	private static GameManager instance = null;
 
 	public static bool Tutorial
 	{
@@ -56,15 +60,12 @@ public class GameManager : MonoBehaviour
 			return false;
 		}
 	}
-	public static bool WebPlayerMode = false;
 	private bool gameRunning = false;
 	public static HudScript Hud { get { return instance.hudScript; } }
-	public static float topSplitZ, botSplitZ;
 	public static GameObject cursor { get { return instance.cursorObject; } }
 	private float waveTimer;
 	private float timer;
 	private int wave = 0;
-	public static List<HeroAbilities> abilities;
 	public static bool Avail { get { return instance != null; } }
 	public static bool GameRunning
 	{
@@ -207,7 +208,6 @@ public class GameManager : MonoBehaviour
 				button.enabled = value;
 		}
 	}
-	private static GameManager instance = null;
 	public static GameManager Instance
 	{
 		get

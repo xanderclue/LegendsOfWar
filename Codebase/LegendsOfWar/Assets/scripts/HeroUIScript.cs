@@ -9,9 +9,9 @@ public class HeroUIScript : MonoBehaviour
 	private float AttackedNotificationDuration = 5.0f;
 	[SerializeField]
 	private AudioSource heroWarning = null;
-
 	public static float heroDamageNotifTimer = 0.0f;
 	private static HeroUIScript inst;
+
 	public static HeroUIScript Instance { get { return inst; } }
 	private void Awake()
 	{

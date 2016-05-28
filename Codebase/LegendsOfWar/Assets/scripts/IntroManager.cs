@@ -55,8 +55,6 @@ public class IntroManager : MonoBehaviour
 	private GameObject Player = null;
 	public bool pause = false;
 
-	private static IntroManager inst = null;
-	public static IntroManager instance { get { return inst; } }
 	private bool PlayedIntro = false;
 	private bool HeroInstanciate = false;
 	private STATES currentState = STATES.STATE_INTRO;

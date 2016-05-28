@@ -19,11 +19,12 @@ public class HeroCamScript : MonoBehaviour
 		hudTextAbilityR = null;
 	public delegate void voidDel();
 	public static event voidDel OnOnHero;
+	public static HeroCamScript inst;
+	private static string enterHM, exitHM;
 
 	private Camera mainCam, heroCam;
 	private float tValue = 0.0f;
 	private CamTransitionState state = CamTransitionState.OnMain;
-	public static HeroCamScript inst;
 	private Button buttonSwitch;
 	private Text textSwitch;
 	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
@@ -49,7 +50,6 @@ public class HeroCamScript : MonoBehaviour
 		}
 	}
 	private bool cameraReady = false;
-	private static string enterHM, exitHM;
 	private void Start()
 	{
 		mainCam = mainCameraTransform.gameObject.GetComponent<Camera>();
