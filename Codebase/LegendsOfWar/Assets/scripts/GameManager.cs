@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 	private List<Button> buttons = null;
 	[SerializeField]
 	private ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
+	public delegate void GameEndEvent();
+	public static event GameEndEvent OnBlueWin, OnRedWin;
 
 	public static bool Tutorial
 	{
@@ -246,8 +248,6 @@ public class GameManager : MonoBehaviour
 		ExitBlue.gameObject.SetActive( false );
 		ExitRed.gameObject.SetActive( false );
 	}
-	public delegate void GameEndEvent();
-	public static event GameEndEvent OnBlueWin, OnRedWin;
 	private IEnumerator GameEnding()
 	{
 		gameEnded = true;

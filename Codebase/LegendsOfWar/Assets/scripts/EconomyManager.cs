@@ -3,6 +3,8 @@ public class EconomyManager : MonoBehaviour
 {
 	[SerializeField]
 	private float startingAmount = 100.0f, waveAmount = 10.0f;
+	public delegate void goldChangedEvent();
+	public event goldChangedEvent OnGainGold;
 
 	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
 	public void StartingGame()
@@ -50,8 +52,6 @@ public class EconomyManager : MonoBehaviour
 		if ( OnGainGold != null )
 			OnGainGold();
 	}
-	public delegate void goldChangedEvent();
-	public event goldChangedEvent OnGainGold;
 	public void NewWave()
 	{
 		GiveGold( Team.BLUE_TEAM, waveAmount );

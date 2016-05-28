@@ -3,9 +3,9 @@ public class Detector : MonoBehaviour
 {
 	[SerializeField]
 	private SphereCollider detectionSphere = null;
-
 	public delegate void triggerEvent( GameObject obj );
 	public event triggerEvent triggerEnter, triggerExit;
+
 	private void Start()
 	{
 		if ( !detectionSphere )

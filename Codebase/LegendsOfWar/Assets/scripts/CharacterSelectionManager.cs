@@ -3,13 +3,13 @@ public class CharacterSelectionManager : MonoBehaviour
 {
 	public GameObject[ ] Legends;
 	public int Index;
+	public delegate void ChangedCharacterEvent();
+	public static event ChangedCharacterEvent OnChangedCharacter;
 
 	private static CharacterSelectionManager inst;
 	public static CharacterSelectionManager Instance { get { return inst; } }
 	private bool[ ] available;
 	public bool[ ] Available { get { return available; } }
-	public delegate void ChangedCharacterEvent();
-	public static event ChangedCharacterEvent OnChangedCharacter;
 	public static void ChangedCharacter()
 	{
 		if ( OnChangedCharacter != null )

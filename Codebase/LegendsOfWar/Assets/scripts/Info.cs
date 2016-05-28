@@ -7,6 +7,8 @@ public class Info : MonoBehaviour
 	public Team team = Team.BLUE_TEAM;
 	[SerializeField]
 	protected float attackSpeed, agroRange, attackRange, damage;
+	public delegate void HpChangedEvent();
+	public event HpChangedEvent Attacked, Destroyed;
 
 	private float currHP;
 	private bool isAlive = false;
@@ -81,6 +83,4 @@ public class Info : MonoBehaviour
 		}
 	}
 	public float MAXHP { get { return MaxHP; } set { MaxHP = value; } }
-	public delegate void HpChangedEvent();
-	public event HpChangedEvent Attacked, Destroyed;
 }

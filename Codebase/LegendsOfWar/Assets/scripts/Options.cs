@@ -8,12 +8,12 @@ public class Options : MonoBehaviour
 	private GameObject menuCam = null;
 	[SerializeField]
 	private AudioClip voice = null;
-
 	public delegate void optionsChangedEvent();
 	public static event optionsChangedEvent onChangedLanguage;
 	public static event optionsChangedEvent onChangedBgmVolume;
 	public static event optionsChangedEvent onChangedSfxVolume;
 	public static event optionsChangedEvent onChangedVoiceVolume;
+
 	public static bool IsAdditive { get; set; }
 	public static SystemLanguage applicationLanguage { get; private set; }
 	public static float bgmVolume { get; private set; }

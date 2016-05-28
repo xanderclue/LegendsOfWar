@@ -17,6 +17,8 @@ public class HeroCamScript : MonoBehaviour
 	[SerializeField]
 	private Text hudTextAbilityQ = null, hudTextAbilityW = null, hudTextAbilityE = null,
 		hudTextAbilityR = null;
+	public delegate void voidDel();
+	public static event voidDel OnOnHero;
 
 	private Camera mainCam, heroCam;
 	private float tValue = 0.0f;
@@ -326,8 +328,6 @@ public class HeroCamScript : MonoBehaviour
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
 		}
 	}
-	public delegate void voidDel();
-	public static event voidDel OnOnHero;
 	private bool hudTextShowsQWER = true;
 	private bool HudTextShowsQWER
 	{

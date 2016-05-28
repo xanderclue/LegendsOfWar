@@ -15,12 +15,12 @@ public class HudScript : MonoBehaviour
 	private Button buttonHM = null;
 	[SerializeField]
 	private Text heroBeingAttackedText = null;
+	public delegate void MiniMapInput( RaycastHit _hit );
+	public event MiniMapInput GrabHit;
 
 	private HeroAbilities abilities;
 	private RaycastHit hit;
 	private Image qIm, wIm, eIm, rIm;
-	public delegate void MiniMapInput( RaycastHit _hit );
-	public event MiniMapInput GrabHit;
 	private void Start()
 	{
 		hero = GameManager.Instance.Player;
