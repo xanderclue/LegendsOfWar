@@ -11,6 +11,20 @@ public class ApplicationManager : MonoBehaviour
 	public bool transitioning = false;
 	public StateID currentState = StateID.STATE_MAIN_MENU, prevState = StateID.STATE_MAIN_MENU;
 	private static ApplicationManager instance = null;
+	public static ApplicationManager Instance
+	{
+		get
+		{
+			if ( !instance )
+			{
+				instance = FindObjectOfType<ApplicationManager>();
+				if ( !instance )
+					instance = new GameObject( "ApplicationManager" ).AddComponent<
+						ApplicationManager>();
+			}
+			return instance;
+		}
+	}
 
 	public void ChangeAppState( string nextState )
 	{
@@ -71,20 +85,6 @@ public class ApplicationManager : MonoBehaviour
 	public StateID GetAppState()
 	{
 		return currentState;
-	}
-	public static ApplicationManager Instance
-	{
-		get
-		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<ApplicationManager>();
-				if ( !instance )
-					instance = new GameObject( "ApplicationManager" ).AddComponent<
-						ApplicationManager>();
-			}
-			return instance;
-		}
 	}
 	private void Awake()
 	{

@@ -13,7 +13,6 @@ public class Info : MonoBehaviour
 	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
 	private float currHP;
 	private bool isAlive = false;
-
 	public float DmgAmp
 	{
 		get { return dmgAmp; }
@@ -24,6 +23,40 @@ public class Info : MonoBehaviour
 		get { return dmgDamp; }
 		set { dmgDamp = value; }
 	}
+	public bool Alive
+	{
+		get { return isAlive; }
+		protected set
+		{
+			if ( value && !isAlive )
+			{
+				currHP = MaxHP;
+				isAlive = true;
+				gameObject.SetActive( true );
+			}
+			else if ( isAlive && !value )
+			{
+				TakeDamage( currHP + 1.0f );
+			}
+		}
+	}
+	public float HP
+	{
+		get { return currHP; }
+		set
+		{
+			if ( value <= 0.0f )
+				TakeDamage( currHP - value );
+			else
+				currHP = Mathf.Min( value, MaxHP );
+		}
+	}
+	public float MAXHP
+	{
+		get { return MaxHP; }
+		set { MaxHP = value; }
+	}
+
 	protected virtual void Start()
 	{
 		currHP = MaxHP;
@@ -54,33 +87,4 @@ public class Info : MonoBehaviour
 				Destroyed();
 		}
 	}
-	public bool Alive
-	{
-		get { return isAlive; }
-		protected set
-		{
-			if ( value && !isAlive )
-			{
-				currHP = MaxHP;
-				isAlive = true;
-				gameObject.SetActive( true );
-			}
-			else if ( isAlive && !value )
-			{
-				TakeDamage( currHP + 1.0f );
-			}
-		}
-	}
-	public float HP
-	{
-		get { return currHP; }
-		set
-		{
-			if ( value <= 0.0f )
-				TakeDamage( currHP - value );
-			else
-				currHP = Mathf.Min( value, MaxHP );
-		}
-	}
-	public float MAXHP { get { return MaxHP; } set { MaxHP = value; } }
 }

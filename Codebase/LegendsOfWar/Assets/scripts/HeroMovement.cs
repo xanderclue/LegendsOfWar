@@ -15,6 +15,8 @@ public class HeroMovement : MovementScript
 	private float tValue = 0.0f;
 	private bool moving = false;
 	private NavMeshHit nmhit;
+	public bool SprintingAbility
+	{ private get; set; }
 
 	protected override void Start()
 	{
@@ -160,7 +162,6 @@ public class HeroMovement : MovementScript
 		}
 		return false;
 	}
-	public bool SprintingAbility { private get; set; }
 	private void TPStart()
 	{
 		prevMousePos = currMousePos = Input.mousePosition.x;

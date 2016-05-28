@@ -23,9 +23,21 @@ public abstract class AbilityBase : MonoBehaviour
 	protected float skillTimer = 0.0f;
 	protected bool aimingSkill = false;
 	protected HeroInfo heroInfo;
+	public bool AbilityEnabled
+	{
+		get { return abilityEnabled; }
+		set { abilityEnabled = value; }
+	}
+	public Effect Effect
+	{ get { return m_effect; } }
+	public float Timer
+	{
+		get { return cooldownTimer; }
+		set { cooldownTimer = value; }
+	}
+	public bool EnoughMana
+	{ get { return heroInfo.Mana >= abilityCost; } }
 
-	public bool AbilityEnabled { get { return abilityEnabled; } set { abilityEnabled = value; } }
-	public Effect Effect { get { return m_effect; } }
 	protected virtual void Start()
 	{
 		if ( m_effect.m_name == "" )
@@ -36,18 +48,6 @@ public abstract class AbilityBase : MonoBehaviour
 		cursor = GameManager.cursor;
 		if ( CursorIcon )
 			hotSpot.Set( CursorIcon.width * 0.5f, CursorIcon.height * 0.5f );
-	}
-	public float Timer { get { return cooldownTimer; } set { cooldownTimer = value; } }
-	public bool AbilityOn
-	{
-		get { return abilityOn; }
-		set
-		{
-			if ( value )
-				TryCast();
-			else
-				AbilityDeactivate();
-		}
 	}
 	protected virtual void AbilityActivate()
 	{
@@ -76,7 +76,6 @@ public abstract class AbilityBase : MonoBehaviour
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
 	}
-	public bool EnoughMana { get { return heroInfo.Mana >= abilityCost; } }
 	protected void ToggleCursor( bool _bool )
 	{
 		if ( cursor )

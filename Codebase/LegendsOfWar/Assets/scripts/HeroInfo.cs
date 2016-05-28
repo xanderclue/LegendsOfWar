@@ -18,12 +18,31 @@ public class HeroInfo : Info
 	private HeroMovement movement;
 	private float tauntTimer = 0.0f;
 	private float idleTimer;
+	public HeroAudio heroAudio
+	{ get; private set; }
+	public float Damage
+	{
+		get { return damage; }
+		set { damage = value; }
+	}
+	public float Range
+	{ get { return attackRange; } }
+	public float AttackSpeed
+	{ get { return attackSpeed; } }
+	public float AgroRange
+	{ get { return agroRange; } }
+	public float Mana
+	{ get { return mana; } }
+	public float MaxMana
+	{ get { return maxMana; } }
+	public bool waitingRespawn
+	{ get { return ( !Alive && respawnTimer <= 0.0f ); } }
+	public float RespawnTimer
+	{
+		get { return respawnTimer; }
+		set { respawnTimer = value; }
+	}
 
-	public HeroAudio heroAudio { get; private set; }
-	public float Damage { get { return damage; } set { damage = value; } }
-	public float Range { get { return attackRange; } }
-	public float AttackSpeed { get { return attackSpeed; } }
-	public float AgroRange { get { return agroRange; } }
 	private void Update()
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
@@ -96,10 +115,6 @@ public class HeroInfo : Info
 		respawnTime += respawnIncrement;
 		mana = 0.0f;
 	}
-	public float Mana { get { return mana; } }
-	public float MaxMana { get { return maxMana; } }
-	public bool waitingRespawn { get { return ( !Alive && respawnTimer <= 0.0f ); } }
-	public float RespawnTimer { get { return respawnTimer; } set { respawnTimer = value; } }
 	public void Respawn()
 	{
 		movement.ResetToSpawn();

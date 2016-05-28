@@ -17,7 +17,6 @@ public class AudioManager : MonoBehaviour
 	private static AudioSource SfxSource = null;
 	private static AudioManager instance = null;
 	private static AudioSource singleAud = null;
-
 	public static Vector3 ListenerPosition
 	{
 		get
@@ -27,7 +26,7 @@ public class AudioManager : MonoBehaviour
 			return Vector3.zero;
 		}
 	}
-	public static AudioManager Instance { get { return instance; } }
+
 	private void Awake()
 	{
 		if ( instance )

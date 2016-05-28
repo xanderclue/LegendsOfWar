@@ -76,7 +76,6 @@ public class EnemyAIManager : MonoBehaviour
 #if DEBUG
 	private float second = 1.0f;
 #endif
-
 	private float CalcSelfRecovery
 	{
 		get
@@ -86,6 +85,7 @@ public class EnemyAIManager : MonoBehaviour
 				Instance.Timer ) ) );
 		}
 	}
+
 	private void Start()
 	{
 		remainingHealth = redPortal.HP;

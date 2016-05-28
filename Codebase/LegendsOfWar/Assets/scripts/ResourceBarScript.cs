@@ -14,6 +14,11 @@ public class ResourceBarScript : MonoBehaviour
 	private Vector3 high, low;
 	private Transform heroUiTrans;
 	private RectTransform rectTransform;
+	public GameObject Host
+	{
+		get { return host; }
+		set { host = value; }
+	}
 
 	private void Start()
 	{
@@ -50,5 +55,4 @@ public class ResourceBarScript : MonoBehaviour
 				gameObject.layer = 5;
 			}
 	}
-	public GameObject Host { get { return host; } set { host = value; } }
 }

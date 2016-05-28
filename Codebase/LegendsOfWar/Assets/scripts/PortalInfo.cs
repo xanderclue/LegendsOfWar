@@ -7,11 +7,15 @@ public class PortalInfo : Info
 	private Transform[ ] minionSpawnPointMid = null;
 	[SerializeField]
 	private Transform[ ] minionSpawnPointRight = null;
+	public Transform[ ] LeftSpawn
+	{ get { return minionSpawnPointLeft; } }
+	public Transform[ ] MidSpawn
+	{ get { return minionSpawnPointMid; } }
+	public Transform[ ] RightSpawn
+	{ get { return minionSpawnPointRight; } }
+	public float Damage
+	{ get { return damage; } }
 
-	public Transform[ ] LeftSpawn { get { return minionSpawnPointLeft; } }
-	public Transform[ ] MidSpawn { get { return minionSpawnPointMid; } }
-	public Transform[ ] RightSpawn { get { return minionSpawnPointRight; } }
-	public float Damage { get { return damage; } }
 	protected override void Start()
 	{
 		base.Start();

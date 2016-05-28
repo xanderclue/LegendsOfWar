@@ -10,8 +10,15 @@ public class MovementScript : MonoBehaviour
 	protected RaycastHit hit;
 	protected bool rayHit = false;
 	private Transform targetPosition;
+	public bool CanEngage
+	{ get { return m_attackMOve; } }
+	public bool WithinRange
+	{ get { return withinRange; } }
+	public bool InCombat
+	{ get { return inCombat; } }
+	protected Transform TargetPosition
+	{ get { return targetPosition; } }
 
-	public bool CanEngage { get { return m_attackMOve; } }
 	protected virtual void Start()
 	{
 		GameManager.Hud.GrabHit += MovementScript_GrabHit;
@@ -25,7 +32,6 @@ public class MovementScript : MonoBehaviour
 		hit = _hit;
 		rayHit = true;
 	}
-	protected Transform TargetPosition { get { return targetPosition; } }
 	public void SetTarget( Transform target, float distance )
 	{
 		targetPosition = target;
@@ -36,6 +42,4 @@ public class MovementScript : MonoBehaviour
 	{
 		inCombat = false;
 	}
-	public bool WithinRange { get { return withinRange; } }
-	public bool InCombat { get { return inCombat; } }
 }

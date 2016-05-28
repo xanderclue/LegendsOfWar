@@ -6,7 +6,6 @@ public class StatusEffectsManager : MonoBehaviour
 	private SortedList<string, Effect> stats = new SortedList<string, Effect>();
 	private SortedList<string, SortedList<string, Effect>> objects = new SortedList<string,
 		SortedList<string, Effect>>();
-
 	public static StatusEffectsManager Instance
 	{
 		get
@@ -20,6 +19,7 @@ public class StatusEffectsManager : MonoBehaviour
 			return inst;
 		}
 	}
+
 	private void Awake()
 	{
 		if ( inst )

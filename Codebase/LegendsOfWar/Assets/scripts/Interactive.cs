@@ -5,6 +5,8 @@ public class Interactive : MonoBehaviour
 	private bool selected = false;
 	private GameObject Circle;
 	private MinionInfo info;
+	public bool Selected
+	{ get { return selected; } }
 
 	private void Start()
 	{
@@ -34,5 +36,4 @@ public class Interactive : MonoBehaviour
 			}
 		}
 	}
-	public bool Selected { get { return selected; } }
 }

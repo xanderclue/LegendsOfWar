@@ -7,6 +7,23 @@ public class EconomyManager : MonoBehaviour
 	public event goldChangedEvent OnGainGold;
 	private static EconomyManager instance = null;
 	private float blueTeamGold = 0.0f, redTeamGold = 0.0f;
+	public static EconomyManager Instance
+	{
+		get
+		{
+			if ( !instance )
+			{
+				instance = FindObjectOfType<EconomyManager>();
+				if ( !instance )
+					instance = new GameObject( "EconomyManager" ).AddComponent<EconomyManager>();
+			}
+			return instance;
+		}
+	}
+	public float BlueGold
+	{ get { return blueTeamGold; } }
+	public float RedGold
+	{ get { return redTeamGold; } }
 
 	public void StartingGame()
 	{
@@ -57,21 +74,6 @@ public class EconomyManager : MonoBehaviour
 	{
 		GiveGold( Team.BLUE_TEAM, waveAmount );
 		GiveGold( Team.RED_TEAM, waveAmount );
-	}
-	public float BlueGold { get { return blueTeamGold; } }
-	public float RedGold { get { return redTeamGold; } }
-	public static EconomyManager Instance
-	{
-		get
-		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<EconomyManager>();
-				if ( !instance )
-					instance = new GameObject( "EconomyManager" ).AddComponent<EconomyManager>();
-			}
-			return instance;
-		}
 	}
 	private void Awake()
 	{

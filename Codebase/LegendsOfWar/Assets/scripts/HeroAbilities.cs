@@ -10,19 +10,14 @@ public class HeroAbilities : MonoBehaviour
 	[SerializeField]
 	private AbilityRBase r = null;
 	public string heroClassEn = "", heroClassJp = "";
-
-	public AbilityQBase abilityQ { get { return q; } }
-	public AbilityWBase abilityW { get { return w; } }
-	public AbilityEBase abilityE { get { return e; } }
-	public AbilityRBase abilityR { get { return r; } }
-	private void Start()
-	{
-		GameManager.abilities.Add( this );
-	}
-	private void OnDestroy()
-	{
-		GameManager.abilities.Remove( this );
-	}
+	public AbilityQBase abilityQ
+	{ get { return q; } }
+	public AbilityWBase abilityW
+	{ get { return w; } }
+	public AbilityEBase abilityE
+	{ get { return e; } }
+	public AbilityRBase abilityR
+	{ get { return r; } }
 	public string abilityInfo
 	{
 		get
@@ -35,5 +30,14 @@ public class HeroAbilities : MonoBehaviour
 				abilityNameEn + ": " + w.abilityDescEn + "\n\n" + e.abilityNameEn + ": " + e.
 				abilityDescEn;
 		}
+	}
+
+	private void Start()
+	{
+		GameManager.abilities.Add( this );
+	}
+	private void OnDestroy()
+	{
+		GameManager.abilities.Remove( this );
 	}
 }

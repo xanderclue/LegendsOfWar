@@ -7,13 +7,31 @@ public class MinionInfo : Info
 	private int movementSpeed = 0;
 	private bool m_soulDefense = false;
 	private float baseDamage = 0.0f;
+	public bool soulDefense
+	{
+		get { return m_soulDefense; }
+		set { m_soulDefense = value; }
+	}
+	public int MovementSpeed
+	{ get { return movementSpeed; } }
+	public float Damage
+	{
+		get { return damage; }
+		set { damage = value; }
+	}
+	public float Range
+	{
+		get { return attackRange; }
+		set { attackRange = value; }
+	}
+	public float AttackSpeed
+	{
+		get { return attackSpeed; }
+		set { attackSpeed = value; }
+	}
+	public float AgroRange
+	{ get { return agroRange; } }
 
-	public bool soulDefense { get { return m_soulDefense; } set { m_soulDefense = value; } }
-	public int MovementSpeed { get { return movementSpeed; } }
-	public float Damage { get { return damage; } set { damage = value; } }
-	public float Range { get { return attackRange; } set { attackRange = value; } }
-	public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
-	public float AgroRange { get { return agroRange; } }
 	protected override void Start()
 	{
 		base.Start();

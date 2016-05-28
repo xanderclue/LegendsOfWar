@@ -7,7 +7,6 @@ public class pauseMenuEvents : MonoBehaviour
 	[SerializeField]
 	private Button[ ] buttons = null;
 	private static pauseMenuEvents inst = null;
-
 	public static bool EventSystem
 	{
 		get { return inst.eventSystem.activeInHierarchy; }
@@ -18,6 +17,7 @@ public class pauseMenuEvents : MonoBehaviour
 				button.enabled = value;
 		}
 	}
+
 	private void Awake()
 	{
 		inst = this;

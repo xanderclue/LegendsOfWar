@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
 	private bool gameEnded = false;
 	private bool shopActive = false;
 	private List<HeroInfo> heros = null;
-
 	public static bool Tutorial
 	{
 		get
@@ -70,9 +69,12 @@ public class GameManager : MonoBehaviour
 			return false;
 		}
 	}
-	public static HudScript Hud { get { return instance.hudScript; } }
-	public static GameObject cursor { get { return instance.cursorObject; } }
-	public static bool Avail { get { return instance != null; } }
+	public static HudScript Hud
+	{ get { return instance.hudScript; } }
+	public static GameObject cursor
+	{ get { return instance.cursorObject; } }
+	public static bool Avail
+	{ get { return instance != null; } }
 	public static bool GameRunning
 	{
 		get
@@ -83,8 +85,45 @@ public class GameManager : MonoBehaviour
 				return false;
 		}
 	}
-	public static Transform RedPortalTransform { get { return Instance.redPortal.transform; } }
-	public static Transform BluePortalTransform { get { return Instance.bluePortal.transform; } }
+	public static Transform RedPortalTransform
+	{ get { return Instance.redPortal.transform; } }
+	public static Transform BluePortalTransform
+	{ get { return Instance.bluePortal.transform; } }
+	public static bool GameEnded
+	{ get { return instance.gameEnded; } }
+	public static bool eventSystem
+	{
+		set
+		{
+			Instance.uiEventSystem.enabled = value;
+			foreach ( Button button in Instance.buttons )
+				button.enabled = value;
+		}
+	}
+	public static GameManager Instance
+	{
+		get
+		{
+			if ( !instance )
+			{
+				instance = FindObjectOfType<GameManager>();
+				if ( !instance )
+					instance = new GameObject( "GameManager" ).AddComponent<GameManager>();
+			}
+			return instance;
+		}
+	}
+	public static Vector3 blueHeroSpawnPosition
+	{ get { return Instance.HeroSpawnPoint.position; } }
+	public float Timer
+	{ get { return timer; } }
+	public float WaveTimer
+	{ get { return waveTimer; } }
+	public int Wave
+	{ get { return wave; } }
+	public List<HeroInfo> Heros
+	{ get { return heros; } }
+
 	private void SetupMinion( Object _minion, Path lane, Team team )
 	{
 		min_go = _minion as GameObject;
@@ -170,7 +209,6 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.StartingGame();
 		ResetUpgrades();
 	}
-	public static bool GameEnded { get { return instance.gameEnded; } }
 	public void EndGame()
 	{
 		gameEnded = true;
@@ -200,28 +238,6 @@ public class GameManager : MonoBehaviour
 	public void ExitShop()
 	{
 		ApplicationManager.Instance.ChangeAppState( StateID.STATE_INGAME );
-	}
-	public static bool eventSystem
-	{
-		set
-		{
-			Instance.uiEventSystem.enabled = value;
-			foreach ( Button button in Instance.buttons )
-				button.enabled = value;
-		}
-	}
-	public static GameManager Instance
-	{
-		get
-		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<GameManager>();
-				if ( !instance )
-					instance = new GameObject( "GameManager" ).AddComponent<GameManager>();
-			}
-			return instance;
-		}
 	}
 	private void Awake()
 	{
@@ -321,9 +337,6 @@ public class GameManager : MonoBehaviour
 			RespawnTimers();
 		}
 	}
-	public float Timer { get { return timer; } }
-	public float WaveTimer { get { return waveTimer; } }
-	public int Wave { get { return wave; } }
 	private void DoAbilityCooldowns()
 	{
 		foreach ( HeroAbilities abs in abilities )
@@ -347,7 +360,6 @@ public class GameManager : MonoBehaviour
 				hero.Respawn();
 		}
 	}
-	public static Vector3 blueHeroSpawnPosition { get { return Instance.HeroSpawnPoint.position; } }
 	private void ResetUpgrades()
 	{
 		MinionInfo info;
@@ -365,7 +377,6 @@ public class GameManager : MonoBehaviour
 		info.AttackSpeed = 0.8f;
 		info.Damage = 50.0f;
 	}
-	public List<HeroInfo> Heros { get { return heros; } }
 	public void InstaRespawn( Team team, HeroInfo hero )
 	{
 		if ( hero.team == team && !hero.Alive )

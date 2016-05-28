@@ -12,9 +12,24 @@ public class TowerManager : MonoBehaviour
 	private bool blueShotChanged = false;
 	private bool redShotChanged = false;
 	private float blueTimer = 0.1f, redTimer = 0.1f;
+	public static TowerManager Instance
+	{
+		get
+		{
+			if ( !instance )
+			{
+				instance = FindObjectOfType<TowerManager>();
+				if ( !instance )
+					instance = new GameObject( "TowerManager" ).AddComponent<TowerManager>();
+			}
+			return instance;
+		}
+	}
+	public bool BlueShotChanged
+	{ get { return blueShotChanged; } }
+	public bool RedShotChanged
+	{ get { return redShotChanged; } }
 
-	public bool BlueShotChanged { get { return blueShotChanged; } }
-	public bool RedShotChanged { get { return redShotChanged; } }
 	private void Update()
 	{
 		if ( blueShotChanged && blueTimer < 0.0f )
@@ -121,19 +136,6 @@ public class TowerManager : MonoBehaviour
 			blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;
-	}
-	public static TowerManager Instance
-	{
-		get
-		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<TowerManager>();
-				if ( !instance )
-					instance = new GameObject( "TowerManager" ).AddComponent<TowerManager>();
-			}
-			return instance;
-		}
 	}
 	private void Awake()
 	{

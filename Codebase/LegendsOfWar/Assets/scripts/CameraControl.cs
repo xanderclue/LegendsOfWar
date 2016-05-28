@@ -35,16 +35,40 @@ public class CameraControl : MonoBehaviour
 	private Vector3 newPos = new Vector3();
 	private Info playerInfo;
 	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
+	public static CameraControl instance
+	{ get { return inst; } }
+	public static Camera Main
+	{ get { return main; } }
+	public static Camera Vantage
+	{ get { return vantage; } }
+	public static Camera Current
+	{ get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
+	public static float AudioDistance
+	{
+		get
+		{
+			if ( instance && instance.mainCam )
+				return instance.mainCam.orthographicSize * instance.mainCam.aspect;
+			else
+				return 200.0f;
+		}
+	}
+	public bool CameraFollowsPlayer
+	{
+		get { return followPlayer; }
+		set
+		{
+			if ( !playerInfo.Alive || null == playerInfo )
+				followPlayer = false;
+			else
+				followPlayer = value;
+		}
+	}
 
-	public static CameraControl instance { get { return inst; } }
 	private void Awake()
 	{
 		inst = this;
 	}
-	public static Camera Main { get { return main; } }
-	public static Camera Vantage { get { return vantage; } }
-	public static Camera Current
-	{ get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
 	private void Start()
 	{
 		player = GameManager.Instance.Player;
@@ -62,17 +86,6 @@ public class CameraControl : MonoBehaviour
 		HeroCamScript.OnOnHero -= OnOnHero;
 		GameManager.OnBlueWin -= OnBlueWin;
 		GameManager.OnRedWin -= OnRedWin;
-	}
-	public bool CameraFollowsPlayer
-	{
-		get { return followPlayer; }
-		set
-		{
-			if ( !playerInfo.Alive || null == playerInfo )
-				followPlayer = false;
-			else
-				followPlayer = value;
-		}
 	}
 	private void OnRedWin()
 	{
@@ -259,15 +272,5 @@ public class CameraControl : MonoBehaviour
 		camBorder.transform.localScale = new Vector3( 0.2086875f * mainCam.aspect, 0.371f, 1.0f );
 		mainCam.fieldOfView = onHeroFov;
 		RecalcBoundaries();
-	}
-	public static float AudioDistance
-	{
-		get
-		{
-			if ( instance && instance.mainCam )
-				return instance.mainCam.orthographicSize * instance.mainCam.aspect;
-			else
-				return 200.0f;
-		}
 	}
 }

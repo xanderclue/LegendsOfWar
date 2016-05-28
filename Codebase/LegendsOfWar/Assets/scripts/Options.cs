@@ -13,14 +13,21 @@ public class Options : MonoBehaviour
 	public static event optionsChangedEvent onChangedBgmVolume;
 	public static event optionsChangedEvent onChangedSfxVolume;
 	public static event optionsChangedEvent onChangedVoiceVolume;
+	public static bool IsAdditive
+	{ get; set; }
+	public static SystemLanguage applicationLanguage
+	{ get; private set; }
+	public static float bgmVolume
+	{ get; private set; }
+	public static float sfxVolume
+	{ get; private set; }
+	public static float voiceVolume
+	{ get; private set; }
+	public static bool Japanese
+	{ get { return SystemLanguage.Japanese == applicationLanguage; } }
+	private static string language
+	{ get; set; }
 
-	public static bool IsAdditive { get; set; }
-	public static SystemLanguage applicationLanguage { get; private set; }
-	public static float bgmVolume { get; private set; }
-	public static float sfxVolume { get; private set; }
-	public static float voiceVolume { get; private set; }
-	private static string language { get; set; }
-	public static bool Japanese { get { return SystemLanguage.Japanese == applicationLanguage; } }
 	public static void Init()
 	{
 		IsAdditive = false;

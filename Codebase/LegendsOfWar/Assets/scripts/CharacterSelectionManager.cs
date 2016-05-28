@@ -7,9 +7,15 @@ public class CharacterSelectionManager : MonoBehaviour
 	public static event ChangedCharacterEvent OnChangedCharacter;
 	private static CharacterSelectionManager inst;
 	private bool[ ] available;
+	public static CharacterSelectionManager Instance
+	{ get { return inst; } }
+	public static GameObject LegendChoice
+	{ get { return inst ? inst.Legends[ inst.Index ] : null; } }
+	public static HeroInfo heroInfo
+	{ get { return LegendChoice.GetComponent<HeroInfo>(); } }
+	public bool[ ] Available
+	{ get { return available; } }
 
-	public static CharacterSelectionManager Instance { get { return inst; } }
-	public bool[ ] Available { get { return available; } }
 	public static void ChangedCharacter()
 	{
 		if ( OnChangedCharacter != null )
@@ -28,7 +34,4 @@ public class CharacterSelectionManager : MonoBehaviour
 		for ( int i = 0; i < Legends.Length; ++i )
 			available[ i ] = Legends[ i ];
 	}
-	public static GameObject LegendChoice
-	{ get { return inst ? inst.Legends[ inst.Index ] : null; } }
-	public static HeroInfo heroInfo { get { return LegendChoice.GetComponent<HeroInfo>(); } }
 }

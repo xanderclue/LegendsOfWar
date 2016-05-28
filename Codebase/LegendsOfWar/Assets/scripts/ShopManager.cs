@@ -18,10 +18,29 @@ public class ShopManager : MonoBehaviour
 	private int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	private int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
 	private int[ ] AbilityUGPrices = new int[ 3 ] { 0, 0, 0 };
+	public static ShopManager Instance
+	{
+		get
+		{
+			if ( !instance )
+			{
+				instance = FindObjectOfType<ShopManager>();
+				if ( !instance )
+					instance = new GameObject( "ShopManager" ).AddComponent<ShopManager>();
+			}
+			return instance;
+		}
+	}
+	public bool UpdateValues
+	{
+		get { return updateValues; }
+		set { updateValues = value; }
+	}
+	public int[ ] Purchases
+	{ get { return purchases; } }
+	public int[ ] minionUGPrices
+	{ get { return MinionUGPrices; } }
 
-	public bool UpdateValues { get { return updateValues; } set { updateValues = value; } }
-	public int[ ] Purchases { get { return purchases; } }
-	public int[ ] minionUGPrices { get { return MinionUGPrices; } }
 	private void Start()
 	{
 		MinionUGPrices[ 0 ] = MinionUG1Cost;
@@ -135,19 +154,6 @@ public class ShopManager : MonoBehaviour
 				break;
 		}
 		UpdateValues = true;
-	}
-	public static ShopManager Instance
-	{
-		get
-		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<ShopManager>();
-				if ( !instance )
-					instance = new GameObject( "ShopManager" ).AddComponent<ShopManager>();
-			}
-			return instance;
-		}
 	}
 	private void Awake()
 	{

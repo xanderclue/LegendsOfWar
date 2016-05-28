@@ -36,8 +36,8 @@ public class HeroCamScript : MonoBehaviour
 	private float mouseVerticalStart;
 	private bool hudTextShowsQWER = true;
 	private float currentVertical;
-
-	public static bool onVantage { get { return CameraControl.Vantage.enabled; } }
+	public static bool onVantage
+	{ get { return CameraControl.Vantage.enabled; } }
 	public static bool onHero
 	{
 		get
@@ -59,6 +59,47 @@ public class HeroCamScript : MonoBehaviour
 			return inst.info.Alive;
 		}
 	}
+	public static Camera HeroCam
+	{
+		get
+		{
+			if ( inst )
+				return inst.heroCam;
+			return null;
+		}
+	}
+	public static float MouseVertical
+	{
+		get { return inst ? inst.mouseVerticalStart : 0.0f; }
+		set
+		{
+			if ( inst )
+				inst.mouseVerticalStart = value;
+		}
+	}
+	private bool HudTextShowsQWER
+	{
+		get { return hudTextShowsQWER; }
+		set
+		{
+			hudTextShowsQWER = value;
+			if ( value )
+			{
+				hudTextAbilityQ.text = "Q";
+				hudTextAbilityW.text = "W";
+				hudTextAbilityE.text = "E";
+				hudTextAbilityR.text = "R";
+			}
+			else
+			{
+				hudTextAbilityQ.text = "1";
+				hudTextAbilityW.text = "2";
+				hudTextAbilityE.text = "3";
+				hudTextAbilityR.text = "4";
+			}
+		}
+	}
+
 	private void Start()
 	{
 		mainCam = mainCameraTransform.gameObject.GetComponent<Camera>();
@@ -76,15 +117,6 @@ public class HeroCamScript : MonoBehaviour
 	private void OnDestroy()
 	{
 		Options.onChangedLanguage -= SetHMStrings;
-	}
-	public static Camera HeroCam
-	{
-		get
-		{
-			if ( inst )
-				return inst.heroCam;
-			return null;
-		}
 	}
 	private void SetHMStrings()
 	{
@@ -111,15 +143,6 @@ public class HeroCamScript : MonoBehaviour
 		}
 		heroTransform.position = ( heroTransformMax.position - heroCenter.position ) * 0.9f * (
 			forceDistance / maxDistance ) + heroCenter.position;
-	}
-	public static float MouseVertical
-	{
-		get { return inst ? inst.mouseVerticalStart : 0.0f; }
-		set
-		{
-			if ( inst )
-				inst.mouseVerticalStart = value;
-		}
 	}
 	private void Update()
 	{
@@ -327,28 +350,6 @@ public class HeroCamScript : MonoBehaviour
 			transform.position = Vector3.Lerp( mainCameraTransform.position, heroTransform.position,
 				tValue );
 			heroCam.fieldOfView = Mathf.Lerp( mainCam.fieldOfView, targetFOV, tValue );
-		}
-	}
-	private bool HudTextShowsQWER
-	{
-		get { return hudTextShowsQWER; }
-		set
-		{
-			hudTextShowsQWER = value;
-			if ( value )
-			{
-				hudTextAbilityQ.text = "Q";
-				hudTextAbilityW.text = "W";
-				hudTextAbilityE.text = "E";
-				hudTextAbilityR.text = "R";
-			}
-			else
-			{
-				hudTextAbilityQ.text = "1";
-				hudTextAbilityW.text = "2";
-				hudTextAbilityE.text = "3";
-				hudTextAbilityR.text = "4";
-			}
 		}
 	}
 }

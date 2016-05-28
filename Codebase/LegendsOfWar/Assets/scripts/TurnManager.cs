@@ -22,8 +22,12 @@ public class TurnManager : MonoBehaviour
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
 	private int c;
-
-	public static TurnManager Instance { get { return inst; } }
+	public static TurnManager Instance
+	{ get { return inst; } }
+	public int CurrentInt
+	{ get { return ( int )current; } }
+	private bool spLight
+	{ set { spotlights[ ( int )current ].enabled = value; } }
 	private Character next
 	{
 		get
@@ -46,7 +50,7 @@ public class TurnManager : MonoBehaviour
 			return ( Character )c;
 		}
 	}
-	public int CurrentInt { get { return ( int )current; } }
+
 	public void TurnRight()
 	{
 		spLight = false;
@@ -80,7 +84,6 @@ public class TurnManager : MonoBehaviour
 		sub.SetSub( "", -0.0f );
 		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
 	}
-	private bool spLight { set { spotlights[ ( int )current ].enabled = value; } }
 	private void Awake()
 	{
 		inst = this;

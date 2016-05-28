@@ -3,8 +3,9 @@ using System.Collections.Generic;
 public class StatusEffects : MonoBehaviour
 {
 	private IList<Effect> m_stats;
+	public IList<Effect> Stats
+	{ get { return m_stats; } }
 
-	public IList<Effect> Stats { get { return m_stats; } }
 	public void Apply( Effect _effect )
 	{
 		if ( !_effect.Expired( Time.deltaTime ) )

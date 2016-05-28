@@ -11,8 +11,20 @@ public class HeroUIScript : MonoBehaviour
 	private AudioSource heroWarning = null;
 	public static float heroDamageNotifTimer = 0.0f;
 	private static HeroUIScript inst;
+	public static HeroUIScript Instance
+	{ get { return inst; } }
+	public static bool HeroBeingAttacked
+	{
+		get { return heroDamageNotifTimer > 0.0f; }
+		set
+		{
+			if ( value && !HeroCamScript.onHero )
+				heroDamageNotifTimer = inst.AttackedNotificationDuration;
+			else
+				heroDamageNotifTimer = -0.0f;
+		}
+	}
 
-	public static HeroUIScript Instance { get { return inst; } }
 	private void Awake()
 	{
 		inst = this;
@@ -38,16 +50,5 @@ public class HeroUIScript : MonoBehaviour
 		heroDamageNotifTimer -= Time.deltaTime;
 		if ( heroWarning )
 			heroWarning.mute = !HeroBeingAttacked;
-	}
-	public static bool HeroBeingAttacked
-	{
-		get { return heroDamageNotifTimer > 0.0f; }
-		set
-		{
-			if ( value && !HeroCamScript.onHero )
-				heroDamageNotifTimer = inst.AttackedNotificationDuration;
-			else
-				heroDamageNotifTimer = -0.0f;
-		}
 	}
 }
