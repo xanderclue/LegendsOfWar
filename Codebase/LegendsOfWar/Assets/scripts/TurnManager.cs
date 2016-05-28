@@ -12,13 +12,13 @@ public class TurnManager : MonoBehaviour
 	private float rotationSpeed = 5.0f;
 	[SerializeField]
 	private Light[ ] spotlights = null;
+	private const int m = ( int )Character.Total - 1;
 
 	private static TurnManager inst;
 	public static TurnManager Instance { get { return inst; } }
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
 	private int c;
-	private const int m = ( int )Character.Total - 1;
 	private Character next
 	{
 		get

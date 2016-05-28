@@ -7,6 +7,7 @@ public class ResourceBarScript : MonoBehaviour
 	[SerializeField]
 	private bool attachedToHUD = false;
 	public bool isMana = false;
+	private static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
 
 	private Info stats;
 	private Image bar = null;
@@ -25,7 +26,6 @@ public class ResourceBarScript : MonoBehaviour
 	}
 	private bool notHero = true;
 	private Vector3 high, low;
-	private static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
 	private Transform heroUiTrans;
 	private RectTransform rectTransform;
 	private void Update()

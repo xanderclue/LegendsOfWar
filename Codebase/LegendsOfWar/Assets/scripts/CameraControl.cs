@@ -15,6 +15,9 @@ public class CameraControl : MonoBehaviour
 	[SerializeField]
 	private float worldMaxX = 1200.0f, worldMinX = 0.0f, worldMaxZ = 700.0f, worldMinZ = 0.0f;
 	public GameObject player;
+	private const float scrollDistance = 2.5f;
+	private static readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
+	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
 
 	public static Rect Selection = new Rect( 0, 0, 0, 0 );
 	private Vector3 StartClick = -Vector3.one;
@@ -124,7 +127,6 @@ public class CameraControl : MonoBehaviour
 			}
 		}
 	}
-	private readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
 	private void OnGUI()
 	{
 		if ( StartClick != -Vector3.one )
@@ -135,7 +137,6 @@ public class CameraControl : MonoBehaviour
 	}
 	private float mousePosX;
 	private float mousePosY;
-	private const float scrollDistance = 2.5f;
 	private Vector3 newPos = new Vector3();
 	private void LateUpdate()
 	{
@@ -250,7 +251,6 @@ public class CameraControl : MonoBehaviour
 			transform.position.y );
 		RecalcBoundaries();
 	}
-	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
 	private void OnOnHero()
 	{
 		if ( !mainCam )

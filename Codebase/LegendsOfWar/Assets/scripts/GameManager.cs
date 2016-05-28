@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
 	private ResourceBarScript heroHealthPanel = null, heroManaPanel = null;
 	public delegate void GameEndEvent();
 	public static event GameEndEvent OnBlueWin, OnRedWin;
+	private static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f,
+		0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp
+		= new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f,
+			0.0f );
 
 	public static bool Tutorial
 	{
@@ -153,10 +157,6 @@ public class GameManager : MonoBehaviour
 		EconomyManager.Instance.NewWave();
 		AudioManager.PlaySoundEffect( AudioManager.sfxWaveSpawn );
 	}
-	private static readonly Quaternion faceRight = new Quaternion( 0.0f, 0.707106781f, 0.0f,
-		0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp
-		= new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f,
-			0.0f );
 	public void InitiateGame()
 	{
 		gameRunning = true;
