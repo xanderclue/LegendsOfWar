@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 public class SiegeProjectile : MonoBehaviour
 {
-	public float speed;
-	public float damage;
+	public float speed, damage;
 	[SerializeField]
 	private bool lazer = false;
 	public float projectileLifetime = 2.0f;

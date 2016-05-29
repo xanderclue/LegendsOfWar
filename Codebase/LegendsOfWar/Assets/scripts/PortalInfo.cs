@@ -2,11 +2,8 @@
 public class PortalInfo : Info
 {
 	[SerializeField]
-	private Transform[ ] minionSpawnPointLeft = null;
-	[SerializeField]
-	private Transform[ ] minionSpawnPointMid = null;
-	[SerializeField]
-	private Transform[ ] minionSpawnPointRight = null;
+	private Transform[ ] minionSpawnPointLeft = null, minionSpawnPointMid = null,
+		minionSpawnPointRight = null;
 	public Transform[ ] LeftSpawn
 	{ get { return minionSpawnPointLeft; } }
 	public Transform[ ] MidSpawn

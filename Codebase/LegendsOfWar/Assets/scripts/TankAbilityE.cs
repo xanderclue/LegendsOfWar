@@ -4,8 +4,8 @@ public class TankAbilityE : AbilityEBase
 {
 	public CollisionDetector coll;
 	public float Edamage;
-	private GameObject AbilityEParticle;
 	private List<Info> slowed;
+	private GameObject AbilityEParticle;
 	protected override void Start()
 	{
 		base.Start();

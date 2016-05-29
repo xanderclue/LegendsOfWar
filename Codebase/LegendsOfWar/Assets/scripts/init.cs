@@ -5,8 +5,8 @@ public class init : MonoBehaviour
 	private bool illegalStart = false;
 	[SerializeField]
 	private GameObject audioManager = null;
-	private static bool appInited = false;
 	private static init inst;
+	private static bool appInited = false;
 	public static void InitApp()
 	{
 		if ( !appInited )

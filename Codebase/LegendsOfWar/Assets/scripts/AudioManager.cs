@@ -12,11 +12,9 @@ public class AudioManager : MonoBehaviour
 	sfxTowerProjectile, sfxPortalDestroyed, sfxPortalAttacked, sfxTowerDestroyed,
 	sfxTowerAttacked, sfxMinionAttack, sfxMinionAttacked, sfxMinionDeath, sfxHeroAttacked,
 	sfxHeroDeath, sfxClickSound;
-	private static Transform listenerTransform = null;
-	private static AudioSource BgmSource;
-	private static AudioSource SfxSource = null;
 	private static AudioManager instance = null;
-	private static AudioSource singleAud = null;
+	private static AudioSource BgmSource, SfxSource = null, singleAud = null;
+	private static Transform listenerTransform = null;
 	public static Vector3 ListenerPosition
 	{
 		get

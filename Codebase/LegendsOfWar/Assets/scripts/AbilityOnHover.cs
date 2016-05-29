@@ -3,11 +3,11 @@ public class AbilityOnHover : MonoBehaviour
 {
 	[SerializeField]
 	private char abilityChoice = '\0';
-	private bool isHovering = false;
-	private HeroAbilities abilities;
 	private GameObject legend;
+	private HeroAbilities abilities;
 	private AbilityBase ability;
 	private string textEn, textJp;
+	private bool isHovering = false;
 	public void OnMouseEnter()
 	{
 		isHovering = true;

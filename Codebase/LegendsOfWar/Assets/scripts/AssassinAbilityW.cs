@@ -5,11 +5,11 @@ public class AssassinAbilityW : AbilityWBase
 	private GameObject Target = null;
 	[SerializeField]
 	private int Damage = 0, Speed = 0;
-	[SerializeField]
-	private Detector attackTrigger = null;
+	public Detector attackTrigger;
 	[SerializeField]
 	private GameObject weapon = null, projectile = null;
-	public GameObject[ ] Marked;
+	[SerializeField]
+	private GameObject[ ] Marked;
 	private static int MarkNum = 0;
 	public bool MarkHit( GameObject _mark )
 	{

@@ -4,63 +4,27 @@ public enum STATES { STATE_INTRO, STATE_HERO, STATE_MINION, STATE_MAIN, STATE_EN
 public class IntroManager : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject IntroSequence = null;
+	private GameObject IntroSequence = null, MainGame = null, GameHUD = null, RedTankMinion = null,
+		RedStrikerMinion = null, RedCasterMinion = null, BlueTankMinion = null, BlueStrikerMinion =
+		null, BlueCasterMinion = null, HeroTutorial = null, HeroHUD = null;
 	[SerializeField]
-	private GameObject MainGame = null;
-	[SerializeField]
-	private GameObject GameHUD = null;
-	[SerializeField]
-	private GameObject RedTankMinion = null;
-	[SerializeField]
-	private GameObject RedStrikerMinion = null;
-	[SerializeField]
-	private GameObject RedCasterMinion = null;
-	[SerializeField]
-	private GameObject BlueTankMinion = null;
-	[SerializeField]
-	private GameObject BlueStrikerMinion = null;
-	[SerializeField]
-	private GameObject BlueCasterMinion = null;
-	[SerializeField]
-	private GameObject HeroTutorial = null;
-	[SerializeField]
-	private GameObject HeroHUD = null;
-	[SerializeField]
-	private GameObject[ ] RedSpawns = null;
-	[SerializeField]
-	private GameObject[ ] HeroInstructions = null;
+	private GameObject[ ] RedSpawns = null, HeroInstructions = null;
 	[SerializeField]
 	private GameObject MechanicsList = null;
 	[SerializeField]
 	private GameObject[ ] Mechanics = null;
 	[SerializeField]
-	private GameObject RedSpawn = null;
+	private GameObject RedSpawn = null, End = null, Ending = null;
 	[SerializeField]
-	private GameObject End = null;
+	private GameObject[ ] MinionRedSpawns = null, MinionBlueSpawns = null;
 	[SerializeField]
-	private GameObject Ending = null;
+	private GameObject MoveMainCam = null, RedTower = null, MinionEnd = null, Death = null, Player =
+		null;
 	[SerializeField]
-	private GameObject[ ] MinionRedSpawns = null;
-	[SerializeField]
-	private GameObject[ ] MinionBlueSpawns = null;
-	[SerializeField]
-	private GameObject MoveMainCam = null;
-	[SerializeField]
-	private GameObject RedTower = null;
-	[SerializeField]
-	private GameObject MinionEnd = null;
-	[SerializeField]
-	private GameObject Death = null;
-	[SerializeField]
-	private GameObject Player = null;
-	public bool pause = false;
-	private bool PlayedIntro = false;
-	private bool HeroInstanciate = false;
+	private bool pause = false;
 	private STATES currentState = STATES.STATE_INTRO;
-	private bool SpawnMinionTutRed = false;
-	private bool SpawnMinionTutBlue = false;
-	private bool firstswitch = false;
-	private bool Welcome, Camera, Movement;
+	private bool PlayedIntro = false, HeroInstanciate = false, SpawnMinionTutRed = false,
+		SpawnMinionTutBlue = false, firstswitch = false, Welcome, Camera, Movement;
 	public void NextState()
 	{
 		currentState += 1;

@@ -6,9 +6,8 @@ public class shopEvents : MonoBehaviour
 	[SerializeField]
 	private GameObject laneSelectPanel = null;
 	private string selectedItem;
-	private bool upgrade;
-	private bool laneSelect;
 	private float updateTimer, timer;
+	private bool upgrade, laneSelect;
 	public void OpenPanel( string item )
 	{
 		laneSelect = true;

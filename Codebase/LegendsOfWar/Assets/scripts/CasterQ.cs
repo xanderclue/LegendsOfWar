@@ -2,9 +2,7 @@
 public class CasterQ : AbilityQBase
 {
 	[SerializeField]
-	private GameObject m_Engulf = null;
-	[SerializeField]
-	private GameObject m_targetingSystem = null;
+	private GameObject m_Engulf = null, m_targetingSystem = null;
 	private ParticleSystem m_targetingEffect;
 	private RaycastHit m_targetHit;
 	private bool aimingSkill = false;

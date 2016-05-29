@@ -8,13 +8,10 @@ public class HeroMovement : MovementScript
 	private MOVE_State m_state, m_prevState;
 	private NavMeshAgent agent;
 	private HeroInfo info;
-	private float prevMousePos, currMousePos, currentRot;
-	private bool shiftKeyPressed;
-	private Vector3 rot;
-	private Vector3 newVel;
-	private float tValue = 0.0f;
-	private bool moving = false;
 	private NavMeshHit nmhit;
+	private Vector3 rot, newVel;
+	private float prevMousePos, currMousePos, currentRot, tValue = 0.0f;
+	private bool shiftKeyPressed, moving = false;
 	public bool SprintingAbility
 	{ private get; set; }
 	public void ResetToSpawn()

@@ -3,12 +3,11 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
 	public float projectileLifetime = 3.0f;
-	private ExplosiveProjectileInfo info;
 	private Collider[ ] victims;
+	private ExplosiveProjectileInfo info;
 	private Team team;
+	private float effectTime = 3.0f, projectileTimer;
 	private bool fired, aoeActive = false;
-	private float effectTime = 3.0f;
-	private float projectileTimer;
 	public void Fire( Team theTeam )
 	{
 		team = theTeam;

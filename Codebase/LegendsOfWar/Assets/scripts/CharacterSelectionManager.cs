@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 public class CharacterSelectionManager : MonoBehaviour
 {
-	public GameObject[ ] Legends;
+	[SerializeField]
+	private GameObject[ ] Legends = null;
 	public int Index;
 	public delegate void ChangedCharacterEvent();
 	public static event ChangedCharacterEvent OnChangedCharacter;

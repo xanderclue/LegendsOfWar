@@ -3,10 +3,9 @@ public class ProjectileBehaviour : MonoBehaviour
 {
 	public float speed;
 	public Transform target = null;
-	public float damage;
-	public float projectileLifetime = 3.0f;
-	private bool isFired = false;
+	public float damage, projectileLifetime = 3.0f;
 	private float projectileTimer;
+	private bool isFired = false;
 	public void Fire()
 	{
 		isFired = true;

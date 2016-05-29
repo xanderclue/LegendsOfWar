@@ -8,19 +8,14 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private bool tutorial = false;
 	[SerializeField]
-	private PortalInfo redPortal = null;
+	private PortalInfo redPortal = null, bluePortal = null;
 	[SerializeField]
-	private PortalInfo bluePortal = null;
-	[SerializeField]
-	private GameObject redTankMinion = null, redCasterMinion = null, redStrikerMinion = null;
-	[SerializeField]
-	private GameObject blueTankMinion = null, blueCasterMinion = null, blueStrikerMinion = null;
+	private GameObject redTankMinion = null, redCasterMinion = null, redStrikerMinion = null,
+		blueTankMinion = null, blueCasterMinion = null, blueStrikerMinion = null;
 	[SerializeField]
 	private EventSystem uiEventSystem = null;
 	[SerializeField]
-	private float maxTime = 900.0f;
-	[SerializeField]
-	private float waveTime = 60.0f;
+	private float maxTime = 900.0f, waveTime = 60.0f;
 	[SerializeField]
 	private HudScript hudScript = null;
 	[SerializeField]
@@ -28,10 +23,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private Transform HeroSpawnPoint = null;
 	public GameObject Player;
-	public ParticleSystem BoomRed;
-	public ParticleSystem BoomBlue;
-	public ParticleSystem ExitRed;
-	public ParticleSystem ExitBlue;
+	[SerializeField]
+	private ParticleSystem BoomRed = null, BoomBlue = null, ExitRed = null, ExitBlue = null;
 	[SerializeField]
 	private GameObject defaultHeroPrefab = null;
 	[SerializeField]
@@ -49,56 +42,13 @@ public class GameManager : MonoBehaviour
 	public static float topSplitZ, botSplitZ;
 	public static List<HeroAbilities> abilities;
 	private static GameManager instance = null;
-	private bool gameRunning = false;
-	private float waveTimer;
-	private float timer;
-	private int wave = 0;
 	private MinionInfo[ ] endminions;
+	private List<HeroInfo> heros = null;
 	private GameObject min_go;
 	private NavMeshAgent nma;
-	private bool gameEnded = false;
-	private bool shopActive = false;
-	private List<HeroInfo> heros = null;
-	public static bool Tutorial
-	{
-		get
-		{
-			if ( instance )
-				return instance.tutorial;
-			return false;
-		}
-	}
-	public static HudScript Hud
-	{ get { return instance.hudScript; } }
-	public static GameObject cursor
-	{ get { return instance.cursorObject; } }
-	public static bool Avail
-	{ get { return instance != null; } }
-	public static bool GameRunning
-	{
-		get
-		{
-			if ( instance )
-				return Instance.gameRunning;
-			else
-				return false;
-		}
-	}
-	public static Transform RedPortalTransform
-	{ get { return Instance.redPortal.transform; } }
-	public static Transform BluePortalTransform
-	{ get { return Instance.bluePortal.transform; } }
-	public static bool GameEnded
-	{ get { return instance.gameEnded; } }
-	public static bool eventSystem
-	{
-		set
-		{
-			Instance.uiEventSystem.enabled = value;
-			foreach ( Button button in Instance.buttons )
-				button.enabled = value;
-		}
-	}
+	private float waveTimer, timer;
+	private int wave = 0;
+	private bool gameEnded = false, gameRunning = false, shopActive = false;
 	public static GameManager Instance
 	{
 		get
@@ -112,16 +62,56 @@ public class GameManager : MonoBehaviour
 			return instance;
 		}
 	}
+	public static HudScript Hud
+	{ get { return instance.hudScript; } }
+	public static GameObject cursor
+	{ get { return instance.cursorObject; } }
+	public static Transform RedPortalTransform
+	{ get { return Instance.redPortal.transform; } }
+	public static Transform BluePortalTransform
+	{ get { return Instance.bluePortal.transform; } }
 	public static Vector3 blueHeroSpawnPosition
 	{ get { return Instance.HeroSpawnPoint.position; } }
-	public float Timer
-	{ get { return timer; } }
+	public static bool Avail
+	{ get { return instance != null; } }
+	public static bool Tutorial
+	{
+		get
+		{
+			if ( instance )
+				return instance.tutorial;
+			return false;
+		}
+	}
+	public static bool eventSystem
+	{
+		set
+		{
+			Instance.uiEventSystem.enabled = value;
+			foreach ( Button button in Instance.buttons )
+				button.enabled = value;
+		}
+	}
+	public static bool GameRunning
+	{
+		get
+		{
+			if ( instance )
+				return Instance.gameRunning;
+			else
+				return false;
+		}
+	}
+	public static bool GameEnded
+	{ get { return instance.gameEnded; } }
+	public List<HeroInfo> Heros
+	{ get { return heros; } }
 	public string WaveTimer
 	{ get { return waveTimer.ToString( "F2" ); } }
 	public string Wave
 	{ get { return wave.ToString(); } }
-	public List<HeroInfo> Heros
-	{ get { return heros; } }
+	public float Timer
+	{ get { return timer; } }
 	public void InitiateGame()
 	{
 		gameRunning = true;

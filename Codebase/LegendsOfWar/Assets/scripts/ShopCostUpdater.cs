@@ -8,9 +8,8 @@ public class ShopCostUpdater : MonoBehaviour
 		null, casterUpgradeCost = null;
 	[SerializeField]
 	private GameObject strikerButton = null, tankButton = null, casterButton = null;
-	private static readonly Color bronze = new Color( 0.424f, 0.329f, 0.118f );
-	private static readonly Color silver = new Color( 0.753f, 0.753f, 0.753f );
-	private static readonly Color gold = new Color( 1.0f, 0.843f, 0.0f );
+	private static readonly Color bronze = new Color( 0.424f, 0.329f, 0.118f ), silver = new Color(
+		0.753f, 0.753f, 0.753f ), gold = new Color( 1.0f, 0.843f, 0.0f );
 	private void Start()
 	{
 		SetValues();

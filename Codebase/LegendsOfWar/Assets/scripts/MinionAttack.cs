@@ -6,11 +6,10 @@ public class MinionAttack : AttackScript
 	private List<Transform> targets;
 	[SerializeField]
 	private ParticleSystem attackParticles = null;
+	private ProximityCompare poo = new ProximityCompare();
 	private MinionInfo Minioninfo;
 	private MinionMovement movement;
-	private ProximityCompare poo = new ProximityCompare();
-	private float second = 1.0f;
-	private float effectTime = 0.5f;
+	private float second = 1.0f, effectTime = 0.5f;
 	private bool psEnabled = false;
 	private void Start()
 	{
@@ -41,7 +40,7 @@ public class MinionAttack : AttackScript
 				psEnabled = true;
 				attackParticles.Play();
 			}
-			FireAtTarget( targets[ 0 ], 120.0f, Minioninfo.Damage );
+			FireAtTarget( targets[ 0 ], Minioninfo.Damage );
 			AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttack, transform.position );
 			second = 1.0f;
 		}

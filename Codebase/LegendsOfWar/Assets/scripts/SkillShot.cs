@@ -4,13 +4,12 @@ public class SkillShot : MonoBehaviour
 	public float speed;
 	public Transform target = null;
 	public float damage;
-	public bool HitMultiTarget = false;
-	public bool MarkingAttack = false;
+	public bool HitMultiTarget = false, MarkingAttack = false;
 	public GameObject Shooter = null;
 	public Effect effect = new Effect();
 	public float projectileLifetime = 2.0f;
-	private bool isFired = false;
 	private float projectileTimer;
+	private bool isFired = false;
 	public void Fire()
 	{
 		isFired = true;

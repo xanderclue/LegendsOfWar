@@ -3,8 +3,7 @@ using UnityEngine;
 public class SupportRange : MonoBehaviour
 {
 	public static List<Collider> supportedEntities = new List<Collider>();
-	private List<Collider> mySupportedEntities;
-	private List<Collider> nearbyEnemies;
+	private List<Collider> mySupportedEntities, nearbyEnemies;
 	public static bool InSupportRange( GameObject entity )
 	{
 		ClearNulls();

@@ -2,30 +2,26 @@
 using UnityEngine.UI;
 public class HudScript : MonoBehaviour
 {
-	public Camera minimapCam = null;
-	public Text timer;
-	public Text waveTimer;
-	public Text blueGold;
-	public Text qCD, wCD, eCD, rCD;
+	[SerializeField]
+	private Camera minimapCam = null;
+	[SerializeField]
+	private Text timer = null, waveTimer = null, blueGold = null, qCD = null, wCD = null, eCD = null
+		, rCD = null;
 	[SerializeField]
 	private GameObject hero = null;
 	[SerializeField]
-	private Button q = null, w = null, e = null, r = null;
-	[SerializeField]
-	private Button buttonHM = null;
+	private Button q = null, w = null, e = null, r = null, buttonHM = null;
 	[SerializeField]
 	private Text heroBeingAttackedText = null;
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
 	private static readonly Color low = new Color( 0.9f, 0.0f, 0.0f );
+	private Image qIm, wIm, eIm, rIm;
 	private HeroAbilities abilities;
 	private RaycastHit hit;
-	private Image qIm, wIm, eIm, rIm;
-	private int tempSec;
-	private float tmr;
 	private ColorBlock BrightColor;
-	private float buttonHmAnimTime = 0.0f;
-	private float qtim, wtim, etim, rtim;
+	private float tmr, buttonHmAnimTime = 0.0f, qtim, wtim, etim, rtim;
+	private int tempSec;
 	private void Start()
 	{
 		hero = GameManager.Instance.Player;

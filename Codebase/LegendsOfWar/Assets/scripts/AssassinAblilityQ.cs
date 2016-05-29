@@ -5,12 +5,9 @@ public class AssassinAblilityQ : AbilityQBase
 	private GameObject Target = null;
 	[SerializeField]
 	private int Damage = 0, Speed = 0;
+	public Detector attackTrigger;
 	[SerializeField]
-	private Detector attackTrigger = null;
-	[SerializeField]
-	private GameObject weapon = null, projectile = null;
-	[SerializeField]
-	private GameObject Indicator = null;
+	private GameObject weapon = null, projectile = null, Indicator = null;
 	private bool aiming = false;
 	protected override void Start()
 	{

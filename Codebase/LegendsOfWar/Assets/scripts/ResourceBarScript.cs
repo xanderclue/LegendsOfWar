@@ -5,15 +5,14 @@ public class ResourceBarScript : MonoBehaviour
 	[SerializeField]
 	private GameObject host = null;
 	[SerializeField]
-	private bool attachedToHUD = false;
-	public bool isMana = false;
+	private bool attachedToHUD = false, isMana = false;
 	private static readonly Quaternion x90 = Quaternion.Euler( 90.0f, 0.0f, 0.0f );
-	private Info stats;
 	private Image bar = null;
-	private bool notHero = true;
-	private Vector3 high, low;
 	private Transform heroUiTrans;
 	private RectTransform rectTransform;
+	private Info stats;
+	private Vector3 high, low;
+	private bool notHero = true;
 	public GameObject Host
 	{ set { host = value ?? host; } }
 	private void Start()

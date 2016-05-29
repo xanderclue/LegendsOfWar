@@ -2,16 +2,12 @@
 public enum MinionClass { STRIKER_MINION, TANK_MINION, CASTER_MINION, SIEGE_MINION }
 public class MinionInfo : Info
 {
-	public MinionClass type;
+	[SerializeField]
+	private MinionClass type = MinionClass.STRIKER_MINION;
 	[SerializeField]
 	private int movementSpeed = 0;
-	private bool m_soulDefense = false;
 	private float baseDamage = 0.0f;
-	public bool soulDefense
-	{
-		get { return m_soulDefense; }
-		set { m_soulDefense = value; }
-	}
+	private bool m_soulDefense = false, isBasicMinionType = true;
 	public int MovementSpeed
 	{ get { return movementSpeed; } }
 	public float Damage
@@ -31,6 +27,13 @@ public class MinionInfo : Info
 	}
 	public float AgroRange
 	{ get { return agroRange; } }
+	public bool soulDefense
+	{
+		get { return m_soulDefense; }
+		set { m_soulDefense = value; }
+	}
+	public bool IsBasicMinionType
+	{ get { return isBasicMinionType; } }
 	public override void TakeDamage( float damage )
 	{
 		if ( m_soulDefense )
@@ -47,6 +50,8 @@ public class MinionInfo : Info
 		base.Start();
 		Attacked += MinionAttacked;
 		Destroyed += MinionDeath;
+		if ( MinionClass.SIEGE_MINION == type )
+			isBasicMinionType = false;
 		baseDamage = damage;
 	}
 	private void Update()

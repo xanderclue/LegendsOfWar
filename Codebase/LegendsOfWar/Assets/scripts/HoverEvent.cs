@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-	public Sprite buttonOut = null;
-	public Sprite buttonOver = null;
-	public Sprite buttonPushed = null;
+	[SerializeField]
+	private Sprite buttonOut = null, buttonOver = null;
+	public Sprite buttonPushed;
 	public bool OnOff = false;
 	public void OnPointerEnter( PointerEventData even )
 	{

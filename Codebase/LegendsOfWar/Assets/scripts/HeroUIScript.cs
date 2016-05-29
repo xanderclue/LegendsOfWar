@@ -4,9 +4,8 @@ public class HeroUIScript : MonoBehaviour
 	[SerializeField]
 	private GameObject damageNumberPrefab = null;
 	[SerializeField]
-	private float damageNumberHeight = 10.0f, damageNumberDuration = 1.0f;
-	[SerializeField]
-	private float AttackedNotificationDuration = 5.0f;
+	private float damageNumberHeight = 10.0f, damageNumberDuration = 1.0f,
+		AttackedNotificationDuration = 5.0f;
 	[SerializeField]
 	private AudioSource heroWarning = null;
 	public static float heroDamageNotifTimer = 0.0f;

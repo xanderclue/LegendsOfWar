@@ -9,10 +9,8 @@ public class Info : MonoBehaviour
 	protected float attackSpeed, agroRange, attackRange, damage;
 	public delegate void HpChangedEvent();
 	public event HpChangedEvent Attacked, Destroyed;
-	protected bool dontDestroy = false;
-	private float dmgAmp = 1.0f, dmgDamp = 0.0f;
-	private float currHP;
-	private bool isAlive = false;
+	private float dmgAmp = 1.0f, dmgDamp = 0.0f, currHP;
+	private bool destroyable = true, isAlive = false;
 	public float DmgAmp
 	{ set { dmgAmp = value; } }
 	public float DmgDamp
@@ -68,7 +66,7 @@ public class Info : MonoBehaviour
 			if ( !( this is PortalInfo ) )
 			{
 				gameObject.SetActive( false );
-				if ( !dontDestroy )
+				if ( destroyable )
 					Destroy( gameObject, 1.0f );
 			}
 			if ( null != Destroyed )
@@ -79,5 +77,7 @@ public class Info : MonoBehaviour
 	{
 		currHP = MaxHP;
 		isAlive = true;
+		if ( this is HeroInfo )
+			destroyable = false;
 	}
 }

@@ -3,8 +3,7 @@ public class ArrowShowSelection : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject top = null, center = null, bot = null;
-	private Vector3 newVector;
-	private Vector3 test = Vector3.zero;
+	private Vector3 newVector, test = Vector3.zero;
 	private void Start()
 	{
 		top.SetActive( false );

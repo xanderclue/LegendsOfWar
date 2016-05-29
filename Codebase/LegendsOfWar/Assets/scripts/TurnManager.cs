@@ -20,7 +20,7 @@ public class TurnManager : MonoBehaviour
 			225.0f, 0.0f ), Quaternion.Euler( 0.0f, 270.0f, 0.0f ), Quaternion.Euler( 0.0f, 315.0f,
 				0.0f ) };
 	private TurnState turnState = TurnState.Fix;
-	private Character current = 0;
+	private Character current = Character.Default;
 	private int c;
 	public int CurrentInt
 	{ get { return ( int )current; } }

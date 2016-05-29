@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 public class HeroAttack : AttackScript
 {
-	private HeroInfo info;
 	private List<Transform> targets;
 	private ProximityCompare comparer = new ProximityCompare();
-	private float attackDelay;
-	private float attackTimer = 0.0f;
-	private float AsoundTimer = 1.0f;
+	private HeroInfo info;
+	private float attackDelay, attackTimer = 0.0f, AsoundTimer = 1.0f;
 	private void Start()
 	{
 		info = GetComponent<HeroInfo>();
@@ -28,7 +26,7 @@ public class HeroAttack : AttackScript
 		AsoundTimer -= Time.deltaTime;
 		if ( targets.Count > 0 && attackTimer <= 0.0f )
 		{
-			FireAtTarget( targets[ 0 ], 120.0f, info.Damage );
+			FireAtTarget( targets[ 0 ], info.Damage );
 			attackTimer = attackDelay;
 			if ( AsoundTimer <= 0.0f )
 			{

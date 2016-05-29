@@ -10,14 +10,14 @@ public class ShopManager : MonoBehaviour
 		MinionUG1Cost = 20, MinionUG2Cost = 30, MinionUG3Cost = 40, AbilityUG1Cost = 10,
 		AbilityUG2Cost = 20, AbilityUG3Cost = 30, InstaReviveCost = 50, FreezingShotCost = 50,
 		ExplosiveShotCost = 60;
-	public float strikerHpUpgrade = 10, strikerDamageUpgrade = 5, strikerAttackspeedUpgrade = 10,
-		tankHpUpgrade = 15, tankDamageUpgrade = 5, tankAttackspeedUpgrade = 5, casterHpUpgrade = 5,
-		casterDamageUpgrade = 10, casterAttackspeedUpgrade = 5, casterRangeUpgrade = 5;
+	public float strikerHpUpgrade = 10.0f, strikerDamageUpgrade = 5.0f, strikerAttackspeedUpgrade =
+		10.0f, tankHpUpgrade = 15.0f, tankDamageUpgrade = 5.0f, tankAttackspeedUpgrade = 5.0f,
+		casterHpUpgrade = 5.0f, casterDamageUpgrade = 10.0f, casterAttackspeedUpgrade = 5.0f,
+		casterRangeUpgrade = 5.0f;
 	private static ShopManager instance = null;
+	private int[ ] purchases = new int[ 13 ], MinionUGPrices = new int[ 4 ], AbilityUGPrices = new
+		int[ 3 ];
 	private bool updateValues = false;
-	private int[ ] purchases = new int[ 13 ] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	private int[ ] MinionUGPrices = new int[ 4 ] { 0, 0, 0, 0 };
-	private int[ ] AbilityUGPrices = new int[ 3 ] { 0, 0, 0 };
 	public static ShopManager Instance
 	{
 		get
@@ -31,15 +31,15 @@ public class ShopManager : MonoBehaviour
 			return instance;
 		}
 	}
+	public int[ ] Purchases
+	{ get { return purchases; } }
+	public int[ ] minionUGPrices
+	{ get { return MinionUGPrices; } }
 	public bool UpdateValues
 	{
 		get { return updateValues; }
 		set { updateValues = value; }
 	}
-	public int[ ] Purchases
-	{ get { return purchases; } }
-	public int[ ] minionUGPrices
-	{ get { return MinionUGPrices; } }
 	public void PurchaseFreezingShot( Team team )
 	{
 		if ( EconomyManager.Instance.TakeGold( team, FreezingShotCost ) )

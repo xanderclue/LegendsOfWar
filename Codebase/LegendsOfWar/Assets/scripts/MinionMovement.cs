@@ -2,19 +2,20 @@
 public enum Move_State
 { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
 public enum Path
-{ NORTH_PATH = 577, SOUTH_PATH = 1153, CENTER_PATH = 289, NULL = 1, ANY_PATH = 2023 }
+{ CENTER_PATH = 289, NORTH_PATH = 577, SOUTH_PATH = 1153, ANY_PATH = 2023 }
 public class MinionMovement : MovementScript
 {
-	public Transform goal;
+	[SerializeField]
+	private Transform goal;
 	[SerializeField]
 	private Move_State m_state, m_prevState;
 	private NavMeshAgent agent;
-	private bool followingNav = true;
+	private SkinnedMeshRenderer temp_smr;
 	private LineRenderer line;
 	private MinionInfo info;
 	private Interactive interactive;
 	private Path m_path;
-	private SkinnedMeshRenderer temp_smr;
+	private bool followingNav = true;
 	public void ChangeLane( Path _newPath = Path.ANY_PATH )
 	{
 		if ( !followingNav )
@@ -32,12 +33,13 @@ public class MinionMovement : MovementScript
 		base.Start();
 		Start2();
 		agent.speed = info.MovementSpeed;
-		if ( MinionClass.SIEGE_MINION == info.type )
-			return;
-		line = gameObject.AddComponent<LineRenderer>();
-		temp_smr = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-		if ( temp_smr )
-			line.material = temp_smr.material;
+		if ( info.IsBasicMinionType )
+		{
+			line = gameObject.AddComponent<LineRenderer>();
+			temp_smr = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+			if ( temp_smr )
+				line.material = temp_smr.material;
+		}
 	}
 	private void Update()
 	{
@@ -48,7 +50,7 @@ public class MinionMovement : MovementScript
 					agent.enabled = true;
 					if ( agent.pathPending )
 						break;
-					if ( MinionClass.SIEGE_MINION != info.type )
+					if ( info.IsBasicMinionType )
 						line.enabled = false;
 					if ( inCombat )
 						SetState( Move_State.ENGAGE_STATE );
@@ -70,7 +72,7 @@ public class MinionMovement : MovementScript
 				case Move_State.COMMAND_STATE:
 					if ( agent.pathPending )
 						break;
-					if ( MinionClass.SIEGE_MINION != info.type )
+					if ( info.IsBasicMinionType )
 					{
 						line.enabled = true;
 						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
@@ -86,7 +88,7 @@ public class MinionMovement : MovementScript
 							SetState( Move_State.IDLE_STATE );
 					break;
 				case Move_State.COMBAT_STATE:
-					if ( MinionClass.SIEGE_MINION != info.type )
+					if ( info.IsBasicMinionType )
 						line.enabled = false;
 					if ( inCombat && TargetPosition )
 					{
@@ -106,7 +108,7 @@ public class MinionMovement : MovementScript
 						SetState( Move_State.DISENGAGE_STATE );
 					break;
 				case Move_State.IDLE_STATE:
-					if ( MinionClass.SIEGE_MINION != info.type )
+					if ( info.IsBasicMinionType )
 						line.enabled = false;
 					if ( CheckForInput() )
 						SetState( Move_State.COMMAND_STATE );
@@ -177,7 +179,7 @@ public class MinionMovement : MovementScript
 				followingNav = false;
 				agent.ResetPath();
 				agent.SetDestination( hit.point );
-				if ( MinionClass.SIEGE_MINION != info.type )
+				if ( info.IsBasicMinionType )
 				{
 					Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
 					line.SetPositions( temp );
@@ -193,7 +195,7 @@ public class MinionMovement : MovementScript
 					followingNav = false;
 					agent.ResetPath();
 					agent.SetDestination( hit.point );
-					if ( MinionClass.SIEGE_MINION != info.type )
+					if ( info.IsBasicMinionType )
 					{
 						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
 							destination };

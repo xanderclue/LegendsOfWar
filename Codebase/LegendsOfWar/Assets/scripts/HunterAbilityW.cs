@@ -4,13 +4,11 @@ public class HunterAbilityW : AbilityWBase
 	[SerializeField]
 	private float range = 0.0f, speed = 0.0f, damage = 0.0f;
 	[SerializeField]
-	private GameObject projectile = null, arrowSpawn = null;
-	[SerializeField]
-	private GameObject Icon = null;
+	private GameObject projectile = null, arrowSpawn = null, Icon = null;
 	private GameObject activeIcon = null;
 	private Info target = null;
-	private float originalSpeed = 0.0f;
 	private RaycastHit hit;
+	private float originalSpeed = 0.0f;
 	protected override void Update()
 	{
 		skillTimer -= Time.deltaTime;

@@ -4,20 +4,15 @@ public class HeroInfo : Info
 {
 	public Sprite heroIcon;
 	[SerializeField]
-	private float maxMana = 100.0f;
-	public float manaRegen = 7.5f;
+	private float maxMana = 100.0f, manaRegen = 7.5f;
 	public string Lore = "", roaa = "";
-	public Transform thirdPerson = null;
-	public Transform heroCenter = null;
-	public float respawnTime = 9.0f, respawnIncrement = 3.0f;
+	public Transform thirdPerson = null, heroCenter = null;
+	[SerializeField]
+	private float respawnTime = 9.0f, respawnIncrement = 3.0f;
 	public Difficulty difficulty = Difficulty.Easy;
-	public string heroNameEn = "Player";
-	public string heroNameJp = "プレイヤー";
-	private float mana;
-	private float respawnTimer;
+	public string heroNameEn = "Player", heroNameJp = "プレイヤー";
 	private HeroMovement movement;
-	private float tauntTimer = 0.0f;
-	private float idleTimer;
+	private float mana, respawnTimer, tauntTimer = 0.0f, idleTimer;
 	public HeroAudio heroAudio
 	{ get; private set; }
 	public float Damage
@@ -33,13 +28,13 @@ public class HeroInfo : Info
 	{ get { return mana; } }
 	public float MaxMana
 	{ get { return maxMana; } }
-	public bool waitingRespawn
-	{ get { return ( !Alive && respawnTimer <= 0.0f ); } }
 	public float RespawnTimer
 	{
 		get { return respawnTimer; }
 		set { respawnTimer = value; }
 	}
+	public bool waitingRespawn
+	{ get { return ( !Alive && respawnTimer <= 0.0f ); } }
 	public void Deidle()
 	{
 		idleTimer = 25.0f;
@@ -64,7 +59,6 @@ public class HeroInfo : Info
 		base.Start();
 		movement = GetComponent<HeroMovement>();
 		mana = maxMana;
-		dontDestroy = true;
 		Attacked += HeroAttacked;
 		Destroyed += HeroDeath;
 		if ( GameManager.Avail )

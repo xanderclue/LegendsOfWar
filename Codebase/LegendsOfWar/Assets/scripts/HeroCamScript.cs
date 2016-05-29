@@ -21,21 +21,34 @@ public class HeroCamScript : MonoBehaviour
 	public static event voidDel OnOnHero;
 	public static HeroCamScript inst;
 	private static string enterHM, exitHM;
+	private RaycastHit[ ] hits;
 	private Camera mainCam, heroCam;
-	private float tValue = 0.0f;
-	private CamTransitionState state = CamTransitionState.OnMain;
 	private Button buttonSwitch;
 	private Text textSwitch;
-	private bool cameraReady = false;
-	private float targetFOV = 60.0f;
-	private float maxDistance, forceDistance;
-	private RaycastHit[ ] hits;
-	private string hitLayerName;
 	private Color green, red;
-	private float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f;
-	private float mouseVerticalStart;
-	private bool hudTextShowsQWER = true;
-	private float currentVertical;
+	private CamTransitionState state = CamTransitionState.OnMain;
+	private string hitLayerName;
+	private float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f, tValue = 0.0f,
+		mouseVerticalStart, targetFOV = 60.0f, maxDistance, forceDistance, currentVertical;
+	private bool cameraReady = false;
+	public static Camera HeroCam
+	{
+		get
+		{
+			if ( inst )
+				return inst.heroCam;
+			return null;
+		}
+	}
+	public static float MouseVertical
+	{
+		get { return inst ? inst.mouseVerticalStart : 0.0f; }
+		set
+		{
+			if ( inst )
+				inst.mouseVerticalStart = value;
+		}
+	}
 	public static bool onVantage
 	{ get { return CameraControl.Vantage.enabled; } }
 	public static bool onHero
@@ -59,29 +72,10 @@ public class HeroCamScript : MonoBehaviour
 			return inst.info.Alive;
 		}
 	}
-	public static Camera HeroCam
-	{
-		get
-		{
-			if ( inst )
-				return inst.heroCam;
-			return null;
-		}
-	}
-	public static float MouseVertical
-	{
-		get { return inst ? inst.mouseVerticalStart : 0.0f; }
-		set
-		{
-			if ( inst )
-				inst.mouseVerticalStart = value;
-		}
-	}
 	private bool HudTextShowsQWER
 	{
 		set
 		{
-			hudTextShowsQWER = value;
 			if ( value )
 			{
 				hudTextAbilityQ.text = "Q";

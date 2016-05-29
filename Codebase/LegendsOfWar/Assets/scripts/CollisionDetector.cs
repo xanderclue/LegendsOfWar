@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 public class CollisionDetector : MonoBehaviour
 {
-	public List<Collider> targetedEnemies;
+	[SerializeField]
+	private List<Collider> targetedEnemies = null;
 	public TankAbilityW w = null;
 	public void DealDamage( System.Action<Info> action )
 	{

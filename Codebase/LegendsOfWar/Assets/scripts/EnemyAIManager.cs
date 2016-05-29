@@ -5,11 +5,8 @@ public enum DangerLevel { MINIMAL, LOW, MEDIUM, MODERATE, HIGH, CRITICAL, EXTREM
 public class EnemyAIManager : MonoBehaviour
 {
 	[Header( "Needed stuff" )]
-	public PortalInfo redPortal = null;
-	public PortalInfo bluePortal = null;
-	public GameObject UpperSplit = null;
-	public GameObject LowerSplit = null;
-	public GameObject portalLazer = null;
+	public PortalInfo redPortal = null, bluePortal = null;
+	public GameObject UpperSplit = null, LowerSplit = null, portalLazer = null;
 	public BcWeapon lazer = null;
 	public GameObject lastResortParticle = null;
 	public Detector attackRange = null;
@@ -23,59 +20,37 @@ public class EnemyAIManager : MonoBehaviour
 	public HeroLocation heroPresence = HeroLocation.Unknown;
 	[Header( "Timers" )]
 	[Range( 0.0f, 80.0f )]
-	public float siegeTimer = 0.0f;
-	[Range( 0.0f, 80.0f )]
-	public float reinforcementsTimer = 0.0f;
+	public float siegeTimer = 0.0f, reinforcementsTimer = 0.0f;
 	[Range( 0.0f, 30.0f )]
 	public float lastResortTimer = 3.0f;
 #if DEBUG
 	[Header( "Enabled Behaviors" )]
-	public bool m_spawnSiegeMinion = false;
-	public bool m_reinforcements = false;
-	public bool m_towerMovement = false;
-	public bool m_selfRecover = false;
-	public bool m_huntHero = false;
-	public bool m_upgradeSiege = false;
-	public bool m_extraSiegeMinion = false;
-	public bool m_lastResort = false;
+	public bool m_spawnSiegeMinion = false, m_reinforcements = false, m_towerMovement = false,
+		m_selfRecover = false, m_huntHero = false, m_upgradeSiege = false, m_extraSiegeMinion =
+		false, m_lastResort = false;
 #endif
-	public static bool spawnSiegeMinion = false;
-	public static bool reinforcements = false;
-	public static bool towerMovement = false;
-	public static bool selfRecover = false;
-	public static bool huntHero = false;
-	public static bool upgradeSiege = false;
-	public static bool extraSiegeMinion = false;
-	public static bool lastResort = false;
 	[Header( "Minion Prefabs" )]
-	public GameObject siegeMinion = null;
-	public GameObject redStriker = null;
-	public GameObject redTank = null;
-	public GameObject redCaster = null;
+	public GameObject siegeMinion = null, redStriker = null, redTank = null, redCaster = null;
 #if DEBUG
-	public float temp;
-	public float temp2 = 0.0f;
+	public float temp, temp2 = 0.0f;
 #endif
 	private static readonly Quaternion faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f,
 		0.707106781f ), faceUp = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion
 		( 0.0f, 1.0f, 0.0f, 0.0f );
-	private float reinforcementsTime = 40.0f;
-	private float siegeTime = 60.0f;
-	private float lastResortTime = 20.0f;
-	private bool LastResortActive = false;
-	private float towerCost = 9.0f;
-	private float healthCost = 50.0f;
-	private float timeCost = 40.0f;
-	private float selfRecoveryBase = 20.0f;
-	private float selfRecoveryGrowth = 8.0f;
-	private float maxTime = 900.0f;
-	private GameObject min_go;
-	private NavMeshAgent nma;
+	public static bool spawnSiegeMinion = false, reinforcements = false, towerMovement = false,
+		selfRecover = false, huntHero = false, upgradeSiege = false, extraSiegeMinion = false,
+		lastResort = false;
 	private List<Transform> targets = new List<Transform>();
-	private GameObject Hero = null;
+	private GameObject min_go, Hero = null;
+	private NavMeshAgent nma;
+	private float reinforcementsTime = 40.0f, siegeTime = 60.0f, lastResortTime = 20.0f, towerCost =
+		9.0f, healthCost = 50.0f, timeCost = 40.0f, selfRecoveryBase = 20.0f, selfRecoveryGrowth =
+		8.0f, maxTime = 900.0f
 #if DEBUG
-	private float second = 1.0f;
+		, second = 1.0f
 #endif
+		;
+	private bool LastResortActive = false;
 	private float CalcSelfRecovery
 	{
 		get

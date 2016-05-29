@@ -2,9 +2,10 @@
 public class NormalProjectileBehavior : MonoBehaviour
 {
 	public Transform target = null;
-	public float projectileLifetime = 2.0f;
-	private bool fired = false;
+	[SerializeField]
+	private float projectileLifetime = 2.0f;
 	private float projectileTimer;
+	private bool fired = false;
 	public void Fire()
 	{
 		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );

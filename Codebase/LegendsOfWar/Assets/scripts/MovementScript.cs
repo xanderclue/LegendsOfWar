@@ -2,13 +2,10 @@
 public class MovementScript : MonoBehaviour
 {
 	[SerializeField]
-	protected bool inCombat = false;
-	[SerializeField]
-	protected bool m_attackMOve = false;
-	protected bool withinRange = false;
-	protected float combatRange = 0.0f;
+	protected bool inCombat = false, m_attackMOve = false;
 	protected RaycastHit hit;
-	protected bool rayHit = false;
+	protected float combatRange = 0.0f;
+	protected bool withinRange = false, rayHit = false;
 	private Transform targetPosition;
 	public bool WithinRange
 	{ get { return withinRange; } }

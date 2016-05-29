@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 public class SupportAbilityE : AbilityEBase
 {
-	private SupportRange supprang;
 	private ParticleSystem ps;
+	private SupportRange supprang;
 	protected override void Start()
 	{
 		base.Start();

@@ -9,12 +9,8 @@ public class Options : MonoBehaviour
 	[SerializeField]
 	private AudioClip voice = null;
 	public delegate void optionsChangedEvent();
-	public static event optionsChangedEvent onChangedLanguage;
-	public static event optionsChangedEvent onChangedBgmVolume;
-	public static event optionsChangedEvent onChangedSfxVolume;
-	public static event optionsChangedEvent onChangedVoiceVolume;
-	public static bool IsAdditive
-	{ get; set; }
+	public static event optionsChangedEvent onChangedLanguage, onChangedBgmVolume,
+		onChangedSfxVolume, onChangedVoiceVolume;
 	public static SystemLanguage applicationLanguage
 	{ get; private set; }
 	public static float bgmVolume
@@ -23,6 +19,8 @@ public class Options : MonoBehaviour
 	{ get; private set; }
 	public static float voiceVolume
 	{ get; private set; }
+	public static bool IsAdditive
+	{ get; set; }
 	public static bool Japanese
 	{ get { return SystemLanguage.Japanese == applicationLanguage; } }
 	private static string language

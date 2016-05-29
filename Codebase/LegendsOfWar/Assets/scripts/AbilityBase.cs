@@ -7,26 +7,20 @@ public abstract class AbilityBase : MonoBehaviour
 	[SerializeField]
 	protected float cooldownTime = 10.0f;
 	[SerializeField]
-	protected GameObject cursor = null;
+	private GameObject cursor = null;
 	[SerializeField]
-	protected Texture2D CursorIcon = null;
-	public CursorMode cursorMode = CursorMode.Auto;
-	public Vector2 hotSpot = Vector2.zero;
-	public string abilityDescEn = "";
-	public string abilityDescJp = "";
-	public string abilityNameEn = "Ability";
-	public string abilityNameJp = "スペル";
+	private Texture2D CursorIcon = null;
+	[SerializeField]
+	private CursorMode cursorMode = CursorMode.Auto;
+	[SerializeField]
+	private Vector2 hotSpot = Vector2.zero;
+	public string abilityDescEn = "", abilityDescJp = "", abilityNameEn = "Ability", abilityNameJp = "スペル";
 	public float abilityCost = 10.0f;
-	protected float cooldownTimer = 0.0f;
-	protected bool abilityOn = false;
-	protected float skillTimer = 0.0f;
 	protected HeroInfo heroInfo;
-	private bool abilityEnabled = true;
+	protected float cooldownTimer = 0.0f, skillTimer = 0.0f;
+	protected bool abilityOn = false, abilityEnabled = true;
 	public bool AbilityEnabled
-	{
-		protected get { return abilityEnabled; }
-		set { abilityEnabled = value; }
-	}
+	{ set { abilityEnabled = value; } }
 	public Effect Effect
 	{ get { return m_effect; } }
 	public float Timer

@@ -9,36 +9,35 @@ public class BcWeapon : MonoBehaviour
 	[Tooltip( "Add here any axis from the Input Settings to fire when using that axis" )]
 	public string triggerAxis = "Fire1";
 	public bool isSemiAutomatic = true;
-	public float horizontalSpread = 0.0f;
-	public float verticalSpread = 0.0f;
-	public float rateOfFire = 1.0f;
+	public float horizontalSpread = 0.0f, verticalSpread = 0.0f, rateOfFire = 1.0f;
 	public int clipSize = 10;
 	public float reloadTime = 1.0f;
 	[Header( "Bullet Options" )]
 	public GameObject bulletPrefab;
 	public int bulletsPerShot = 1;
 	public float bulletLife = 5.0f;
-	public Vector3 bulletAcceleration;
-	public Vector3 bulletGlobalAcceleration;
-	public float bulletSpeed = 5.0f;
-	public float bulletSpeedDelta = 0.0f;
-	public float accelerationScale;
+	public Vector3 bulletAcceleration, bulletGlobalAcceleration;
+	public float bulletSpeed = 5.0f, bulletSpeedDelta = 0.0f, accelerationScale;
 	[Header( "Gizmo Options" )]
 	public bool showDisplayHandles = false;
 	public float displayScale = 1.0f;
 	public Vector3 displayOffset = -10.0f * Vector3.one + 20.0f * Vector3.right;
 	public float currentAmmo;
 	[Header( "Sound Options" )]
-	public AudioClip shootSound;
-	public AudioClip reloadingSound;
-	public AudioClip reloadedSound;
-	public AudioClip emptyClickSound;
-	private float bulletMass = 1.0f;
-	private bool isReloading;
-	private float shootTimer;
-	private float reloadTimer;
-	private float lastTriggerValue;
-	private bool triggerPushed;
+	public AudioClip shootSound, reloadingSound, reloadedSound, emptyClickSound;
+	private float bulletMass = 1.0f, shootTimer, reloadTimer, lastTriggerValue;
+	private bool isReloading, triggerPushed;
+	public Vector3 DisplayPosition
+	{ get { return DisplayOffsetF + transform.position; } }
+	public Vector3 DisplayOffsetF
+	{
+		get
+		{
+			return displayOffset.z * transform.forward * transform.lossyScale.z + displayOffset.y *
+				transform.up * transform.lossyScale.y + displayOffset.x * transform.right *
+				transform.lossyScale.x;
+		}
+	}
 	private static bool RoughlyEqual( float a, float b )
 	{
 		return ( Mathf.Abs( a - b ) < 0.01f );
@@ -94,16 +93,6 @@ public class BcWeapon : MonoBehaviour
 			force.force *= 50.0f;
 			newBullet.AddComponent<CCDBullet>().life = bulletLife;
 		}
-	}
-	public Vector3 DisplayPosition()
-	{
-		return DisplayOffset() + transform.position;
-	}
-	public Vector3 DisplayOffset()
-	{
-		return displayOffset.z * transform.forward * transform.lossyScale.z + displayOffset.y *
-			transform.up * transform.lossyScale.y + displayOffset.x * transform.right * transform.
-			lossyScale.x;
 	}
 	public float IsOverCannon()
 	{
@@ -168,7 +157,7 @@ public class BcWeapon : MonoBehaviour
 				bulletSpeed ), bulletLife, Color.yellow ), 0.3f );
 			float width = clipSize * displayScale / rateOfFire;
 			float height = displayScale;
-			Vector3 dispPos = DisplayPosition();
+			Vector3 dispPos = DisplayPosition;
 			for ( float i = 0.0f; i < clipSize / rateOfFire; i += 1.0f )
 			{
 				float size = 0.25f * height;
@@ -273,6 +262,20 @@ public class BcWeapon : MonoBehaviour
 			DestroyImmediate( hull );
 		}
 	}
+	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time )
+	{
+		Vector3[ ] res = new Vector3[ 4 ];
+		res[ 0 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
+			- transform.right * horizontalSpread, time, Color.gray );
+		res[ 1 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
+			- transform.right * horizontalSpread, time, Color.gray );
+		res[ 2 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
+			+ transform.right * horizontalSpread, time, Color.gray );
+		res[ 3 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
+			+ transform.right * horizontalSpread, time, Color.gray );
+		Gizmos.color = Color.white;
+		return res;
+	}
 	private Vector3 DrawTrajectory( Vector3 pos, Vector3 vel, float time, Color color, bool draw =
 		true )
 	{
@@ -290,50 +293,17 @@ public class BcWeapon : MonoBehaviour
 		}
 		return pos;
 	}
-	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time )
-	{
-		Vector3[ ] res = new Vector3[ 4 ];
-		res[ 0 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
-			- transform.right * horizontalSpread, time, Color.gray );
-		res[ 1 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
-			- transform.right * horizontalSpread, time, Color.gray );
-		res[ 2 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
-			+ transform.right * horizontalSpread, time, Color.gray );
-		res[ 3 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
-			+ transform.right * horizontalSpread, time, Color.gray );
-		Gizmos.color = Color.white;
-		return res;
-	}
 }
 #if UNITY_EDITOR
 [CustomEditor( typeof( BcWeapon ) )]
 public class BcWeaponEditor : Editor
 {
-	public SerializedProperty test;
-	public SerializedProperty bulletPrefab;
-	public SerializedProperty bulletSpeed;
-	public SerializedProperty bulletSpeedDelta;
-	public SerializedProperty bulletLife;
-	public SerializedProperty bulletAcceleration;
-	public SerializedProperty Offset;
-	public SerializedProperty displayScale;
-	public SerializedProperty displayOffset;
-	public SerializedProperty gizmosFlag;
-	public SerializedProperty clipSize;
-	public SerializedProperty horizontalSpread;
-	public SerializedProperty verticalSpread;
-	public SerializedProperty bulletsPerShot;
-	public SerializedProperty showDisplayHandles;
-	public SerializedProperty bulletGlobalAcceleration;
-	public SerializedProperty rateOfFire;
-	public SerializedProperty reloadTime;
-	public SerializedProperty isSemiAutomatic;
-	public SerializedProperty shootSound;
-	public SerializedProperty reloadingSound;
-	public SerializedProperty reloadedSound;
-	public SerializedProperty emptyClickSound;
-	public bool speedEditMode;
-	public bool lifeEditMode;
+	public SerializedProperty test, bulletPrefab, bulletSpeed, bulletSpeedDelta, bulletLife,
+		bulletAcceleration, Offset, displayScale, displayOffset, gizmosFlag, clipSize,
+		horizontalSpread, verticalSpread, bulletsPerShot, showDisplayHandles,
+		bulletGlobalAcceleration, rateOfFire, reloadTime, isSemiAutomatic, shootSound,
+		reloadingSound, reloadedSound, emptyClickSound;
+	public bool speedEditMode, lifeEditMode;
 	private void OnSceneGUI()
 	{
 		Vector3 offset, vec;
@@ -366,36 +336,36 @@ public class BcWeaponEditor : Editor
 			if ( showDisplayHandles.boolValue )
 			{
 				offset = tW.transform.position;
-				vec = -offset + Handles.PositionHandle( offset + tW.DisplayOffset(), tW.transform.
+				vec = -offset + Handles.PositionHandle( offset + tW.DisplayOffsetF, tW.transform.
 					rotation );
 				displayOffset.vector3Value = tW.transform.worldToLocalMatrix.MultiplyVector( vec );
 				displayScale.floatValue = Mathf.Max( 0.1f, Handles.ScaleSlider( displayScale.
-					floatValue, offset + tW.DisplayOffset(), -tW.transform.up, tW.transform.rotation
-					, 0.75f * HandleUtility.GetHandleSize( offset + tW.DisplayOffset() ), 0.0f ) );
+					floatValue, offset + tW.DisplayOffsetF, -tW.transform.up, tW.transform.rotation,
+					0.75f * HandleUtility.GetHandleSize( offset + tW.DisplayOffsetF ), 0.0f ) );
 			}
 			Handles.color = Color.white;
-			offset = tW.DisplayPosition() + tW.transform.up * ( displayScale.floatValue * 0.5f ) +
-				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			offset = tW.DisplayPosition + tW.transform.up * ( displayScale.floatValue * 0.5f ) + tW.
+				transform.forward * ( 0.5f * displayScale.floatValue );
 			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
 				floatValue / rateOfFire.floatValue ), tW.transform.forward, 0.75f * displayScale.
 				floatValue, Handles.ConeCap, 0.0f ) - offset;
 			rateOfFire.floatValue = tW.clipSize * ( displayScale.floatValue / vec.magnitude );
 			Handles.color = Color.white;
-			offset = tW.DisplayPosition() - tW.transform.up * ( displayScale.floatValue * 0.5f ) +
-				tW.transform.forward * ( 0.75f * displayScale.floatValue );
+			offset = tW.DisplayPosition - tW.transform.up * ( displayScale.floatValue * 0.5f ) + tW.
+				transform.forward * ( 0.75f * displayScale.floatValue );
 			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
 				floatValue / tW.rateOfFire ), tW.transform.forward, 0.75f * displayScale.floatValue,
 				Handles.SphereCap, 0.0f ) - offset;
-			offset = tW.DisplayPosition() - tW.transform.up * ( displayScale.floatValue * 0.5f ) +
-				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			offset = tW.DisplayPosition - tW.transform.up * ( displayScale.floatValue * 0.5f ) + tW.
+				transform.forward * ( 0.5f * displayScale.floatValue );
 			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
 				floatValue / tW.rateOfFire ), tW.transform.forward, 0.75f * displayScale.floatValue,
 				Handles.CylinderCap, 0.0f ) - offset;
 			clipSize.intValue = Mathf.RoundToInt( tW.rateOfFire * vec.magnitude / displayScale.
 				floatValue );
 			Handles.color = Color.gray;
-			offset = tW.DisplayPosition() + tW.transform.up * ( displayScale.floatValue * 0.5f ) -
-				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			offset = tW.DisplayPosition + tW.transform.up * ( displayScale.floatValue * 0.5f ) - tW.
+				transform.forward * ( 0.5f * displayScale.floatValue );
 			vec = Handles.Slider( offset - tW.transform.forward * ( tW.reloadTime * displayScale.
 				floatValue ), -tW.transform.forward, 0.75f * displayScale.floatValue, Handles.
 				ConeCap, 0.0f ) - offset;

@@ -1,40 +1,30 @@
 ﻿using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
-	public Texture2D SelectionHighlight = null;
 	[SerializeField]
-	private Camera mainCam = null;
+	private Texture2D SelectionHighlight = null;
 	[SerializeField]
-	private Camera vantageCam = null;
-	[SerializeField]
-	private Camera minimapCam = null;
+	private Camera mainCam = null, vantageCam = null, minimapCam = null;
 	[SerializeField]
 	private SpriteRenderer camBorder = null;
 	[SerializeField]
-	private float zoomSpeed = 1.0f, moveSpeed = 1.0f;
+	private float zoomSpeed = 1.0f, moveSpeed = 1.0f, worldMaxX = 1200.0f, worldMinX = 0.0f,
+		worldMaxZ = 700.0f, worldMinZ = 0.0f;
 	[SerializeField]
-	private float worldMaxX = 1200.0f, worldMinX = 0.0f, worldMaxZ = 700.0f, worldMinZ = 0.0f;
-	public GameObject player;
+	private GameObject player;
 	private const float scrollDistance = 2.5f;
 	private static readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
 	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
 	public static Rect Selection = new Rect( 0.0f, 0.0f, 0.0f, 0.0f );
 	private static CameraControl inst = null;
 	private static Camera main, vantage, current;
-	private Vector3 StartClick = -Vector3.one;
-	private Vector3 Origin;
-	private Vector3 Difference;
-	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
-		1.0f;
-	private float aspectRatio = 0.0f;
-	private bool followPlayer = false;
-	private float zoomTemp;
-	private RaycastHit hit;
-	private float mousePosX;
-	private float mousePosY;
-	private Vector3 newPos = new Vector3();
 	private Info playerInfo;
+	private RaycastHit hit;
 	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111111f );
+	private Vector3 StartClick = -Vector3.one, Origin, Difference, newPos = new Vector3();
+	private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
+		1.0f, aspectRatio = 0.0f, zoomTemp, mousePosX, mousePosY;
+	private bool followPlayer = false;
 	public static CameraControl instance
 	{ get { return inst; } }
 	public static Camera Vantage
@@ -59,7 +49,8 @@ public class CameraControl : MonoBehaviour
 			SwitchToMainCam();
 		else
 			SwitchToVantageCam();
-		ResetMinimapCam();
+		minimapCam.enabled = false;
+		minimapCam.enabled = true;
 	}
 	public void SwitchToMainCam()
 	{
@@ -255,10 +246,5 @@ public class CameraControl : MonoBehaviour
 		mainCam.fieldOfView = 114.591559026f * Mathf.Atan2( mainCam.orthographicSize, mainCam.
 			transform.position.y );
 		RecalcBoundaries();
-	}
-	private void ResetMinimapCam()
-	{
-		minimapCam.enabled = false;
-		minimapCam.enabled = true;
 	}
 }

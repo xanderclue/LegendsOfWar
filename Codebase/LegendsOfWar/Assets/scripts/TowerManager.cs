@@ -9,9 +9,8 @@ public class TowerManager : MonoBehaviour
 	private bool redNormalActive = true, blueNormalActive = true, redFreezeActive = false,
 		blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
 	private static TowerManager instance = null;
-	private bool blueShotChanged = false;
-	private bool redShotChanged = false;
 	private float blueTimer = 0.1f, redTimer = 0.1f;
+	private bool blueShotChanged = false, redShotChanged = false;
 	public static TowerManager Instance
 	{
 		get

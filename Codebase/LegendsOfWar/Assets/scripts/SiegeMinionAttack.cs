@@ -4,10 +4,10 @@ public class SiegeMinionAttack : AttackScript
 {
 	[SerializeField]
 	private List<Transform> targets;
+	private ProximityCompare poo = new ProximityCompare();
+	private BcWeapon weaponDetails;
 	private SiegeMinionInfo sMinioninfo;
 	private MinionMovement movement;
-	private BcWeapon weaponDetails;
-	private ProximityCompare poo = new ProximityCompare();
 	private void Start()
 	{
 		sMinioninfo = GetComponent<SiegeMinionInfo>();

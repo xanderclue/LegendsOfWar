@@ -5,16 +5,15 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	public Transform target = null;
 	[SerializeField]
 	private Detector AreaOfEffect = null;
-	public float projectileLifetime = 4.0f;
+	[SerializeField]
+	private float projectileLifetime = 4.0f;
+	private List<NavMeshAgent> slowTargets;
+	private List<Transform> victims;
 	private FreezeProjectileInfo info;
 	private Team team;
-	private bool fired = false;
-	private List<Transform> victims;
-	private List<NavMeshAgent> slowTargets;
-	private float aoeTimer, heroSpeed = 105.0f, minionSpeed = 15.0f;
-	private bool aoeActive, targetsAreSlowed, skip;
+	private float aoeTimer, heroSpeed = 105.0f, minionSpeed = 15.0f, projectileTimer;
 	private int repeat;
-	private float projectileTimer;
+	private bool fired = false, aoeActive, targetsAreSlowed, skip;
 	public void Fire( Team theTeam )
 	{
 		team = theTeam;
