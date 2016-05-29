@@ -22,15 +22,10 @@ public class CCDBullet : MonoBehaviour
 		Ray ray = new Ray( transform.position, body.velocity );
 		RaycastHit hit = new RaycastHit();
 		if ( Physics.Raycast( ray, out hit, body.velocity.magnitude * Time.deltaTime ) )
-		{
 			if ( hit.transform.name != name )
 			{
 				body.velocity = body.velocity.normalized * ( hit.distance / Time.deltaTime );
 				body.useGravity = true;
 			}
-			Debug.DrawLine( ray.origin, ray.origin + body.velocity * Time.deltaTime, Color.yellow );
-		}
-		else
-			Debug.DrawLine( ray.origin, ray.origin + body.velocity * Time.deltaTime, Color.white );
 	}
 }

@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
 		0.707106781f ), faceLeft = new Quaternion( 0.0f, -0.707106781f, 0.0f, 0.707106781f ), faceUp
 		= new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f ), faceDown = new Quaternion( 0.0f, 1.0f, 0.0f,
 			0.0f );
-	public static bool WebPlayerMode = false;
 	public static float topSplitZ, botSplitZ;
 	public static List<HeroAbilities> abilities;
 	private static GameManager instance = null;
@@ -117,10 +116,10 @@ public class GameManager : MonoBehaviour
 	{ get { return Instance.HeroSpawnPoint.position; } }
 	public float Timer
 	{ get { return timer; } }
-	public float WaveTimer
-	{ get { return waveTimer; } }
-	public int Wave
-	{ get { return wave; } }
+	public string WaveTimer
+	{ get { return waveTimer.ToString( "F2" ); } }
+	public string Wave
+	{ get { return wave.ToString(); } }
 	public List<HeroInfo> Heros
 	{ get { return heros; } }
 	public void InitiateGame()

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 public class StatusEffects : MonoBehaviour
 {
 	private IList<Effect> m_stats;
-	public IList<Effect> Stats
-	{ get { return m_stats; } }
 	public static void Inflict( GameObject _target, Effect _effect )
 	{
 		StatusEffectsManager.Instance.AddStatus( _target.GetInstanceID().ToString(), _effect );

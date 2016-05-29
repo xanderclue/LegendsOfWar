@@ -143,15 +143,27 @@ public class BcWeapon : MonoBehaviour
 			hull.Clear();
 			Vector3[ ] vertexMatrix = new Vector3[ 8 ];
 			Vector3[ ] dots1, dots2;
-			dots1 = DrawShot( transform.forward * ( bulletSpeed + bulletSpeedDelta ), bulletLife,
-				Color.gray );
-			dots2 = DrawShot( transform.forward * ( bulletSpeed - bulletSpeedDelta ), bulletLife,
-				Color.gray );
+			dots1 = DrawShot( transform.forward * ( bulletSpeed + bulletSpeedDelta ), bulletLife );
+			dots2 = DrawShot( transform.forward * ( bulletSpeed - bulletSpeedDelta ), bulletLife );
 			System.Array.Copy( dots1, 0, vertexMatrix, 0, dots1.Length );
 			System.Array.Copy( dots2, 0, vertexMatrix, dots1.Length, dots2.Length );
 			hull.vertices = vertexMatrix;
-			Vector3[ ] except = null;
-			DrawMesh( hull, except );
+			Vector3 s, d;
+			foreach ( Vector3 vert in hull.vertices )
+			{
+				Gizmos.color = Color.white;
+				foreach ( Vector3 check in hull.vertices )
+				{
+					s = transform.worldToLocalMatrix.MultiplyVector( vert );
+					d = transform.worldToLocalMatrix.MultiplyVector( check );
+					if ( RoughlyEqual( s.x, d.x ) ^ RoughlyEqual( s.y, d.y ) ^ RoughlyEqual( s.z, d.
+						z ) )
+						continue;
+					if ( RoughlyEqual( s.x, d.x ) || RoughlyEqual( s.y, d.y ) || RoughlyEqual( s.z,
+						d.z ) )
+						Gizmos.DrawLine( vert, check );
+				}
+			}
 			Gizmos.DrawWireSphere( DrawTrajectory( transform.position, transform.forward * (
 				bulletSpeed ), bulletLife, Color.yellow ), 0.3f );
 			float width = clipSize * displayScale / rateOfFire;
@@ -278,40 +290,19 @@ public class BcWeapon : MonoBehaviour
 		}
 		return pos;
 	}
-	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time, Color color, bool draw = true )
+	private Vector3[ ] DrawShot( Vector3 initialSpeed, float time )
 	{
 		Vector3[ ] res = new Vector3[ 4 ];
 		res[ 0 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
-			- transform.right * horizontalSpread, time, color, draw );
+			- transform.right * horizontalSpread, time, Color.gray );
 		res[ 1 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
-			- transform.right * horizontalSpread, time, color, draw );
+			- transform.right * horizontalSpread, time, Color.gray );
 		res[ 2 ] = DrawTrajectory( transform.position, initialSpeed + transform.up * verticalSpread
-			+ transform.right * horizontalSpread, time, color, draw );
+			+ transform.right * horizontalSpread, time, Color.gray );
 		res[ 3 ] = DrawTrajectory( transform.position, initialSpeed - transform.up * verticalSpread
-			+ transform.right * horizontalSpread, time, color, draw );
+			+ transform.right * horizontalSpread, time, Color.gray );
 		Gizmos.color = Color.white;
 		return res;
-	}
-	private void ExceptionLine( Vector3 source, Vector3 destination )
-	{
-		bool skip = true;
-		Vector3 s = transform.worldToLocalMatrix.MultiplyVector( source );
-		Vector3 d = transform.worldToLocalMatrix.MultiplyVector( destination );
-		if ( RoughlyEqual( s.x, d.x ) || RoughlyEqual( s.y, d.y ) || RoughlyEqual( s.z, d.z ) )
-			skip = false;
-		if ( RoughlyEqual( s.x, d.x ) ^ RoughlyEqual( s.y, d.y ) ^ RoughlyEqual( s.z, d.z ) )
-			skip = true;
-		if ( !skip )
-			Gizmos.DrawLine( source, destination );
-	}
-	private void DrawMesh( Mesh mesh, Vector3[ ] exception )
-	{
-		foreach ( Vector3 vert in mesh.vertices )
-		{
-			Gizmos.color = Color.white;
-			foreach ( Vector3 check in mesh.vertices )
-				ExceptionLine( vert, check );
-		}
 	}
 }
 #if UNITY_EDITOR
@@ -349,7 +340,29 @@ public class BcWeaponEditor : Editor
 		BcWeapon tW = ( BcWeapon )target;
 		if ( tW.enabled )
 		{
-			SerializeProperties();
+			test = this.serializedObject.FindProperty( "test" );
+			bulletPrefab = this.serializedObject.FindProperty( "bulletPrefab" );
+			horizontalSpread = this.serializedObject.FindProperty( "horizontalSpread" );
+			verticalSpread = this.serializedObject.FindProperty( "verticalSpread" );
+			displayOffset = this.serializedObject.FindProperty( "displayOffset" );
+			bulletAcceleration = this.serializedObject.FindProperty( "bulletAcceleration" );
+			bulletSpeed = this.serializedObject.FindProperty( "bulletSpeed" );
+			bulletSpeedDelta = this.serializedObject.FindProperty( "bulletSpeedDelta" );
+			bulletLife = this.serializedObject.FindProperty( "bulletLife" );
+			rateOfFire = this.serializedObject.FindProperty( "rateOfFire" );
+			clipSize = this.serializedObject.FindProperty( "clipSize" );
+			displayScale = this.serializedObject.FindProperty( "displayScale" );
+			bulletsPerShot = this.serializedObject.FindProperty( "bulletsPerShot" );
+			showDisplayHandles = this.serializedObject.FindProperty( "showDisplayHandles" );
+			bulletGlobalAcceleration = this.serializedObject.FindProperty(
+				"bulletGlobalAcceleration" );
+			reloadTime = this.serializedObject.FindProperty( "reloadTime" );
+			gizmosFlag = this.serializedObject.FindProperty( "gizmosFlag" );
+			isSemiAutomatic = this.serializedObject.FindProperty( "isSemiAutomatic" );
+			shootSound = this.serializedObject.FindProperty( "shootSound" );
+			reloadingSound = this.serializedObject.FindProperty( "reloadingSound" );
+			reloadedSound = this.serializedObject.FindProperty( "reloadedSound" );
+			emptyClickSound = this.serializedObject.FindProperty( "emptyClickSound" );
 			if ( showDisplayHandles.boolValue )
 			{
 				offset = tW.transform.position;
@@ -395,31 +408,6 @@ public class BcWeaponEditor : Editor
 				+ Mathf.Round( 100.0f * Vector3.Distance( tW.transform.position, position ) ) *
 				0.01f + " m" );
 		}
-	}
-	private void SerializeProperties()
-	{
-		test = this.serializedObject.FindProperty( "test" );
-		bulletPrefab = this.serializedObject.FindProperty( "bulletPrefab" );
-		horizontalSpread = this.serializedObject.FindProperty( "horizontalSpread" );
-		verticalSpread = this.serializedObject.FindProperty( "verticalSpread" );
-		displayOffset = this.serializedObject.FindProperty( "displayOffset" );
-		bulletAcceleration = this.serializedObject.FindProperty( "bulletAcceleration" );
-		bulletSpeed = this.serializedObject.FindProperty( "bulletSpeed" );
-		bulletSpeedDelta = this.serializedObject.FindProperty( "bulletSpeedDelta" );
-		bulletLife = this.serializedObject.FindProperty( "bulletLife" );
-		rateOfFire = this.serializedObject.FindProperty( "rateOfFire" );
-		clipSize = this.serializedObject.FindProperty( "clipSize" );
-		displayScale = this.serializedObject.FindProperty( "displayScale" );
-		bulletsPerShot = this.serializedObject.FindProperty( "bulletsPerShot" );
-		showDisplayHandles = this.serializedObject.FindProperty( "showDisplayHandles" );
-		bulletGlobalAcceleration = this.serializedObject.FindProperty( "bulletGlobalAcceleration" );
-		reloadTime = this.serializedObject.FindProperty( "reloadTime" );
-		gizmosFlag = this.serializedObject.FindProperty( "gizmosFlag" );
-		isSemiAutomatic = this.serializedObject.FindProperty( "isSemiAutomatic" );
-		shootSound = this.serializedObject.FindProperty( "shootSound" );
-		reloadingSound = this.serializedObject.FindProperty( "reloadingSound" );
-		reloadedSound = this.serializedObject.FindProperty( "reloadedSound" );
-		emptyClickSound = this.serializedObject.FindProperty( "emptyClickSound" );
 	}
 }
 #endif

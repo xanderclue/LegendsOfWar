@@ -12,7 +12,7 @@ public class CharacterSelectionManager : MonoBehaviour
 	public static GameObject LegendChoice
 	{ get { return inst ? inst.Legends[ inst.Index ] : null; } }
 	public static HeroInfo heroInfo
-	{ get { return LegendChoice.GetComponent<HeroInfo>(); } }
+	{ get { return inst.Legends[ inst.Index ].GetComponent<HeroInfo>(); } }
 	public bool[ ] Available
 	{ get { return available; } }
 	public static void ChangedCharacter()

@@ -6,6 +6,7 @@ public class MinionAttack : AttackScript
 	private List<Transform> targets;
 	[SerializeField]
 	private ParticleSystem attackParticles = null;
+	private MinionInfo Minioninfo;
 	private MinionMovement movement;
 	private ProximityCompare poo = new ProximityCompare();
 	private float second = 1.0f;
@@ -27,7 +28,9 @@ public class MinionAttack : AttackScript
 			Alive )
 		{
 			movement.Disengage();
-			Nil();
+			for ( int i = 0; i < targets.Count; ++i )
+				if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+					targets.RemoveAt( i-- );
 			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 				AttackTriggerExit( targets[ 0 ].gameObject );
 		}
@@ -75,11 +78,5 @@ public class MinionAttack : AttackScript
 			targets.Sort( 1, targets.Count - 1, poo );
 			targets.Reverse( 1, targets.Count - 1 );
 		}
-	}
-	private void Nil()
-	{
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
 	}
 }

@@ -22,8 +22,6 @@ public class EconomyManager : MonoBehaviour
 	}
 	public float BlueGold
 	{ get { return blueTeamGold; } }
-	public float RedGold
-	{ get { return redTeamGold; } }
 	public void StartingGame()
 	{
 		blueTeamGold = redTeamGold = startingAmount;

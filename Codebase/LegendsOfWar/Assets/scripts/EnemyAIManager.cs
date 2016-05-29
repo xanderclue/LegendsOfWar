@@ -85,6 +85,25 @@ public class EnemyAIManager : MonoBehaviour
 				Instance.Timer ) ) );
 		}
 	}
+	private DangerLevel GetTriggered
+	{
+		get
+		{
+			if ( dangerTreshold >= 90.0f )
+				return DangerLevel.EXTREME;
+			else if ( dangerTreshold >= 75.0f )
+				return DangerLevel.CRITICAL;
+			else if ( dangerTreshold >= 60.0f )
+				return DangerLevel.HIGH;
+			else if ( dangerTreshold >= 45.0f )
+				return DangerLevel.MODERATE;
+			else if ( dangerTreshold >= 30.0f )
+				return DangerLevel.MEDIUM;
+			else if ( dangerTreshold >= 12.0f )
+				return DangerLevel.LOW;
+			return DangerLevel.MINIMAL;
+		}
+	}
 	public void SpawnTankMinion( Team team, int lane )
 	{
 		switch ( lane )
@@ -196,7 +215,7 @@ public class EnemyAIManager : MonoBehaviour
 		lazer.bulletPrefab.GetComponent<SiegeProjectile>().damage = GetComponentInParent<PortalInfo>
 			().Damage * towersRemaining;
 		if ( !LastResortActive )
-			switch ( GetTriggered( dangerTreshold ) )
+			switch ( GetTriggered )
 			{
 				case DangerLevel.EXTREME:
 					selfRecover = true;
@@ -378,7 +397,9 @@ public class EnemyAIManager : MonoBehaviour
 		if ( 0 == targets.Count || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
 			Alive )
 		{
-			Nil();
+			for ( int i = 0; i < targets.Count; ++i )
+				if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+					targets.RemoveAt( i-- );
 			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 				AttackRange_triggerExit( targets[ 0 ].gameObject );
 		}
@@ -419,28 +440,5 @@ public class EnemyAIManager : MonoBehaviour
 		nma = min_go.GetComponent<NavMeshAgent>();
 		nma.enabled = true;
 		nma.destination = bluePortal.gameObject.transform.position;
-	}
-	private DangerLevel GetTriggered( float _num )
-	{
-		if ( dangerTreshold >= 90.0f )
-			return DangerLevel.EXTREME;
-		else if ( dangerTreshold >= 75.0f )
-			return DangerLevel.CRITICAL;
-		else if ( _num >= 60.0f )
-			return DangerLevel.HIGH;
-		else if ( _num >= 45.0f )
-			return DangerLevel.MODERATE;
-		else if ( _num >= 30.0f )
-			return DangerLevel.MEDIUM;
-		else if ( _num >= 12.0f )
-			return DangerLevel.LOW;
-		else
-			return DangerLevel.MINIMAL;
-	}
-	private void Nil()
-	{
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
 	}
 }

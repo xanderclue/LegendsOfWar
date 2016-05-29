@@ -29,8 +29,6 @@ public class HeroInfo : Info
 	{ get { return attackRange; } }
 	public float AttackSpeed
 	{ get { return attackSpeed; } }
-	public float AgroRange
-	{ get { return agroRange; } }
 	public float Mana
 	{ get { return mana; } }
 	public float MaxMana
@@ -78,34 +76,26 @@ public class HeroInfo : Info
 	{
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
 		tauntTimer -= Time.deltaTime;
-		if ( Input.GetKeyDown( KeyCode.T ) )
-			PlayTaunt();
+		if ( Input.GetKeyDown( KeyCode.T ) && tauntTimer < 0.0f )
+		{
+			if ( heroAudio.CHeroTaunt1 && heroAudio.CHeroTaunt2 )
+				tauntTimer = heroAudio.PlayClip( "HeroTaunt" + Random.Range( 1, 3 ) );
+			else if ( heroAudio.CHeroTaunt1 )
+				tauntTimer = heroAudio.PlayClip( "HeroTaunt1" );
+			else if ( heroAudio.CHeroTaunt2 )
+				tauntTimer = heroAudio.PlayClip( "HeroTaunt2" );
+		}
 		idleTimer -= Time.deltaTime;
 		if ( idleTimer <= 0.0f )
 		{
-			PlayIdle();
+			if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
+				heroAudio.PlayClip( "HeroIdle" + Random.Range( 1, 3 ) );
+			else if ( heroAudio.CHeroIdle1 )
+				heroAudio.PlayClip( "HeroIdle1" );
+			else if ( heroAudio.CHeroIdle2 )
+				heroAudio.PlayClip( "HeroIdle2" );
 			Deidle();
 		}
-	}
-	private void PlayTaunt()
-	{
-		if ( tauntTimer >= 0.0f )
-			return;
-		if ( heroAudio.CHeroTaunt1 && heroAudio.CHeroTaunt2 )
-			tauntTimer = heroAudio.PlayClip( "HeroTaunt" + Random.Range( 1, 3 ) );
-		else if ( heroAudio.CHeroTaunt1 )
-			tauntTimer = heroAudio.PlayClip( "HeroTaunt1" );
-		else if ( heroAudio.CHeroTaunt2 )
-			tauntTimer = heroAudio.PlayClip( "HeroTaunt2" );
-	}
-	private void PlayIdle()
-	{
-		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
-			heroAudio.PlayClip( "HeroIdle" + Random.Range( 1, 3 ) );
-		else if ( heroAudio.CHeroIdle1 )
-			heroAudio.PlayClip( "HeroIdle1" );
-		else if ( heroAudio.CHeroIdle2 )
-			heroAudio.PlayClip( "HeroIdle2" );
 	}
 	private void HeroAttacked()
 	{

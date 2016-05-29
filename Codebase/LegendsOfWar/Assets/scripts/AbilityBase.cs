@@ -17,15 +17,14 @@ public abstract class AbilityBase : MonoBehaviour
 	public string abilityNameEn = "Ability";
 	public string abilityNameJp = "スペル";
 	public float abilityCost = 10.0f;
-	protected bool abilityEnabled = true;
 	protected float cooldownTimer = 0.0f;
 	protected bool abilityOn = false;
 	protected float skillTimer = 0.0f;
-	protected bool aimingSkill = false;
 	protected HeroInfo heroInfo;
+	private bool abilityEnabled = true;
 	public bool AbilityEnabled
 	{
-		get { return abilityEnabled; }
+		protected get { return abilityEnabled; }
 		set { abilityEnabled = value; }
 	}
 	public Effect Effect

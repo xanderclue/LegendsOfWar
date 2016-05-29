@@ -6,6 +6,7 @@ public class HunterAbilityE : AbilityEBase
 	[SerializeField]
 	private GameObject projectile = null, arrowSpawn = null, visualTarget = null;
 	private bool aiming = false;
+	private RaycastHit hit;
 	protected override void Update()
 	{
 		Vector3 pos = transform.position + transform.forward * 50.0f;
@@ -13,7 +14,7 @@ public class HunterAbilityE : AbilityEBase
 		skillTimer -= Time.deltaTime;
 		if ( abilityOn && skillTimer <= 0.0f )
 			AbilityDeactivate();
-		if ( !GameManager.GameRunning || !abilityEnabled )
+		if ( !GameManager.GameRunning || !AbilityEnabled )
 			return;
 		if ( EnoughMana )
 			if ( !aiming && cooldownTimer <= 0.0f )
@@ -45,11 +46,10 @@ public class HunterAbilityE : AbilityEBase
 	}
 	private void Fire()
 	{
-		RaycastHit hit;
-		Ray ray = new Ray( transform.position, transform.forward );
-		if ( Physics.SphereCast( ray, 5.0f, out hit, range, 9, QueryTriggerInteraction.Collide ) )
+		if ( Physics.SphereCast( new Ray( transform.position, transform.forward ), 5.0f, out hit,
+			range, 9, QueryTriggerInteraction.Collide ) )
 			if ( hit.collider.GetComponent<Info>() && hit.collider.GetComponent<Info>().team !=
-				GetComponentInParent<Info>().team )
+				heroInfo.team )
 			{
 				ProjectileBehaviour p = ( Instantiate( projectile, arrowSpawn.transform.position,
 					arrowSpawn.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour

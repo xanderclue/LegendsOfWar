@@ -3,11 +3,12 @@ public class MarkedEnemyIcon : MonoBehaviour
 {
 	[SerializeField]
 	private string m_name;
-	public bool AutoMaticDestroy = true;
+	[SerializeField]
+	private bool AutoMaticDestroy = true;
 	private void Start()
 	{
 		if ( "AbilityW" == transform.parent.name )
-			if ( GetComponentInParent<AbilityBase>().Effect != null )
+			if ( null != GetComponentInParent<AbilityBase>().Effect )
 				m_name = GetComponentInParent<AbilityBase>().Effect.m_name;
 	}
 	private void Update()

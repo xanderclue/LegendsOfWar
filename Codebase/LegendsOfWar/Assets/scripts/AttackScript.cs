@@ -1,23 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-public class ProximityCompare : IComparer<Transform>
-{
-	public int Compare( Transform _obja, Transform _objb )
-	{
-		if ( _obja && _objb )
-			return ( int )Vector3.Distance( _obja.position, _objb.position );
-		else
-			return 0;
-	}
-}
 public class AttackScript : MonoBehaviour
 {
 	[SerializeField]
 	protected Detector attackTrigger;
 	[SerializeField]
 	protected GameObject weapon, projectile;
-	protected MinionInfo Minioninfo;
-	protected HeroInfo Heroinfo;
 	private ProjectileBehaviour p;
 	protected void FireAtTarget( Transform _target, float _speed, float _damage )
 	{
@@ -32,5 +20,15 @@ public class AttackScript : MonoBehaviour
 			p.target = _target;
 			p.Fire();
 		}
+	}
+}
+public class ProximityCompare : IComparer<Transform>
+{
+	public int Compare( Transform _obja, Transform _objb )
+	{
+		if ( _obja && _objb )
+			return ( int )Vector3.Distance( _obja.position, _objb.position );
+		else
+			return 0;
 	}
 }

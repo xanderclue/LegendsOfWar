@@ -44,10 +44,6 @@ public class StatusEffectsManager : MonoBehaviour
 		else
 			return null;
 	}
-	public bool Expired( string _nameKey, Effect _effect )
-	{
-		return objects[ _nameKey ].Remove( _effect.m_name );
-	}
 	public bool CheckSkill( string _nameKey, string _skillName )
 	{
 		if ( objects.ContainsKey( _nameKey ) )

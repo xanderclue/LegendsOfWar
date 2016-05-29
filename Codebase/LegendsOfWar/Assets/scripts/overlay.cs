@@ -6,9 +6,9 @@ public class overlay : MonoBehaviour
 	private float invDuration = 0.0f, time = 0.0f, level = 0.0f;
 	private Image image;
 	private Color empty = new Color( 0.0f, 0.0f, 0.0f, 0.0f );
-	public static void Flash( float health, float maxHealth, float duration = 0.75f )
+	public static void Flash( float health, float maxHealth )
 	{
-		inst.invDuration = 1.0f / ( inst.time = duration );
+		inst.invDuration = 1.0f / ( inst.time = 0.75f );
 		inst.level = health / maxHealth;
 	}
 	private void Awake()

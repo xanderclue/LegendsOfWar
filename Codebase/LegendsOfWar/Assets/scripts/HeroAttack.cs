@@ -22,7 +22,9 @@ public class HeroAttack : AttackScript
 	{
 		if ( GameManager.GameEnded )
 			return;
-		Nil();
+		for ( int i = 0; i < targets.Count; ++i )
+			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+				targets.RemoveAt( i-- );
 		AsoundTimer -= Time.deltaTime;
 		if ( targets.Count > 0 && attackTimer <= 0.0f )
 		{
@@ -58,11 +60,5 @@ public class HeroAttack : AttackScript
 			targets.Sort( 1, targets.Count - 1, comparer );
 			targets.Reverse( 1, targets.Count - 1 );
 		}
-	}
-	private void Nil()
-	{
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
 	}
 }

@@ -15,10 +15,7 @@ public class ResourceBarScript : MonoBehaviour
 	private Transform heroUiTrans;
 	private RectTransform rectTransform;
 	public GameObject Host
-	{
-		get { return host; }
-		set { host = value; }
-	}
+	{ set { host = value ?? host; } }
 	private void Start()
 	{
 		stats = host.GetComponent<Info>();

@@ -37,8 +37,6 @@ public class CameraControl : MonoBehaviour
 	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111111f );
 	public static CameraControl instance
 	{ get { return inst; } }
-	public static Camera Main
-	{ get { return main; } }
 	public static Camera Vantage
 	{ get { return vantage; } }
 	public static Camera Current
@@ -47,23 +45,14 @@ public class CameraControl : MonoBehaviour
 	{
 		get
 		{
-			if ( instance && instance.mainCam )
-				return instance.mainCam.orthographicSize * instance.mainCam.aspect;
+			if ( inst && inst.mainCam )
+				return inst.mainCam.orthographicSize * inst.mainCam.aspect;
 			else
 				return 200.0f;
 		}
 	}
 	public bool CameraFollowsPlayer
-	{
-		get { return followPlayer; }
-		set
-		{
-			if ( !playerInfo || !playerInfo.Alive )
-				followPlayer = false;
-			else
-				followPlayer = value;
-		}
-	}
+	{ get { return followPlayer; } }
 	public void ToggleCam()
 	{
 		if ( vantageCam.enabled )

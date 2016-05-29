@@ -20,9 +20,9 @@ public class GlobalFog : PostEffectsBase
 	public float startDistance = 0.0f;
 	public Shader fogShader = null;
 	private Material fogMaterial = null;
-	public override bool CheckResources()
+	protected override bool CheckResources()
 	{
-		CheckSupport( true );
+		CheckSupport();
 		fogMaterial = CheckShaderAndCreateMaterial( fogShader, fogMaterial );
 		return isSupported;
 	}

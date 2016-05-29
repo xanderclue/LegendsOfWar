@@ -9,7 +9,6 @@ public class pauseMenuEvents : MonoBehaviour
 	private static pauseMenuEvents inst = null;
 	public static bool EventSystem
 	{
-		get { return inst.eventSystem.activeInHierarchy; }
 		set
 		{
 			inst.eventSystem.SetActive( value );

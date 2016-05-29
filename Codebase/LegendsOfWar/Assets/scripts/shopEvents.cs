@@ -101,17 +101,15 @@ public class shopEvents : MonoBehaviour
 			}
 		}
 		if ( laneSelect )
-			RecieveLaneInputs();
-	}
-	private void RecieveLaneInputs()
-	{
-		if ( Input.GetKeyDown( KeyCode.UpArrow ) )
-			BuyMinion( 1 );
-		else if ( Input.GetKeyDown( KeyCode.RightArrow ) )
-			BuyMinion( 2 );
-		else if ( Input.GetKeyDown( KeyCode.DownArrow ) )
-			BuyMinion( 3 );
-		else if ( Input.GetKeyDown( KeyCode.LeftArrow ) || Input.GetKeyDown( KeyCode.Escape ) )
-			ClosePanel();
+		{
+			if ( Input.GetKeyDown( KeyCode.UpArrow ) )
+				BuyMinion( 1 );
+			else if ( Input.GetKeyDown( KeyCode.RightArrow ) )
+				BuyMinion( 2 );
+			else if ( Input.GetKeyDown( KeyCode.DownArrow ) )
+				BuyMinion( 3 );
+			else if ( Input.GetKeyDown( KeyCode.LeftArrow ) || Input.GetKeyDown( KeyCode.Escape ) )
+				ClosePanel();
+		}
 	}
 }

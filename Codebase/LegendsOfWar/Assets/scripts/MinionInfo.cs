@@ -33,7 +33,7 @@ public class MinionInfo : Info
 	{ get { return agroRange; } }
 	public override void TakeDamage( float damage )
 	{
-		if ( soulDefense )
+		if ( m_soulDefense )
 			base.TakeDamage( damage * 0.5f );
 		else
 			base.TakeDamage( damage );

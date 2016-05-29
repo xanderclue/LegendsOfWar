@@ -32,7 +32,10 @@ public class HeroMovement : MovementScript
 		agent = GetComponent<NavMeshAgent>();
 		m_state = m_prevState = MOVE_State.IDLE_STATE;
 		info = GetComponent<HeroInfo>();
-		TPStart();
+		prevMousePos = currMousePos = Input.mousePosition.x;
+		currentRot = transform.rotation.eulerAngles.y;
+		SprintingAbility = false;
+		agent.angularSpeed = 0.0f;
 	}
 	private void Update()
 	{
@@ -100,13 +103,6 @@ public class HeroMovement : MovementScript
 					break;
 			}
 		}
-	}
-	private void TPStart()
-	{
-		prevMousePos = currMousePos = Input.mousePosition.x;
-		currentRot = transform.rotation.eulerAngles.y;
-		SprintingAbility = false;
-		agent.angularSpeed = 0.0f;
 	}
 	private void TPUpdate()
 	{

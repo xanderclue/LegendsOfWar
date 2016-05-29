@@ -10,19 +10,13 @@ public class Info : MonoBehaviour
 	public delegate void HpChangedEvent();
 	public event HpChangedEvent Attacked, Destroyed;
 	protected bool dontDestroy = false;
-	protected float dmgAmp = 1.0f, dmgDamp = 0.0f;
+	private float dmgAmp = 1.0f, dmgDamp = 0.0f;
 	private float currHP;
 	private bool isAlive = false;
 	public float DmgAmp
-	{
-		get { return dmgAmp; }
-		set { dmgAmp = value; }
-	}
+	{ set { dmgAmp = value; } }
 	public float DmgDamp
-	{
-		get { return dmgDamp; }
-		set { dmgDamp = value; }
-	}
+	{ set { dmgDamp = value; } }
 	public bool Alive
 	{
 		get { return isAlive; }
@@ -62,9 +56,9 @@ public class Info : MonoBehaviour
 			return;
 		if ( SupportRange.InSupportRange( gameObject ) )
 			damage *= 0.75f;
-		HeroUIScript.Damage( damage * ( 1 - ( DmgDamp * 0.01f ) ), transform.position + 10.0f *
+		HeroUIScript.Damage( damage * ( 1.0f - ( dmgDamp * 0.01f ) ), transform.position + 10.0f *
 			Vector3.up );
-		currHP -= damage * ( 1.0f - ( DmgDamp * 0.01f ) );
+		currHP -= damage * ( 1.0f - ( dmgDamp * 0.01f ) );
 		if ( null != Attacked )
 			Attacked();
 		if ( currHP <= 0.0f )

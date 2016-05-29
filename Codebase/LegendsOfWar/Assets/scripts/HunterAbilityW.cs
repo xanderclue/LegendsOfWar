@@ -27,7 +27,18 @@ public class HunterAbilityW : AbilityWBase
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
-		StopTarget();
+		originalSpeed = target.GetComponent<NavMeshAgent>().speed;
+		target.GetComponent<NavMeshAgent>().speed = 0.0f;
+		activeIcon = ( Instantiate( Icon, target.transform.position, target.transform.rotation ) as
+			GameObject );
+		activeIcon.transform.parent = target.transform;
+		activeIcon.GetComponent<SpriteRenderer>().enabled = true;
+		ProjectileBehaviour p = ( Instantiate( projectile, arrowSpawn.transform.position, arrowSpawn
+			.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour>();
+		p.speed = speed;
+		p.damage = damage;
+		p.target = hit.transform;
+		p.Fire();
 	}
 	protected override void AbilityDeactivate()
 	{
@@ -48,20 +59,5 @@ public class HunterAbilityW : AbilityWBase
 				return true;
 			}
 		return false;
-	}
-	private void StopTarget()
-	{
-		originalSpeed = target.GetComponent<NavMeshAgent>().speed;
-		target.GetComponent<NavMeshAgent>().speed = 0.0f;
-		activeIcon = ( Instantiate( Icon, target.transform.position, target.transform.rotation ) as
-			GameObject );
-		activeIcon.transform.parent = target.transform;
-		activeIcon.GetComponent<SpriteRenderer>().enabled = true;
-		ProjectileBehaviour p = ( Instantiate( projectile, arrowSpawn.transform.position, arrowSpawn
-			.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour>();
-		p.speed = speed;
-		p.damage = damage;
-		p.target = hit.transform;
-		p.Fire();
 	}
 }

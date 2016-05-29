@@ -79,7 +79,6 @@ public class HeroCamScript : MonoBehaviour
 	}
 	private bool HudTextShowsQWER
 	{
-		get { return hudTextShowsQWER; }
 		set
 		{
 			hudTextShowsQWER = value;

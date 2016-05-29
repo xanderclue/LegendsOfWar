@@ -22,8 +22,6 @@ public class TurnManager : MonoBehaviour
 	private TurnState turnState = TurnState.Fix;
 	private Character current = 0;
 	private int c;
-	public static TurnManager Instance
-	{ get { return inst; } }
 	public int CurrentInt
 	{ get { return ( int )current; } }
 	private bool spLight

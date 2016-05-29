@@ -2,11 +2,11 @@
 public class TutSpawnRed : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject IntroductionManager;
+	private GameObject IntroductionManager = null;
 	[SerializeField]
-	private GameObject Health;
+	private GameObject Health = null;
 	[SerializeField]
-	private GameObject Hero;
+	private GameObject Hero = null;
 	public bool Battle;
 	private void Start()
 	{

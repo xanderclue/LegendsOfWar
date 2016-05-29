@@ -55,7 +55,9 @@ public class SiegeMinionAttack : AttackScript
 			Alive )
 		{
 			movement.Disengage();
-			Nil();
+			for ( int i = 0; i < targets.Count; ++i )
+				if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
+					targets.RemoveAt( i-- );
 			if ( 1 <= targets.Count && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 				AttackTriggerExit( targets[ 0 ].gameObject );
 		}
@@ -86,11 +88,5 @@ public class SiegeMinionAttack : AttackScript
 			targets.Sort( 1, targets.Count - 1, poo );
 			targets.Reverse( 1, targets.Count - 1 );
 		}
-	}
-	private void Nil()
-	{
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
 	}
 }

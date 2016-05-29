@@ -17,6 +17,7 @@ public class HudScript : MonoBehaviour
 	private Text heroBeingAttackedText = null;
 	public delegate void MiniMapInput( RaycastHit _hit );
 	public event MiniMapInput GrabHit;
+	private static readonly Color low = new Color( 0.9f, 0.0f, 0.0f );
 	private HeroAbilities abilities;
 	private RaycastHit hit;
 	private Image qIm, wIm, eIm, rIm;
@@ -24,7 +25,6 @@ public class HudScript : MonoBehaviour
 	private float tmr;
 	private ColorBlock BrightColor;
 	private float buttonHmAnimTime = 0.0f;
-	private Color high = Color.red, low = new Color( 0.9f, 0.0f, 0.0f );
 	private float qtim, wtim, etim, rtim;
 	private void Start()
 	{
@@ -64,7 +64,7 @@ public class HudScript : MonoBehaviour
 			waveTimer.text = "ウエーブ＃" + GameManager.Instance.Wave + " 次のウエーブ：";
 		else
 			waveTimer.text = "Wave #" + GameManager.Instance.Wave + " Next wave in: ";
-		waveTimer.text += GameManager.Instance.WaveTimer.ToString( "F2" );
+		waveTimer.text += GameManager.Instance.WaveTimer;
 		blueGold.text = ( Options.Japanese ? "金 " : "Gold: " ) + EconomyManager.Instance.BlueGold;
 		Cooldowns();
 	}
@@ -77,7 +77,7 @@ public class HudScript : MonoBehaviour
 			if ( 0 == Mathf.CeilToInt( buttonHmAnimTime * 2.5f ) % 2 )
 			{
 				buttonHM.colors = BrightColor;
-				heroBeingAttackedText.color = high;
+				heroBeingAttackedText.color = Color.red;
 			}
 			else
 			{

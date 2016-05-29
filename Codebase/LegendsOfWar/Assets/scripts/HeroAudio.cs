@@ -60,8 +60,8 @@ public class HeroAudio : MonoBehaviour
 		}
 		if ( clp )
 		{
-			if ( clp == CHeroSelected )
-				HeroSelectedSound();
+			if ( clp == CHeroSelected && CHeroSelected )
+				AudioManager.PlayClipRaw( CHeroSelected, null, true, true );
 			else
 				source.PlayOneShot( clp );
 			if ( Options.Japanese )
@@ -83,10 +83,5 @@ public class HeroAudio : MonoBehaviour
 	private void SetVoiceVolume()
 	{
 		source.volume = Options.voiceVolume;
-	}
-	private void HeroSelectedSound()
-	{
-		if ( CHeroSelected )
-			AudioManager.PlayClipRaw( CHeroSelected, null, true, true );
 	}
 }
