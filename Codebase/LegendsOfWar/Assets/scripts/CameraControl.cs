@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
 	private const float scrollDistance = 2.5f;
 	private static readonly Color guiCol = new Color( 1.0f, 1.0f, 1.0f, 0.5f );
 	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
-	public static Rect Selection = new Rect( 0, 0, 0, 0 );
+	public static Rect Selection = new Rect( 0.0f, 0.0f, 0.0f, 0.0f );
 	private static CameraControl inst = null;
 	private static Camera main, vantage, current;
 	private Vector3 StartClick = -Vector3.one;
@@ -34,7 +34,7 @@ public class CameraControl : MonoBehaviour
 	private float mousePosY;
 	private Vector3 newPos = new Vector3();
 	private Info playerInfo;
-	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111f );
+	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111111f );
 	public static CameraControl instance
 	{ get { return inst; } }
 	public static Camera Main
@@ -58,7 +58,7 @@ public class CameraControl : MonoBehaviour
 		get { return followPlayer; }
 		set
 		{
-			if ( !playerInfo.Alive || null == playerInfo )
+			if ( !playerInfo || !playerInfo.Alive )
 				followPlayer = false;
 			else
 				followPlayer = value;
@@ -178,7 +178,7 @@ public class CameraControl : MonoBehaviour
 	}
 	private void OnGUI()
 	{
-		if ( StartClick != -Vector3.one )
+		if ( -Vector3.one != StartClick )
 		{
 			GUI.color = guiCol;
 			GUI.DrawTexture( Selection, SelectionHighlight );

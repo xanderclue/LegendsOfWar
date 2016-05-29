@@ -17,7 +17,7 @@ public class CharacterSelectionManager : MonoBehaviour
 	{ get { return available; } }
 	public static void ChangedCharacter()
 	{
-		if ( OnChangedCharacter != null )
+		if ( null != OnChangedCharacter )
 			OnChangedCharacter();
 	}
 	private void Awake()

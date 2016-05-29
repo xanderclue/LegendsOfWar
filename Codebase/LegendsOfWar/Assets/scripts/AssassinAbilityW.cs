@@ -19,7 +19,7 @@ public class AssassinAbilityW : AbilityWBase
 			{
 				if ( Marked[ MarkNum - 1 ] != _mark )
 					MarkNum = 0;
-				if ( MarkNum == 3 )
+				if ( 3 == MarkNum )
 					MarkNum = 0;
 			}
 			Marked[ MarkNum++ ] = _mark;

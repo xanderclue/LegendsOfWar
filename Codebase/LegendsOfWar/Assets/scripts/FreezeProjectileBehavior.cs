@@ -11,7 +11,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	private bool fired = false;
 	private List<Transform> victims;
 	private List<NavMeshAgent> slowTargets;
-	private float aoeTimer, heroSpeed = 105, minionSpeed = 15;
+	private float aoeTimer, heroSpeed = 105.0f, minionSpeed = 15.0f;
 	private bool aoeActive, targetsAreSlowed, skip;
 	private int repeat;
 	private float projectileTimer;
@@ -63,7 +63,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	}
 	private void OnTriggerEnter( Collider col )
 	{
-		if ( target != null && !aoeActive && col.gameObject == target.gameObject )
+		if ( target && !aoeActive && col.gameObject == target.gameObject )
 		{
 			col.gameObject.GetComponent<Info>().TakeDamage( info.Damage );
 			CreateAOEZone();
@@ -108,7 +108,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	private void SlowTargetsSpeed()
 	{
 		for ( int i = 0; i < slowTargets.Count; ++i )
-			if ( slowTargets[ i ].tag == "Hero" )
+			if ( "Hero" == slowTargets[ i ].tag )
 				slowTargets[ i ].speed -= info.SlowAmount * 3.0f;
 			else
 				slowTargets[ i ].speed -= info.SlowAmount;
@@ -117,20 +117,20 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	{
 		slowTargets.RemoveAll( item => item == null );
 		for ( int i = 0; i < slowTargets.Count; ++i )
-			if ( slowTargets[ i ].tag == "Hero" )
+			if ( "Hero" == slowTargets[ i ].tag )
 				slowTargets[ i ].speed = heroSpeed;
 			else
 				slowTargets[ i ].speed = minionSpeed;
 	}
 	private void PlayEffect()
 	{
-		victims.RemoveAll( item => item == null );
+		victims.RemoveAll( item => null == item );
 		if ( repeat >= info.aoeTotalTicks )
 		{
 			ReturnTargetsSpeed();
 			Destroy( gameObject );
 		}
-		else if ( aoeTimer <= 0 )
+		else if ( aoeTimer <= 0.0f )
 		{
 			if ( targetsAreSlowed )
 			{

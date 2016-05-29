@@ -64,7 +64,7 @@ public class Info : MonoBehaviour
 			damage *= 0.75f;
 		HeroUIScript.Damage( damage * ( 1 - ( DmgDamp * 0.01f ) ), transform.position + 10.0f *
 			Vector3.up );
-		currHP -= damage * ( 1 - ( DmgDamp * 0.01f ) );
+		currHP -= damage * ( 1.0f - ( DmgDamp * 0.01f ) );
 		if ( null != Attacked )
 			Attacked();
 		if ( currHP <= 0.0f )

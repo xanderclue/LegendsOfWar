@@ -35,7 +35,7 @@ public class CasterE : AbilityEBase
 	}
 	protected override void AbilityActivate()
 	{
-		if ( m_targetHit.collider != null )
+		if ( m_targetHit.collider )
 		{
 			GameObject tmp = Instantiate( m_Burn, m_targetHit.transform.position, m_targetHit.
 				transform.rotation ) as GameObject;
@@ -50,8 +50,8 @@ public class CasterE : AbilityEBase
 		if ( aimingSkill )
 			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
 				m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.GetComponentInParent<Info>().team == Team.
-					RED_TEAM )
+				if ( Team.RED_TEAM == m_targetHit.collider.gameObject.GetComponentInParent<Info>().
+					team )
 				{
 					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
 						.position;

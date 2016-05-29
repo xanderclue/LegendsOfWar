@@ -19,7 +19,7 @@ public class pauseMenuEvents : MonoBehaviour
 	}
 	public void Unpause()
 	{
-		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_PAUSED )
+		if ( StateID.STATE_PAUSED == ApplicationManager.Instance.GetAppState() )
 			GameManager.Instance.Unpause();
 	}
 	private void Awake()

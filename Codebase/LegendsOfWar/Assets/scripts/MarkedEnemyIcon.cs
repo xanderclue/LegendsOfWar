@@ -6,13 +6,13 @@ public class MarkedEnemyIcon : MonoBehaviour
 	public bool AutoMaticDestroy = true;
 	private void Start()
 	{
-		if ( transform.parent.name == "AbilityW" )
+		if ( "AbilityW" == transform.parent.name )
 			if ( GetComponentInParent<AbilityBase>().Effect != null )
 				m_name = GetComponentInParent<AbilityBase>().Effect.m_name;
 	}
 	private void Update()
 	{
-		if ( transform.parent.name != "AbilityW" )
+		if ( "AbilityW" != transform.parent.name )
 		{
 			transform.LookAt( 2.0f * transform.position - HeroUIScript.Instance.transform.position,
 				HeroUIScript.Instance.transform.up );

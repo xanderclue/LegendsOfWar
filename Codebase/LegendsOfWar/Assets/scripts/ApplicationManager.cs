@@ -97,7 +97,7 @@ public class ApplicationManager : MonoBehaviour
 		{
 			instance = this;
 			DontDestroyOnLoad( gameObject );
-			if ( SceneManager.GetActiveScene().name == "WorldMap" )
+			if ( "WorldMap" == SceneManager.GetActiveScene().name )
 				currentState = StateID.STATE_INGAME;
 		}
 	}

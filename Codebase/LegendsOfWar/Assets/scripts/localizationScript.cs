@@ -30,11 +30,9 @@ public class localizationScript : MonoBehaviour
 	}
 	private void changeText()
 	{
-		if ( text == null )
-			pendingChange = true;
-		else if ( Options.Japanese )
-			text.text = japanese;
+		if ( text )
+			text.text = Options.Japanese ? japanese : english;
 		else
-			text.text = english;
+			pendingChange = true;
 	}
 }

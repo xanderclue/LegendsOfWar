@@ -59,17 +59,17 @@ public class TowerManager : MonoBehaviour
 		switch ( shotType )
 		{
 			case Items.NormalShot:
-				if ( team == Team.BLUE_TEAM )
+				if ( Team.BLUE_TEAM == team )
 					return blueNormalActive;
 				else
 					return redNormalActive;
 			case Items.FreezeShot:
-				if ( team == Team.BLUE_TEAM )
+				if ( Team.BLUE_TEAM == team )
 					return blueFreezeActive;
 				else
 					return redFreezeActive;
 			case Items.ExplosiveShot:
-				if ( team == Team.BLUE_TEAM )
+				if ( Team.BLUE_TEAM == team )
 					return blueExplosiveActive;
 				else
 					return redExplosiveActive;
@@ -79,26 +79,26 @@ public class TowerManager : MonoBehaviour
 	}
 	public void ActivateShotType( Team team, Items shotType )
 	{
-		if ( shotType == Items.NormalShot || shotType == Items.FreezeShot || shotType == Items.
-			ExplosiveShot )
+		if ( Items.NormalShot == shotType || Items.FreezeShot == shotType || Items.ExplosiveShot ==
+			shotType )
 		{
 			DeactivateShots( team );
 			switch ( shotType )
 			{
 				case Items.NormalShot:
-					if ( team == Team.BLUE_TEAM )
+					if ( Team.BLUE_TEAM == team )
 						blueNormalActive = true;
 					else
 						redNormalActive = true;
 					break;
 				case Items.FreezeShot:
-					if ( team == Team.BLUE_TEAM )
+					if ( Team.BLUE_TEAM == team )
 						blueFreezeActive = true;
 					else
 						redFreezeActive = true;
 					break;
 				case Items.ExplosiveShot:
-					if ( team == Team.BLUE_TEAM )
+					if ( Team.BLUE_TEAM == team )
 						blueExplosiveActive = true;
 					else
 						redExplosiveActive = true;
@@ -106,7 +106,7 @@ public class TowerManager : MonoBehaviour
 				default:
 					break;
 			}
-			if ( team == Team.BLUE_TEAM )
+			if ( Team.BLUE_TEAM == team )
 				blueShotChanged = true;
 			else
 				redShotChanged = true;
@@ -139,7 +139,7 @@ public class TowerManager : MonoBehaviour
 	}
 	private void DeactivateShots( Team team )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 			blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
 		else
 			redNormalActive = redFreezeActive = redExplosiveActive = false;

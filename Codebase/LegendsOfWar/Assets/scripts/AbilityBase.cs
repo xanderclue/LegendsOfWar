@@ -48,7 +48,7 @@ public abstract class AbilityBase : MonoBehaviour
 	}
 	protected virtual void Start()
 	{
-		if ( m_effect.m_name == "" )
+		if ( "" == m_effect.m_name )
 			m_effect.m_name = "<n/a>";
 		if ( cooldownTime <= m_effect.m_duration )
 			cooldownTime = m_effect.m_duration;

@@ -47,7 +47,7 @@ public class HudScript : MonoBehaviour
 	{
 		ButtonHMAnim();
 		if ( Input.GetMouseButton( 1 ) )
-			if ( GrabHit != null )
+			if ( null != GrabHit )
 				if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit )
 					)
 					GrabHit( hit );
@@ -74,7 +74,7 @@ public class HudScript : MonoBehaviour
 		{
 			buttonHmAnimTime += Time.deltaTime;
 			heroBeingAttackedText.enabled = true;
-			if ( Mathf.CeilToInt( buttonHmAnimTime * 2.5f ) % 2 == 0 )
+			if ( 0 == Mathf.CeilToInt( buttonHmAnimTime * 2.5f ) % 2 )
 			{
 				buttonHM.colors = BrightColor;
 				heroBeingAttackedText.color = high;

@@ -32,7 +32,7 @@ public class MinionMovement : MovementScript
 		base.Start();
 		Start2();
 		agent.speed = info.MovementSpeed;
-		if ( info.type == MinionClass.SIEGE_MINION )
+		if ( MinionClass.SIEGE_MINION == info.type )
 			return;
 		line = gameObject.AddComponent<LineRenderer>();
 		temp_smr = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -48,7 +48,7 @@ public class MinionMovement : MovementScript
 					agent.enabled = true;
 					if ( agent.pathPending )
 						break;
-					if ( info.type != MinionClass.SIEGE_MINION )
+					if ( MinionClass.SIEGE_MINION != info.type )
 						line.enabled = false;
 					if ( inCombat )
 						SetState( Move_State.ENGAGE_STATE );
@@ -70,25 +70,25 @@ public class MinionMovement : MovementScript
 				case Move_State.COMMAND_STATE:
 					if ( agent.pathPending )
 						break;
-					if ( info.type != MinionClass.SIEGE_MINION )
+					if ( MinionClass.SIEGE_MINION != info.type )
 					{
 						line.enabled = true;
 						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
 							destination };
 						line.SetPositions( temp );
 					}
-					if ( m_path != Path.ANY_PATH )
+					if ( Path.ANY_PATH != m_path )
 						ChangeLane();
 					agent.SetDestination( hit.point );
 					CheckForInput();
 					if ( !agent.pathPending )
-						if ( agent.remainingDistance <= 3 )
+						if ( agent.remainingDistance <= 3.0f )
 							SetState( Move_State.IDLE_STATE );
 					break;
 				case Move_State.COMBAT_STATE:
-					if ( info.type != MinionClass.SIEGE_MINION )
+					if ( MinionClass.SIEGE_MINION != info.type )
 						line.enabled = false;
-					if ( inCombat && TargetPosition != null )
+					if ( inCombat && TargetPosition )
 					{
 						if ( Vector3.Distance( transform.position, TargetPosition.position ) >
 							combatRange )
@@ -106,7 +106,7 @@ public class MinionMovement : MovementScript
 						SetState( Move_State.DISENGAGE_STATE );
 					break;
 				case Move_State.IDLE_STATE:
-					if ( info.type != MinionClass.SIEGE_MINION )
+					if ( MinionClass.SIEGE_MINION != info.type )
 						line.enabled = false;
 					if ( CheckForInput() )
 						SetState( Move_State.COMMAND_STATE );
@@ -177,7 +177,7 @@ public class MinionMovement : MovementScript
 				followingNav = false;
 				agent.ResetPath();
 				agent.SetDestination( hit.point );
-				if ( info.type != MinionClass.SIEGE_MINION )
+				if ( MinionClass.SIEGE_MINION != info.type )
 				{
 					Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.destination };
 					line.SetPositions( temp );
@@ -188,12 +188,12 @@ public class MinionMovement : MovementScript
 			else if ( Input.GetMouseButton( 1 ) )
 			{
 				if ( Physics.Raycast( CameraControl.Current.ScreenPointToRay( Input.mousePosition ),
-					out hit, 1000, 5943 ) )
+					out hit, 1000.0f, 5943 ) )
 				{
 					followingNav = false;
 					agent.ResetPath();
 					agent.SetDestination( hit.point );
-					if ( info.type != MinionClass.SIEGE_MINION )
+					if ( MinionClass.SIEGE_MINION != info.type )
 					{
 						Vector3[ ] temp = new Vector3[ ] { transform.localPosition, agent.
 							destination };

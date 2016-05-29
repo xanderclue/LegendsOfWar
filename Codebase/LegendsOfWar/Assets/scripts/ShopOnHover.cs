@@ -42,7 +42,7 @@ public class ShopOnHover : MonoBehaviour
 	}
 	private void OnGUI()
 	{
-		if ( isHovering == true )
+		if ( isHovering )
 			GenerateBox( Options.Japanese ? textJp : textEn );
 	}
 	private void GenerateBox( string words )

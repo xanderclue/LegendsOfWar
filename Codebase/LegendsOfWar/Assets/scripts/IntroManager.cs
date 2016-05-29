@@ -139,7 +139,7 @@ public class IntroManager : MonoBehaviour
 			case STATES.STATE_INTRO:
 				break;
 			case STATES.STATE_HERO:
-				if ( HeroInstanciate == false )
+				if ( !HeroInstanciate )
 				{
 					HeroTutorial.SetActive( true );
 					HeroHUD.SetActive( true );
@@ -147,26 +147,26 @@ public class IntroManager : MonoBehaviour
 					HeroInstanciate = true;
 					HeroInstructions[ 0 ].SetActive( true );
 				}
-				if ( Welcome == true )
+				if ( Welcome )
 				{
 					HeroInstructions[ 0 ].SetActive( false );
 					HeroInstructions[ 1 ].SetActive( true );
 					MechanicsList.SetActive( true );
 					Welcome = false;
 				}
-				else if ( Camera == true )
+				else if ( Camera )
 				{
 					HeroInstructions[ 1 ].SetActive( false );
 					HeroInstructions[ 2 ].SetActive( true );
 					Mechanics[ 1 ].SetActive( true );
 					Camera = false;
 				}
-				else if ( Movement == true )
+				else if ( Movement )
 				{
 					HeroInstructions[ 2 ].SetActive( false );
 					Movement = false;
 				}
-				if ( RedSpawn.GetComponent<TutSpawnRed>().Battle == true )
+				if ( RedSpawn.GetComponent<TutSpawnRed>().Battle )
 				{
 					GameObject[ ] Minions = GameObject.FindGameObjectsWithTag( "Minion" );
 					if ( Minions.Length <= 1 )
@@ -178,7 +178,7 @@ public class IntroManager : MonoBehaviour
 				}
 				break;
 			case STATES.STATE_MINION:
-				if ( SpawnMinionTutRed == true )
+				if ( SpawnMinionTutRed )
 				{
 					RedSpawns = MinionRedSpawns;
 					SpawnRedStrikerMinion();
@@ -191,7 +191,7 @@ public class IntroManager : MonoBehaviour
 					SpawnRedStrikerMinion();
 					SpawnMinionTutRed = false;
 				}
-				if ( SpawnMinionTutBlue == true )
+				if ( SpawnMinionTutBlue )
 				{
 					SpawnBlueStrikerMinion();
 					SpawnBlueStrikerMinion();
@@ -201,12 +201,12 @@ public class IntroManager : MonoBehaviour
 					SpawnBlueCasterMinion();
 					SpawnMinionTutBlue = false;
 				}
-				if ( Input.GetKeyDown( KeyCode.C ) && firstswitch == false )
+				if ( Input.GetKeyDown( KeyCode.C ) && !firstswitch )
 				{
 					MoveMainCam.SetActive( true );
 					firstswitch = true;
 				}
-				if ( RedTower != null && RedTower.activeInHierarchy == false )
+				if ( RedTower && !RedTower.activeInHierarchy )
 				{
 					TogglePause();
 					MinionEnd.SetActive( true );
@@ -215,7 +215,7 @@ public class IntroManager : MonoBehaviour
 			default:
 				break;
 		}
-		if ( PlayedIntro == false )
+		if ( !PlayedIntro )
 			if ( Input.GetKeyDown( KeyCode.Return ) )
 			{
 				PlayedIntro = true;
@@ -228,7 +228,7 @@ public class IntroManager : MonoBehaviour
 			SpawnRedCasterMinion();
 			SpawnRedStrikerMinion();
 		}
-		if ( Player != null && Player.activeInHierarchy == false )
+		if ( Player && !Player.activeInHierarchy )
 			Death.SetActive( true );
 	}
 	private IEnumerator LateStart( float waitTime )

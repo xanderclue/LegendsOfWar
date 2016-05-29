@@ -23,8 +23,8 @@ public class MinionAttack : AttackScript
 	private void Update()
 	{
 		second -= Time.deltaTime * Minioninfo.AttackSpeed;
-		if ( targets.Count == 0 || targets[ 0 ] == null || !targets[ 0 ].gameObject.GetComponent<
-			Info>().Alive )
+		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
+			Alive )
 		{
 			movement.Disengage();
 			Nil();
@@ -38,7 +38,7 @@ public class MinionAttack : AttackScript
 				psEnabled = true;
 				attackParticles.Play();
 			}
-			FireAtTarget( targets[ 0 ], 120, Minioninfo.Damage );
+			FireAtTarget( targets[ 0 ], 120.0f, Minioninfo.Damage );
 			AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttack, transform.position );
 			second = 1.0f;
 		}

@@ -19,7 +19,7 @@ public class CasterWZoneBehavior : MonoBehaviour
 	private void OnParticleCollision( GameObject _other )
 	{
 		if ( _other.GetComponentInParent<StatusEffects>() )
-			if ( _other.GetComponent<Info>().team == Team.RED_TEAM )
+			if ( Team.RED_TEAM == _other.GetComponent<Info>().team )
 				StatusEffects.Inflict( _other.gameObject, m_effect.CreateEffect() );
 	}
 }

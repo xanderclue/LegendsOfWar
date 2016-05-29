@@ -36,7 +36,7 @@ public class CasterQ : AbilityQBase
 	}
 	protected override void AbilityActivate()
 	{
-		if ( m_targetHit.collider != null )
+		if ( m_targetHit.collider )
 		{
 			GameObject tmp = Instantiate( m_Engulf, m_targetHit.transform.position, m_targetHit.
 				transform.rotation ) as GameObject;
@@ -53,8 +53,8 @@ public class CasterQ : AbilityQBase
 		if ( aimingSkill )
 			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
 				m_targetHit, 150.0f, 1 ) )
-				if ( m_targetHit.collider.gameObject.tag == "Minion" && m_targetHit.collider.
-					gameObject.GetComponentInParent<Info>().team == Team.RED_TEAM )
+				if ( "Minion" == m_targetHit.collider.gameObject.tag && Team.RED_TEAM == m_targetHit
+					.collider.gameObject.GetComponentInParent<Info>().team )
 				{
 					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
 						.position;

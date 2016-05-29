@@ -51,12 +51,12 @@ public class SiegeMinionAttack : AttackScript
 			else
 				movement.Disengage();
 		}
-		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
+		if ( 0 == targets.Count || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
 			Alive )
 		{
 			movement.Disengage();
 			Nil();
-			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
+			if ( 1 <= targets.Count && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
 				AttackTriggerExit( targets[ 0 ].gameObject );
 		}
 		else if ( movement.InCombat && movement.WithinRange )

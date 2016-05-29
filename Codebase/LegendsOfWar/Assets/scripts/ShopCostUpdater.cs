@@ -8,9 +8,9 @@ public class ShopCostUpdater : MonoBehaviour
 		null, casterUpgradeCost = null;
 	[SerializeField]
 	private GameObject strikerButton = null, tankButton = null, casterButton = null;
-	private Color bronze = new Color( 0.424f, 0.329f, 0.118f );
-	private Color silver = new Color( 0.753f, 0.753f, 0.753f );
-	private Color gold = new Color( 1.0f, 0.843f, 0.0f );
+	private static readonly Color bronze = new Color( 0.424f, 0.329f, 0.118f );
+	private static readonly Color silver = new Color( 0.753f, 0.753f, 0.753f );
+	private static readonly Color gold = new Color( 1.0f, 0.843f, 0.0f );
 	private void Start()
 	{
 		SetValues();
@@ -43,11 +43,11 @@ public class ShopCostUpdater : MonoBehaviour
 			( int )Items.TLvl ] ].ToString();
 		casterUpgradeCost.text = ShopManager.Instance.minionUGPrices[ ShopManager.Instance.Purchases
 			[ ( int )Items.CLvl ] ].ToString();
-		if ( ShopManager.Instance.Purchases[ ( int )Items.SLvl ] == 3 )
+		if ( 3 == ShopManager.Instance.Purchases[ ( int )Items.SLvl ] )
 			strikerUpgradeCost.text = "MAX";
-		if ( ShopManager.Instance.Purchases[ ( int )Items.TLvl ] == 3 )
+		if ( 3 == ShopManager.Instance.Purchases[ ( int )Items.TLvl ] )
 			tankUpgradeCost.text = "MAX";
-		if ( ShopManager.Instance.Purchases[ ( int )Items.CLvl ] == 3 )
+		if ( 3 == ShopManager.Instance.Purchases[ ( int )Items.CLvl ] )
 			casterUpgradeCost.text = "MAX";
 	}
 	private void UpdateColors()

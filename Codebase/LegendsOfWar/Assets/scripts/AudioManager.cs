@@ -165,10 +165,10 @@ public class AudioManager : MonoBehaviour
 	}
 	private void FindListener()
 	{
-		if ( null == listenerTransform )
+		if ( !listenerTransform )
 		{
 			AudioListener listener = FindObjectOfType<AudioListener>();
-			if ( null == listener )
+			if ( !listener )
 			{
 				GameObject go = new GameObject( "AudioListener" );
 				go.AddComponent<AudioListener>();
@@ -178,10 +178,10 @@ public class AudioManager : MonoBehaviour
 				listenerTransform = listener.transform;
 			listener.enabled = true;
 		}
-		if ( null == SfxSource )
+		if ( !SfxSource )
 		{
 			SfxSource = listenerTransform.GetComponent<AudioSource>();
-			if ( null == SfxSource )
+			if ( !SfxSource )
 				SfxSource = listenerTransform.gameObject.AddComponent<AudioSource>();
 			SfxSource.volume = Options.sfxVolume;
 		}
@@ -195,7 +195,7 @@ public class AudioManager : MonoBehaviour
 			case StateID.STATE_HELP:
 			case StateID.STATE_SELECTION:
 			case StateID.STATE_INTRODUCTION:
-				if ( BgmSource.clip != gameBGM )
+				if ( gameBGM != BgmSource.clip )
 				{
 					BgmSource.Stop();
 					BgmSource.clip = gameBGM;
@@ -205,7 +205,7 @@ public class AudioManager : MonoBehaviour
 			case StateID.STATE_GAME_WON:
 			case StateID.STATE_GAME_LOST:
 			case StateID.STATE_GAME_DRAW:
-				if ( BgmSource.clip != endGameBGM )
+				if ( endGameBGM != BgmSource.clip )
 				{
 					BgmSource.Stop();
 					BgmSource.clip = endGameBGM;
@@ -215,7 +215,7 @@ public class AudioManager : MonoBehaviour
 			case StateID.STATE_MAIN_MENU:
 			case StateID.STATE_CREDITS:
 			case StateID.STATE_EXIT:
-				if ( BgmSource.clip != menuBGM )
+				if ( menuBGM != BgmSource.clip )
 				{
 					BgmSource.Stop();
 					BgmSource.clip = menuBGM;

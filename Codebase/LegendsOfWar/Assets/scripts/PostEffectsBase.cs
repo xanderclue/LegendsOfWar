@@ -20,45 +20,35 @@ public class PostEffectsBase : MonoBehaviour
 	}
 	protected Material CheckShaderAndCreateMaterial( Shader s, Material m2Create )
 	{
-		if ( !s )
-		{
-			enabled = false;
-			return null;
-		}
-		if ( s.isSupported && m2Create && m2Create.shader == s )
-			return m2Create;
-		if ( !s.isSupported )
-		{
-			NotSupported();
-			return null;
-		}
-		else
-		{
-			m2Create = new Material( s );
-			m2Create.hideFlags = HideFlags.DontSave;
-			if ( m2Create )
-				return m2Create;
+		if ( s )
+			if ( s.isSupported )
+			{
+				if ( m2Create && m2Create.shader == s )
+					return m2Create;
+				m2Create = new Material( s );
+				m2Create.hideFlags = HideFlags.DontSave;
+				if ( m2Create )
+					return m2Create;
+			}
 			else
-				return null;
-		}
+				NotSupported();
+		else
+			enabled = false;
+		return null;
 	}
 	protected Material CreateMaterial( Shader s, Material m2Create )
 	{
-		if ( !s )
-			return null;
-		if ( m2Create && ( m2Create.shader == s ) && s.isSupported )
-			return m2Create;
-		if ( !s.isSupported )
-			return null;
-		else
-		{
-			m2Create = new Material( s );
-			m2Create.hideFlags = HideFlags.DontSave;
-			if ( m2Create )
-				return m2Create;
-			else
-				return null;
-		}
+		if ( s )
+			if ( s.isSupported )
+			{
+				if ( m2Create && m2Create.shader == s )
+					return m2Create;
+				m2Create = new Material( s );
+				m2Create.hideFlags = HideFlags.DontSave;
+				if ( m2Create )
+					return m2Create;
+			}
+		return null;
 	}
 	protected bool CheckSupport()
 	{

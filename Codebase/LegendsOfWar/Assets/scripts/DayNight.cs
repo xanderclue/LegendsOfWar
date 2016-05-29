@@ -13,9 +13,9 @@ public class DayNight : MonoBehaviour
 		if ( night != ( moon.position.y >= ( sun.position.y + 1.5f ) ) )
 		{
 			night = !night;
-			if ( night && OnNight != null )
+			if ( night && null != OnNight )
 				OnNight();
-			else if ( OnDay != null )
+			else if ( null != OnDay )
 				OnDay();
 		}
 	}

@@ -68,7 +68,7 @@ public class StatusEffects : MonoBehaviour
 	{
 		m_stats = StatusEffectsManager.Instance.GetMyStatus( gameObject.GetInstanceID().ToString() )
 			;
-		if ( m_stats != null )
+		if ( null != m_stats )
 			for ( int i = 0; i < m_stats.Count; ++i )
 				Apply( m_stats[ i ] );
 	}

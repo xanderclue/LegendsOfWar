@@ -55,7 +55,7 @@ public class HeroMovement : MovementScript
 				case MOVE_State.COMBAT_STATE:
 					if ( !CheckInput() || m_attackMOve )
 					{
-						if ( inCombat && TargetPosition != null )
+						if ( inCombat && TargetPosition )
 						{
 							withinRange = Vector3.Distance( transform.position, TargetPosition.
 								position ) <= combatRange;
@@ -122,15 +122,15 @@ public class HeroMovement : MovementScript
 		{
 			Cursor.lockState = shouldRepositionToCenter ? CursorLockMode.Locked : CursorLockMode.
 				None;
-			if ( shouldRepositionToCenter && Cursor.lockState == CursorLockMode.None )
+			if ( shouldRepositionToCenter && CursorLockMode.None == Cursor.lockState )
 			{
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.lockState = CursorLockMode.Locked;
 			}
 		}
 		if ( GameManager.GameRunning )
-			if ( !HeroCamScript.onVantage && HeroCamScript.onHero && ApplicationManager.Instance.
-				GetAppState() != StateID.STATE_SHOP )
+			if ( !HeroCamScript.onVantage && HeroCamScript.onHero && StateID.STATE_SHOP !=
+				ApplicationManager.Instance.GetAppState() )
 			{
 				if ( !GameManager.Tutorial || !heroCamDisabler.disabledCameraMovement )
 				{

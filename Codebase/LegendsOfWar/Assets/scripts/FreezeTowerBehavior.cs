@@ -21,9 +21,9 @@ public class FreezeTowerBehavior : MonoBehaviour
 	}
 	private void Update()
 	{
-		targets.RemoveAll( item => item == null );
+		targets.RemoveAll( item => null == item );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.FreezeShot ) && fireTimer <= 0.0f
-			&& targets.Count > 0 )
+			&& 0 < targets.Count )
 		{
 			if ( !targets[ 0 ].gameObject.activeInHierarchy )
 				RemoveTarget( targets[ 0 ].gameObject );

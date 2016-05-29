@@ -23,7 +23,7 @@ public class HUDManager : MonoBehaviour
 	}
 	private void Update()
 	{
-		if ( turnManager == null || GameObject.Find( "Characters" ) == null )
+		if ( !turnManager || !GameObject.Find( "Characters" ) )
 			return;
 		if ( CharacterSelectionManager.LegendChoice )
 		{
@@ -32,7 +32,7 @@ public class HUDManager : MonoBehaviour
 			LoreInfo.GetComponentInChildren<Text>().text = Options.Japanese ? info.roaa : info.Lore;
 			abilityInfo.GetComponentInChildren<Text>().text = abilities.abilityInfo;
 		}
-		if ( start != null || NoStart != null || InGameInfo != null || LoreInfo != null )
+		if ( start || NoStart || InGameInfo || LoreInfo )
 		{
 			if ( CharacterSelectionManager.Instance.Available[ turnManager.CurrentInt ] )
 			{

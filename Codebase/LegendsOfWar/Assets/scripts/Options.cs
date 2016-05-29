@@ -37,21 +37,21 @@ public class Options : MonoBehaviour
 		language = "English";
 		bgmVolume = PlayerPrefs.GetFloat( "MusicVolume", bgmVolume );
 		PlayerPrefs.SetFloat( "MusicVolume", bgmVolume );
-		if ( onChangedBgmVolume != null )
+		if ( null != onChangedBgmVolume )
 			onChangedBgmVolume();
 		sfxVolume = PlayerPrefs.GetFloat( "SfxVolume", sfxVolume );
 		PlayerPrefs.SetFloat( "SfxVolume", sfxVolume );
-		if ( onChangedSfxVolume != null )
+		if ( null != onChangedSfxVolume )
 			onChangedSfxVolume();
 		voiceVolume = PlayerPrefs.GetFloat( "VoiceVolume", voiceVolume );
 		PlayerPrefs.SetFloat( "VoiceVolume", voiceVolume );
-		if ( onChangedVoiceVolume != null )
+		if ( null != onChangedVoiceVolume )
 			onChangedVoiceVolume();
 		language = PlayerPrefs.GetString( "Language", language );
 		PlayerPrefs.SetString( "Language", language );
 		applicationLanguage = "Japanese" == language ?
 			SystemLanguage.Japanese : SystemLanguage.English;
-		if ( onChangedLanguage != null )
+		if ( null != onChangedLanguage )
 			onChangedLanguage();
 	}
 	public static void toggleLanguage_Static()
@@ -66,7 +66,7 @@ public class Options : MonoBehaviour
 				break;
 		}
 		PlayerPrefs.SetString( "Language", Japanese ? "Japanese" : "English" );
-		if ( onChangedLanguage != null )
+		if ( null != onChangedLanguage )
 			onChangedLanguage();
 	}
 	public void PlayTestSound()
@@ -81,21 +81,21 @@ public class Options : MonoBehaviour
 	{
 		bgmVolume = bgmSlider.normalizedValue;
 		PlayerPrefs.SetFloat( "MusicVolume", bgmVolume );
-		if ( onChangedBgmVolume != null )
+		if ( null != onChangedBgmVolume )
 			onChangedBgmVolume();
 	}
 	public void SfxVolumeChanging()
 	{
 		sfxVolume = sfxSlider.normalizedValue;
 		PlayerPrefs.SetFloat( "SfxVolume", sfxVolume );
-		if ( onChangedSfxVolume != null )
+		if ( null != onChangedSfxVolume )
 			onChangedSfxVolume();
 	}
 	public void VoiceVolumeChanging()
 	{
 		voiceVolume = voiceSlider.normalizedValue;
 		PlayerPrefs.SetFloat( "VoiceVolume", voiceVolume );
-		if ( onChangedVoiceVolume != null )
+		if ( null != onChangedVoiceVolume )
 			onChangedVoiceVolume();
 	}
 	public void toggleLanguage()

@@ -43,7 +43,7 @@ public class HeroCamScript : MonoBehaviour
 		get
 		{
 			if ( inst )
-				return inst.state == CamTransitionState.OnHero;
+				return CamTransitionState.OnHero == inst.state;
 			else
 				return false;
 		}
@@ -251,7 +251,7 @@ public class HeroCamScript : MonoBehaviour
 				heroTransform = new GameObject( "HeroCamTransform" ).transform;
 				heroTransform.SetParent( heroCenter );
 				heroTransformMax.localScale = heroTransform.localScale = Vector3.zero;
-				if ( info.thirdPerson != null )
+				if ( info.thirdPerson )
 				{
 					heroTransformMax.rotation = heroTransform.rotation = info.thirdPerson.rotation;
 					heroTransformMax.position = heroTransform.position = info.thirdPerson.position;

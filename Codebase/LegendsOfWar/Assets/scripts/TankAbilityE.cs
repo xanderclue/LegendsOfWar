@@ -26,9 +26,9 @@ public class TankAbilityE : AbilityEBase
 	protected override void AbilityDeactivate()
 	{
 		base.AbilityDeactivate();
-		if ( slowed.Count != 0 )
+		if ( 0 != slowed.Count )
 			for ( int i = 0; i < slowed.Count; ++i )
-				if ( slowed[ i ] != null )
+				if ( slowed[ i ] )
 					slowed[ i ].gameObject.GetComponent<NavMeshAgent>().speed += 10.0f;
 		slowed.Clear();
 		AbilityEParticle.GetComponent<Transform>().localPosition -= new Vector3( 0.0f, 10.0f );
@@ -40,10 +40,9 @@ public class TankAbilityE : AbilityEBase
 		if ( entity )
 			if ( entity is MinionInfo )
 			{
-				if ( entity != null )
-					slowed.Add( entity );
+				slowed.Add( entity );
 				entity.TakeDamage( Edamage );
-				entity.gameObject.GetComponent<NavMeshAgent>().speed -= 10;
+				entity.gameObject.GetComponent<NavMeshAgent>().speed -= 10.0f;
 			}
 	}
 }

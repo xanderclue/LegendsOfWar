@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void SpawnStrikerMinion( Team team, int lane )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			switch ( lane )
 			{
@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void SpawnTankMinion( Team team, int lane )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			switch ( lane )
 			{
@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void SpawnCasterMinion( Team team, int lane )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			switch ( lane )
 			{
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpgradeStrikerMinions( Team team )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			MinionInfo info = blueStrikerMinion.GetComponent<MinionInfo>();
 			info.Damage += ShopManager.Instance.strikerDamageUpgrade;
@@ -264,7 +264,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpgradeTankMinions( Team team )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			MinionInfo info = blueTankMinion.GetComponent<MinionInfo>();
 			info.Damage += ShopManager.Instance.tankDamageUpgrade;
@@ -281,7 +281,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void UpgradeCasterMinions( Team team )
 	{
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 		{
 			MinionInfo info = blueCasterMinion.GetComponent<MinionInfo>();
 			info.Damage += ShopManager.Instance.casterDamageUpgrade;
@@ -336,8 +336,8 @@ public class GameManager : MonoBehaviour
 	{
 		if ( !gameRunning || gameEnded )
 			return;
-		if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() !=
-			StateID.STATE_SHOP )
+		if ( Input.GetKeyDown( KeyCode.Escape ) && StateID.STATE_SHOP != ApplicationManager.Instance
+			.GetAppState() )
 			Pause();
 		else if ( Input.GetKeyDown( KeyCode.Tab ) )
 		{
@@ -352,8 +352,8 @@ public class GameManager : MonoBehaviour
 				ExitShop();
 			}
 		}
-		else if ( Input.GetKeyDown( KeyCode.Escape ) && ApplicationManager.Instance.GetAppState() ==
-			StateID.STATE_SHOP )
+		else if ( Input.GetKeyDown( KeyCode.Escape ) && StateID.STATE_SHOP == ApplicationManager.
+			Instance.GetAppState() )
 			ExitShop();
 		else if ( timer <= 0.0f || redPortal.HP <= 0.0f || bluePortal.HP <= 0.0f )
 			StartCoroutine( GameEnding() );
@@ -447,7 +447,7 @@ public class GameManager : MonoBehaviour
 		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
 		nma = min_go.GetComponent<NavMeshAgent>();
 		nma.enabled = true;
-		if ( team == Team.BLUE_TEAM )
+		if ( Team.BLUE_TEAM == team )
 			nma.destination = RedPortalTransform.position;
 		else
 			nma.destination = BluePortalTransform.position;
@@ -491,18 +491,18 @@ public class GameManager : MonoBehaviour
 	private IEnumerator GameEnding()
 	{
 		gameEnded = true;
-		if ( ApplicationManager.Instance.GetAppState() == StateID.STATE_SHOP )
+		if ( StateID.STATE_SHOP == ApplicationManager.Instance.GetAppState() )
 			ExitShop();
 		if ( redPortal.HP <= 0.0f )
 		{
-			if ( OnBlueWin != null )
+			if ( null != OnBlueWin )
 				OnBlueWin();
 			if ( !BoomRed.isPlaying )
 				BoomRed.gameObject.SetActive( true );
 		}
 		else if ( bluePortal.HP <= 0.0f )
 		{
-			if ( OnRedWin != null )
+			if ( null != OnRedWin )
 				OnRedWin();
 			if ( !BoomBlue.isPlaying )
 				BoomBlue.gameObject.SetActive( true );

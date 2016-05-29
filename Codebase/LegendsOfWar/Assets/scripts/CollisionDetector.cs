@@ -16,14 +16,14 @@ public class CollisionDetector : MonoBehaviour
 	}
 	private void OnTriggerEnter( Collider _target )
 	{
-		if ( _target.GetComponent<Info>() != null )
+		if ( _target.GetComponent<Info>() )
 			if ( _target.gameObject.GetComponent<Info>().team != GetComponentInParent<HeroInfo>().
 				team )
 				targetedEnemies.Add( _target );
 	}
 	private void OnTriggerExit( Collider _target )
 	{
-		if ( _target.GetComponent<Info>() != null )
+		if ( _target.GetComponent<Info>() )
 			targetedEnemies.Remove( _target );
 	}
 }

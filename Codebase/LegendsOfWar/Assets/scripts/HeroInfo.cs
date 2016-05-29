@@ -101,7 +101,7 @@ public class HeroInfo : Info
 	private void PlayIdle()
 	{
 		if ( heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2 )
-			heroAudio.PlayClip( ( Random.Range( 0, 2 ) == 0 ) ? "HeroIdle1" : "HeroIdle2" );
+			heroAudio.PlayClip( "HeroIdle" + Random.Range( 1, 3 ) );
 		else if ( heroAudio.CHeroIdle1 )
 			heroAudio.PlayClip( "HeroIdle1" );
 		else if ( heroAudio.CHeroIdle2 )

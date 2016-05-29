@@ -88,13 +88,13 @@ public class GlobalFog : PostEffectsBase
 			fogMaterial.SetVector( "_HeightParams", new Vector4( height, FdotC, paramK,
 				heightDensity * 0.5f ) );
 			fogMaterial.SetVector( "_DistanceParams", new Vector4( -Mathf.Max( startDistance, 0.0f )
-				, excludeDepth, 0, 0 ) );
+				, excludeDepth, 0.0f, 0.0f ) );
 			FogMode sceneMode = RenderSettings.fogMode;
 			float sceneDensity = RenderSettings.fogDensity;
 			float sceneStart = RenderSettings.fogStartDistance;
 			float sceneEnd = RenderSettings.fogEndDistance;
 			Vector4 sceneParams;
-			bool linear = ( sceneMode == FogMode.Linear );
+			bool linear = ( FogMode.Linear == sceneMode );
 			float diff = linear ? sceneEnd - sceneStart : 0.0f;
 			float invDiff = Mathf.Abs( diff ) > 0.0001f ? 1.0f / diff : 0.0f;
 			sceneParams.x = sceneDensity * 1.2011224087f;
@@ -103,7 +103,7 @@ public class GlobalFog : PostEffectsBase
 			sceneParams.w = linear ? sceneEnd * invDiff : 0.0f;
 			fogMaterial.SetVector( "_SceneFogParams", sceneParams );
 			fogMaterial.SetVector( "_SceneFogMode", new Vector4( ( int )sceneMode, useRadialDistance
-				? 1 : 0, 0, 0 ) );
+				? 1.0f : 0.0f, 0.0f, 0.0f ) );
 			int pass = 0;
 			if ( !distanceFog )
 				pass = 2;

@@ -23,7 +23,7 @@ public class AttackScript : MonoBehaviour
 	{
 		if ( _target && !GameManager.GameEnded )
 		{
-			if ( _target.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM )
+			if ( Team.BLUE_TEAM == _target.gameObject.GetComponent<Info>().team )
 				weapon.transform.LookAt( _target, _target.up );
 			p = ( Instantiate( projectile, weapon.transform.position, weapon.transform.rotation ) as
 				GameObject ).GetComponent<ProjectileBehaviour>();

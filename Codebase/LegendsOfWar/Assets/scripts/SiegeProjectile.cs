@@ -21,7 +21,7 @@ public class SiegeProjectile : MonoBehaviour
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( col.gameObject.GetComponent<Info>() )
-			if ( col.gameObject.GetComponent<Info>().team == Team.BLUE_TEAM )
+			if ( Team.BLUE_TEAM == col.gameObject.GetComponent<Info>().team )
 			{
 				col.gameObject.GetComponent<Info>().TakeDamage( damage + 1.0f );
 				if ( lazer )

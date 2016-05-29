@@ -166,12 +166,12 @@ public class BcWeapon : MonoBehaviour
 			{
 				float size = 0.25f * height;
 				Gizmos.color = Color.white;
-				if ( i % 5 == 0 )
+				if ( 0.0f == i % 5.0f )
 				{
 					size = 0.5f * height;
 					Gizmos.color = Color.white;
 				}
-				if ( i % 10 == 0 )
+				if ( 0.0f == i % 10.0f )
 				{
 					size = 1.0f * height;
 					Gizmos.color = Color.white;
@@ -194,14 +194,20 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward
 				* 0, DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward * Mathf.
 				Max( 0, currentAmmo + shootTimer * rateOfFire ) / clipSize * width );
-			for ( float i = 0; i < clipSize; i += 1 )
+			for ( float i = 0.0f; i < clipSize; i += 1.0f )
 			{
 				float size = 0.15f * height;
 				Gizmos.color = Color.white;
-				if ( i % 5 == 0 )
-				{ size = 0.5f * height; Gizmos.color = Color.white; }
-				if ( i % 10 == 0 )
-				{ size = 1.0f * height; Gizmos.color = Color.white; }
+				if ( 0.0f == i % 5.0f )
+				{
+					size = 0.5f * height;
+					Gizmos.color = Color.white;
+				}
+				if ( 0.0f == i % 10.0f )
+				{
+					size = 1.0f * height;
+					Gizmos.color = Color.white;
+				}
 				Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height * 1 + 0 ) + transform.
 					forward * i * width / clipSize, DisplayPosition() - transform.up * ( +height * 1
 					- size ) + transform.forward * i * width / clipSize );
@@ -220,14 +226,20 @@ public class BcWeapon : MonoBehaviour
 			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward
 				* 0, DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward * Mathf.
 				Max( 0, currentAmmo ) / clipSize * width );
-			for ( float i = 0; i < reloadTime; i += 1 )
+			for ( float i = 0.0f; i < reloadTime; i += 1.0f )
 			{
 				float size = 0.15f * height;
 				Gizmos.color = Color.white;
-				if ( i % 5 == 0 )
-				{ size = 0.5f * height; Gizmos.color = Color.white; }
-				if ( i % 10 == 0 )
-				{ size = 1.0f * height; Gizmos.color = Color.white; }
+				if ( 0.0f == i % 5.0f )
+				{
+					size = 0.5f * height;
+					Gizmos.color = Color.white;
+				}
+				if ( 0.0f == i % 10.0f )
+				{
+					size = 1.0f * height;
+					Gizmos.color = Color.white;
+				}
 				Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height * 0 + 0 ) - transform.
 					forward * i * displayScale, DisplayPosition() - transform.up * ( -height * 0 -
 					size ) - transform.forward * i * displayScale );
@@ -273,12 +285,12 @@ public class BcWeapon : MonoBehaviour
 				.position + transform.right * displayScale / 2 );
 			Gizmos.DrawWireSphere( transform.position, 0.475f * displayScale );
 			Gizmos.color = Color.cyan;
-			for ( int i = 0; i < bulletsPerShot; i++ )
+			for ( int i = 0; i < bulletsPerShot; ++i )
 			{
 				float size = 0.5f;
-				if ( i % 5 == 0 )
+				if ( 0 == i % 5 )
 					size = 1.0f;
-				if ( i % 10 == 0 )
+				if ( 0 == i % 10 )
 					size = 2.0f;
 				Gizmos.DrawLine( transform.position + transform.up * i / bulletsPerShot *
 					displayScale * 2, transform.position + transform.forward * size * displayScale +

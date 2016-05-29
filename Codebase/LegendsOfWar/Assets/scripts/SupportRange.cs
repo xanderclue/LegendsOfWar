@@ -9,7 +9,7 @@ public class SupportRange : MonoBehaviour
 	{
 		ClearNulls();
 		foreach ( Collider col in supportedEntities )
-			if ( col.gameObject == entity )
+			if ( entity == col.gameObject )
 				return true;
 		return false;
 	}

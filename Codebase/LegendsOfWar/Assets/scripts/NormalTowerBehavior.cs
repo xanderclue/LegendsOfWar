@@ -21,12 +21,12 @@ public class NormalTowerBehavior : MonoBehaviour
 	}
 	private void Update()
 	{
-		targets.RemoveAll( item => item == null );
+		targets.RemoveAll( item => null == item );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.NormalShot ) )
 		{
 			if ( fireTimer <= 0.0f )
 			{
-				if ( targets != null && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject
+				if ( null != targets && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject
 					)
 				{
 					if ( !targets[ 0 ].gameObject.activeInHierarchy )
