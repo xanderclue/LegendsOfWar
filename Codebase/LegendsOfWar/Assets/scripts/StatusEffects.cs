@@ -46,7 +46,6 @@ public class StatusEffects : MonoBehaviour
 				case StatusEffectType.NONE:
 					break;
 				case StatusEffectType.DMG_Amp:
-					gameObject.GetComponent<HeroInfo>().DmgAmp = _effect.m_percentage * 0.01f;
 					break;
 				case StatusEffectType.DMG_Damp:
 					gameObject.GetComponent<Info>().DmgDamp = _effect.m_percentage * 0.01f;
@@ -99,7 +98,6 @@ public class StatusEffects : MonoBehaviour
 				gameObject.GetComponent<NavMeshAgent>().Resume();
 				break;
 			case StatusEffectType.DMG_Amp:
-				gameObject.GetComponent<Info>().DmgAmp = 1.0f;
 				break;
 			case StatusEffectType.DMG_Damp:
 				gameObject.GetComponent<Info>().DmgDamp = 0.0f;

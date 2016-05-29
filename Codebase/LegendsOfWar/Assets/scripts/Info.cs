@@ -9,10 +9,8 @@ public class Info : MonoBehaviour
 	protected float attackSpeed, agroRange, attackRange, damage;
 	public delegate void HpChangedEvent();
 	public event HpChangedEvent Attacked, Destroyed;
-	private float dmgAmp = 1.0f, dmgDamp = 0.0f, currHP;
+	private float dmgDamp = 0.0f, currHP;
 	private bool destroyable = true, isAlive = false;
-	public float DmgAmp
-	{ set { dmgAmp = value; } }
 	public float DmgDamp
 	{ set { dmgDamp = value; } }
 	public bool Alive

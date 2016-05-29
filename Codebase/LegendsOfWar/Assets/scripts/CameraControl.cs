@@ -17,7 +17,7 @@ public class CameraControl : MonoBehaviour
 	private static readonly float onHeroFov = 114.591559026f * Mathf.Atan2( 100.0f, 500.0f );
 	public static Rect Selection = new Rect( 0.0f, 0.0f, 0.0f, 0.0f );
 	private static CameraControl inst = null;
-	private static Camera main, vantage, current;
+	private static Camera vantage, current;
 	private Info playerInfo;
 	private RaycastHit hit;
 	private Rect minimapviewport = new Rect( 0.7f, 0.0f, 0.3f, 0.3111111f );
@@ -77,7 +77,6 @@ public class CameraControl : MonoBehaviour
 		playerInfo = player.GetComponent<Info>();
 		RecalcZoomLimits();
 		current = mainCam;
-		main = mainCam;
 		vantage = vantageCam;
 		HeroCamScript.OnOnHero += OnOnHero;
 		GameManager.OnBlueWin += OnBlueWin;

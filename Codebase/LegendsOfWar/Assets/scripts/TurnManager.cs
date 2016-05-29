@@ -13,7 +13,6 @@ public class TurnManager : MonoBehaviour
 	[SerializeField]
 	private Light[ ] spotlights = null;
 	private const int m = ( int )Character.Total - 1;
-	private static TurnManager inst;
 	private static Quaternion[ ] rotations = new Quaternion[ ] { Quaternion.Euler( 0.0f, 0.0f, 0.0f
 		), Quaternion.Euler( 0.0f, 45.0f, 0.0f ), Quaternion.Euler( 0.0f, 90.0f, 0.0f ), Quaternion.
 		Euler( 0.0f, 135.0f, 0.0f ), Quaternion.Euler( 0.0f, 180.0f, 0.0f ), Quaternion.Euler( 0.0f,
@@ -76,10 +75,6 @@ public class TurnManager : MonoBehaviour
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
 	}
-	private void Awake()
-	{
-		inst = this;
-	}
 	private void Start()
 	{
 		CharacterSelectionManager.Instance.Index = CurrentInt;
@@ -117,10 +112,6 @@ public class TurnManager : MonoBehaviour
 		else if ( Input.GetKeyDown( KeyCode.Return ) )
 			if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
 				menuEventsObj.ChangeAppState( "STATE_HELP" );
-	}
-	private void OnDestroy()
-	{
-		inst = null;
 	}
 	private void PlayVoice()
 	{
