@@ -26,7 +26,7 @@ public class BcWeapon : MonoBehaviour
 	[Header( "Gizmo Options" )]
 	public bool showDisplayHandles = false;
 	public float displayScale = 1.0f;
-	public Vector3 displayOffset = Vector3.one * -10.0f + Vector3.right * 20.0f;
+	public Vector3 displayOffset = -10.0f * Vector3.one + 20.0f * Vector3.right;
 	public float currentAmmo;
 	[Header( "Sound Options" )]
 	public AudioClip shootSound;
@@ -41,8 +41,7 @@ public class BcWeapon : MonoBehaviour
 	private bool triggerPushed;
 	private static bool RoughlyEqual( float a, float b )
 	{
-		float treshold = 0.01f;
-		return ( Mathf.Abs( a - b ) < treshold );
+		return ( Mathf.Abs( a - b ) < 0.01f );
 	}
 	public void Reload()
 	{
@@ -58,14 +57,14 @@ public class BcWeapon : MonoBehaviour
 		{
 			currentAmmo = clipSize;
 			isReloading = false;
-			reloadTimer = 0;
-			shootTimer = 0;
+			reloadTimer = 0.0f;
+			shootTimer = 0.0f;
 			AudioManager.PlaySoundEffect( reloadedSound, transform.position );
 		}
 	}
 	public void Shoot()
 	{
-		if ( !isReloading && currentAmmo > 0.0f && shootTimer <= 0.0f )
+		if ( !isReloading && 0.0f < currentAmmo && shootTimer <= 0.0f )
 		{
 			--currentAmmo;
 			shootTimer += 1.0f / rateOfFire;
@@ -91,33 +90,28 @@ public class BcWeapon : MonoBehaviour
 			ConstantForce force = newBullet.AddComponent<ConstantForce>();
 			force.force = ( bulletAcceleration.x * transform.forward + bulletAcceleration.y *
 				transform.up + bulletAcceleration.z * transform.right ) * accelerationScale;
-			force.force += ( bulletGlobalAcceleration ) * accelerationScale;
+			force.force += accelerationScale * bulletGlobalAcceleration;
 			force.force *= 50.0f;
 			newBullet.AddComponent<CCDBullet>().life = bulletLife;
 		}
 	}
-	public Vector3 DisplayPosition( bool swap = false )
+	public Vector3 DisplayPosition()
 	{
-		Vector3 result = DisplayOffset( swap ) + transform.position;
-		return result;
+		return DisplayOffset() + transform.position;
 	}
-	public Vector3 DisplayOffset( bool swap = false )
+	public Vector3 DisplayOffset()
 	{
-		Vector3 result = displayOffset.z * transform.forward * transform.lossyScale.z +
-			displayOffset.y * transform.up * transform.lossyScale.y + displayOffset.x * transform.
-			right * transform.lossyScale.x;
-		if ( swap )
-			return new Vector3( result.z, result.y, result.x );
-		else
-			return result;
+		return displayOffset.z * transform.forward * transform.lossyScale.z + displayOffset.y *
+			transform.up * transform.lossyScale.y + displayOffset.x * transform.right * transform.
+			lossyScale.x;
 	}
-	public int IsOverCannon()
+	public float IsOverCannon()
 	{
-		if ( displayOffset.y > 0 )
-			return 1;
-		if ( displayOffset.y < 0 )
-			return -1;
-		return 0;
+		if ( displayOffset.y > 0.0f )
+			return 1.0f;
+		if ( displayOffset.y < 0.0f )
+			return -1.0f;
+		return 0.0f;
 	}
 	public Vector3 ShotEnd( Vector3 initialSpeed, float time, Color color )
 	{
@@ -138,7 +132,7 @@ public class BcWeapon : MonoBehaviour
 				Shoot();
 		if ( !isReloading && shootTimer > 0.0f )
 			shootTimer -= Time.deltaTime;
-		if ( currentAmmo <= 0 && shootTimer <= 0.0f )
+		if ( currentAmmo <= 0.0f && shootTimer <= 0.0f )
 			Reload();
 	}
 	private void OnDrawGizmosSelected()
@@ -160,129 +154,97 @@ public class BcWeapon : MonoBehaviour
 			DrawMesh( hull, except );
 			Gizmos.DrawWireSphere( DrawTrajectory( transform.position, transform.forward * (
 				bulletSpeed ), bulletLife, Color.yellow ), 0.3f );
-			float width = 1.0f / rateOfFire * clipSize * displayScale;
+			float width = clipSize * displayScale / rateOfFire;
 			float height = displayScale;
+			Vector3 dispPos = DisplayPosition();
 			for ( float i = 0.0f; i < clipSize / rateOfFire; i += 1.0f )
 			{
 				float size = 0.25f * height;
-				Gizmos.color = Color.white;
 				if ( 0.0f == i % 5.0f )
-				{
 					size = 0.5f * height;
-					Gizmos.color = Color.white;
-				}
 				if ( 0.0f == i % 10.0f )
-				{
-					size = 1.0f * height;
-					Gizmos.color = Color.white;
-				}
-				Gizmos.DrawLine( DisplayPosition() - transform.up * ( height * 0 + 0 ) + transform.
-					forward * i * displayScale, DisplayPosition() - transform.up * ( height * 0 -
-					size ) + transform.forward * i * displayScale );
+					size = height;
+				Gizmos.color = Color.white;
+				Gizmos.DrawLine( dispPos + transform.forward * ( i * displayScale ), dispPos +
+					transform.up * size + transform.forward * ( i * displayScale ) );
 			}
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 - height / 2 ) +
-				transform.forward * 0, DisplayPosition() - transform.up * ( -height / 2 - height / 2
-				) + transform.forward * width );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 + height / 2 ) +
-				transform.forward * 0, DisplayPosition() - transform.up * ( -height / 2 + height / 2
-				) + transform.forward * width );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 - height / 2 ) +
-				transform.forward * width, DisplayPosition() - transform.up * ( -height / 2 + height
-				/ 2 ) + transform.forward * width );
+			Gizmos.DrawLine( dispPos + transform.up * height, dispPos + transform.up * height +
+				transform.forward * width );
+			Gizmos.DrawLine( dispPos, dispPos + transform.forward * width );
+			Gizmos.DrawLine( dispPos + transform.up * height + transform.forward * width, dispPos +
+				transform.forward * width );
 			Gizmos.color = Color.green;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward
-				* 0, DisplayPosition() - transform.up * ( -height / 2 ) + transform.forward * Mathf.
-				Max( 0, currentAmmo + shootTimer * rateOfFire ) / clipSize * width );
+			Gizmos.DrawLine( dispPos - transform.up * ( height * 0.5f ), dispPos + transform.up *
+				( height * 0.5f ) + transform.forward * ( Mathf.Max( 0.0f, currentAmmo + shootTimer
+				* rateOfFire ) / clipSize * width ) );
 			for ( float i = 0.0f; i < clipSize; i += 1.0f )
 			{
 				float size = 0.15f * height;
-				Gizmos.color = Color.white;
 				if ( 0.0f == i % 5.0f )
-				{
 					size = 0.5f * height;
-					Gizmos.color = Color.white;
-				}
 				if ( 0.0f == i % 10.0f )
-				{
-					size = 1.0f * height;
-					Gizmos.color = Color.white;
-				}
-				Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height * 1 + 0 ) + transform.
-					forward * i * width / clipSize, DisplayPosition() - transform.up * ( +height * 1
-					- size ) + transform.forward * i * width / clipSize );
+					size = height;
+				Gizmos.color = Color.white;
+				Gizmos.DrawLine( dispPos - transform.up * height + transform.forward * ( i * width /
+					clipSize ), dispPos - transform.up * ( height - size ) + transform.forward * ( i
+					* width / clipSize ) );
 			}
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 - height / 2 ) +
-				transform.forward * 0, DisplayPosition() - transform.up * ( +height / 2 - height / 2
-				) + transform.forward * width );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 + height / 2 ) +
-				transform.forward * 0, DisplayPosition() - transform.up * ( +height / 2 + height / 2
-				) + transform.forward * width );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 - height / 2 ) +
-				transform.forward * width, DisplayPosition() - transform.up * ( +height / 2 + height
-				/ 2 ) + transform.forward * width );
+			Gizmos.DrawLine( dispPos, dispPos + transform.forward * width );
+			Gizmos.DrawLine( dispPos - transform.up * height, dispPos - transform.up * height +
+				transform.forward * width );
+			Gizmos.DrawLine( dispPos + transform.forward * width, dispPos - transform.up * height +
+				transform.forward * width );
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward
-				* 0, DisplayPosition() - transform.up * ( +height / 2 ) + transform.forward * Mathf.
-				Max( 0, currentAmmo ) / clipSize * width );
+			Gizmos.DrawLine( dispPos - transform.up * ( height * 0.5f ), dispPos - transform.up * (
+				height * 0.5f ) + transform.forward * ( Mathf.Max( 0.0f, currentAmmo ) / clipSize *
+				width ) );
 			for ( float i = 0.0f; i < reloadTime; i += 1.0f )
 			{
 				float size = 0.15f * height;
-				Gizmos.color = Color.white;
 				if ( 0.0f == i % 5.0f )
-				{
 					size = 0.5f * height;
-					Gizmos.color = Color.white;
-				}
 				if ( 0.0f == i % 10.0f )
-				{
-					size = 1.0f * height;
-					Gizmos.color = Color.white;
-				}
-				Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height * 0 + 0 ) - transform.
-					forward * i * displayScale, DisplayPosition() - transform.up * ( -height * 0 -
-					size ) - transform.forward * i * displayScale );
+					size = height;
+				Gizmos.color = Color.white;
+				Gizmos.DrawLine( dispPos - transform.forward * ( i * displayScale ), dispPos +
+					transform.up * size - transform.forward * ( i * displayScale ) );
 			}
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 - height / 2 ) -
-				transform.forward * 0, DisplayPosition() - transform.up * ( -height / 2 - height / 2
-				) - transform.forward * reloadTime * displayScale );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 + height / 2 ) -
-				transform.forward * 0, DisplayPosition() - transform.up * ( -height / 2 + height / 2
-				) - transform.forward * reloadTime * displayScale );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 - height / 2 ) -
-				transform.forward * reloadTime * displayScale, DisplayPosition() - transform.up * (
-				-height / 2 + height / 2 ) - transform.forward * reloadTime * displayScale );
+			Gizmos.DrawLine( dispPos + transform.up * height, dispPos + transform.up * height -
+				transform.forward * ( reloadTime * displayScale ) );
+			Gizmos.DrawLine( dispPos, dispPos - transform.forward * ( reloadTime * displayScale ) );
+			Gizmos.DrawLine( dispPos + transform.up * height - transform.forward * ( reloadTime *
+				displayScale ), dispPos - transform.forward * ( reloadTime * displayScale ) );
 			Gizmos.color = Color.red;
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( -height / 2 ) - transform.forward
-				* 0, DisplayPosition() - transform.up * ( -height / 2 ) - transform.forward *
-				reloadTimer * displayScale );
+			Gizmos.DrawLine( dispPos + transform.up * ( height * 0.5f ), dispPos + transform.up * (
+				height * 0.5f ) - transform.forward * ( reloadTimer * displayScale ) );
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine( transform.position, transform.position + transform.up * ( height * 2 )
-				* IsOverCannon() );
-			Gizmos.DrawLine( transform.position + transform.up * ( height * 2 ) * IsOverCannon(),
-				DisplayPosition() - transform.up * ( height * 2 ) * IsOverCannon() );
-			Gizmos.DrawLine( DisplayPosition() - transform.up * ( height * 2 ) * IsOverCannon(),
-				DisplayPosition() );
+			Gizmos.DrawLine( transform.position, transform.position + transform.up * ( height * 2.0f
+				* IsOverCannon() ) );
+			Gizmos.DrawLine( transform.position + transform.up * ( height * 2.0f * IsOverCannon() ),
+				dispPos + transform.up * ( height * -2.0f * IsOverCannon() ) );
+			Gizmos.DrawLine( dispPos + transform.up * ( height * -2.0f * IsOverCannon() ), dispPos )
+				;
 			if ( autofire )
-				Gizmos.color = new Color( 0.75f, 0.5f, 0.5f, 1 );
+				Gizmos.color = new Color( 0.75f, 0.5f, 0.5f );
 			else
 				Gizmos.color = Color.white;
 			Gizmos.DrawLine( transform.position + displayScale * transform.up, transform.position -
 				displayScale * transform.up );
 			Gizmos.DrawLine( transform.position + displayScale * transform.right, transform.position
 				- displayScale * transform.right );
-			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform
+			Gizmos.DrawLine( transform.position + displayScale * 1.5f * transform.forward, transform
 				.position - displayScale * transform.forward );
-			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform
-				.position - transform.up * displayScale / 2 );
-			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform
-				.position + transform.up * displayScale / 2 );
-			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform
-				.position - transform.right * displayScale / 2 );
-			Gizmos.DrawLine( transform.position + displayScale * transform.forward * 1.5f, transform
-				.position + transform.right * displayScale / 2 );
+			Gizmos.DrawLine( transform.position + displayScale * 1.5f * transform.forward, transform
+				.position + transform.up * ( -0.5f * displayScale ) );
+			Gizmos.DrawLine( transform.position + displayScale * 1.5f * transform.forward, transform
+				.position + transform.up * ( 0.5f * displayScale ) );
+			Gizmos.DrawLine( transform.position + displayScale * 1.5f * transform.forward, transform
+				.position + transform.right * ( -0.5f * displayScale ) );
+			Gizmos.DrawLine( transform.position + displayScale * 1.5f * transform.forward, transform
+				.position + transform.right * ( 0.5f * displayScale ) );
 			Gizmos.DrawWireSphere( transform.position, 0.475f * displayScale );
 			Gizmos.color = Color.cyan;
 			for ( int i = 0; i < bulletsPerShot; ++i )
@@ -292,9 +254,9 @@ public class BcWeapon : MonoBehaviour
 					size = 1.0f;
 				if ( 0 == i % 10 )
 					size = 2.0f;
-				Gizmos.DrawLine( transform.position + transform.up * i / bulletsPerShot *
-					displayScale * 2, transform.position + transform.forward * size * displayScale +
-					transform.up * i / bulletsPerShot * displayScale * 2 );
+				Gizmos.DrawLine( transform.position + transform.up * ( i * displayScale * 2.0f /
+					bulletsPerShot ), transform.position + transform.forward * ( size * displayScale
+					) + transform.up * ( i * displayScale * 2.0f / bulletsPerShot ) );
 			}
 			DestroyImmediate( hull );
 		}
@@ -304,7 +266,7 @@ public class BcWeapon : MonoBehaviour
 	{
 		Gizmos.color = color;
 		Vector3 nextPos;
-		for ( float i = 0; i < time; i += Time.fixedDeltaTime )
+		for ( float i = 0.0f; i < time; i += Time.fixedDeltaTime )
 		{
 			nextPos = pos + Time.fixedDeltaTime * vel;
 			if ( draw )
@@ -312,7 +274,7 @@ public class BcWeapon : MonoBehaviour
 			pos = nextPos;
 			Vector3 accel = bulletAcceleration.x * transform.forward + bulletAcceleration.y *
 				transform.up + bulletAcceleration.z * transform.right + bulletGlobalAcceleration;
-			vel += ( accel ) * accelerationScale;
+			vel += accelerationScale * accel;
 		}
 		return pos;
 	}
@@ -396,42 +358,42 @@ public class BcWeaponEditor : Editor
 				displayOffset.vector3Value = tW.transform.worldToLocalMatrix.MultiplyVector( vec );
 				displayScale.floatValue = Mathf.Max( 0.1f, Handles.ScaleSlider( displayScale.
 					floatValue, offset + tW.DisplayOffset(), -tW.transform.up, tW.transform.rotation
-					, 0.75f * HandleUtility.GetHandleSize( offset + tW.DisplayOffset() ), 0 ) );
+					, 0.75f * HandleUtility.GetHandleSize( offset + tW.DisplayOffset() ), 0.0f ) );
 			}
 			Handles.color = Color.white;
-			offset = tW.DisplayPosition() + tW.transform.up * displayScale.floatValue / 2 + tW.
-				transform.forward * 0.5f * displayScale.floatValue;
-			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / rateOfFire.
-				floatValue * tW.clipSize * displayScale.floatValue, tW.transform.forward, 0.75f *
-				displayScale.floatValue, Handles.ConeCap, 0 );
-			rateOfFire.floatValue = tW.clipSize / ( vec.magnitude / displayScale.floatValue );
+			offset = tW.DisplayPosition() + tW.transform.up * ( displayScale.floatValue * 0.5f ) +
+				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
+				floatValue / rateOfFire.floatValue ), tW.transform.forward, 0.75f * displayScale.
+				floatValue, Handles.ConeCap, 0.0f ) - offset;
+			rateOfFire.floatValue = tW.clipSize * ( displayScale.floatValue / vec.magnitude );
 			Handles.color = Color.white;
-			offset = tW.DisplayPosition() - tW.transform.up * displayScale.floatValue / 2 + tW.
-				transform.forward * 0.75f * displayScale.floatValue;
-			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / tW.rateOfFire * tW.
-				clipSize * displayScale.floatValue, tW.transform.forward, 0.75f * displayScale.
-				floatValue, Handles.SphereCap, 0 );
-			offset = tW.DisplayPosition() - tW.transform.up * displayScale.floatValue / 2 + tW.
-				transform.forward * 0.5f * displayScale.floatValue;
-			vec = -offset + Handles.Slider( offset + tW.transform.forward * 1 / tW.rateOfFire * tW.
-				clipSize * displayScale.floatValue, tW.transform.forward, 0.75f * displayScale.
-				floatValue, Handles.CylinderCap, 0 );
-			clipSize.intValue = Mathf.RoundToInt( tW.rateOfFire * ( vec.magnitude / displayScale.
-				floatValue ) );
+			offset = tW.DisplayPosition() - tW.transform.up * ( displayScale.floatValue * 0.5f ) +
+				tW.transform.forward * ( 0.75f * displayScale.floatValue );
+			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
+				floatValue / tW.rateOfFire ), tW.transform.forward, 0.75f * displayScale.floatValue,
+				Handles.SphereCap, 0.0f ) - offset;
+			offset = tW.DisplayPosition() - tW.transform.up * ( displayScale.floatValue * 0.5f ) +
+				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			vec = Handles.Slider( offset + tW.transform.forward * ( tW.clipSize * displayScale.
+				floatValue / tW.rateOfFire ), tW.transform.forward, 0.75f * displayScale.floatValue,
+				Handles.CylinderCap, 0.0f ) - offset;
+			clipSize.intValue = Mathf.RoundToInt( tW.rateOfFire * vec.magnitude / displayScale.
+				floatValue );
 			Handles.color = Color.gray;
-			offset = tW.DisplayPosition() + tW.transform.up * displayScale.floatValue / 2 - tW.
-				transform.forward * 0.5f * displayScale.floatValue;
-			vec = -offset + Handles.Slider( offset - tW.transform.forward * tW.reloadTime *
-				displayScale.floatValue, -tW.transform.forward, 0.75f * displayScale.floatValue,
-				Handles.ConeCap, 0 );
+			offset = tW.DisplayPosition() + tW.transform.up * ( displayScale.floatValue * 0.5f ) -
+				tW.transform.forward * ( 0.5f * displayScale.floatValue );
+			vec = Handles.Slider( offset - tW.transform.forward * ( tW.reloadTime * displayScale.
+				floatValue ), -tW.transform.forward, 0.75f * displayScale.floatValue, Handles.
+				ConeCap, 0.0f ) - offset;
 			reloadTime.floatValue = vec.magnitude / displayScale.floatValue;
 			this.serializedObject.ApplyModifiedProperties();
 			Handles.color = Color.white;
 			Vector3 position = tW.ShotEnd( tW.bulletSpeed * tW.transform.forward, tW.bulletLife,
 				Color.white );
-			Handles.Label( position, Mathf.Round( 100 * tW.bulletLife ) / 100 + " secs" + " | " +
-				Mathf.Round( 100 * Vector3.Distance( tW.transform.position, position ) ) / 100 +
-				" m" );
+			Handles.Label( position, Mathf.Round( 100.0f * tW.bulletLife ) * 0.01f + " secs" + " | "
+				+ Mathf.Round( 100.0f * Vector3.Distance( tW.transform.position, position ) ) *
+				0.01f + " m" );
 		}
 	}
 	private void SerializeProperties()
