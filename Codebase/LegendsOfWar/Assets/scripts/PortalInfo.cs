@@ -27,3 +27,7 @@ public class PortalInfo : Info
 		AudioManager.PlaySoundEffect( AudioManager.sfxPortalDestroyed );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

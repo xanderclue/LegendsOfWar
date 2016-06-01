@@ -59,3 +59,7 @@ public class HeroAttack : AttackScript
 		}
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

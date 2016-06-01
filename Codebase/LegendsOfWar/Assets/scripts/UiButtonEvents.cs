@@ -7,3 +7,7 @@ public class UiButtonEvents : MonoBehaviour
 		EventSystem.current.SetSelectedGameObject( gameObject );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

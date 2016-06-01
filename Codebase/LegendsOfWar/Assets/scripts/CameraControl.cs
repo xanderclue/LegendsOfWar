@@ -247,3 +247,7 @@ public class CameraControl : MonoBehaviour
 		RecalcBoundaries();
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

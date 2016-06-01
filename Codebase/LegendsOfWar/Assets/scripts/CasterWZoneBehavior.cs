@@ -28,3 +28,7 @@ public class CasterWZoneBehavior : MonoBehaviour
 				StatusEffects.Inflict( _other.gameObject, m_effect.CreateEffect() );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

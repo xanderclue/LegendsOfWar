@@ -385,3 +385,7 @@ public class BcWeaponEditor : Editor
 	}
 }
 #endif
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

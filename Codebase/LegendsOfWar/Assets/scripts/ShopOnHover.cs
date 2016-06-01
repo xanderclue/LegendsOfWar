@@ -57,3 +57,7 @@ public class ShopOnHover : MonoBehaviour
 		GUI.Box( labelRect, words, style );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

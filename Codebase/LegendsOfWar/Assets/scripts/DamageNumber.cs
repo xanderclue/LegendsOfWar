@@ -57,3 +57,7 @@ public class DamageNumber : MonoBehaviour
 		transform.LookAt( 2.0f * transform.position - HeroUIScript.Instance.transform.position );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

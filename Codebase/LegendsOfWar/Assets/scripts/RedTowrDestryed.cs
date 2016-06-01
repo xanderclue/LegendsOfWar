@@ -13,3 +13,7 @@ public class RedTowrDestryed : MonoBehaviour
 			aiManager.Destroyed();
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

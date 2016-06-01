@@ -20,3 +20,7 @@ public class creditsScroll : MonoBehaviour
 			ApplicationManager.Instance.ChangeAppState( StateID.STATE_MAIN_MENU );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

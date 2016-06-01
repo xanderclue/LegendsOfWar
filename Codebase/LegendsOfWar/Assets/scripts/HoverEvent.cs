@@ -23,3 +23,7 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 		image.sprite = buttonOut;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

@@ -50,3 +50,7 @@ public class HeroUIScript : MonoBehaviour
 			heroWarning.mute = !HeroBeingAttacked;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

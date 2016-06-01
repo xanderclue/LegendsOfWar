@@ -21,3 +21,7 @@ public class TutSpawnRed : MonoBehaviour
 		this.gameObject.SetActive( false );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

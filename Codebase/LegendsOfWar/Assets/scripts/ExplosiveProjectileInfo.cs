@@ -8,3 +8,7 @@ public class ExplosiveProjectileInfo : BaseProjectileInfo
 	public float aoeDamage
 	{ get { return AOEDamage; } }
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

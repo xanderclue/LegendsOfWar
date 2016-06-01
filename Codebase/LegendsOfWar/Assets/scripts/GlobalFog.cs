@@ -115,3 +115,7 @@ public class GlobalFog : PostEffectsBase
 			Graphics.Blit( source, destination );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

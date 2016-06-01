@@ -15,3 +15,7 @@ public class BarNumeric : MonoBehaviour
 		manaText.text = Mathf.RoundToInt( info.Mana ) + " / " + Mathf.RoundToInt( info.MaxMana );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

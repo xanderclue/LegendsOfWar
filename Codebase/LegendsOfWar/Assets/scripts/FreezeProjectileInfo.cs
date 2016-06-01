@@ -15,3 +15,7 @@ public class FreezeProjectileInfo : BaseProjectileInfo
 	public float aoeTickTime
 	{ get { return AOETickTime; } }
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

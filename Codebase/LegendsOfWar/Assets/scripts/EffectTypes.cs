@@ -45,3 +45,7 @@ public class Effect
 		m_elapsedTime = 0;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

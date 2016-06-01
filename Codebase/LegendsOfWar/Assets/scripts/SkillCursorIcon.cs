@@ -11,3 +11,7 @@ public class SkillCursorIcon : MonoBehaviour
 		rTransform.position = CameraControl.Current.ScreenToWorldPoint( Input.mousePosition );
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

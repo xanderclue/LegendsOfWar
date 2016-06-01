@@ -12,3 +12,7 @@ public class BaseProjectileInfo : MonoBehaviour
 	public float Damage
 	{ get { return damage; } }
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

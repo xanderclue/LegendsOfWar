@@ -58,3 +58,7 @@ public class NormalTowerBehavior : MonoBehaviour
 		fireTimer = info.AttackSpeed;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

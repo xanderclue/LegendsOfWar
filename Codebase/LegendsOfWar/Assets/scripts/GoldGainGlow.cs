@@ -28,3 +28,7 @@ public class GoldGainGlow : MonoBehaviour
 		activeTimer = activeTime;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

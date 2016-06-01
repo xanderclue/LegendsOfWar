@@ -105,3 +105,7 @@ public class HeroInfo : Info
 		mana = 0.0f;
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE

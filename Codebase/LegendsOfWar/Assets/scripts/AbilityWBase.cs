@@ -16,3 +16,7 @@ public abstract class AbilityWBase : AbilityBase
 		base.AbilityActivate();
 	}
 }
+#region OLD_CODE
+#if false
+#endif
+#endregion //OLD_CODE
