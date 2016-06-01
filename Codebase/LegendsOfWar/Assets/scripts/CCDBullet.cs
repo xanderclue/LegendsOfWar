@@ -3,7 +3,7 @@ public class CCDBullet : MonoBehaviour
 {
 	public float life;
 	private Rigidbody body;
-	private Ray ray;
+	private Ray ray = new Ray();
 	private RaycastHit hit;
 	private void Start()
 	{

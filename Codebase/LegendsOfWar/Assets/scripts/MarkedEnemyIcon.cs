@@ -2,7 +2,7 @@
 public class MarkedEnemyIcon : MonoBehaviour
 {
 	[SerializeField]
-	private string m_name;
+	private string m_name = "";
 	[SerializeField]
 	private bool AutoMaticDestroy = true;
 	private bool updateScript;
