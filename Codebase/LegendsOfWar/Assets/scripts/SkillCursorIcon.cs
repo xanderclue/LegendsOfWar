@@ -13,5 +13,18 @@ public class SkillCursorIcon : MonoBehaviour
 }
 #region OLD_CODE
 #if false
+using UnityEngine;
+
+public class SkillCursorIcon : MonoBehaviour
+{
+	void Update()
+	{
+		if ( gameObject.activeInHierarchy )
+		{
+			GetComponent<RectTransform>().position = CameraControl.Current.ScreenToWorldPoint( Input.mousePosition );
+		}
+	}
+}
+
 #endif
 #endregion //OLD_CODE
