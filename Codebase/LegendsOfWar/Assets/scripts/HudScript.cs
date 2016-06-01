@@ -43,9 +43,8 @@ public class HudScript : MonoBehaviour
 	{
 		ButtonHMAnim();
 		if ( Input.GetMouseButton( 1 ) )
-			if ( null != GrabHit )
-				if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit )
-					)
+			if ( Physics.Raycast( minimapCam.ScreenPointToRay( Input.mousePosition ), out hit ) )
+				if ( null != GrabHit )
 					GrabHit( hit );
 		tmr = GameManager.Instance.Timer;
 		if ( tmr <= 0.0f )

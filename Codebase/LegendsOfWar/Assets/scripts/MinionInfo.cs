@@ -56,10 +56,7 @@ public class MinionInfo : Info
 	}
 	private void Update()
 	{
-		if ( SupportRange.InSupportRange( gameObject ) )
-			damage = baseDamage * 1.5f;
-		else
-			damage = baseDamage;
+		damage = SupportRange.InSupportRange( gameObject ) ? baseDamage * 1.5f : baseDamage;
 	}
 	private void MinionAttacked()
 	{

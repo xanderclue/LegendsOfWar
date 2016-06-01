@@ -5,15 +5,20 @@ public class CasterWZoneBehavior : MonoBehaviour
 	[SerializeField]
 	private Effect m_effect = null;
 	public bool Activate = false;
+	private ParticleSystem ps;
+	private void Start()
+	{
+		ps = GetComponent<ParticleSystem>();
+	}
 	private void Update()
 	{
 		if ( Activate )
 		{
-			if ( GetComponent<ParticleSystem>().isStopped )
-				GetComponent<ParticleSystem>().Play();
+			if ( ps.isStopped )
+				ps.Play();
 			zoneDuration -= Time.deltaTime;
 			if ( zoneDuration <= 0.0f )
-				Destroy( this.gameObject );
+				Destroy( gameObject );
 		}
 	}
 	private void OnParticleCollision( GameObject _other )

@@ -14,7 +14,7 @@ public class HeroUIScript : MonoBehaviour
 	{ get { return inst; } }
 	public static bool HeroBeingAttacked
 	{
-		get { return heroDamageNotifTimer > 0.0f; }
+		get { return 0.0f < heroDamageNotifTimer; }
 		set
 		{
 			if ( value && !HeroCamScript.onHero )

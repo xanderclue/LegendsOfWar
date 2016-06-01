@@ -42,10 +42,11 @@ public class EnemyAIManager : MonoBehaviour
 		lastResort = false;
 	private List<Transform> targets = new List<Transform>();
 	private GameObject min_go, Hero = null;
+	private ParticleSystem lrpPs;
 	private NavMeshAgent nma;
-	private float reinforcementsTime = 40.0f, siegeTime = 60.0f, lastResortTime = 20.0f, towerCost =
-		9.0f, healthCost = 50.0f, timeCost = 40.0f, selfRecoveryBase = 20.0f, selfRecoveryGrowth =
-		8.0f, maxTime = 900.0f
+	private PortalInfo portalInfo;
+	private HeroInfo heroInfo;
+	private float reinforcementsTime = 40.0f, siegeTime = 60.0f, selfRecoveryBase = 20.0f
 #if DEBUG
 		, second = 1.0f
 #endif
@@ -55,9 +56,8 @@ public class EnemyAIManager : MonoBehaviour
 	{
 		get
 		{
-			return selfRecoveryBase + selfRecoveryGrowth * ( ( ( ( redPortal.MAXHP - redPortal.HP )
-				/ redPortal.MAXHP ) * selfRecoveryBase ) + ( 0.0175f * ( maxTime - GameManager.
-				Instance.Timer ) ) );
+			return selfRecoveryBase + 8.0f * ( ( redPortal.MAXHP - redPortal.HP ) * redPortal.
+				InvMAXHP * selfRecoveryBase - 0.0175f * GameManager.Instance.Timer + 15.75f );
 		}
 	}
 	private DangerLevel GetTriggered
@@ -165,9 +165,12 @@ public class EnemyAIManager : MonoBehaviour
 	{
 		remainingHealth = redPortal.HP;
 		Hero = GameManager.Instance.Player;
+		heroInfo = Hero.GetComponent<HeroInfo>();
 		attackRange.triggerEnter += AttackRange_triggerEnter;
 		attackRange.triggerExit += AttackRange_triggerExit;
 		attackRange.CreateTrigger( 210.0f );
+		lrpPs = lastResortParticle.GetComponent<ParticleSystem>();
+		portalInfo = GetComponentInParent<PortalInfo>();
 	}
 	private void Update()
 	{
@@ -184,101 +187,62 @@ public class EnemyAIManager : MonoBehaviour
 		if ( !Hero.activeSelf )
 			lazer.autofire = false;
 		remainingHealth = redPortal.HP;
-		dangerTreshold = ( ( timeCost - ( ( GameManager.Instance.Timer / maxTime ) * timeCost ) ) +
-			( healthCost - ( ( redPortal.HP / redPortal.MAXHP ) * healthCost ) ) + ( 5 -
-			towersRemaining ) * towerCost );
-		lazer.bulletPrefab.GetComponent<SiegeProjectile>().damage = GetComponentInParent<PortalInfo>
-			().Damage * towersRemaining;
+		dangerTreshold = 90.0f - GameManager.Instance.Timer * 0.044444444f - redPortal.HP *
+			redPortal.InvMAXHP * 50.0f + ( 5 - towersRemaining ) * 9.0f;
+		lazer.siegeProjectileDamage = portalInfo.Damage * towersRemaining;
 		if ( !LastResortActive )
 			switch ( GetTriggered )
 			{
 				case DangerLevel.EXTREME:
-					selfRecover = true;
-					spawnSiegeMinion = true;
-					reinforcements = true;
-					towerMovement = true;
-					huntHero = true;
-					upgradeSiege = true;
-					extraSiegeMinion = true;
-					lastResort = true;
-					reinforcementsTime = 10.0f;
-					siegeTime = 10.0f;
+					lastResort = extraSiegeMinion = upgradeSiege = huntHero = towerMovement =
+						reinforcements = spawnSiegeMinion = selfRecover = true;
+					siegeTime = reinforcementsTime = 10.0f;
 					selfRecoveryBase = 30.0f;
 					break;
 				case DangerLevel.CRITICAL:
-					selfRecover = true;
-					spawnSiegeMinion = true;
-					reinforcements = true;
-					towerMovement = true;
-					huntHero = true;
-					upgradeSiege = true;
-					extraSiegeMinion = true;
+					extraSiegeMinion = upgradeSiege = huntHero = towerMovement = reinforcements =
+						spawnSiegeMinion = selfRecover = true;
 					lastResort = false;
 					reinforcementsTime = 20.0f;
 					siegeTime = 15.0f;
 					selfRecoveryBase = 20.0f;
 					break;
 				case DangerLevel.HIGH:
-					selfRecover = true;
-					spawnSiegeMinion = true;
-					reinforcements = true;
-					towerMovement = true;
+					towerMovement = reinforcements = spawnSiegeMinion = selfRecover = true;
 					huntHero = false;
-					upgradeSiege = true;
-					extraSiegeMinion = true;
+					extraSiegeMinion = upgradeSiege = true;
 					lastResort = false;
 					reinforcementsTime = 40.0f;
 					siegeTime = 25.0f;
 					selfRecoveryBase = 15.0f;
 					break;
 				case DangerLevel.MODERATE:
-					selfRecover = true;
-					spawnSiegeMinion = true;
-					reinforcements = true;
-					towerMovement = true;
+					towerMovement = reinforcements = spawnSiegeMinion = selfRecover = true;
 					huntHero = false;
 					upgradeSiege = true;
-					extraSiegeMinion = false;
-					lastResort = false;
+					lastResort = extraSiegeMinion = false;
 					reinforcementsTime = 60.0f;
 					siegeTime = 40.0f;
 					selfRecoveryBase = 10.0f;
 					break;
 				case DangerLevel.MEDIUM:
 					selfRecover = false;
-					spawnSiegeMinion = true;
-					reinforcements = true;
-					towerMovement = true;
-					huntHero = false;
-					upgradeSiege = false;
-					extraSiegeMinion = false;
-					lastResort = false;
+					towerMovement = reinforcements = spawnSiegeMinion = true;
+					lastResort = extraSiegeMinion = upgradeSiege = huntHero = false;
 					reinforcementsTime = 80.0f;
 					siegeTime = 60.0f;
 					break;
 				case DangerLevel.LOW:
 					selfRecover = false;
 					spawnSiegeMinion = true;
-					reinforcements = false;
-					towerMovement = false;
-					huntHero = false;
-					upgradeSiege = false;
-					extraSiegeMinion = false;
-					lastResort = false;
-					reinforcementsTime = 80.0f;
-					siegeTime = 80.0f;
+					lastResort = extraSiegeMinion = upgradeSiege = huntHero = towerMovement =
+						reinforcements = false;
+					siegeTime = reinforcementsTime = 80.0f;
 					break;
 				case DangerLevel.MINIMAL:
-					selfRecover = false;
-					spawnSiegeMinion = false;
-					reinforcements = false;
-					towerMovement = false;
-					huntHero = false;
-					upgradeSiege = false;
-					extraSiegeMinion = false;
-					lastResort = false;
-					reinforcementsTime = 80.0f;
-					siegeTime = 80.0f;
+					lastResort = extraSiegeMinion = upgradeSiege = huntHero = towerMovement =
+						reinforcements = spawnSiegeMinion = selfRecover = false;
+					siegeTime = reinforcementsTime = 80.0f;
 					break;
 				default:
 					break;
@@ -294,7 +258,7 @@ public class EnemyAIManager : MonoBehaviour
 			redPortal.HP = remainingHealth + CalcSelfRecovery * Time.deltaTime;
 			if ( LastResortActive )
 			{
-				lastResortParticle.GetComponent<ParticleSystem>().Play();
+				lrpPs.Play();
 				lastResortTimer -= Time.deltaTime;
 				selfRecoveryBase *= 3.0f;
 				redPortal.HP = remainingHealth + CalcSelfRecovery * Time.deltaTime;
@@ -303,10 +267,9 @@ public class EnemyAIManager : MonoBehaviour
 			}
 			else
 			{
-				lastResortParticle.GetComponent<ParticleSystem>().Stop();
-				lastResortParticle.GetComponent<ParticleSystem>().Clear();
-				lastResortTimer = System.Math.Min( lastResortTime, ( lastResortTimer + 0.6f * Time.
-					deltaTime ) );
+				lrpPs.Stop();
+				lrpPs.Clear();
+				lastResortTimer = System.Math.Min( 20.0f, lastResortTimer + 0.6f * Time.deltaTime );
 			}
 		}
 		if ( spawnSiegeMinion && siegeTimer <= 0.0f )
@@ -338,11 +301,7 @@ public class EnemyAIManager : MonoBehaviour
 				NORTH_PATH, Team.RED_TEAM );
 			reinforcementsTimer = reinforcementsTime;
 		}
-		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <=
-			130.0f )
-			heroPresence = HeroLocation.TOO_Close;
-		if ( Vector3.Distance( Hero.transform.position, redPortal.gameObject.transform.position ) <=
-			210.0f )
+		if ( Vector3.Distance( Hero.transform.position, redPortal.transform.position ) <= 210.0f )
 			heroPresence = HeroLocation.Close;
 		else if ( Hero.transform.position.z > UpperSplit.transform.position.z )
 			heroPresence = HeroLocation.TOP_Lane;
@@ -350,10 +309,7 @@ public class EnemyAIManager : MonoBehaviour
 			heroPresence = HeroLocation.BOT_Lane;
 		else
 			heroPresence = HeroLocation.MID_Lane;
-		if ( HeroLocation.TOO_Close == heroPresence )
-			redPortal.DmgDamp = 16.555f * towersRemaining;
-		else
-			redPortal.DmgDamp = 10.0f * towersRemaining;
+		redPortal.DmgDamp = 10.0f * towersRemaining;
 	}
 	private void FixedUpdate()
 	{
@@ -379,7 +335,7 @@ public class EnemyAIManager : MonoBehaviour
 				AttackRange_triggerExit( targets[ 0 ].gameObject );
 		}
 		if ( ( HeroLocation.TOO_Close == heroPresence || huntHero && HeroLocation.Close ==
-			heroPresence ) && Hero.GetComponent<Info>().Alive )
+			heroPresence ) && heroInfo.Alive )
 		{
 			portalLazer.transform.LookAt( Hero.transform );
 			lazer.autofire = true;
@@ -389,7 +345,7 @@ public class EnemyAIManager : MonoBehaviour
 			portalLazer.transform.LookAt( targets[ 0 ] );
 			lazer.autofire = true;
 		}
-		else if ( HeroLocation.Close == heroPresence && Hero.GetComponent<Info>().Alive )
+		else if ( HeroLocation.Close == heroPresence && heroInfo.Alive )
 		{
 			portalLazer.transform.LookAt( Hero.transform );
 			lazer.autofire = true;

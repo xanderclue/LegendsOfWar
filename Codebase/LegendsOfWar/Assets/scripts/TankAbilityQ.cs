@@ -15,13 +15,9 @@ public class TankAbilityQ : AbilityQBase
 		AbilityQParticle.gameObject.SetActive( true );
 		base.AbilityActivate();
 		AbilityQParticle.Play();
-		if ( heroInfo.HP + increaseHP > heroInfo.MAXHP )
-		{
+		if ( heroInfo.MAXHP < heroInfo.HP + increaseHP )
 			heroInfo.MAXHP = heroInfo.HP + increaseHP;
-			heroInfo.HP = heroInfo.MAXHP;
-		}
-		else
-			heroInfo.HP += increaseHP;
+		heroInfo.HP += increaseHP;
 	}
 	protected override void AbilityDeactivate()
 	{

@@ -6,6 +6,7 @@ public class ShopOnHover : MonoBehaviour
 	private Description disc = Description.Q;
 	[SerializeField]
 	private string textEn = "", textJp = "";
+	private Rect labelRect;
 	private bool isHovering = false;
 	public void OnHover()
 	{
@@ -50,7 +51,7 @@ public class ShopOnHover : MonoBehaviour
 		GUIStyle style = new GUIStyle( GUI.skin.box );
 		style.normal.textColor = Color.green;
 		style.fontSize = 20;
-		Rect labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
+		labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
 		labelRect.x = Input.mousePosition.x + 25.0f;
 		labelRect.y = Screen.height - Input.mousePosition.y;
 		GUI.Box( labelRect, words, style );

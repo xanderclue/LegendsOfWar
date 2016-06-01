@@ -24,7 +24,6 @@ public class Interactive : MonoBehaviour
 					selected = CameraControl.Selection.Contains( camPos );
 				}
 			if ( Circle )
-			{
 				if ( selected )
 				{
 					Circle.SetActive( true );
@@ -32,7 +31,6 @@ public class Interactive : MonoBehaviour
 				}
 				else
 					Circle.SetActive( false );
-			}
 		}
 	}
 }

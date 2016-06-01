@@ -51,12 +51,7 @@ public class TurnManager : MonoBehaviour
 	{
 		spLight = false;
 		current = next;
-		AudioManager.KillSingle();
-		if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
-		{
-			CharacterSelectionManager.Instance.Index = CurrentInt;
-			PlayVoice();
-		}
+		Turned();
 		turnState = TurnState.Right;
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
@@ -65,12 +60,7 @@ public class TurnManager : MonoBehaviour
 	{
 		spLight = false;
 		current = prev;
-		AudioManager.KillSingle();
-		if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
-		{
-			CharacterSelectionManager.Instance.Index = CurrentInt;
-			PlayVoice();
-		}
+		Turned();
 		turnState = TurnState.Left;
 		spLight = true;
 		CharacterSelectionManager.ChangedCharacter();
@@ -88,16 +78,16 @@ public class TurnManager : MonoBehaviour
 			TurnRight();
 		switch ( turnState )
 		{
-			case TurnState.Still:
-				break;
 			case TurnState.Left:
 				CharacterSelectionSpace.Rotate( 0.0f, -rotationSpeed * Time.deltaTime, 0.0f );
-				if ( check( CharacterSelectionSpace.rotation ) )
+				if ( Quaternion.Angle( CharacterSelectionSpace.rotation, rotations[ CurrentInt ] ) <
+					3.0f )
 					turnState = TurnState.Fix;
 				break;
 			case TurnState.Right:
 				CharacterSelectionSpace.Rotate( 0.0f, rotationSpeed * Time.deltaTime, 0.0f );
-				if ( check( CharacterSelectionSpace.rotation ) )
+				if ( Quaternion.Angle( CharacterSelectionSpace.rotation, rotations[ CurrentInt ] ) <
+					3.0f )
 					turnState = TurnState.Fix;
 				break;
 			case TurnState.Fix:
@@ -113,13 +103,15 @@ public class TurnManager : MonoBehaviour
 			if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
 				menuEventsObj.ChangeAppState( "STATE_HELP" );
 	}
-	private void PlayVoice()
+	private void Turned()
 	{
-		sub.SetSub( "", -0.0f );
-		CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip( "HeroSelected" );
-	}
-	private bool check( Quaternion rot )
-	{
-		return Quaternion.Angle( rot, rotations[ CurrentInt ] ) < 3.0f;
+		AudioManager.KillSingle();
+		if ( CharacterSelectionManager.Instance.Available[ CurrentInt ] )
+		{
+			CharacterSelectionManager.Instance.Index = CurrentInt;
+			sub.SetSub( "", -0.0f );
+			CharacterSelectionManager.LegendChoice.GetComponent<HeroAudio>().PlayClip(
+				"HeroSelected" );
+		}
 	}
 }

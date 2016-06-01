@@ -9,6 +9,7 @@ public class FreezeTowerBehavior : MonoBehaviour
 	[SerializeField]
 	private Detector detector = null;
 	private List<Transform> targets;
+	private Info targ;
 	private FreezeProjectileInfo info;
 	private float fireTimer;
 	private void Awake()
@@ -21,10 +22,9 @@ public class FreezeTowerBehavior : MonoBehaviour
 	}
 	private void Update()
 	{
-		targets.RemoveAll( item => null == item );
+		targets.RemoveAll( item => !item );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.FreezeShot ) && fireTimer <= 0.0f
 			&& 0 < targets.Count )
-		{
 			if ( !targets[ 0 ].gameObject.activeInHierarchy )
 				RemoveTarget( targets[ 0 ].gameObject );
 			else
@@ -32,7 +32,6 @@ public class FreezeTowerBehavior : MonoBehaviour
 				FireAtTarget();
 				fireTimer = info.AttackSpeed;
 			}
-		}
 		else
 			fireTimer -= Time.deltaTime;
 	}
@@ -40,7 +39,7 @@ public class FreezeTowerBehavior : MonoBehaviour
 	{
 		if ( obj )
 		{
-			Info targ = obj.GetComponent<Info>();
+			targ = obj.GetComponent<Info>();
 			if ( targ )
 				if ( targ.team != team )
 					targets.Add( obj.transform );

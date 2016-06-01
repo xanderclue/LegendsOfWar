@@ -13,8 +13,8 @@ public class TowerRangeIndicator : MonoBehaviour
 	private void Update()
 	{
 		circle.Rotate( 0.0f, Time.deltaTime * 1.5f, 0.0f );
-		if ( ( TowerManager.Instance.BlueShotChanged && Team.BLUE_TEAM == team ) || ( TowerManager.
-			Instance.RedShotChanged && Team.RED_TEAM == team ) )
+		if ( ( TowerManager.BlueShotChanged && Team.BLUE_TEAM == team ) || ( TowerManager.
+			RedShotChanged && Team.RED_TEAM == team ) )
 			UpdateRange();
 	}
 	private void UpdateRange()

@@ -24,15 +24,13 @@ public class ProjectileBehaviour : MonoBehaviour
 	private void FixedUpdate()
 	{
 		if ( isFired )
-		{
 			if ( target && target.gameObject.activeInHierarchy )
 			{
 				transform.LookAt( target );
-				transform.Translate( transform.forward * speed * Time.fixedDeltaTime, Space.World );
+				transform.Translate( speed * Time.fixedDeltaTime * transform.forward, Space.World );
 			}
 			else
 				Destroy( gameObject );
-		}
 	}
 	private void OnTriggerEnter( Collider col )
 	{

@@ -8,7 +8,9 @@ public class SkillShot : MonoBehaviour
 	public GameObject Shooter = null;
 	public Effect effect = new Effect();
 	public float projectileLifetime = 2.0f;
+	private Info colInfo;
 	private float projectileTimer;
+	private int tmpStack;
 	private bool isFired = false;
 	public void Fire()
 	{
@@ -39,18 +41,20 @@ public class SkillShot : MonoBehaviour
 	private void OnTriggerEnter( Collider col )
 	{
 		if ( Shooter && col )
-			if ( col.gameObject.GetComponent<Info>() && col.gameObject.GetComponent<Info>().team !=
-				Shooter.GetComponent<Info>().team )
+		{
+			colInfo = col.GetComponent<Info>();
+			if ( colInfo && colInfo.team != Shooter.GetComponent<Info>().team )
 			{
 				StatusEffects.Inflict( col.gameObject, effect );
-				int tmpStack = StatusEffectsManager.Instance.GetStacks( col.gameObject.GetInstanceID
-					().ToString(), effect.m_name );
-				if ( tmpStack > 0 )
-					col.gameObject.GetComponent<Info>().TakeDamage( damage * ( 1 + 2 * tmpStack ) );
+				tmpStack = StatusEffectsManager.Instance.GetStacks( col.gameObject.GetInstanceID().
+					ToString(), effect.m_name );
+				if ( 0 < tmpStack )
+					colInfo.TakeDamage( damage * ( 2 * tmpStack + 1 ) );
 				else
-					col.gameObject.GetComponent<Info>().TakeDamage( damage );
+					colInfo.TakeDamage( damage );
 				if ( !HitMultiTarget )
 					Destroy( gameObject );
 			}
+		}
 	}
 }

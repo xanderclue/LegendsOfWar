@@ -6,6 +6,6 @@ public class TutMinionStart : MonoBehaviour
 	private void OnTriggerEnter()
 	{
 		MininionStart.SetActive( true );
-		this.gameObject.SetActive( false );
+		gameObject.SetActive( false );
 	}
 }

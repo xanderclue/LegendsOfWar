@@ -41,7 +41,5 @@ public class sub : MonoBehaviour
 	private void OnDestroy()
 	{
 		inst = null;
-		text = null;
-		timer = -0.0f;
 	}
 }

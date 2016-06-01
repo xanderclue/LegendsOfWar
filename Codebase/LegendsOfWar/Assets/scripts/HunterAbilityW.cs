@@ -6,7 +6,9 @@ public class HunterAbilityW : AbilityWBase
 	[SerializeField]
 	private GameObject projectile = null, arrowSpawn = null, Icon = null;
 	private GameObject activeIcon = null;
-	private Info target = null;
+	private SpriteRenderer activeIconSpriteRenderer = null;
+	private NavMeshAgent targNm = null, colNm;
+	private Info target = null, colInfo;
 	private RaycastHit hit;
 	private float originalSpeed = 0.0f;
 	protected override void Update()
@@ -19,18 +21,19 @@ public class HunterAbilityW : AbilityWBase
 				KeyCode.Alpha2 ) || Input.GetKeyDown( KeyCode.Keypad2 ) ) && cooldownTimer <= 0.0f )
 				if ( TargetSelected() )
 					TryCast();
-		if ( !target && activeIcon && activeIcon.GetComponent<SpriteRenderer>().enabled )
-			activeIcon.GetComponent<SpriteRenderer>().enabled = false;
+		if ( !target && activeIcon && activeIconSpriteRenderer.enabled )
+			activeIconSpriteRenderer.enabled = false;
 	}
 	protected override void AbilityActivate()
 	{
 		base.AbilityActivate();
-		originalSpeed = target.GetComponent<NavMeshAgent>().speed;
-		target.GetComponent<NavMeshAgent>().speed = 0.0f;
-		activeIcon = ( Instantiate( Icon, target.transform.position, target.transform.rotation ) as
-			GameObject );
+		originalSpeed = targNm.speed;
+		targNm.speed = 0.0f;
+		activeIcon = Instantiate( Icon, target.transform.position, target.transform.rotation ) as
+			GameObject;
+		activeIconSpriteRenderer = activeIcon.GetComponent<SpriteRenderer>();
 		activeIcon.transform.parent = target.transform;
-		activeIcon.GetComponent<SpriteRenderer>().enabled = true;
+		activeIconSpriteRenderer.enabled = true;
 		ProjectileBehaviour p = ( Instantiate( projectile, arrowSpawn.transform.position, arrowSpawn
 			.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour>();
 		p.speed = speed;
@@ -42,20 +45,24 @@ public class HunterAbilityW : AbilityWBase
 	{
 		base.AbilityDeactivate();
 		if ( target )
-			target.GetComponent<NavMeshAgent>().speed = originalSpeed;
-		if ( activeIcon && activeIcon.GetComponent<SpriteRenderer>() )
-			activeIcon.GetComponent<SpriteRenderer>().enabled = false;
+			targNm.speed = originalSpeed;
+		if ( activeIconSpriteRenderer )
+			activeIconSpriteRenderer.enabled = false;
 	}
 	private bool TargetSelected()
 	{
 		Ray ray = new Ray( transform.position, transform.forward );
 		if ( Physics.SphereCast( ray, 5.0f, out hit, range, 9, QueryTriggerInteraction.Collide ) )
-			if ( hit.collider.GetComponent<NavMeshAgent>() && hit.collider.GetComponent<Info>() &&
-				hit.collider.GetComponent<Info>().team != GetComponentInParent<Info>().team )
+		{
+			colInfo = hit.collider.GetComponent<Info>();
+			colNm = hit.collider.GetComponent<NavMeshAgent>();
+			if ( colNm && colInfo && colInfo.team != heroInfo.team )
 			{
-				target = hit.collider.gameObject.GetComponent<Info>();
+				target = colInfo;
+				targNm = colNm;
 				return true;
 			}
+		}
 		return false;
 	}
 }

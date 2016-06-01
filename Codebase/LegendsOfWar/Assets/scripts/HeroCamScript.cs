@@ -29,7 +29,8 @@ public class HeroCamScript : MonoBehaviour
 	private CamTransitionState state = CamTransitionState.OnMain;
 	private string hitLayerName;
 	private float verticalRotation = 0.0f, maxVert = 55.0f, minVert = -30.0f, tValue = 0.0f,
-		mouseVerticalStart, targetFOV = 60.0f, maxDistance, forceDistance, currentVertical;
+		mouseVerticalStart, targetFOV = 60.0f, maxDistance, forceDistance, currentVertical, newVert,
+		vertChange;
 	private bool cameraReady = false;
 	public static Camera HeroCam
 	{
@@ -217,25 +218,21 @@ public class HeroCamScript : MonoBehaviour
 		if ( GameManager.Tutorial )
 			if ( heroCamDisabler.disabledCameraMovement )
 				return;
-		if ( !onHero )
-			return;
-		if ( Input.GetMouseButton( 2 ) )
+		if ( Input.GetMouseButton( 2 ) && onHero )
 		{
 			currentVertical = Input.mousePosition.y;
-			float newVert = Mathf.Clamp( verticalRotation + mouseVerticalStart - currentVertical,
+			newVert = Mathf.Clamp( verticalRotation + mouseVerticalStart - currentVertical,
 				minVert, maxVert );
-			float vertChange = newVert - verticalRotation;
+			vertChange = newVert - verticalRotation;
 			verticalRotation = newVert;
 			heroCenter.Rotate( heroCenter.right, vertChange, Space.World );
 		}
 	}
 	private void GetHeroInfo()
 	{
-		GameObject player;
-		player = GameManager.Instance.Player;
-		if ( player )
+		if ( GameManager.Instance.Player )
 		{
-			info = player.GetComponent<HeroInfo>();
+			info = GameManager.Instance.Player.GetComponent<HeroInfo>();
 			if ( info )
 			{
 				heroCenter = info.heroCenter;
@@ -302,25 +299,25 @@ public class HeroCamScript : MonoBehaviour
 	}
 	private void CamOnHero()
 	{
-		if ( !info.Alive )
+		if ( info.Alive )
+			if ( Input.GetKeyDown( switchViewKey ) )
+			{
+				state = CamTransitionState.Hero2Main;
+				HudTextShowsQWER = true;
+			}
+			else
+			{
+				HudTextShowsQWER = false;
+				heroCam.transform.position = heroTransform.position;
+				heroCam.transform.rotation = heroTransform.rotation;
+			}
+		else
 		{
 			HudTextShowsQWER = true;
 			AudioManager.PlaySoundEffect( AudioManager.sfxHeroCam );
 			state = CamTransitionState.Hero2Main;
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			return;
-		}
-		if ( Input.GetKeyDown( switchViewKey ) )
-		{
-			state = CamTransitionState.Hero2Main;
-			HudTextShowsQWER = true;
-		}
-		else
-		{
-			HudTextShowsQWER = false;
-			heroCam.transform.position = heroTransform.position;
-			heroCam.transform.rotation = heroTransform.rotation;
 		}
 	}
 	private void CamHero2Main()

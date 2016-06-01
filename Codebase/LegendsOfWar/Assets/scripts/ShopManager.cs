@@ -23,11 +23,8 @@ public class ShopManager : MonoBehaviour
 		get
 		{
 			if ( !instance )
-			{
-				instance = FindObjectOfType<ShopManager>();
-				if ( !instance )
-					instance = new GameObject( "ShopManager" ).AddComponent<ShopManager>();
-			}
+				instance = FindObjectOfType<ShopManager>() ?? new GameObject( "ShopManager" ).
+					AddComponent<ShopManager>();
 			return instance;
 		}
 	}

@@ -10,24 +10,19 @@ public class TowerManager : MonoBehaviour
 		blueFreezeActive = false, redExplosiveActive = false, blueExplosiveActive = false;
 	private static TowerManager instance = null;
 	private float blueTimer = 0.1f, redTimer = 0.1f;
-	private bool blueShotChanged = false, redShotChanged = false;
+	private bool blueShotChanged = false, redShotChanged = false, tmpBoolBlue;
 	public static TowerManager Instance
 	{
 		get
 		{
-			if ( !instance )
-			{
-				instance = FindObjectOfType<TowerManager>();
-				if ( !instance )
-					instance = new GameObject( "TowerManager" ).AddComponent<TowerManager>();
-			}
-			return instance;
+			return instance ?? ( instance = FindObjectOfType<TowerManager>() ?? new GameObject(
+				"TowerManager" ).AddComponent<TowerManager>() );
 		}
 	}
-	public bool BlueShotChanged
-	{ get { return blueShotChanged; } }
-	public bool RedShotChanged
-	{ get { return redShotChanged; } }
+	public static bool BlueShotChanged
+	{ get { return instance ? instance.blueShotChanged : false; } }
+	public static bool RedShotChanged
+	{ get { return instance ? instance.redShotChanged : false; } }
 	public Items GetActiveShot( Team team )
 	{
 		switch ( team )
@@ -78,26 +73,30 @@ public class TowerManager : MonoBehaviour
 	}
 	public void ActivateShotType( Team team, Items shotType )
 	{
+		tmpBoolBlue = Team.BLUE_TEAM == team;
 		if ( Items.NormalShot == shotType || Items.FreezeShot == shotType || Items.ExplosiveShot ==
 			shotType )
 		{
-			DeactivateShots( team );
+			if ( tmpBoolBlue )
+				blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
+			else
+				redNormalActive = redFreezeActive = redExplosiveActive = false;
 			switch ( shotType )
 			{
 				case Items.NormalShot:
-					if ( Team.BLUE_TEAM == team )
+					if ( tmpBoolBlue )
 						blueNormalActive = true;
 					else
 						redNormalActive = true;
 					break;
 				case Items.FreezeShot:
-					if ( Team.BLUE_TEAM == team )
+					if ( tmpBoolBlue )
 						blueFreezeActive = true;
 					else
 						redFreezeActive = true;
 					break;
 				case Items.ExplosiveShot:
-					if ( Team.BLUE_TEAM == team )
+					if ( tmpBoolBlue )
 						blueExplosiveActive = true;
 					else
 						redExplosiveActive = true;
@@ -105,7 +104,7 @@ public class TowerManager : MonoBehaviour
 				default:
 					break;
 			}
-			if ( Team.BLUE_TEAM == team )
+			if ( tmpBoolBlue )
 				blueShotChanged = true;
 			else
 				redShotChanged = true;
@@ -117,30 +116,25 @@ public class TowerManager : MonoBehaviour
 	}
 	private void Update()
 	{
-		if ( blueShotChanged && blueTimer < 0.0f )
-		{
-			blueShotChanged = false;
-			blueTimer = 0.1f;
-		}
-		else if ( blueShotChanged )
-			blueTimer -= Time.deltaTime;
-		if ( redShotChanged && redTimer < 0.0f )
-		{
-			redShotChanged = false;
-			redTimer = 0.1f;
-		}
-		else if ( redShotChanged )
-			redTimer -= Time.deltaTime;
+		if ( blueShotChanged )
+			if ( 0.0f <= blueTimer )
+				blueTimer -= Time.deltaTime;
+			else
+			{
+				blueShotChanged = false;
+				blueTimer = 0.1f;
+			}
+		if ( redShotChanged )
+			if ( 0.0f <= redTimer )
+				redTimer -= Time.deltaTime;
+			else
+			{
+				redShotChanged = false;
+				redTimer = 0.1f;
+			}
 	}
 	private void OnDestroy()
 	{
 		instance = null;
-	}
-	private void DeactivateShots( Team team )
-	{
-		if ( Team.BLUE_TEAM == team )
-			blueNormalActive = blueFreezeActive = blueExplosiveActive = false;
-		else
-			redNormalActive = redFreezeActive = redExplosiveActive = false;
 	}
 }

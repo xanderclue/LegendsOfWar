@@ -12,13 +12,18 @@ public class HeroInfo : Info
 	public Difficulty difficulty = Difficulty.Easy;
 	public string heroNameEn = "Player", heroNameJp = "プレイヤー";
 	private HeroMovement movement;
-	private float mana, respawnTimer, tauntTimer = 0.0f, idleTimer;
+	private float mana, invMaxMana, respawnTimer, tauntTimer = 0.0f, idleTimer;
 	public HeroAudio heroAudio
 	{ get; private set; }
 	public float Damage
 	{
 		get { return damage; }
 		set { damage = value; }
+	}
+	public float RespawnTimer
+	{
+		get { return respawnTimer; }
+		set { respawnTimer = value; }
 	}
 	public float Range
 	{ get { return attackRange; } }
@@ -28,11 +33,8 @@ public class HeroInfo : Info
 	{ get { return mana; } }
 	public float MaxMana
 	{ get { return maxMana; } }
-	public float RespawnTimer
-	{
-		get { return respawnTimer; }
-		set { respawnTimer = value; }
-	}
+	public float InvMaxMana
+	{ get { return invMaxMana; } }
 	public bool waitingRespawn
 	{ get { return ( !Alive && respawnTimer <= 0.0f ); } }
 	public void Deidle()
@@ -41,10 +43,9 @@ public class HeroInfo : Info
 	}
 	public bool UseMana( float manaCost )
 	{
-		if ( mana - manaCost >= 0.0f )
-			mana -= manaCost;
-		else
+		if ( mana - manaCost < 0.0f )
 			return false;
+		mana -= manaCost;
 		HeroUIScript.Mana( manaCost, transform );
 		return true;
 	}
@@ -59,6 +60,7 @@ public class HeroInfo : Info
 		base.Start();
 		movement = GetComponent<HeroMovement>();
 		mana = maxMana;
+		invMaxMana = 1.0f / maxMana;
 		Attacked += HeroAttacked;
 		Destroyed += HeroDeath;
 		if ( GameManager.Avail )
@@ -71,14 +73,12 @@ public class HeroInfo : Info
 		mana = Mathf.Min( mana + Time.deltaTime * manaRegen, maxMana );
 		tauntTimer -= Time.deltaTime;
 		if ( Input.GetKeyDown( KeyCode.T ) && tauntTimer < 0.0f )
-		{
 			if ( heroAudio.CHeroTaunt1 && heroAudio.CHeroTaunt2 )
 				tauntTimer = heroAudio.PlayClip( "HeroTaunt" + Random.Range( 1, 3 ) );
 			else if ( heroAudio.CHeroTaunt1 )
 				tauntTimer = heroAudio.PlayClip( "HeroTaunt1" );
 			else if ( heroAudio.CHeroTaunt2 )
 				tauntTimer = heroAudio.PlayClip( "HeroTaunt2" );
-		}
 		idleTimer -= Time.deltaTime;
 		if ( idleTimer <= 0.0f )
 		{
@@ -93,7 +93,7 @@ public class HeroInfo : Info
 	}
 	private void HeroAttacked()
 	{
-		overlay.Flash( HP, MAXHP );
+		overlay.Flash( HP, invMAXHP );
 		AudioManager.PlaySoundEffect( AudioManager.sfxHeroAttacked, transform.position );
 		HeroUIScript.HeroBeingAttacked = true;
 	}

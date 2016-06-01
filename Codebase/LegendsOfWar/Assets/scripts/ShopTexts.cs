@@ -6,19 +6,28 @@ public class ShopTexts : MonoBehaviour
 	private Text heroName = null, abilityQName = null, abilityWName = null, abilityEName = null,
 		abilityRName = null, abilityQCost = null, abilityWCost = null, abilityECost = null,
 		abilityRCost = null;
+	private GameObject player;
+	private HeroInfo info;
+	private HeroAbilities abilities;
 	private static string getVertical( string inputText )
 	{
 		string outputText = "";
-		for ( int i = 0; i < inputText.Length; ++i )
-			if ( 'ー' == inputText[ i ] )
+		foreach ( char c in inputText )
+			if ( 'ー' == c )
 				outputText += "｜\n";
 			else
-				outputText += inputText[ i ] + "\n";
+				outputText += c + "\n";
 		return outputText;
 	}
 	private void Start()
 	{
 		Options.onChangedLanguage += SetTexts;
+		player = GameManager.Instance.Player;
+		if ( player )
+		{
+			info = player.GetComponent<HeroInfo>();
+			abilities = player.GetComponent<HeroAbilities>();
+		}
 		SetTexts();
 	}
 	private void OnDestroy()
@@ -27,14 +36,7 @@ public class ShopTexts : MonoBehaviour
 	}
 	private void SetTexts()
 	{
-		GameObject player = GameManager.Instance.Player;
-		if ( !player )
-			return;
-		HeroInfo info = player.GetComponent<HeroInfo>();
-		if ( !info )
-			return;
-		HeroAbilities abilities = player.GetComponent<HeroAbilities>();
-		if ( !abilities )
+		if ( !player || !info || !abilities )
 			return;
 		abilityQCost.text = abilities.abilityQ.abilityCost.ToString();
 		abilityWCost.text = abilities.abilityW.abilityCost.ToString();
@@ -44,7 +46,7 @@ public class ShopTexts : MonoBehaviour
 		{
 			abilityQName.transform.localRotation = abilityWName.transform.localRotation =
 				abilityEName.transform.localRotation = abilityRName.transform.localRotation =
-				Quaternion.Euler( 0.0f, 0.0f, 0.0f );
+				Quaternion.identity;
 			abilityQName.verticalOverflow = abilityWName.verticalOverflow = abilityEName.
 				verticalOverflow = abilityRName.verticalOverflow = VerticalWrapMode.Overflow;
 			abilityQName.rectTransform.sizeDelta = abilityWName.rectTransform.sizeDelta =

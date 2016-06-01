@@ -5,6 +5,7 @@ public class SiegeProjectile : MonoBehaviour
 	[SerializeField]
 	private bool lazer = false;
 	public float projectileLifetime = 2.0f;
+	private Info colInfo;
 	private float projectileTimer;
 	private void Start()
 	{
@@ -12,17 +13,18 @@ public class SiegeProjectile : MonoBehaviour
 	}
 	private void Update()
 	{
-		if ( GameManager.GameEnded || projectileTimer <= 0.0f )
+		if ( projectileTimer <= 0.0f || GameManager.GameEnded )
 			Destroy( gameObject );
 		else
 			projectileTimer -= Time.deltaTime;
 	}
 	private void OnTriggerEnter( Collider col )
 	{
-		if ( col.gameObject.GetComponent<Info>() )
-			if ( Team.BLUE_TEAM == col.gameObject.GetComponent<Info>().team )
+		colInfo = col.gameObject.GetComponent<Info>();
+		if ( colInfo )
+			if ( Team.BLUE_TEAM == colInfo.team )
 			{
-				col.gameObject.GetComponent<Info>().TakeDamage( damage + 1.0f );
+				colInfo.TakeDamage( damage + 1.0f );
 				if ( lazer )
 				{
 					Effect effect = new Effect();

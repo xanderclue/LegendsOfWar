@@ -12,6 +12,6 @@ public class PlayMovie : MonoBehaviour
 	}
 	private void OnGUI()
 	{
-		GUI.DrawTexture( new Rect( 0, 0, Screen.width, Screen.height ), myMovie );
+		GUI.DrawTexture( new Rect( 0.0f, 0.0f, Screen.width, Screen.height ), myMovie );
 	}
 }

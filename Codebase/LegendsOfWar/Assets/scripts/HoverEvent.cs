@@ -7,14 +7,19 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	private Sprite buttonOut = null, buttonOver = null;
 	public Sprite buttonPushed;
 	public bool OnOff = false;
+	private Image image;
+	private void Start()
+	{
+		image = GetComponent<Image>();
+	}
 	public void OnPointerEnter( PointerEventData even )
 	{
 		OnOff = true;
-		gameObject.GetComponent<Image>().sprite = buttonOver;
+		image.sprite = buttonOver;
 	}
 	public void OnPointerExit( PointerEventData even )
 	{
 		OnOff = false;
-		gameObject.GetComponent<Image>().sprite = buttonOut;
+		image.sprite = buttonOut;
 	}
 }

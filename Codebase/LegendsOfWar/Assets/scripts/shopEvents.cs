@@ -5,9 +5,8 @@ public class shopEvents : MonoBehaviour
 	private Team team = Team.BLUE_TEAM;
 	[SerializeField]
 	private GameObject laneSelectPanel = null;
-	private string selectedItem;
-	private float updateTimer, timer;
-	private bool upgrade, laneSelect;
+	private string selectedItem = "";
+	private bool laneSelect;
 	public void OpenPanel( string item )
 	{
 		laneSelect = true;
@@ -17,7 +16,7 @@ public class shopEvents : MonoBehaviour
 	public void ClosePanel()
 	{
 		laneSelect = false;
-		selectedItem = null;
+		selectedItem = "";
 		laneSelectPanel.SetActive( false );
 	}
 	public void BuyMinion( int lane )
@@ -82,23 +81,8 @@ public class shopEvents : MonoBehaviour
 		ClosePanel();
 		ShopManager.Instance.UpdateValues = true;
 	}
-	private void Start()
-	{
-		upgrade = false;
-		updateTimer = timer = 3.0f;
-	}
 	private void Update()
 	{
-		if ( upgrade )
-		{
-			if ( timer > 0.0f )
-				timer -= Time.deltaTime;
-			else
-			{
-				timer = updateTimer;
-				upgrade = false;
-			}
-		}
 		if ( laneSelect )
 		{
 			if ( Input.GetKeyDown( KeyCode.UpArrow ) )

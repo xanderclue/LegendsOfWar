@@ -4,6 +4,7 @@ public class HeroAttack : AttackScript
 {
 	private List<Transform> targets;
 	private ProximityCompare comparer = new ProximityCompare();
+	private Info targ;
 	private HeroInfo info;
 	private float attackDelay, attackTimer = 0.0f, AsoundTimer = 1.0f;
 	private void Start()
@@ -20,11 +21,9 @@ public class HeroAttack : AttackScript
 	{
 		if ( GameManager.GameEnded )
 			return;
-		for ( int i = 0; i < targets.Count; ++i )
-			if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-				targets.RemoveAt( i-- );
+		targets.RemoveAll( item => !( item && item.gameObject.activeInHierarchy ) );
 		AsoundTimer -= Time.deltaTime;
-		if ( targets.Count > 0 && attackTimer <= 0.0f )
+		if ( 0 < targets.Count && attackTimer <= 0.0f )
 		{
 			FireAtTarget( targets[ 0 ], info.Damage );
 			attackTimer = attackDelay;
@@ -44,7 +43,7 @@ public class HeroAttack : AttackScript
 		if ( this.isActiveAndEnabled )
 			if ( obj && obj.activeInHierarchy )
 			{
-				Info targ = obj.GetComponent<Info>();
+				targ = obj.GetComponent<Info>();
 				if ( targ )
 					if ( targ.team != info.team )
 						targets.Add( obj.transform );

@@ -6,10 +6,11 @@ public class overlay : MonoBehaviour
 	private Image image;
 	private Color empty = new Color( 0.0f, 0.0f, 0.0f, 0.0f );
 	private float invDuration = 0.0f, time = 0.0f, level = 0.0f;
-	public static void Flash( float health, float maxHealth )
+	public static void Flash( float health, float INVmaxHealth )
 	{
-		inst.invDuration = 1.0f / ( inst.time = 0.75f );
-		inst.level = health / maxHealth;
+		inst.time = 0.75f;
+		inst.invDuration = 1.333333333f;
+		inst.level = health * INVmaxHealth;
 	}
 	private void Awake()
 	{

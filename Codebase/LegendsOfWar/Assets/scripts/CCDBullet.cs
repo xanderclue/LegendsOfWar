@@ -3,6 +3,8 @@ public class CCDBullet : MonoBehaviour
 {
 	public float life;
 	private Rigidbody body;
+	private Ray ray;
+	private RaycastHit hit;
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
@@ -19,8 +21,6 @@ public class CCDBullet : MonoBehaviour
 	}
 	private void CheckCollision()
 	{
-		Ray ray = new Ray( transform.position, body.velocity );
-		RaycastHit hit = new RaycastHit();
 		if ( Physics.Raycast( ray, out hit, body.velocity.magnitude * Time.deltaTime ) )
 			if ( hit.transform.name != name )
 			{

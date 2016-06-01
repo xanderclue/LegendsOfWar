@@ -11,11 +11,8 @@ public class StatusEffectsManager : MonoBehaviour
 		get
 		{
 			if ( !inst )
-			{
-				inst = FindObjectOfType<StatusEffectsManager>();
-				if ( !inst )
-					inst = new GameObject( "StatusManager" ).AddComponent<StatusEffectsManager>();
-			}
+				inst = FindObjectOfType<StatusEffectsManager>() ?? new GameObject( "StatusManager" )
+					.AddComponent<StatusEffectsManager>();
 			return inst;
 		}
 	}
@@ -28,12 +25,10 @@ public class StatusEffectsManager : MonoBehaviour
 			objects.Add( _nameKey, stats );
 		}
 		if ( objects[ _nameKey ].ContainsKey( _effect.m_name ) )
-		{
 			if ( _effect.m_stackable )
-				objects[ _nameKey ][ _effect.m_name ].m_stacks++;
+				++objects[ _nameKey ][ _effect.m_name ].m_stacks;
 			else
 				objects[ _nameKey ][ _effect.m_name ].Refresh();
-		}
 		else
 			objects[ _nameKey ].Add( _effect.m_name, _effect );
 	}
@@ -41,22 +36,19 @@ public class StatusEffectsManager : MonoBehaviour
 	{
 		if ( objects.ContainsKey( _nameKey ) )
 			return objects[ _nameKey ].Values;
-		else
-			return null;
+		return null;
 	}
 	public bool CheckSkill( string _nameKey, string _skillName )
 	{
 		if ( objects.ContainsKey( _nameKey ) )
 			return objects[ _nameKey ].ContainsKey( _skillName );
-		else
-			return objects.ContainsKey( _nameKey );
+		return false;
 	}
 	public int GetStacks( string _nameKey, string _skillName )
 	{
 		if ( CheckSkill( _nameKey, _skillName ) )
 			return objects[ _nameKey ][ _skillName ].m_stacks;
-		else
-			return 0;
+		return 0;
 	}
 	private void Awake()
 	{

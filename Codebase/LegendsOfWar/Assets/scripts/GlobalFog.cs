@@ -62,7 +62,7 @@ public class GlobalFog : PostEffectsBase
 			Vector3 toRight = camtr.right * camNear * Mathf.Tan( fovWHalf * Mathf.Deg2Rad ) *
 				camAspect;
 			Vector3 toTop = camtr.up * camNear * Mathf.Tan( fovWHalf * Mathf.Deg2Rad );
-			Vector3 topLeft = ( camtr.forward * camNear - toRight + toTop );
+			Vector3 topLeft = ( camtr.forward * camNear + toTop - toRight );
 			float camScale = topLeft.magnitude * camFar / camNear;
 			topLeft.Normalize();
 			topLeft *= camScale;

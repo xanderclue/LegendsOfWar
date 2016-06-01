@@ -20,7 +20,7 @@ public class Options : MonoBehaviour
 	public static float voiceVolume
 	{ get; private set; }
 	public static bool IsAdditive
-	{ get; set; }
+	{ private get; set; }
 	public static bool Japanese
 	{ get { return SystemLanguage.Japanese == applicationLanguage; } }
 	private static string language

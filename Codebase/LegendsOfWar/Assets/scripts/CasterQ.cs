@@ -42,8 +42,7 @@ public class CasterQ : AbilityQBase
 			tmp.GetComponent<CasterEBehavior>().Activate = true;
 			tmp.transform.parent = m_targetHit.transform;
 			StatusEffects.Inflict( m_targetHit.collider.gameObject, Effect.CreateEffect() );
-			m_targetHit.collider.gameObject.GetComponentInParent<Info>().TakeDamage( m_effect.
-				m_damage );
+			m_targetHit.collider.GetComponentInParent<Info>().TakeDamage( m_effect.m_damage );
 			base.AbilityActivate();
 		}
 	}
@@ -53,10 +52,9 @@ public class CasterQ : AbilityQBase
 			if ( Physics.SphereCast( transform.parent.position, 5.0f, transform.forward, out
 				m_targetHit, 150.0f, 1 ) )
 				if ( "Minion" == m_targetHit.collider.gameObject.tag && Team.RED_TEAM == m_targetHit
-					.collider.gameObject.GetComponentInParent<Info>().team )
+					.collider.GetComponentInParent<Info>().team )
 				{
-					m_targetingSystem.transform.position = m_targetHit.collider.gameObject.transform
-						.position;
+					m_targetingSystem.transform.position = m_targetHit.collider.transform.position;
 					m_targetingEffect.Play();
 					return;
 				}

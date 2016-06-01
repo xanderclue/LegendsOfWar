@@ -37,9 +37,7 @@ public class HeroMovement : MovementScript
 	private void Update()
 	{
 		TPUpdate();
-		if ( HeroCamScript.onHero )
-			return;
-		if ( GameManager.GameRunning )
+		if ( !HeroCamScript.onHero && GameManager.GameRunning )
 		{
 			switch ( m_state )
 			{

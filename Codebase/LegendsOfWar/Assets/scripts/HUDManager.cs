@@ -10,6 +10,7 @@ public class HUDManager : MonoBehaviour
 	[SerializeField]
 	private Text tHealth = null, tMana = null, tDamage = null, tAttackRange = null, tDps = null,
 		tDifficulty = null;
+	private Text loreInfoText, abilityInfoText;
 	private TurnManager turnManager;
 	private HeroInfo info;
 	private HeroAbilities abilities;
@@ -20,6 +21,8 @@ public class HUDManager : MonoBehaviour
 		turnManager = GetComponent<TurnManager>();
 		aIcon = iconsPanel.GetComponent<AbilityIcon>();
 		hIcon = iconsPanel.GetComponent<HeroIcon>();
+		loreInfoText = LoreInfo.GetComponentInChildren<Text>();
+		abilityInfoText = abilityInfo.GetComponentInChildren<Text>();
 	}
 	private void Update()
 	{
@@ -29,8 +32,8 @@ public class HUDManager : MonoBehaviour
 		{
 			info = CharacterSelectionManager.heroInfo;
 			abilities = info.GetComponent<HeroAbilities>();
-			LoreInfo.GetComponentInChildren<Text>().text = Options.Japanese ? info.roaa : info.Lore;
-			abilityInfo.GetComponentInChildren<Text>().text = abilities.abilityInfo;
+			loreInfoText.text = Options.Japanese ? info.roaa : info.Lore;
+			abilityInfoText.text = abilities.abilityInfo;
 		}
 		if ( start || NoStart || InGameInfo || LoreInfo )
 		{
@@ -68,7 +71,7 @@ public class HUDManager : MonoBehaviour
 			tMana.text = "MP : " + info.MaxMana;
 			tDamage.text = "攻撃力 : " + info.Damage;
 			tAttackRange.text = "攻撃範囲 : " + info.Range;
-			tDps.text = "火力 : " + ( info.AttackSpeed * info.Damage );
+			tDps.text = "火力 : " + info.AttackSpeed * info.Damage;
 			switch ( info.difficulty )
 			{
 				case Difficulty.Easy:
@@ -78,7 +81,7 @@ public class HUDManager : MonoBehaviour
 					tDifficulty.text = "難易度 : 難しい";
 					break;
 				default:
-					tDifficulty.text = "難易度 : ";
+					tDifficulty.text = "難易度 : " + info.difficulty;
 					break;
 			}
 		}
@@ -89,7 +92,7 @@ public class HUDManager : MonoBehaviour
 			tMana.text = "Mana : " + info.MaxMana;
 			tDamage.text = "Damage : " + info.Damage;
 			tAttackRange.text = "Range : " + info.Range;
-			tDps.text = "DPS : " + ( info.AttackSpeed * info.Damage );
+			tDps.text = "DPS : " + info.AttackSpeed * info.Damage;
 			tDifficulty.text = "Difficulty : " + info.difficulty;
 		}
 	}

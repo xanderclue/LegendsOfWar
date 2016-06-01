@@ -79,14 +79,15 @@ public class AbilityOnHover : MonoBehaviour
 	}
 	private void GenerateBox( string words )
 	{
-		if ( words.Length <= 0 )
-			return;
-		GUIStyle style = new GUIStyle( GUI.skin.box );
-		style.normal.textColor = Color.cyan;
-		style.fontSize = 24;
-		Rect labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
-		labelRect.x = Input.mousePosition.x + 25;
-		labelRect.y = Screen.height - Input.mousePosition.y;
-		GUI.Box( labelRect, words, style );
+		if ( 0 < words.Length )
+		{
+			GUIStyle style = new GUIStyle( GUI.skin.box );
+			style.normal.textColor = Color.cyan;
+			style.fontSize = 24;
+			Rect labelRect = GUILayoutUtility.GetRect( new GUIContent( words ), style );
+			labelRect.x = Input.mousePosition.x + 25.0f;
+			labelRect.y = Screen.height - Input.mousePosition.y;
+			GUI.Box( labelRect, words, style );
+		}
 	}
 }

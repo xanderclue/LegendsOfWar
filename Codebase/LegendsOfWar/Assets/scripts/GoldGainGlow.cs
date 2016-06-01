@@ -7,13 +7,10 @@ public class GoldGainGlow : MonoBehaviour
 	private Image image;
 	private Color originalColor, highlightedColor;
 	private float activeTimer = 0.0f;
-	private void Awake()
-	{
-		image = GetComponent<Image>();
-	}
 	private void Start()
 	{
 		EconomyManager.Instance.OnGainGold += GoldGained;
+		image = GetComponent<Image>();
 		originalColor = image.color;
 		highlightedColor = originalColor;
 		highlightedColor.r = highlightedColor.b = 0.0f;
@@ -21,10 +18,10 @@ public class GoldGainGlow : MonoBehaviour
 	private void Update()
 	{
 		activeTimer -= Time.deltaTime;
-		if ( activeTimer >= 0.0f )
-			image.color = highlightedColor;
-		else
+		if ( activeTimer < 0.0f )
 			image.color = originalColor;
+		else
+			image.color = highlightedColor;
 	}
 	private void GoldGained()
 	{

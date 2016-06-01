@@ -9,19 +9,15 @@ public class AssassinAbilityW : AbilityWBase
 	[SerializeField]
 	private GameObject weapon = null, projectile = null;
 	[SerializeField]
-	private GameObject[ ] Marked;
+	private GameObject[ ] Marked = null;
 	private static int MarkNum = 0;
 	public bool MarkHit( GameObject _mark )
 	{
 		if ( MarkNum <= 3 )
 		{
 			if ( MarkNum >= 1 )
-			{
-				if ( Marked[ MarkNum - 1 ] != _mark )
+				if ( 3 == MarkNum || Marked[ MarkNum - 1 ] != _mark )
 					MarkNum = 0;
-				if ( 3 == MarkNum )
-					MarkNum = 0;
-			}
 			Marked[ MarkNum++ ] = _mark;
 			return true;
 		}

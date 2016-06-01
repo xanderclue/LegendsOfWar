@@ -35,10 +35,9 @@ public class NormalProjectileBehavior : MonoBehaviour
 	}
 	private void OnTriggerEnter( Collider col )
 	{
-		if ( target && col.gameObject == target.gameObject )
+		if ( target && col.transform == target )
 		{
-			col.gameObject.GetComponent<Info>().TakeDamage( TowerManager.Instance.normalInfo.Damage
-				);
+			col.GetComponent<Info>().TakeDamage( TowerManager.Instance.normalInfo.Damage );
 			Destroy( gameObject );
 		}
 	}

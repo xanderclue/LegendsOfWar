@@ -10,6 +10,7 @@ public class NormalTowerBehavior : MonoBehaviour
 	private Detector detector = null;
 	private List<Transform> targets;
 	private NormalProjectileInfo info;
+	private Info targ;
 	private float fireTimer;
 	private void Awake()
 	{
@@ -21,32 +22,21 @@ public class NormalTowerBehavior : MonoBehaviour
 	}
 	private void Update()
 	{
-		targets.RemoveAll( item => null == item );
+		targets.RemoveAll( item => !item );
 		if ( TowerManager.Instance.CheckIfShotActive( team, Items.NormalShot ) )
-		{
-			if ( fireTimer <= 0.0f )
-			{
-				if ( null != targets && targets.Count > 0 && targets[ 0 ] && targets[ 0 ].gameObject
-					)
-				{
-					if ( !targets[ 0 ].gameObject.activeInHierarchy )
-						RemoveTarget( targets[ 0 ].gameObject );
-					else
-					{
-						FireAtTarget();
-						fireTimer = info.AttackSpeed;
-					}
-				}
-			}
-			else
+			if ( 0.0f < fireTimer )
 				fireTimer -= Time.deltaTime;
-		}
+			else if ( 0 < targets.Count )
+				if ( targets[ 0 ].gameObject.activeInHierarchy )
+					FireAtTarget();
+				else
+					RemoveTarget( targets[ 0 ].gameObject );
 	}
 	private void AddTarget( GameObject obj )
 	{
 		if ( obj )
 		{
-			Info targ = obj.GetComponent<Info>();
+			targ = obj.GetComponent<Info>();
 			if ( targ && targ.team != team )
 				targets.Add( obj.transform );
 		}
@@ -65,5 +55,6 @@ public class NormalTowerBehavior : MonoBehaviour
 			GetComponent<NormalProjectileBehavior>();
 		p.target = targets[ 0 ];
 		p.Fire();
+		fireTimer = info.AttackSpeed;
 	}
 }

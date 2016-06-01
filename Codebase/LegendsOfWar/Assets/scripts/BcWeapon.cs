@@ -25,6 +25,7 @@ public class BcWeapon : MonoBehaviour
 	public float currentAmmo;
 	[Header( "Sound Options" )]
 	public AudioClip shootSound, reloadingSound, reloadedSound, emptyClickSound;
+	private SiegeProjectile siegeProjectile;
 	private float bulletMass = 1.0f, shootTimer, reloadTimer, lastTriggerValue;
 	private bool isReloading, triggerPushed;
 	public Vector3 DisplayPosition
@@ -38,6 +39,8 @@ public class BcWeapon : MonoBehaviour
 				transform.lossyScale.x;
 		}
 	}
+	public float siegeProjectileDamage
+	{ set { siegeProjectile.damage = value; } }
 	private static bool RoughlyEqual( float a, float b )
 	{
 		return ( Mathf.Abs( a - b ) < 0.01f );
@@ -111,6 +114,7 @@ public class BcWeapon : MonoBehaviour
 		isReloading = false;
 		currentAmmo = clipSize;
 		shootTimer = 0.0f;
+		siegeProjectile = bulletPrefab.GetComponent<SiegeProjectile>();
 	}
 	private void Update()
 	{

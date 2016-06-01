@@ -7,10 +7,10 @@ public class MinionAttack : AttackScript
 	[SerializeField]
 	private ParticleSystem attackParticles = null;
 	private ProximityCompare poo = new ProximityCompare();
+	private Info targ;
 	private MinionInfo Minioninfo;
 	private MinionMovement movement;
-	private float second = 1.0f, effectTime = 0.5f;
-	private bool psEnabled = false;
+	private float second = 1.0f;
 	private void Start()
 	{
 		Minioninfo = GetComponent<MinionInfo>();
@@ -23,47 +23,33 @@ public class MinionAttack : AttackScript
 	private void Update()
 	{
 		second -= Time.deltaTime * Minioninfo.AttackSpeed;
-		if ( targets.Count == 0 || !targets[ 0 ] || !targets[ 0 ].gameObject.GetComponent<Info>().
-			Alive )
+		if ( 0 == targets.Count || !targets[ 0 ] || !targets[ 0 ].GetComponent<Info>().Alive )
 		{
 			movement.Disengage();
-			for ( int i = 0; i < targets.Count; ++i )
-				if ( !( targets[ i ] && targets[ i ].gameObject.activeInHierarchy ) )
-					targets.RemoveAt( i-- );
-			if ( targets.Count >= 1 && !targets[ 0 ].gameObject.GetComponent<Info>().Alive )
+			targets.RemoveAll( item => !item || !item.gameObject.activeInHierarchy );
+			if ( 0 < targets.Count && !targets[ 0 ].GetComponent<Info>().Alive )
 				AttackTriggerExit( targets[ 0 ].gameObject );
 		}
-		else if ( movement.InCombat && movement.WithinRange && second <= 0 )
+		else if ( movement.InCombat && movement.WithinRange && second <= 0.0f )
 		{
 			if ( attackParticles )
-			{
-				psEnabled = true;
 				attackParticles.Play();
-			}
 			FireAtTarget( targets[ 0 ], Minioninfo.Damage );
 			AudioManager.PlaySoundEffect( AudioManager.sfxMinionAttack, transform.position );
 			second = 1.0f;
 		}
 		else if ( !movement.InCombat )
-		{
-			if ( targets[ 0 ].gameObject.GetComponent<PortalInfo>() )
+			if ( targets[ 0 ].GetComponent<PortalInfo>() )
 				movement.SetTarget( targets[ 0 ], Minioninfo.Range + 30.0f );
 			else
 				movement.SetTarget( targets[ 0 ], Minioninfo.Range );
-		}
-		if ( psEnabled && effectTime <= 0.0f )
-		{
-			psEnabled = false;
-			attackParticles.Stop();
-			effectTime = 0.25f;
-		}
 	}
 	private void AttackTriggerEnter( GameObject obj )
 	{
-		if ( this.isActiveAndEnabled )
+		if ( isActiveAndEnabled )
 			if ( obj && obj.activeInHierarchy )
 			{
-				Info targ = obj.GetComponent<Info>();
+				targ = obj.GetComponent<Info>();
 				if ( targ )
 					if ( targ.team != Minioninfo.team )
 						targets.Add( obj.transform );

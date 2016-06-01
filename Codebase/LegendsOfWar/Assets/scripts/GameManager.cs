@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 	private List<HeroInfo> heros = null;
 	private GameObject min_go;
 	private NavMeshAgent nma;
+	private MinionInfo mInfo;
 	private float waveTimer, timer;
 	private int wave = 0;
 	private bool gameEnded = false, gameRunning = false, shopActive = false;
@@ -462,20 +463,19 @@ public class GameManager : MonoBehaviour
 	}
 	private void ResetUpgrades()
 	{
-		MinionInfo info;
-		info = blueCasterMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 290.0f;
-		info.AttackSpeed = 0.7f;
-		info.Range = 50.0f;
-		info.Damage = 30.0f;
-		info = blueTankMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 515.0f;
-		info.AttackSpeed = 0.8f;
-		info.Damage = 60.0f;
-		info = blueStrikerMinion.GetComponent<MinionInfo>();
-		info.MAXHP = 380.0f;
-		info.AttackSpeed = 0.8f;
-		info.Damage = 50.0f;
+		mInfo = blueCasterMinion.GetComponent<MinionInfo>();
+		mInfo.MAXHP = 290.0f;
+		mInfo.AttackSpeed = 0.7f;
+		mInfo.Range = 50.0f;
+		mInfo.Damage = 30.0f;
+		mInfo = blueTankMinion.GetComponent<MinionInfo>();
+		mInfo.MAXHP = 515.0f;
+		mInfo.AttackSpeed = 0.8f;
+		mInfo.Damage = 60.0f;
+		mInfo = blueStrikerMinion.GetComponent<MinionInfo>();
+		mInfo.MAXHP = 380.0f;
+		mInfo.AttackSpeed = 0.8f;
+		mInfo.Damage = 50.0f;
 	}
 	private IEnumerator GameEnding()
 	{

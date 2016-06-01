@@ -45,7 +45,6 @@ public class DamageNumber : MonoBehaviour
 				return;
 			}
 			if ( followingTransform )
-			{
 				if ( orig )
 				{
 					low = orig.position + Vector3.up * 10.0f;
@@ -53,7 +52,6 @@ public class DamageNumber : MonoBehaviour
 				}
 				else
 					followingTransform = false;
-			}
 			transform.position = Vector3.Slerp( low, high, tValue );
 		}
 		transform.LookAt( 2.0f * transform.position - HeroUIScript.Instance.transform.position );

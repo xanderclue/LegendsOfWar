@@ -6,10 +6,11 @@ public class HunterAbilityE : AbilityEBase
 	[SerializeField]
 	private GameObject projectile = null, arrowSpawn = null, visualTarget = null;
 	private RaycastHit hit;
+	private Vector3 pos;
 	private bool aiming = false;
 	protected override void Update()
 	{
-		Vector3 pos = transform.position + transform.forward * 50.0f;
+		pos = transform.position + transform.forward * 50.0f;
 		visualTarget.transform.position = pos;
 		skillTimer -= Time.deltaTime;
 		if ( abilityOn && skillTimer <= 0.0f )
@@ -28,9 +29,8 @@ public class HunterAbilityE : AbilityEBase
 			}
 		if ( aiming && cooldownTimer <= 0.0f )
 		{
-			Vector3[ ] vecRange = new Vector3[ ] { transform.parent.position, visualTarget.transform
-				.position };
-			GetComponent<LineRenderer>().SetPositions( vecRange );
+			GetComponent<LineRenderer>().SetPositions( new Vector3[ ] { transform.parent.position,
+				visualTarget.transform.position } );
 			if ( Input.GetMouseButtonDown( 0 ) )
 			{
 				Fire();
@@ -55,7 +55,7 @@ public class HunterAbilityE : AbilityEBase
 					arrowSpawn.transform.rotation ) as GameObject ).GetComponent<ProjectileBehaviour
 					>();
 				p.speed = speed;
-				p.damage = GetComponentInParent<HeroInfo>().Damage + abilityAdditionalDamage;
+				p.damage = heroInfo.Damage + abilityAdditionalDamage;
 				p.target = hit.transform;
 				p.Fire();
 				TryCast();

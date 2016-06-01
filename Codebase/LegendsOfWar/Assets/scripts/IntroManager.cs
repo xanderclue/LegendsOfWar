@@ -27,7 +27,7 @@ public class IntroManager : MonoBehaviour
 		SpawnMinionTutBlue = false, firstswitch = false, Welcome, Camera, Movement;
 	public void NextState()
 	{
-		currentState += 1;
+		++currentState;
 	}
 	public void ToggleSpawnMinionRed()
 	{
@@ -89,19 +89,14 @@ public class IntroManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		PlayedIntro = false;
-		HeroInstanciate = false;
-		pause = false;
-		Welcome = Camera = Movement = false;
-		StartCoroutine( LateStart( 0.001f ) );
+		Welcome = Camera = Movement = pause = HeroInstanciate = PlayedIntro = false;
+		StartCoroutine( LateStart() );
 	}
 	private void Update()
 	{
 		Player = GameManager.Instance.Player;
 		switch ( currentState )
 		{
-			case STATES.STATE_INTRO:
-				break;
 			case STATES.STATE_HERO:
 				if ( !HeroInstanciate )
 				{
@@ -132,8 +127,7 @@ public class IntroManager : MonoBehaviour
 				}
 				if ( RedSpawn.GetComponent<TutSpawnRed>().Battle )
 				{
-					GameObject[ ] Minions = GameObject.FindGameObjectsWithTag( "Minion" );
-					if ( Minions.Length <= 1 )
+					if ( GameObject.FindGameObjectsWithTag( "Minion" ).Length <= 1 )
 					{
 						RedSpawn.GetComponent<TutSpawnRed>().Battle = false;
 						End.SetActive( true );
@@ -195,9 +189,9 @@ public class IntroManager : MonoBehaviour
 		if ( Player && !Player.activeInHierarchy )
 			Death.SetActive( true );
 	}
-	private IEnumerator LateStart( float waitTime )
+	private IEnumerator LateStart()
 	{
-		yield return new WaitForSeconds( waitTime );
+		yield return new WaitForSeconds( 0.001f );
 		MainGame.SetActive( false );
 		GameHUD.SetActive( false );
 		HeroTutorial.SetActive( false );

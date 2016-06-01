@@ -2,7 +2,7 @@
 public enum Move_State
 { LANING_STATE, COMBAT_STATE, COMMAND_STATE, IDLE_STATE, ENGAGE_STATE, DISENGAGE_STATE }
 public enum Path
-{ CENTER_PATH = 289, NORTH_PATH = 577, SOUTH_PATH = 1153, ANY_PATH = 2023 }
+{ CENTER_PATH = 0x121, NORTH_PATH = 0x241, SOUTH_PATH = 0x481, ANY_PATH = 0x7e7 }
 public class MinionMovement : MovementScript
 {
 	[SerializeField]
@@ -169,9 +169,7 @@ public class MinionMovement : MovementScript
 	}
 	private bool CheckForInput()
 	{
-		if ( HeroCamScript.onHero )
-			return false;
-		if ( interactive.Selected )
+		if ( !HeroCamScript.onHero && interactive.Selected )
 		{
 			if ( rayHit )
 			{

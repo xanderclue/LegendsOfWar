@@ -11,6 +11,7 @@ public class ResourceBarScript : MonoBehaviour
 	private Transform heroUiTrans;
 	private RectTransform rectTransform;
 	private Info stats;
+	private HeroInfo heroStats;
 	private Vector3 high, low;
 	private bool notHero = true;
 	public GameObject Host
@@ -27,13 +28,15 @@ public class ResourceBarScript : MonoBehaviour
 		notHero = !GetComponentInParent<HeroInfo>();
 		heroUiTrans = HeroUIScript.Instance.transform;
 		rectTransform = GetComponent<RectTransform>();
+		if ( stats is HeroInfo )
+			heroStats = stats as HeroInfo;
 	}
 	private void Update()
 	{
 		if ( isMana )
-			bar.fillAmount = ( ( stats as HeroInfo ).Mana / ( stats as HeroInfo ).MaxMana );
+			bar.fillAmount = heroStats.Mana * heroStats.InvMaxMana;
 		else
-			bar.fillAmount = stats.HP / stats.MAXHP;
+			bar.fillAmount = stats.HP * stats.InvMAXHP;
 		if ( !attachedToHUD )
 			if ( HeroCamScript.onHero && notHero )
 			{
