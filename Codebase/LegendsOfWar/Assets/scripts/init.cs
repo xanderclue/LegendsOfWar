@@ -11,7 +11,7 @@ public class init : MonoBehaviour
 	{
 		if ( !appInited )
 		{
-			Profiler.maxNumberOfSamplesPerFrame = -1;
+			UnityEngine.Profiling.Profiler.maxNumberOfSamplesPerFrame = -1;
 			Application.targetFrameRate = 90;
 			Options.Init();
 			appInited = true;

@@ -7,7 +7,7 @@ public class HunterAbilityW : AbilityWBase
 	private GameObject projectile = null, arrowSpawn = null, Icon = null;
 	private GameObject activeIcon = null;
 	private SpriteRenderer activeIconSpriteRenderer = null;
-	private NavMeshAgent targNm = null, colNm;
+	private UnityEngine.AI.NavMeshAgent targNm = null, colNm;
 	private Info target = null, colInfo;
 	private RaycastHit hit;
 	private float originalSpeed = 0.0f;
@@ -55,7 +55,7 @@ public class HunterAbilityW : AbilityWBase
 		if ( Physics.SphereCast( ray, 5.0f, out hit, range, 9, QueryTriggerInteraction.Collide ) )
 		{
 			colInfo = hit.collider.GetComponent<Info>();
-			colNm = hit.collider.GetComponent<NavMeshAgent>();
+			colNm = hit.collider.GetComponent<UnityEngine.AI.NavMeshAgent>();
 			if ( colNm && colInfo && colInfo.team != heroInfo.team )
 			{
 				target = colInfo;

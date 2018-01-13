@@ -28,7 +28,7 @@ public class TankAbilityE : AbilityEBase
 		if ( 0 != slowed.Count )
 			for ( int i = 0; i < slowed.Count; ++i )
 				if ( slowed[ i ] )
-					slowed[ i ].gameObject.GetComponent<NavMeshAgent>().speed += 10.0f;
+					slowed[ i ].gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().speed += 10.0f;
 		slowed.Clear();
 		AbilityEParticle.transform.localPosition += new Vector3( 0.0f, -10.0f );
 		AbilityEParticle.Stop();
@@ -41,7 +41,7 @@ public class TankAbilityE : AbilityEBase
 			{
 				slowed.Add( entity );
 				entity.TakeDamage( Edamage );
-				entity.gameObject.GetComponent<NavMeshAgent>().speed -= 10.0f;
+				entity.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().speed -= 10.0f;
 			}
 	}
 }

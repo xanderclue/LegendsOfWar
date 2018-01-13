@@ -6,7 +6,7 @@ public class StatusEffects : MonoBehaviour
 	private Info infoTemp;
 	private MovementScript movementTemp;
 	private AttackScript attackTemp;
-	private NavMeshAgent agentTemp;
+	private UnityEngine.AI.NavMeshAgent agentTemp;
 	private string instanceString;
 	private bool isMinion = false, isHero = false;
 	public static void Inflict( GameObject _target, Effect _effect )
@@ -62,7 +62,7 @@ public class StatusEffects : MonoBehaviour
 		infoTemp = GetComponent<Info>();
 		movementTemp = GetComponent<MovementScript>();
 		attackTemp = GetComponent<AttackScript>();
-		agentTemp = GetComponent<NavMeshAgent>();
+		agentTemp = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		if ( infoTemp )
 		{
 			isMinion = infoTemp is MinionInfo;

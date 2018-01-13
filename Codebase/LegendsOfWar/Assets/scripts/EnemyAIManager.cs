@@ -43,7 +43,7 @@ public class EnemyAIManager : MonoBehaviour
 	private List<Transform> targets = new List<Transform>();
 	private GameObject min_go, Hero = null;
 	private ParticleSystem lrpPs;
-	private NavMeshAgent nma;
+	private UnityEngine.AI.NavMeshAgent nma;
 	private PortalInfo portalInfo;
 	private HeroInfo heroInfo;
 	private float reinforcementsTime = 40.0f, siegeTime = 60.0f, selfRecoveryBase = 20.0f
@@ -368,7 +368,7 @@ public class EnemyAIManager : MonoBehaviour
 	{
 		min_go = _minion as GameObject;
 		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
-		nma = min_go.GetComponent<NavMeshAgent>();
+		nma = min_go.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		nma.enabled = true;
 		nma.destination = bluePortal.gameObject.transform.position;
 	}

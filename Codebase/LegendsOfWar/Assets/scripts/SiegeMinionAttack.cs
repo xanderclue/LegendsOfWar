@@ -25,7 +25,7 @@ public class SiegeMinionAttack : AttackScript
 			weaponDetails.rateOfFire = sMinioninfo.AttackSpeed * 1.2f;
 			weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot + 2;
 			weaponDetails.siegeProjectileDamage = sMinioninfo.Damage * 1.5f;
-			GetComponent<NavMeshAgent>().speed = sMinioninfo.MovementSpeed * 1.8f;
+			GetComponent<UnityEngine.AI.NavMeshAgent>().speed = sMinioninfo.MovementSpeed * 1.8f;
 		}
 		else
 		{

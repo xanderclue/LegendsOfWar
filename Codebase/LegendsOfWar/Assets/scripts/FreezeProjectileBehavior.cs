@@ -7,7 +7,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	private Detector AreaOfEffect = null;
 	[SerializeField]
 	private float projectileLifetime = 4.0f;
-	private List<NavMeshAgent> slowTargets;
+	private List<UnityEngine.AI.NavMeshAgent> slowTargets;
 	private List<Transform> victims;
 	private FreezeProjectileInfo info;
 	private Team team;
@@ -25,7 +25,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
 	{
 		info = TowerManager.Instance.freezeInfo;
 		victims = new List<Transform>();
-		slowTargets = new List<NavMeshAgent>();
+		slowTargets = new List<UnityEngine.AI.NavMeshAgent>();
 	}
 	private void Start()
 	{
@@ -77,12 +77,12 @@ public class FreezeProjectileBehavior : MonoBehaviour
 			if ( targ && targ.team != team )
 			{
 				victims.Add( obj.transform );
-				if ( obj.gameObject.GetComponent<NavMeshAgent>() )
+				if ( obj.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>() )
 				{
-					if ( slowTargets.Contains( obj.gameObject.GetComponent<NavMeshAgent>() ) )
+					if ( slowTargets.Contains( obj.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>() ) )
 						skip = false;
 					if ( skip )
-						slowTargets.Add( obj.gameObject.GetComponent<NavMeshAgent>() );
+						slowTargets.Add( obj.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>() );
 				}
 			}
 		}

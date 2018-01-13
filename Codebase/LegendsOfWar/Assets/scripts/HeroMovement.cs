@@ -6,9 +6,9 @@ public class HeroMovement : MovementScript
 	private bool m_AttMvKey = false;
 	[SerializeField]
 	private MOVE_State m_state, m_prevState;
-	private NavMeshAgent agent;
+	private UnityEngine.AI.NavMeshAgent agent;
 	private HeroInfo info;
-	private NavMeshHit nmhit;
+	private UnityEngine.AI.NavMeshHit nmhit;
 	private Vector3 rot, newVel;
 	private float prevMousePos, currMousePos, currentRot, tValue = 0.0f;
 	private bool shiftKeyPressed, moving = false;
@@ -16,7 +16,7 @@ public class HeroMovement : MovementScript
 	{ private get; set; }
 	public void ResetToSpawn()
 	{
-		NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, NavMesh.AllAreas
+		UnityEngine.AI.NavMesh.SamplePosition( GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, UnityEngine.AI.NavMesh.AllAreas
 			);
 		transform.position = new Vector3( nmhit.position.x, agent.baseOffset * transform.localScale.
 			y, nmhit.position.z );
@@ -26,7 +26,7 @@ public class HeroMovement : MovementScript
 	protected override void Start()
 	{
 		base.Start();
-		agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		m_state = m_prevState = MOVE_State.IDLE_STATE;
 		info = GetComponent<HeroInfo>();
 		prevMousePos = currMousePos = Input.mousePosition.x;

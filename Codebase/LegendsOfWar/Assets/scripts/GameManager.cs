@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 	private MinionInfo[ ] endminions;
 	private List<HeroInfo> heros = null;
 	private GameObject min_go;
-	private NavMeshAgent nma;
+	private UnityEngine.AI.NavMeshAgent nma;
 	private MinionInfo mInfo;
 	private float waveTimer, timer;
 	private int wave = 0;
@@ -435,7 +435,7 @@ public class GameManager : MonoBehaviour
 	{
 		min_go = _minion as GameObject;
 		min_go.GetComponent<MinionMovement>().ChangeLane( lane );
-		nma = min_go.GetComponent<NavMeshAgent>();
+		nma = min_go.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		nma.enabled = true;
 		if ( Team.BLUE_TEAM == team )
 			nma.destination = RedPortalTransform.position;

@@ -9,7 +9,7 @@ public class MinionMovement : MovementScript
 	private Transform goal;
 	[SerializeField]
 	private Move_State m_state, m_prevState;
-	private NavMeshAgent agent;
+	private UnityEngine.AI.NavMeshAgent agent;
 	private SkinnedMeshRenderer temp_smr;
 	private LineRenderer line;
 	private MinionInfo info;
@@ -139,7 +139,7 @@ public class MinionMovement : MovementScript
 	}
 	private void Start2()
 	{
-		agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		m_state = m_prevState = Move_State.LANING_STATE;
 		info = GetComponent<MinionInfo>();
 		interactive = GetComponent<Interactive>();
