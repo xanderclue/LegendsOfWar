@@ -39,7 +39,7 @@ public class BcWeapon : MonoBehaviour
                 transform.lossyScale.x;
         }
     }
-    public float siegeProjectileDamage
+    public float SiegeProjectileDamage
     { set { siegeProjectile.damage = value; } }
     private static bool RoughlyEqual(float a, float b)
     {

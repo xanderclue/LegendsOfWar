@@ -38,7 +38,7 @@ public class ResourceBarScript : MonoBehaviour
         else
             bar.fillAmount = stats.HP * stats.InvMAXHP;
         if (!attachedToHUD)
-            if (HeroCamScript.onHero && notHero)
+            if (HeroCamScript.IsOnHero && notHero)
             {
                 transform.localPosition = low;
                 transform.LookAt(2.0f * transform.position - heroUiTrans.position, heroUiTrans.up)

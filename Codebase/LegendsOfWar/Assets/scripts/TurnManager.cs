@@ -23,9 +23,9 @@ public class TurnManager : MonoBehaviour
     private int c;
     public int CurrentInt
     { get { return (int)current; } }
-    private bool spLight
+    private bool CurrentSpotlight
     { set { spotlights[(int)current].enabled = value; } }
-    private Character next
+    private Character ToNext
     {
         get
         {
@@ -36,7 +36,7 @@ public class TurnManager : MonoBehaviour
             return (Character)c;
         }
     }
-    private Character prev
+    private Character ToPrev
     {
         get
         {
@@ -49,26 +49,26 @@ public class TurnManager : MonoBehaviour
     }
     public void TurnRight()
     {
-        spLight = false;
-        current = next;
+        CurrentSpotlight = false;
+        current = ToNext;
         Turned();
         turnState = TurnState.Right;
-        spLight = true;
+        CurrentSpotlight = true;
         CharacterSelectionManager.ChangedCharacter();
     }
     public void TurnLeft()
     {
-        spLight = false;
-        current = prev;
+        CurrentSpotlight = false;
+        current = ToPrev;
         Turned();
         turnState = TurnState.Left;
-        spLight = true;
+        CurrentSpotlight = true;
         CharacterSelectionManager.ChangedCharacter();
     }
     private void Start()
     {
         CharacterSelectionManager.Instance.Index = CurrentInt;
-        spLight = true;
+        CurrentSpotlight = true;
     }
     private void Update()
     {

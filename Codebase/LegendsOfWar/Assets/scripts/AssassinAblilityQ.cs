@@ -22,7 +22,7 @@ public class AssassinAblilityQ : AbilityQBase
         if (!aiming)
         {
             Indicator.SetActive(false);
-            if ((Input.GetKeyDown(KeyCode.Q) && !HeroCamScript.onHero) || Input.GetKeyDown(
+            if ((Input.GetKeyDown(KeyCode.Q) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(
                 KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
                 aiming = true;
         }

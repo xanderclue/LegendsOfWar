@@ -9,63 +9,58 @@ public class Options : MonoBehaviour
     [SerializeField]
     private AudioClip voice = null;
     public delegate void optionsChangedEvent();
-    public static event optionsChangedEvent onChangedLanguage, onChangedBgmVolume,
-        onChangedSfxVolume, onChangedVoiceVolume;
-    public static SystemLanguage applicationLanguage
+    public static event optionsChangedEvent OnChangedLanguage, OnChangedBgmVolume,
+        OnChangedSfxVolume, OnChangedVoiceVolume;
+    public static SystemLanguage TheApplicationLanguage
     { get; private set; }
-    public static float bgmVolume
+    public static float BgmVolume
     { get; private set; }
-    public static float sfxVolume
+    public static float SfxVolume
     { get; private set; }
-    public static float voiceVolume
+    public static float VoiceVolume
     { get; private set; }
     public static bool IsAdditive
     { private get; set; }
     public static bool Japanese
-    { get { return SystemLanguage.Japanese == applicationLanguage; } }
-    private static string language
+    { get { return SystemLanguage.Japanese == TheApplicationLanguage; } }
+    private static string TheLanguage
     { get; set; }
     public static void Init()
     {
         IsAdditive = false;
-        applicationLanguage = SystemLanguage.English;
-        bgmVolume = 0.25f;
-        sfxVolume = 0.8f;
-        voiceVolume = 1.0f;
-        language = "English";
-        bgmVolume = PlayerPrefs.GetFloat("MusicVolume", bgmVolume);
-        PlayerPrefs.SetFloat("MusicVolume", bgmVolume);
-        if (null != onChangedBgmVolume)
-            onChangedBgmVolume();
-        sfxVolume = PlayerPrefs.GetFloat("SfxVolume", sfxVolume);
-        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
-        if (null != onChangedSfxVolume)
-            onChangedSfxVolume();
-        voiceVolume = PlayerPrefs.GetFloat("VoiceVolume", voiceVolume);
-        PlayerPrefs.SetFloat("VoiceVolume", voiceVolume);
-        if (null != onChangedVoiceVolume)
-            onChangedVoiceVolume();
-        language = PlayerPrefs.GetString("Language", language);
-        PlayerPrefs.SetString("Language", language);
-        applicationLanguage = "Japanese" == language ?
+        TheApplicationLanguage = SystemLanguage.English;
+        BgmVolume = 0.25f;
+        SfxVolume = 0.8f;
+        VoiceVolume = 1.0f;
+        TheLanguage = "English";
+        BgmVolume = PlayerPrefs.GetFloat("MusicVolume", BgmVolume);
+        PlayerPrefs.SetFloat("MusicVolume", BgmVolume);
+        OnChangedBgmVolume?.Invoke();
+        SfxVolume = PlayerPrefs.GetFloat("SfxVolume", SfxVolume);
+        PlayerPrefs.SetFloat("SfxVolume", SfxVolume);
+        OnChangedSfxVolume?.Invoke();
+        VoiceVolume = PlayerPrefs.GetFloat("VoiceVolume", VoiceVolume);
+        PlayerPrefs.SetFloat("VoiceVolume", VoiceVolume);
+        OnChangedVoiceVolume?.Invoke();
+        TheLanguage = PlayerPrefs.GetString("Language", TheLanguage);
+        PlayerPrefs.SetString("Language", TheLanguage);
+        TheApplicationLanguage = "Japanese" == TheLanguage ?
             SystemLanguage.Japanese : SystemLanguage.English;
-        if (null != onChangedLanguage)
-            onChangedLanguage();
+        OnChangedLanguage?.Invoke();
     }
-    public static void toggleLanguage_Static()
+    public static void ToggleLanguage_Static()
     {
-        switch (applicationLanguage)
+        switch (TheApplicationLanguage)
         {
             case SystemLanguage.English:
-                applicationLanguage = SystemLanguage.Japanese;
+                TheApplicationLanguage = SystemLanguage.Japanese;
                 break;
             default:
-                applicationLanguage = SystemLanguage.English;
+                TheApplicationLanguage = SystemLanguage.English;
                 break;
         }
         PlayerPrefs.SetString("Language", Japanese ? "Japanese" : "English");
-        if (null != onChangedLanguage)
-            onChangedLanguage();
+        OnChangedLanguage?.Invoke();
     }
     public void PlayTestSound()
     {
@@ -77,28 +72,25 @@ public class Options : MonoBehaviour
     }
     public void BgmVolumeChanging()
     {
-        bgmVolume = bgmSlider.normalizedValue;
-        PlayerPrefs.SetFloat("MusicVolume", bgmVolume);
-        if (null != onChangedBgmVolume)
-            onChangedBgmVolume();
+        BgmVolume = bgmSlider.normalizedValue;
+        PlayerPrefs.SetFloat("MusicVolume", BgmVolume);
+        OnChangedBgmVolume?.Invoke();
     }
     public void SfxVolumeChanging()
     {
-        sfxVolume = sfxSlider.normalizedValue;
-        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
-        if (null != onChangedSfxVolume)
-            onChangedSfxVolume();
+        SfxVolume = sfxSlider.normalizedValue;
+        PlayerPrefs.SetFloat("SfxVolume", SfxVolume);
+        OnChangedSfxVolume?.Invoke();
     }
     public void VoiceVolumeChanging()
     {
-        voiceVolume = voiceSlider.normalizedValue;
-        PlayerPrefs.SetFloat("VoiceVolume", voiceVolume);
-        if (null != onChangedVoiceVolume)
-            onChangedVoiceVolume();
+        VoiceVolume = voiceSlider.normalizedValue;
+        PlayerPrefs.SetFloat("VoiceVolume", VoiceVolume);
+        OnChangedVoiceVolume?.Invoke();
     }
-    public void toggleLanguage()
+    public void ToggleLanguage()
     {
-        toggleLanguage_Static();
+        ToggleLanguage_Static();
     }
     private void Awake()
     {
@@ -107,9 +99,9 @@ public class Options : MonoBehaviour
     }
     private void Start()
     {
-        bgmSlider.normalizedValue = bgmVolume;
-        sfxSlider.normalizedValue = sfxVolume;
-        voiceSlider.normalizedValue = voiceVolume;
+        bgmSlider.normalizedValue = BgmVolume;
+        sfxSlider.normalizedValue = SfxVolume;
+        voiceSlider.normalizedValue = VoiceVolume;
     }
     private void Update()
     {

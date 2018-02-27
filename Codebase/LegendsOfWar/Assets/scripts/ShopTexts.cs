@@ -9,7 +9,7 @@ public class ShopTexts : MonoBehaviour
     private GameObject player;
     private HeroInfo info;
     private HeroAbilities abilities;
-    private static string getVertical(string inputText)
+    private static string GetVertical(string inputText)
     {
         string outputText = "";
         foreach (char c in inputText)
@@ -21,7 +21,7 @@ public class ShopTexts : MonoBehaviour
     }
     private void Start()
     {
-        Options.onChangedLanguage += SetTexts;
+        Options.OnChangedLanguage += SetTexts;
         player = GameManager.Instance.Player;
         if (player)
         {
@@ -32,16 +32,16 @@ public class ShopTexts : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Options.onChangedLanguage -= SetTexts;
+        Options.OnChangedLanguage -= SetTexts;
     }
     private void SetTexts()
     {
         if (!player || !info || !abilities)
             return;
-        abilityQCost.text = abilities.abilityQ.abilityCost.ToString();
-        abilityWCost.text = abilities.abilityW.abilityCost.ToString();
-        abilityECost.text = abilities.abilityE.abilityCost.ToString();
-        abilityRCost.text = abilities.abilityR.abilityCost.ToString();
+        abilityQCost.text = abilities.GetAbilityQ.abilityCost.ToString();
+        abilityWCost.text = abilities.GetAbilityW.abilityCost.ToString();
+        abilityECost.text = abilities.GetAbilityE.abilityCost.ToString();
+        abilityRCost.text = abilities.GetAbilityR.abilityCost.ToString();
         if (Options.Japanese)
         {
             abilityQName.transform.localRotation = abilityWName.transform.localRotation =
@@ -53,10 +53,10 @@ public class ShopTexts : MonoBehaviour
                 abilityEName.rectTransform.sizeDelta = abilityRName.rectTransform.sizeDelta = new
                 Vector2(250.0f, 650.0f);
             heroName.text = info.heroNameJp;
-            abilityQName.text = getVertical(abilities.abilityQ.abilityNameJp);
-            abilityWName.text = getVertical(abilities.abilityW.abilityNameJp);
-            abilityEName.text = getVertical(abilities.abilityE.abilityNameJp);
-            abilityRName.text = getVertical(abilities.abilityR.abilityNameJp);
+            abilityQName.text = GetVertical(abilities.GetAbilityQ.abilityNameJp);
+            abilityWName.text = GetVertical(abilities.GetAbilityW.abilityNameJp);
+            abilityEName.text = GetVertical(abilities.GetAbilityE.abilityNameJp);
+            abilityRName.text = GetVertical(abilities.GetAbilityR.abilityNameJp);
         }
         else
         {
@@ -69,10 +69,10 @@ public class ShopTexts : MonoBehaviour
                 abilityEName.rectTransform.sizeDelta = abilityRName.rectTransform.sizeDelta = new
                 Vector2(650.0f, 250.0f);
             heroName.text = info.heroNameEn;
-            abilityQName.text = abilities.abilityQ.abilityNameEn;
-            abilityWName.text = abilities.abilityW.abilityNameEn;
-            abilityEName.text = abilities.abilityE.abilityNameEn;
-            abilityRName.text = abilities.abilityR.abilityNameEn;
+            abilityQName.text = abilities.GetAbilityQ.abilityNameEn;
+            abilityWName.text = abilities.GetAbilityW.abilityNameEn;
+            abilityEName.text = abilities.GetAbilityE.abilityNameEn;
+            abilityRName.text = abilities.GetAbilityR.abilityNameEn;
         }
     }
 }

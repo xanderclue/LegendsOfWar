@@ -20,7 +20,7 @@ public class HunterAbilityE : AbilityEBase
         if (EnoughMana)
             if (!aiming && cooldownTimer <= 0.0f)
             {
-                if ((Input.GetKeyDown(KeyCode.E) && !HeroCamScript.onHero) || Input.GetKeyDown(
+                if ((Input.GetKeyDown(KeyCode.E) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(
                     KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
                 {
                     aiming = true;

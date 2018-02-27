@@ -17,8 +17,8 @@ public class NormalTowerBehavior : MonoBehaviour
         targets = new List<Transform>();
         info = TowerManager.Instance.normalInfo;
         detector.CreateTrigger(info.AgroRange);
-        detector.triggerEnter += AddTarget;
-        detector.triggerExit += RemoveTarget;
+        detector.TriggerEnter += AddTarget;
+        detector.TriggerExit += RemoveTarget;
     }
     private void Update()
     {

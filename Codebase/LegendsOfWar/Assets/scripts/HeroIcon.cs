@@ -16,7 +16,7 @@ public class HeroIcon : MonoBehaviour
     private void SetIcon()
     {
         if (CharacterSelectionManager.LegendChoice)
-            info = CharacterSelectionManager.heroInfo;
+            info = CharacterSelectionManager.TheHeroInfo;
         if (info)
             heroIcon.sprite = info.heroIcon;
     }

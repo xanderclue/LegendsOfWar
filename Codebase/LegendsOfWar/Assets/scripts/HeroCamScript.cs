@@ -50,9 +50,9 @@ public class HeroCamScript : MonoBehaviour
                 inst.mouseVerticalStart = value;
         }
     }
-    public static bool onVantage
+    public static bool IsOnVantage
     { get { return CameraControl.Vantage.enabled; } }
-    public static bool onHero
+    public static bool IsOnHero
     {
         get
         {
@@ -62,7 +62,7 @@ public class HeroCamScript : MonoBehaviour
                 return false;
         }
     }
-    public static bool heroAlive
+    public static bool IsHeroAlive
     {
         get
         {
@@ -137,13 +137,13 @@ public class HeroCamScript : MonoBehaviour
         green = new Color(0.49f, 0.6f, 0.0f);
         red = new Color(0.9f, 0.14f, 0.0f);
         mouseVerticalStart = -0.5f * Input.mousePosition.y;
-        Options.onChangedLanguage += SetHMStrings;
+        Options.OnChangedLanguage += SetHMStrings;
         SetHMStrings();
     }
     private void Update()
     {
-        Cursor.visible = !GameManager.GameRunning || !onHero || StateID.STATE_SHOP ==
-            ApplicationManager.Instance.GetAppState() || heroCamDisabler.disabledCameraMovement;
+        Cursor.visible = !GameManager.GameRunning || !IsOnHero || StateID.STATE_SHOP ==
+            ApplicationManager.Instance.GetAppState() || heroCamDisabler.DisabledCameraMovement;
         if (!cameraReady)
         {
             GetHeroInfo();
@@ -185,7 +185,7 @@ public class HeroCamScript : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Options.onChangedLanguage -= SetHMStrings;
+        Options.OnChangedLanguage -= SetHMStrings;
     }
     private void SetHMStrings()
     {
@@ -216,9 +216,9 @@ public class HeroCamScript : MonoBehaviour
     private void MouseVerticalAxis()
     {
         if (GameManager.Tutorial)
-            if (heroCamDisabler.disabledCameraMovement)
+            if (heroCamDisabler.DisabledCameraMovement)
                 return;
-        if (Input.GetMouseButton(2) && onHero)
+        if (Input.GetMouseButton(2) && IsOnHero)
         {
             currentVertical = Input.mousePosition.y;
             newVert = Mathf.Clamp(verticalRotation + mouseVerticalStart - currentVertical,
@@ -287,8 +287,7 @@ public class HeroCamScript : MonoBehaviour
             {
                 tValue = 1.0f;
                 state = CamTransitionState.OnHero;
-                if (null != OnOnHero)
-                    OnOnHero();
+                OnOnHero?.Invoke();
             }
             transform.rotation = Quaternion.Slerp(mainCameraTransform.rotation, heroTransform.
                 rotation, tValue);

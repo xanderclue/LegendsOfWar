@@ -169,7 +169,7 @@ public class MinionMovement : MovementScript
     }
     private bool CheckForInput()
     {
-        if (!HeroCamScript.onHero && interactive.Selected)
+        if (!HeroCamScript.IsOnHero && interactive.Selected)
         {
             if (rayHit)
             {

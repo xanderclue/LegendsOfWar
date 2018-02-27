@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class heroCamDisabler : MonoBehaviour
 {
     private static List<heroCamDisabler> disablers = new List<heroCamDisabler>();
-    public static bool disabledCameraMovement
+    public static bool DisabledCameraMovement
     { get { return 0 < disablers.Count; } }
     private void OnEnable()
     {

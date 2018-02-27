@@ -13,7 +13,7 @@ public class HeroInfo : Info
     public string heroNameEn = "Player", heroNameJp = "プレイヤー";
     private HeroMovement movement;
     private float mana, invMaxMana, respawnTimer, tauntTimer = 0.0f, idleTimer;
-    public HeroAudio heroAudio
+    public HeroAudio TheHeroAudio
     { get; private set; }
     public float Damage
     {
@@ -35,7 +35,7 @@ public class HeroInfo : Info
     { get { return maxMana; } }
     public float InvMaxMana
     { get { return invMaxMana; } }
-    public bool waitingRespawn
+    public bool WaitingRespawn
     { get { return (!Alive && respawnTimer <= 0.0f); } }
     public void Deidle()
     {
@@ -65,7 +65,7 @@ public class HeroInfo : Info
         Destroyed += HeroDeath;
         if (GameManager.Avail)
             GameManager.Instance.AddHero(this);
-        heroAudio = GetComponent<HeroAudio>();
+        TheHeroAudio = GetComponent<HeroAudio>();
         idleTimer = 8.0f;
     }
     private void Update()
@@ -73,21 +73,21 @@ public class HeroInfo : Info
         mana = Mathf.Min(mana + Time.deltaTime * manaRegen, maxMana);
         tauntTimer -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.T) && tauntTimer < 0.0f)
-            if (heroAudio.CHeroTaunt1 && heroAudio.CHeroTaunt2)
-                tauntTimer = heroAudio.PlayClip("HeroTaunt" + Random.Range(1, 3));
-            else if (heroAudio.CHeroTaunt1)
-                tauntTimer = heroAudio.PlayClip("HeroTaunt1");
-            else if (heroAudio.CHeroTaunt2)
-                tauntTimer = heroAudio.PlayClip("HeroTaunt2");
+            if (TheHeroAudio.CHeroTaunt1 && TheHeroAudio.CHeroTaunt2)
+                tauntTimer = TheHeroAudio.PlayClip("HeroTaunt" + Random.Range(1, 3));
+            else if (TheHeroAudio.CHeroTaunt1)
+                tauntTimer = TheHeroAudio.PlayClip("HeroTaunt1");
+            else if (TheHeroAudio.CHeroTaunt2)
+                tauntTimer = TheHeroAudio.PlayClip("HeroTaunt2");
         idleTimer -= Time.deltaTime;
         if (idleTimer <= 0.0f)
         {
-            if (heroAudio.CHeroIdle1 && heroAudio.CHeroIdle2)
-                heroAudio.PlayClip("HeroIdle" + Random.Range(1, 3));
-            else if (heroAudio.CHeroIdle1)
-                heroAudio.PlayClip("HeroIdle1");
-            else if (heroAudio.CHeroIdle2)
-                heroAudio.PlayClip("HeroIdle2");
+            if (TheHeroAudio.CHeroIdle1 && TheHeroAudio.CHeroIdle2)
+                TheHeroAudio.PlayClip("HeroIdle" + Random.Range(1, 3));
+            else if (TheHeroAudio.CHeroIdle1)
+                TheHeroAudio.PlayClip("HeroIdle1");
+            else if (TheHeroAudio.CHeroIdle2)
+                TheHeroAudio.PlayClip("HeroIdle2");
             Deidle();
         }
     }

@@ -10,15 +10,15 @@ public class HeroAbilities : MonoBehaviour
     [SerializeField]
     private AbilityRBase r = null;
     public string heroClassEn = "", heroClassJp = "";
-    public AbilityQBase abilityQ
+    public AbilityQBase GetAbilityQ
     { get { return q; } }
-    public AbilityWBase abilityW
+    public AbilityWBase GetAbilityW
     { get { return w; } }
-    public AbilityEBase abilityE
+    public AbilityEBase GetAbilityE
     { get { return e; } }
-    public AbilityRBase abilityR
+    public AbilityRBase GetAbilityR
     { get { return r; } }
-    public string abilityInfo
+    public string GetAbilityInfo
     {
         get
         {

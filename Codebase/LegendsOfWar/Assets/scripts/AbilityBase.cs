@@ -46,7 +46,7 @@ public abstract class AbilityBase : MonoBehaviour
         if (cooldownTime <= m_effect.m_duration)
             cooldownTime = m_effect.m_duration;
         heroInfo = GetComponentInParent<HeroInfo>();
-        cursor = GameManager.cursor;
+        cursor = GameManager.TheCursor;
         if (CursorIcon)
             hotSpot.Set(CursorIcon.width * 0.5f, CursorIcon.height * 0.5f);
     }

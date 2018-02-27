@@ -26,14 +26,14 @@ public class AudioManager : MonoBehaviour
     }
     public static void PlayClickSound()
     {
-        instance.clickSoundSource.volume = Options.sfxVolume;
+        instance.clickSoundSource.volume = Options.SfxVolume;
         instance.clickSoundSource.PlayOneShot(sfxClickSound);
     }
     public static void PlaySoundEffect(AudioClip clip)
     {
         if (SfxSource)
         {
-            SfxSource.volume = Options.sfxVolume;
+            SfxSource.volume = Options.SfxVolume;
             if (sfxClickSound == clip)
                 PlayClickSound();
             else if (clip)
@@ -124,8 +124,8 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         clickSoundSource.clip = ClickSound;
-        Options.onChangedBgmVolume += OnChangedBgmVol;
-        Options.onChangedSfxVolume += OnChangedSfxVol;
+        Options.OnChangedBgmVolume += OnChangedBgmVol;
+        Options.OnChangedSfxVolume += OnChangedSfxVol;
         BgmSource = GetComponent<AudioSource>();
         if (gameBGM && menuBGM)
             BGM_Switch();
@@ -144,18 +144,18 @@ public class AudioManager : MonoBehaviour
     {
         if (this == instance)
             instance = null;
-        Options.onChangedBgmVolume -= OnChangedBgmVol;
-        Options.onChangedSfxVolume -= OnChangedSfxVol;
+        Options.OnChangedBgmVolume -= OnChangedBgmVol;
+        Options.OnChangedSfxVolume -= OnChangedSfxVol;
     }
     private void OnChangedBgmVol()
     {
         if (BgmSource)
-            BgmSource.volume = Options.bgmVolume;
+            BgmSource.volume = Options.BgmVolume;
     }
     private void OnChangedSfxVol()
     {
         if (SfxSource)
-            clickSoundSource.volume = SfxSource.volume = Options.sfxVolume;
+            clickSoundSource.volume = SfxSource.volume = Options.SfxVolume;
     }
     private void FindListener()
     {
@@ -177,7 +177,7 @@ public class AudioManager : MonoBehaviour
             SfxSource = listenerTransform.GetComponent<AudioSource>();
             if (!SfxSource)
                 SfxSource = listenerTransform.gameObject.AddComponent<AudioSource>();
-            SfxSource.volume = Options.sfxVolume;
+            SfxSource.volume = Options.SfxVolume;
         }
         BgmSource.transform.position = ListenerPosition;
     }

@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
     }
     public int[] Purchases
     { get { return purchases; } }
-    public int[] minionUGPrices
+    public int[] GetMinionUGPrices
     { get { return MinionUGPrices; } }
     public bool UpdateValues
     {

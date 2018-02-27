@@ -36,11 +36,11 @@ public class ShopCostUpdater : MonoBehaviour
     }
     private void UpdatedValues()
     {
-        strikerUpgradeCost.text = ShopManager.Instance.minionUGPrices[ShopManager.Instance.
+        strikerUpgradeCost.text = ShopManager.Instance.GetMinionUGPrices[ShopManager.Instance.
             Purchases[(int)Items.SLvl]].ToString();
-        tankUpgradeCost.text = ShopManager.Instance.minionUGPrices[ShopManager.Instance.Purchases[
+        tankUpgradeCost.text = ShopManager.Instance.GetMinionUGPrices[ShopManager.Instance.Purchases[
             (int)Items.TLvl]].ToString();
-        casterUpgradeCost.text = ShopManager.Instance.minionUGPrices[ShopManager.Instance.Purchases
+        casterUpgradeCost.text = ShopManager.Instance.GetMinionUGPrices[ShopManager.Instance.Purchases
             [(int)Items.CLvl]].ToString();
         if (3 == ShopManager.Instance.Purchases[(int)Items.SLvl])
             strikerUpgradeCost.text = "MAX";

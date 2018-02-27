@@ -22,20 +22,20 @@ public class ShopOnHover : MonoBehaviour
         switch (disc)
         {
             case Description.Q:
-                textEn = abilities.abilityQ.abilityDescEn;
-                textJp = abilities.abilityQ.abilityDescEn;
+                textEn = abilities.GetAbilityQ.abilityDescEn;
+                textJp = abilities.GetAbilityQ.abilityDescEn;
                 break;
             case Description.W:
-                textEn = abilities.abilityW.abilityDescEn;
-                textJp = abilities.abilityW.abilityDescJp;
+                textEn = abilities.GetAbilityW.abilityDescEn;
+                textJp = abilities.GetAbilityW.abilityDescJp;
                 break;
             case Description.E:
-                textEn = abilities.abilityE.abilityDescEn;
-                textJp = abilities.abilityE.abilityDescEn;
+                textEn = abilities.GetAbilityE.abilityDescEn;
+                textJp = abilities.GetAbilityE.abilityDescEn;
                 break;
             case Description.R:
-                textEn = abilities.abilityR.abilityDescEn;
-                textJp = abilities.abilityR.abilityDescJp;
+                textEn = abilities.GetAbilityR.abilityDescEn;
+                textJp = abilities.GetAbilityR.abilityDescJp;
                 break;
             default:
                 break;

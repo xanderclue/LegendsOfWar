@@ -28,10 +28,10 @@ public class HudScript : MonoBehaviour
         if (!hero)
             hero = FindObjectOfType<HeroInfo>().gameObject;
         abilities = hero.GetComponent<HeroAbilities>();
-        q.onClick.AddListener(abilities.abilityQ.TryCast);
-        w.onClick.AddListener(abilities.abilityW.TryCast);
-        e.onClick.AddListener(abilities.abilityE.TryCast);
-        r.onClick.AddListener(abilities.abilityR.TryCast);
+        q.onClick.AddListener(abilities.GetAbilityQ.TryCast);
+        w.onClick.AddListener(abilities.GetAbilityW.TryCast);
+        e.onClick.AddListener(abilities.GetAbilityE.TryCast);
+        r.onClick.AddListener(abilities.GetAbilityR.TryCast);
         qIm = q.image;
         wIm = w.image;
         eIm = e.image;
@@ -44,8 +44,7 @@ public class HudScript : MonoBehaviour
         ButtonHMAnim();
         if (Input.GetMouseButton(1))
             if (Physics.Raycast(minimapCam.ScreenPointToRay(Input.mousePosition), out hit))
-                if (null != GrabHit)
-                    GrabHit(hit);
+                GrabHit?.Invoke(hit);
         tmr = GameManager.Instance.Timer;
         if (tmr <= 0.0f)
             tmr = 0.0f;
@@ -90,18 +89,18 @@ public class HudScript : MonoBehaviour
     {
         if (abilities)
         {
-            qtim = abilities.abilityQ.Timer;
-            wtim = abilities.abilityW.Timer;
-            etim = abilities.abilityE.Timer;
-            rtim = abilities.abilityR.Timer;
+            qtim = abilities.GetAbilityQ.Timer;
+            wtim = abilities.GetAbilityW.Timer;
+            etim = abilities.GetAbilityE.Timer;
+            rtim = abilities.GetAbilityR.Timer;
             qCD.text = qtim <= 0.0f ? "" : qtim.ToString("F2");
             wCD.text = wtim <= 0.0f ? "" : wtim.ToString("F2");
             eCD.text = etim <= 0.0f ? "" : etim.ToString("F2");
             rCD.text = rtim <= 0.0f ? "" : rtim.ToString("F2");
-            q.interactable = abilities.abilityQ.EnoughMana && qtim <= 0.0f;
-            w.interactable = abilities.abilityW.EnoughMana && wtim <= 0.0f;
-            e.interactable = abilities.abilityE.EnoughMana && etim <= 0.0f;
-            r.interactable = abilities.abilityR.EnoughMana && rtim <= 0.0f;
+            q.interactable = abilities.GetAbilityQ.EnoughMana && qtim <= 0.0f;
+            w.interactable = abilities.GetAbilityW.EnoughMana && wtim <= 0.0f;
+            e.interactable = abilities.GetAbilityE.EnoughMana && etim <= 0.0f;
+            r.interactable = abilities.GetAbilityR.EnoughMana && rtim <= 0.0f;
             if (GameManager.GameRunning)
                 qIm.color = wIm.color = eIm.color = rIm.color = Color.white;
             else

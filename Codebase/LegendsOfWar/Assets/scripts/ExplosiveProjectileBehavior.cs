@@ -56,13 +56,13 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
     }
     private void DamageTargets()
     {
-        victims = Physics.OverlapSphere(transform.position, info.aoeRadius, 9,
+        victims = Physics.OverlapSphere(transform.position, info.AoeRadius, 9,
             QueryTriggerInteraction.Collide);
         foreach (Collider victim in victims)
         {
             Info targ = victim.gameObject.GetComponent<Info>();
             if (targ && targ.team != team)
-                targ.TakeDamage(info.aoeDamage);
+                targ.TakeDamage(info.AoeDamage);
         }
         AudioManager.PlayClipRaw(GetComponent<AudioSource>().clip, transform);
         GetComponentInChildren<ParticleSystem>().Play();

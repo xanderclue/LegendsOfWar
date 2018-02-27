@@ -13,8 +13,8 @@ public class SiegeMinionAttack : AttackScript
     {
         sMinioninfo = GetComponent<SiegeMinionInfo>();
         attackTrigger.CreateTrigger(sMinioninfo.AgroRange);
-        attackTrigger.triggerEnter += AttackTriggerEnter;
-        attackTrigger.triggerExit += AttackTriggerExit;
+        attackTrigger.TriggerEnter += AttackTriggerEnter;
+        attackTrigger.TriggerExit += AttackTriggerExit;
         targets = new List<Transform>();
         movement = GetComponent<MinionMovement>();
         weaponDetails = weapon.GetComponentInChildren<BcWeapon>();
@@ -24,7 +24,7 @@ public class SiegeMinionAttack : AttackScript
             weaponDetails.clipSize = sMinioninfo.clipSize * 2;
             weaponDetails.rateOfFire = sMinioninfo.AttackSpeed * 1.2f;
             weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot + 2;
-            weaponDetails.siegeProjectileDamage = sMinioninfo.Damage * 1.5f;
+            weaponDetails.SiegeProjectileDamage = sMinioninfo.Damage * 1.5f;
             GetComponent<UnityEngine.AI.NavMeshAgent>().speed = sMinioninfo.MovementSpeed * 1.8f;
         }
         else
@@ -33,7 +33,7 @@ public class SiegeMinionAttack : AttackScript
             weaponDetails.clipSize = sMinioninfo.clipSize;
             weaponDetails.rateOfFire = sMinioninfo.AttackSpeed;
             weaponDetails.bulletsPerShot = sMinioninfo.bulletsPerShot;
-            weaponDetails.siegeProjectileDamage = sMinioninfo.Damage;
+            weaponDetails.SiegeProjectileDamage = sMinioninfo.Damage;
         }
         weaponDetails.currentAmmo = 0.0f;
     }

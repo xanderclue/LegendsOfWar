@@ -3,8 +3,8 @@ public class ExplosiveProjectileInfo : BaseProjectileInfo
 {
     [SerializeField]
     private float AOERadius = 30.0f, AOEDamage = 20.0f;
-    public float aoeRadius
+    public float AoeRadius
     { get { return AOERadius; } }
-    public float aoeDamage
+    public float AoeDamage
     { get { return AOEDamage; } }
 }

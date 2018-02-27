@@ -95,11 +95,11 @@ public class FreezeProjectileBehavior : MonoBehaviour
     {
         aoeActive = targetsAreSlowed = true;
         fired = skip = false;
-        aoeTimer = info.aoeTickTime;
+        aoeTimer = info.AoeTickTime;
         repeat = 0;
-        AreaOfEffect.CreateTrigger(info.aoeRadius);
-        AreaOfEffect.triggerEnter += AddTarget;
-        AreaOfEffect.triggerExit += RemoveTarget;
+        AreaOfEffect.CreateTrigger(info.AoeRadius);
+        AreaOfEffect.TriggerEnter += AddTarget;
+        AreaOfEffect.TriggerExit += RemoveTarget;
         GetComponent<MeshRenderer>().enabled = false;
         AudioManager.PlayClipRaw(GetComponent<AudioSource>().clip, transform);
         GetComponentInChildren<ParticleSystem>().Play();
@@ -124,7 +124,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
     private void PlayEffect()
     {
         victims.RemoveAll(item => null == item);
-        if (repeat >= info.aoeTotalTicks)
+        if (repeat >= info.AoeTotalTicks)
         {
             ReturnTargetsSpeed();
             Destroy(gameObject);
@@ -138,7 +138,7 @@ public class FreezeProjectileBehavior : MonoBehaviour
             }
             DamageVictims();
             ++repeat;
-            aoeTimer = info.aoeTickTime;
+            aoeTimer = info.AoeTickTime;
         }
         else
             aoeTimer -= Time.deltaTime;
@@ -146,6 +146,6 @@ public class FreezeProjectileBehavior : MonoBehaviour
     private void DamageVictims()
     {
         foreach (Transform victim in victims)
-            victim.gameObject.GetComponent<Info>().TakeDamage(info.aoeDamagePerTick);
+            victim.gameObject.GetComponent<Info>().TakeDamage(info.AoeDamagePerTick);
     }
 }

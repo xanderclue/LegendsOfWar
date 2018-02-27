@@ -16,7 +16,7 @@ public class HeroMovement : MovementScript
     { private get; set; }
     public void ResetToSpawn()
     {
-        UnityEngine.AI.NavMesh.SamplePosition(GameManager.blueHeroSpawnPosition, out nmhit, 5.0f, UnityEngine.AI.NavMesh.AllAreas
+        UnityEngine.AI.NavMesh.SamplePosition(GameManager.BlueHeroSpawnPosition, out nmhit, 5.0f, UnityEngine.AI.NavMesh.AllAreas
             );
         transform.position = new Vector3(nmhit.position.x, agent.baseOffset * transform.localScale.
             y, nmhit.position.z);
@@ -37,7 +37,7 @@ public class HeroMovement : MovementScript
     private void Update()
     {
         TPUpdate();
-        if (!HeroCamScript.onHero && GameManager.GameRunning)
+        if (!HeroCamScript.IsOnHero && GameManager.GameRunning)
         {
             switch (m_state)
             {
@@ -73,7 +73,7 @@ public class HeroMovement : MovementScript
                     m_attackMOve = true;
                     if (!CheckInput())
                     {
-                        if (CameraControl.instance.CameraFollowsPlayer && inCombat)
+                        if (CameraControl.Instance.CameraFollowsPlayer && inCombat)
                             SetState(MOVE_State.ENGAGE_STATE);
                         else if (inCombat && TargetPosition)
                             withinRange = Vector3.Distance(transform.position, TargetPosition.
@@ -105,8 +105,8 @@ public class HeroMovement : MovementScript
         agent.speed = ((SprintingAbility) ? (shiftKeyPressed ? 25000.0f : 21500.0f) : (
             shiftKeyPressed ? 16000.0f : 10500.0f));
         currMousePos = Input.mousePosition.x;
-        bool shouldRepositionToCenter = HeroCamScript.onHero && GameManager.GameRunning && !
-            heroCamDisabler.disabledCameraMovement && StateID.STATE_SHOP != ApplicationManager.
+        bool shouldRepositionToCenter = HeroCamScript.IsOnHero && GameManager.GameRunning && !
+            heroCamDisabler.DisabledCameraMovement && StateID.STATE_SHOP != ApplicationManager.
             Instance.GetAppState();
         if (Mathf.Abs(Screen.width * 0.5f - currMousePos) >= (Screen.width * 0.2f) || Mathf.Abs
             (Screen.height * 0.5f - HeroCamScript.MouseVertical) >= (Screen.height * 0.2f))
@@ -120,10 +120,10 @@ public class HeroMovement : MovementScript
             }
         }
         if (GameManager.GameRunning)
-            if (!HeroCamScript.onVantage && HeroCamScript.onHero && StateID.STATE_SHOP !=
+            if (!HeroCamScript.IsOnVantage && HeroCamScript.IsOnHero && StateID.STATE_SHOP !=
                 ApplicationManager.Instance.GetAppState())
             {
-                if (!GameManager.Tutorial || !heroCamDisabler.disabledCameraMovement)
+                if (!GameManager.Tutorial || !heroCamDisabler.DisabledCameraMovement)
                 {
                     transform.Rotate(transform.up, (currMousePos - prevMousePos) * 0.5f);
                     currentRot += (currMousePos - prevMousePos) * 0.5f;
@@ -194,7 +194,7 @@ public class HeroMovement : MovementScript
         {
             if (m_AttMvKey)
             {
-                if (CameraControl.instance.CameraFollowsPlayer)
+                if (CameraControl.Instance.CameraFollowsPlayer)
                 {
                     if (rayHit)
                     {
@@ -217,7 +217,7 @@ public class HeroMovement : MovementScript
             }
             else
             {
-                if (CameraControl.instance.CameraFollowsPlayer)
+                if (CameraControl.Instance.CameraFollowsPlayer)
                 {
                     if (rayHit)
                     {

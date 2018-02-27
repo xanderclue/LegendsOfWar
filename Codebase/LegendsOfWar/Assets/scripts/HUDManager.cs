@@ -30,10 +30,10 @@ public class HUDManager : MonoBehaviour
             return;
         if (CharacterSelectionManager.LegendChoice)
         {
-            info = CharacterSelectionManager.heroInfo;
+            info = CharacterSelectionManager.TheHeroInfo;
             abilities = info.GetComponent<HeroAbilities>();
             loreInfoText.text = Options.Japanese ? info.roaa : info.Lore;
-            abilityInfoText.text = abilities.abilityInfo;
+            abilityInfoText.text = abilities.GetAbilityInfo;
         }
         if (start || NoStart || InGameInfo || LoreInfo)
         {
@@ -63,7 +63,7 @@ public class HUDManager : MonoBehaviour
     }
     private void SetGameInfo()
     {
-        info = CharacterSelectionManager.heroInfo;
+        info = CharacterSelectionManager.TheHeroInfo;
         if (Options.Japanese)
         {
             characterName.text = info.heroNameJp;

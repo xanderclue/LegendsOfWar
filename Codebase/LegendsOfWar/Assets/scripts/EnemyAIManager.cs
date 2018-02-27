@@ -166,8 +166,8 @@ public class EnemyAIManager : MonoBehaviour
         remainingHealth = redPortal.HP;
         Hero = GameManager.Instance.Player;
         heroInfo = Hero.GetComponent<HeroInfo>();
-        attackRange.triggerEnter += AttackRange_triggerEnter;
-        attackRange.triggerExit += AttackRange_triggerExit;
+        attackRange.TriggerEnter += AttackRange_triggerEnter;
+        attackRange.TriggerExit += AttackRange_triggerExit;
         attackRange.CreateTrigger(210.0f);
         lrpPs = lastResortParticle.GetComponent<ParticleSystem>();
         portalInfo = GetComponentInParent<PortalInfo>();
@@ -189,7 +189,7 @@ public class EnemyAIManager : MonoBehaviour
         remainingHealth = redPortal.HP;
         dangerTreshold = 90.0f - GameManager.Instance.Timer * 0.044444444f - redPortal.HP *
             redPortal.InvMAXHP * 50.0f + (5 - towersRemaining) * 9.0f;
-        lazer.siegeProjectileDamage = portalInfo.Damage * towersRemaining;
+        lazer.SiegeProjectileDamage = portalInfo.Damage * towersRemaining;
         if (!LastResortActive)
             switch (GetTriggered)
             {

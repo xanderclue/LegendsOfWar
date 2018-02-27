@@ -25,7 +25,7 @@ public class CasterE : AbilityEBase
         }
         else if (Input.GetMouseButtonDown(1) && aimingSkill)
             aimingSkill = false;
-        else if (((Input.GetKeyDown(KeyCode.E) && !HeroCamScript.onHero) || Input.GetKeyDown(
+        else if (((Input.GetKeyDown(KeyCode.E) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(
             KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) && !aimingSkill &&
             cooldownTimer <= 0.0f)
             aimingSkill = true;

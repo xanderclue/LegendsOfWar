@@ -13,10 +13,10 @@ public class DayNight : MonoBehaviour
         if (night != (moon.position.y >= (sun.position.y + 1.5f)))
         {
             night = !night;
-            if (night && null != OnNight)
-                OnNight();
-            else if (null != OnDay)
-                OnDay();
+            if (night)
+                OnNight?.Invoke();
+            else
+                OnDay?.Invoke();
         }
     }
 }

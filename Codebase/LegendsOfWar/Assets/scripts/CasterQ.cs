@@ -26,7 +26,7 @@ public class CasterQ : AbilityQBase
         }
         else if (Input.GetMouseButtonDown(1) && aimingSkill)
             aimingSkill = false;
-        else if (((Input.GetKeyDown(KeyCode.Q) && !HeroCamScript.onHero) || Input.GetKeyDown(
+        else if (((Input.GetKeyDown(KeyCode.Q) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(
             KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && !aimingSkill &&
             cooldownTimer <= 0.0f)
             aimingSkill = true;

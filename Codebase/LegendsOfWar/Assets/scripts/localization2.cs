@@ -5,14 +5,14 @@ public class localization2 : MonoBehaviour
     private GameObject englishObj = null, japaneseObj = null;
     private void Start()
     {
-        Options.onChangedLanguage += changeObj;
-        changeObj();
+        Options.OnChangedLanguage += ChangeObj;
+        ChangeObj();
     }
     private void OnDestroy()
     {
-        Options.onChangedLanguage -= changeObj;
+        Options.OnChangedLanguage -= ChangeObj;
     }
-    private void changeObj()
+    private void ChangeObj()
     {
         if (Options.Japanese)
         {

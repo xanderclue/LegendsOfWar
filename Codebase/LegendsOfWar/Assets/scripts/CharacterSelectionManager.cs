@@ -12,14 +12,13 @@ public class CharacterSelectionManager : MonoBehaviour
     { get { return inst; } }
     public static GameObject LegendChoice
     { get { return inst ? inst.Legends[inst.Index] : null; } }
-    public static HeroInfo heroInfo
+    public static HeroInfo TheHeroInfo
     { get { return inst.Legends[inst.Index].GetComponent<HeroInfo>(); } }
     public bool[] Available
     { get { return available; } }
     public static void ChangedCharacter()
     {
-        if (null != OnChangedCharacter)
-            OnChangedCharacter();
+        OnChangedCharacter?.Invoke();
     }
     private void Awake()
     {

@@ -60,8 +60,7 @@ public class Info : MonoBehaviour
         HeroUIScript.Damage(damage * (1.0f - dmgDamp * 0.01f), transform.position + Vector3.up *
             10.0f);
         currHP -= damage * (1.0f - dmgDamp * 0.01f);
-        if (null != Attacked)
-            Attacked();
+        Attacked?.Invoke();
         if (currHP <= 0.0f)
         {
             currHP = 0.0f;
@@ -72,8 +71,7 @@ public class Info : MonoBehaviour
                 if (destroyable)
                     Destroy(gameObject, 1.0f);
             }
-            if (null != Destroyed)
-                Destroyed();
+            Destroyed?.Invoke();
         }
     }
     protected virtual void Start()

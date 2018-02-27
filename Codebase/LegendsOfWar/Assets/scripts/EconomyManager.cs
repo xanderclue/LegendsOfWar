@@ -41,8 +41,7 @@ public class EconomyManager : MonoBehaviour
             default:
                 break;
         }
-        if (null != OnGainGold)
-            OnGainGold();
+        OnGainGold?.Invoke();
     }
     public bool TakeGold(Team team, float amount)
     {

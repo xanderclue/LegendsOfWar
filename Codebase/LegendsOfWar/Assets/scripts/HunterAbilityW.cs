@@ -17,7 +17,7 @@ public class HunterAbilityW : AbilityWBase
         if (abilityOn && skillTimer <= 0.0f)
             AbilityDeactivate();
         if (EnoughMana)
-            if (((Input.GetKeyDown(KeyCode.W) && !HeroCamScript.onHero) || Input.GetKeyDown(
+            if (((Input.GetKeyDown(KeyCode.W) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(
                 KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) && cooldownTimer <= 0.0f)
                 if (TargetSelected())
                     TryCast();

@@ -6,12 +6,12 @@ public class FreezeProjectileInfo : BaseProjectileInfo
         3.0f, AOETickTime = 1.0f;
     public float SlowAmount
     { get { return slowAmount; } }
-    public float aoeRadius
+    public float AoeRadius
     { get { return AOERadius; } }
-    public float aoeDamagePerTick
+    public float AoeDamagePerTick
     { get { return AOEDamagePerTick; } }
-    public float aoeTotalTicks
+    public float AoeTotalTicks
     { get { return AOETotalTicks; } }
-    public float aoeTickTime
+    public float AoeTickTime
     { get { return AOETickTime; } }
 }

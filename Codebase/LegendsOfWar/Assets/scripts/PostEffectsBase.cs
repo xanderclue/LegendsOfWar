@@ -15,8 +15,10 @@ public class PostEffectsBase : MonoBehaviour
             {
                 if (m2Create && m2Create.shader == s)
                     return m2Create;
-                m2Create = new Material(s);
-                m2Create.hideFlags = HideFlags.DontSave;
+                m2Create = new Material(s)
+                {
+                    hideFlags = HideFlags.DontSave
+                };
                 if (m2Create)
                     return m2Create;
             }

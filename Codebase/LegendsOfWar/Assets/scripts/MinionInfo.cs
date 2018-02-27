@@ -27,7 +27,7 @@ public class MinionInfo : Info
     }
     public float AgroRange
     { get { return agroRange; } }
-    public bool soulDefense
+    public bool SoulDefense
     {
         get { return m_soulDefense; }
         set { m_soulDefense = value; }

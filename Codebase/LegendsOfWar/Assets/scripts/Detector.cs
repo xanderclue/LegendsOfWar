@@ -4,7 +4,7 @@ public class Detector : MonoBehaviour
     [SerializeField]
     private SphereCollider detectionSphere = null;
     public delegate void triggerEvent(GameObject obj);
-    public event triggerEvent triggerEnter, triggerExit;
+    public event triggerEvent TriggerEnter, TriggerExit;
     public void CreateTrigger(float _radius)
     {
         if (!detectionSphere)
@@ -19,12 +19,10 @@ public class Detector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if (null != triggerEnter)
-            triggerEnter(col.gameObject);
+        TriggerEnter?.Invoke(col.gameObject);
     }
     private void OnTriggerExit(Collider col)
     {
-        if (null != triggerExit)
-            triggerExit(col.gameObject);
+        TriggerExit?.Invoke(col.gameObject);
     }
 }

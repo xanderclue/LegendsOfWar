@@ -24,7 +24,7 @@ public class SupportAbilityW : AbilityWBase
         foreach (MinionInfo minion in applied)
             if (minion)
             {
-                minion.soulDefense = false;
+                minion.SoulDefense = false;
                 mei = minion.GetComponentInChildren<MarkedEnemyIcon>();
                 if (mei)
                     Destroy(mei.gameObject);
@@ -35,9 +35,9 @@ public class SupportAbilityW : AbilityWBase
         temp = entity as MinionInfo;
         if (temp)
         {
-            if (!temp.soulDefense)
+            if (!temp.SoulDefense)
             {
-                temp.soulDefense = true;
+                temp.SoulDefense = true;
                 applied.Add(temp);
                 (Instantiate(Icon, temp.transform.position, temp.transform.rotation) as
                     GameObject).transform.parent = temp.transform;

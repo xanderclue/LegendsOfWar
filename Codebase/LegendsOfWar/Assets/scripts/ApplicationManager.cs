@@ -132,12 +132,12 @@ public class ApplicationManager : MonoBehaviour
                     if (StateID.STATE_PAUSED == prevState)
                     {
                         SceneManager.UnloadSceneAsync("PauseScreen");
-                        GameManager.eventSystem = true;
+                        GameManager.TheEventSystem = true;
                     }
                     else if (StateID.STATE_SHOP == prevState)
                     {
                         SceneManager.UnloadSceneAsync("Shop");
-                        GameManager.eventSystem = true;
+                        GameManager.TheEventSystem = true;
                     }
                     else
                         SceneManager.LoadScene("WorldMap");
@@ -150,23 +150,23 @@ public class ApplicationManager : MonoBehaviour
                     }
                     else
                     {
-                        GameManager.eventSystem = false;
+                        GameManager.TheEventSystem = false;
                         SceneManager.LoadScene("PauseScreen", LoadSceneMode.Additive);
                     }
                     Time.timeScale = 0.0f;
                     break;
                 case StateID.STATE_GAME_WON:
-                    GameManager.eventSystem = false;
+                    GameManager.TheEventSystem = false;
                     SceneManager.LoadScene("GameEndWin", LoadSceneMode.Additive);
                     Time.timeScale = 0.0f;
                     break;
                 case StateID.STATE_GAME_LOST:
-                    GameManager.eventSystem = false;
+                    GameManager.TheEventSystem = false;
                     SceneManager.LoadScene("GameEndLose", LoadSceneMode.Additive);
                     Time.timeScale = 0.0f;
                     break;
                 case StateID.STATE_GAME_DRAW:
-                    GameManager.eventSystem = false;
+                    GameManager.TheEventSystem = false;
                     SceneManager.LoadScene("GameEndDraw", LoadSceneMode.Additive);
                     Time.timeScale = 0.0f;
                     break;
@@ -184,7 +184,7 @@ public class ApplicationManager : MonoBehaviour
                     SceneManager.LoadScene("Instruction");
                     break;
                 case StateID.STATE_SHOP:
-                    GameManager.eventSystem = false;
+                    GameManager.TheEventSystem = false;
                     SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
                     break;
                 case StateID.STATE_SELECTION:
@@ -196,7 +196,7 @@ public class ApplicationManager : MonoBehaviour
             transitioning = false;
         }
         if (Input.GetKeyDown(KeyCode.F12))
-            Options.toggleLanguage_Static();
+            Options.ToggleLanguage_Static();
         if (Input.GetKey(KeyCode.F11))
             Time.timeScale = Mathf.Min(Time.timeScale * 1.01f, 100.0f);
         else if (Input.GetKey(KeyCode.F10))

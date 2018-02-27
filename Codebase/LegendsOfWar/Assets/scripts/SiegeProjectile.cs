@@ -27,15 +27,17 @@ public class SiegeProjectile : MonoBehaviour
                 colInfo.TakeDamage(damage + 1.0f);
                 if (lazer)
                 {
-                    Effect effect = new Effect();
-                    effect.m_type = StatusEffectType.DOT;
-                    effect.m_duration = 3.0f;
-                    effect.m_name = "Lazer Burn";
-                    effect.m_tickRate = 0.5f;
-                    effect.m_damage = Mathf.Max(damage, 25.0f);
+                    Effect effect = new Effect
+                    {
+                        m_type = StatusEffectType.DOT,
+                        m_duration = 3.0f,
+                        m_name = "Lazer Burn",
+                        m_tickRate = 0.5f,
+                        m_damage = Mathf.Max(damage, 25.0f)
+                    };
                     StatusEffects.Inflict(col.gameObject, effect.CreateEffect());
                 }
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
     }
 }

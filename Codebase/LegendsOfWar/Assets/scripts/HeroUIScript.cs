@@ -17,7 +17,7 @@ public class HeroUIScript : MonoBehaviour
         get { return 0.0f < heroDamageNotifTimer; }
         set
         {
-            if (value && !HeroCamScript.onHero)
+            if (value && !HeroCamScript.IsOnHero)
                 heroDamageNotifTimer = inst.AttackedNotificationDuration;
             else
                 heroDamageNotifTimer = -0.0f;
@@ -43,7 +43,7 @@ public class HeroUIScript : MonoBehaviour
     }
     private void Update()
     {
-        if (HeroCamScript.onHero || !HeroCamScript.heroAlive)
+        if (HeroCamScript.IsOnHero || !HeroCamScript.IsHeroAlive)
             heroDamageNotifTimer = -0.0f;
         heroDamageNotifTimer -= Time.deltaTime;
         if (heroWarning)

@@ -74,15 +74,15 @@ public class HeroAudio : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        Options.onChangedVoiceVolume += SetVoiceVolume;
+        Options.OnChangedVoiceVolume += SetVoiceVolume;
         SetVoiceVolume();
     }
     private void OnDestroy()
     {
-        Options.onChangedVoiceVolume -= SetVoiceVolume;
+        Options.OnChangedVoiceVolume -= SetVoiceVolume;
     }
     private void SetVoiceVolume()
     {
-        source.volume = Options.voiceVolume;
+        source.volume = Options.VoiceVolume;
     }
 }

@@ -65,13 +65,13 @@ public class GameManager : MonoBehaviour
     }
     public static HudScript Hud
     { get { return instance.hudScript; } }
-    public static GameObject cursor
+    public static GameObject TheCursor
     { get { return instance.cursorObject; } }
     public static Transform RedPortalTransform
     { get { return Instance.redPortal.transform; } }
     public static Transform BluePortalTransform
     { get { return Instance.bluePortal.transform; } }
-    public static Vector3 blueHeroSpawnPosition
+    public static Vector3 BlueHeroSpawnPosition
     { get { return Instance.HeroSpawnPoint.position; } }
     public static bool Avail
     { get { return instance != null; } }
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-    public static bool eventSystem
+    public static bool TheEventSystem
     {
         set
         {
@@ -134,9 +134,9 @@ public class GameManager : MonoBehaviour
         if (tutorial)
         {
             HeroAbilities abilities = Player.GetComponent<HeroAbilities>();
-            abilities.abilityW.AbilityEnabled = false;
-            abilities.abilityE.AbilityEnabled = false;
-            abilities.abilityR.AbilityEnabled = false;
+            abilities.GetAbilityW.AbilityEnabled = false;
+            abilities.GetAbilityE.AbilityEnabled = false;
+            abilities.GetAbilityR.AbilityEnabled = false;
         }
     }
     public void AddHero(HeroInfo info)
@@ -446,10 +446,10 @@ public class GameManager : MonoBehaviour
     {
         foreach (HeroAbilities abs in abilities)
         {
-            abs.abilityQ.Timer -= Time.deltaTime;
-            abs.abilityW.Timer -= Time.deltaTime;
-            abs.abilityE.Timer -= Time.deltaTime;
-            abs.abilityR.Timer -= Time.deltaTime;
+            abs.GetAbilityQ.Timer -= Time.deltaTime;
+            abs.GetAbilityW.Timer -= Time.deltaTime;
+            abs.GetAbilityE.Timer -= Time.deltaTime;
+            abs.GetAbilityR.Timer -= Time.deltaTime;
         }
     }
     private void RespawnTimers()
@@ -457,7 +457,7 @@ public class GameManager : MonoBehaviour
         foreach (HeroInfo hero in heros)
         {
             hero.RespawnTimer -= Time.deltaTime;
-            if (hero.waitingRespawn)
+            if (hero.WaitingRespawn)
                 hero.Respawn();
         }
     }
@@ -484,15 +484,13 @@ public class GameManager : MonoBehaviour
             ExitShop();
         if (redPortal.HP <= 0.0f)
         {
-            if (null != OnBlueWin)
-                OnBlueWin();
+            OnBlueWin?.Invoke();
             if (!BoomRed.isPlaying)
                 BoomRed.gameObject.SetActive(true);
         }
         else if (bluePortal.HP <= 0.0f)
         {
-            if (null != OnRedWin)
-                OnRedWin();
+            OnRedWin?.Invoke();
             if (!BoomBlue.isPlaying)
                 BoomBlue.gameObject.SetActive(true);
         }

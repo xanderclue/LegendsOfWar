@@ -16,7 +16,7 @@ public class Interactive : MonoBehaviour
     {
         if (GameManager.GameRunning)
         {
-            if (!HeroCamScript.onHero)
+            if (!HeroCamScript.IsOnHero)
                 if (info.Alive && Input.GetMouseButton(0) && Team.BLUE_TEAM == info.team)
                 {
                     Vector3 camPos = CameraControl.Current.WorldToScreenPoint(transform.position);

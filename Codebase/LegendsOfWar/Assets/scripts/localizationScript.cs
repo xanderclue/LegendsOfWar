@@ -12,8 +12,8 @@ public class localizationScript : MonoBehaviour
     }
     private void Start()
     {
-        Options.onChangedLanguage += changeText;
-        changeText();
+        Options.OnChangedLanguage += ChangeText;
+        ChangeText();
     }
     private void Update()
     {
@@ -21,14 +21,14 @@ public class localizationScript : MonoBehaviour
         {
             pendingChange = false;
             text = GetComponent<Text>();
-            changeText();
+            ChangeText();
         }
     }
     private void OnDestroy()
     {
-        Options.onChangedLanguage -= changeText;
+        Options.OnChangedLanguage -= ChangeText;
     }
-    private void changeText()
+    private void ChangeText()
     {
         if (text)
             text.text = Options.Japanese ? japanese : english;

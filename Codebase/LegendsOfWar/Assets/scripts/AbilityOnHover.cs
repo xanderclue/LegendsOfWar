@@ -18,13 +18,13 @@ public class AbilityOnHover : MonoBehaviour
     }
     private void Start()
     {
-        CharacterSelectionManager.OnChangedCharacter += changedCharacter;
-        changedCharacter();
+        CharacterSelectionManager.OnChangedCharacter += ChangedCharacter;
+        ChangedCharacter();
     }
     private void Update()
     {
         if (!ability)
-            changedCharacter();
+            ChangedCharacter();
     }
     private void OnGUI()
     {
@@ -33,9 +33,9 @@ public class AbilityOnHover : MonoBehaviour
     }
     private void OnDestroy()
     {
-        CharacterSelectionManager.OnChangedCharacter -= changedCharacter;
+        CharacterSelectionManager.OnChangedCharacter -= ChangedCharacter;
     }
-    private void changedCharacter()
+    private void ChangedCharacter()
     {
         legend = CharacterSelectionManager.LegendChoice;
         if (legend)
@@ -59,19 +59,19 @@ public class AbilityOnHover : MonoBehaviour
                 case 'Q':
                 case 'q':
                 case '1':
-                    return abilities.abilityQ;
+                    return abilities.GetAbilityQ;
                 case 'W':
                 case 'w':
                 case '2':
-                    return abilities.abilityW;
+                    return abilities.GetAbilityW;
                 case 'E':
                 case 'e':
                 case '3':
-                    return abilities.abilityE;
+                    return abilities.GetAbilityE;
                 case 'R':
                 case 'r':
                 case '4':
-                    return abilities.abilityR;
+                    return abilities.GetAbilityR;
                 default:
                     break;
             }

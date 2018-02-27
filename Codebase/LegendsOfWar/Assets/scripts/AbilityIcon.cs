@@ -19,10 +19,10 @@ public class AbilityIcon : MonoBehaviour
             abilities = CharacterSelectionManager.LegendChoice.GetComponent<HeroAbilities>();
         if (abilities)
         {
-            q.sprite = abilities.abilityQ.abilityIcon;
-            w.sprite = abilities.abilityW.abilityIcon;
-            e.sprite = abilities.abilityE.abilityIcon;
-            r.sprite = abilities.abilityR.abilityIcon;
+            q.sprite = abilities.GetAbilityQ.abilityIcon;
+            w.sprite = abilities.GetAbilityW.abilityIcon;
+            e.sprite = abilities.GetAbilityE.abilityIcon;
+            r.sprite = abilities.GetAbilityR.abilityIcon;
         }
     }
 }

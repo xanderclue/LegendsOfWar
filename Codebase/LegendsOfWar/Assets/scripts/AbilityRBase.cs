@@ -10,15 +10,15 @@ public abstract class AbilityRBase : AbilityBase
     protected override void Update()
     {
         base.Update();
-        if ((Input.GetKeyDown(KeyCode.R) && !HeroCamScript.onHero) || Input.GetKeyDown(KeyCode
+        if ((Input.GetKeyDown(KeyCode.R) && !HeroCamScript.IsOnHero) || Input.GetKeyDown(KeyCode
             .Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
             TryCast();
-        ToggleCursor((Input.GetKey(KeyCode.R) && !HeroCamScript.onHero) || Input.GetKey(
+        ToggleCursor((Input.GetKey(KeyCode.R) && !HeroCamScript.IsOnHero) || Input.GetKey(
             KeyCode.Alpha4) || Input.GetKey(KeyCode.Keypad4));
     }
     protected override void AbilityActivate()
     {
-        heroInfo.heroAudio.PlayClip("HeroCastAbilityR");
+        heroInfo.TheHeroAudio.PlayClip("HeroCastAbilityR");
         base.AbilityActivate();
         movement.SprintingAbility = true;
     }

@@ -11,8 +11,8 @@ public class HeroAttack : AttackScript
     {
         info = GetComponent<HeroInfo>();
         attackTrigger.CreateTrigger(info.Range);
-        attackTrigger.triggerEnter += AttackTriggerEnter;
-        attackTrigger.triggerExit += AttackTriggerExit;
+        attackTrigger.TriggerEnter += AttackTriggerEnter;
+        attackTrigger.TriggerExit += AttackTriggerExit;
         targets = new List<Transform>();
         attackDelay = 1.0f / info.AttackSpeed;
         info.Destroyed += targets.Clear;
@@ -29,7 +29,7 @@ public class HeroAttack : AttackScript
             attackTimer = attackDelay;
             if (AsoundTimer <= 0.0f)
             {
-                info.heroAudio.PlayClip("HeroAttack");
+                info.TheHeroAudio.PlayClip("HeroAttack");
                 AsoundTimer = 1.0f;
             }
         }

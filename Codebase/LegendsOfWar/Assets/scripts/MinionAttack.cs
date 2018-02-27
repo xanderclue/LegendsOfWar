@@ -15,8 +15,8 @@ public class MinionAttack : AttackScript
     {
         Minioninfo = GetComponent<MinionInfo>();
         attackTrigger.CreateTrigger(Minioninfo.AgroRange);
-        attackTrigger.triggerEnter += AttackTriggerEnter;
-        attackTrigger.triggerExit += AttackTriggerExit;
+        attackTrigger.TriggerEnter += AttackTriggerEnter;
+        attackTrigger.TriggerExit += AttackTriggerExit;
         targets = new List<Transform>();
         movement = GetComponent<MinionMovement>();
     }

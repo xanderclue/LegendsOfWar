@@ -25,12 +25,12 @@ public class CameraControl : MonoBehaviour
     private float maxXPos = 1.0f, minXPos = -1.0f, maxZPos = 1.0f, minZPos = -1.0f, maxZoomSize =
         1.0f, aspectRatio = 0.0f, zoomTemp, mousePosX, mousePosY;
     private bool followPlayer = false;
-    public static CameraControl instance
+    public static CameraControl Instance
     { get { return inst; } }
     public static Camera Vantage
     { get { return vantage; } }
     public static Camera Current
-    { get { return HeroCamScript.onHero ? HeroCamScript.HeroCam : current; } }
+    { get { return HeroCamScript.IsOnHero ? HeroCamScript.HeroCam : current; } }
     public static float AudioDistance
     {
         get
@@ -55,7 +55,7 @@ public class CameraControl : MonoBehaviour
     public void SwitchToMainCam()
     {
         current = mainCam;
-        if (!HeroCamScript.onHero)
+        if (!HeroCamScript.IsOnHero)
             mainCam.enabled = true;
         vantageCam.enabled = false;
         camBorder.enabled = true;
@@ -87,7 +87,7 @@ public class CameraControl : MonoBehaviour
         if (!GameManager.GameRunning)
             return;
         CheckCamera();
-        followPlayer = HeroCamScript.onHero;
+        followPlayer = HeroCamScript.IsOnHero;
         if (aspectRatio != mainCam.aspect)
             RecalcZoomLimits();
         if (Input.GetMouseButton(0))
@@ -142,7 +142,7 @@ public class CameraControl : MonoBehaviour
             if (mousePosY >= Screen.height - scrollDistance)
                 MoveCam(0.0f, moveSpeed * mainCam.orthographicSize * 0.01f);
         }
-        if (followPlayer && HeroCamScript.onHero)
+        if (followPlayer && HeroCamScript.IsOnHero)
         {
             if (playerInfo && playerInfo.Alive)
             {
@@ -188,7 +188,7 @@ public class CameraControl : MonoBehaviour
     }
     private void CheckCamera()
     {
-        if (Input.GetMouseButtonDown(0) && !HeroCamScript.onHero)
+        if (Input.GetMouseButtonDown(0) && !HeroCamScript.IsOnHero)
             StartClick = Input.mousePosition;
         if (Input.GetMouseButtonUp(0))
             StartClick = -Vector3.one;
@@ -236,7 +236,7 @@ public class CameraControl : MonoBehaviour
     }
     private void ZoomCam(float deltaSize)
     {
-        if (HeroCamScript.onHero)
+        if (HeroCamScript.IsOnHero)
             return;
         mainCam.orthographicSize = Mathf.Clamp(mainCam.orthographicSize + deltaSize, 50.0f,
             maxZoomSize);
