@@ -1,121 +1,13 @@
 ﻿using UnityEngine;
 public class ExplosiveProjectileBehavior : MonoBehaviour
 {
-	public Transform target = null;
-	public float projectileLifetime = 3.0f;
-	private Collider[ ] victims;
-	private ExplosiveProjectileInfo info;
-	private Team team;
-	private float effectTime = 3.0f, projectileTimer;
-	private bool fired, aoeActive = false;
-	public void Fire( Team theTeam )
-	{
-		team = theTeam;
-		fired = true;
-		if ( GetComponentInChildren<ParticleSystem>().isPlaying )
-			GetComponentInChildren<ParticleSystem>().Stop();
-	}
-	private void Awake()
-	{
-		info = TowerManager.Instance.explosiveInfo;
-	}
-	private void Start()
-	{
-		projectileTimer = projectileLifetime;
-	}
-	private void Update()
-	{
-		if ( GameManager.GameEnded || ( projectileTimer <= 0.0f && !aoeActive ) )
-			Destroy( gameObject );
-		else if ( fired )
-			projectileTimer -= Time.deltaTime;
-	}
-	private void FixedUpdate()
-	{
-		if ( fired && target && target.gameObject )
-		{
-			if ( !target.gameObject.activeInHierarchy && Vector3.Distance( target.position,
-				transform.position ) < 1.0f )
-			{
-				DamageTargets();
-				return;
-			}
-			transform.LookAt( target );
-			transform.Translate( transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime,
-				Space.World );
-		}
-		if ( aoeActive )
-			PlayEffect();
-		if ( !target || !target.gameObject.activeInHierarchy )
-			Destroy( gameObject );
-	}
-	private void OnTriggerEnter( Collider col )
-	{
-		if ( target && col.gameObject == target.gameObject )
-			DamageTargets();
-	}
-	private void DamageTargets()
-	{
-		victims = Physics.OverlapSphere( transform.position, info.aoeRadius, 9,
-			QueryTriggerInteraction.Collide );
-		foreach ( Collider victim in victims )
-		{
-			Info targ = victim.gameObject.GetComponent<Info>();
-			if ( targ && targ.team != team )
-				targ.TakeDamage( info.aoeDamage );
-		}
-		AudioManager.PlayClipRaw( GetComponent<AudioSource>().clip, transform );
-		GetComponentInChildren<ParticleSystem>().Play();
-		GetComponent<MeshRenderer>().enabled = false;
-		aoeActive = true;
-		fired = false;
-	}
-	private void PlayEffect()
-	{
-		if ( effectTime <= 0.0f )
-			Destroy( gameObject );
-		else
-			effectTime -= Time.deltaTime;
-	}
-}
-#region OLD_CODE
-#if false
-using UnityEngine;
-using System.Collections.Generic;
-
-public class ExplosiveProjectileBehavior : MonoBehaviour
-{
-    ExplosiveProjectileInfo info;
-    Collider[] victims;
-
-    Team team;
     public Transform target = null;
-    bool fired, aoeActive = false;
-    float effectTime = 3.0f;
-
-    void Awake()
-    {
-        info = TowerManager.Instance.explosiveInfo;
-    }
-
-    void FixedUpdate()
-    {
-        if (fired && target && target.gameObject)
-        {
-            if (!target.gameObject.activeInHierarchy && Vector3.Distance(target.position, transform.position) < 1.0f)
-            {
-                DamageTargets();
-                return;
-            }
-            transform.LookAt(target);
-            transform.Translate(transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime, Space.World);
-        }
-        if (aoeActive)
-            PlayEffect();
-		if ( !target || !target.gameObject.activeInHierarchy )
-			Destroy( gameObject );
-    }
-
+    public float projectileLifetime = 3.0f;
+    private Collider[] victims;
+    private ExplosiveProjectileInfo info;
+    private Team team;
+    private float effectTime = 3.0f, projectileTimer;
+    private bool fired, aoeActive = false;
     public void Fire(Team theTeam)
     {
         team = theTeam;
@@ -123,48 +15,66 @@ public class ExplosiveProjectileBehavior : MonoBehaviour
         if (GetComponentInChildren<ParticleSystem>().isPlaying)
             GetComponentInChildren<ParticleSystem>().Stop();
     }
-
-    void OnTriggerEnter(Collider col)
+    private void Awake()
     {
-        if (target != null && col.gameObject == target.gameObject)
+        info = TowerManager.Instance.explosiveInfo;
+    }
+    private void Start()
+    {
+        projectileTimer = projectileLifetime;
+    }
+    private void Update()
+    {
+        if (GameManager.GameEnded || (projectileTimer <= 0.0f && !aoeActive))
+            Destroy(gameObject);
+        else if (fired)
+            projectileTimer -= Time.deltaTime;
+    }
+    private void FixedUpdate()
+    {
+        if (fired && target && target.gameObject)
+        {
+            if (!target.gameObject.activeInHierarchy && Vector3.Distance(target.position,
+                transform.position) < 1.0f)
+            {
+                DamageTargets();
+                return;
+            }
+            transform.LookAt(target);
+            transform.Translate(transform.forward * info.ProjectileSpeed * Time.fixedDeltaTime,
+                Space.World);
+        }
+        if (aoeActive)
+            PlayEffect();
+        if (!target || !target.gameObject.activeInHierarchy)
+            Destroy(gameObject);
+    }
+    private void OnTriggerEnter(Collider col)
+    {
+        if (target && col.gameObject == target.gameObject)
             DamageTargets();
     }
-
-    void DamageTargets()
+    private void DamageTargets()
     {
-        victims = Physics.OverlapSphere(transform.position, info.aoeRadius, 9, QueryTriggerInteraction.Collide);
-
+        victims = Physics.OverlapSphere(transform.position, info.aoeRadius, 9,
+            QueryTriggerInteraction.Collide);
         foreach (Collider victim in victims)
         {
             Info targ = victim.gameObject.GetComponent<Info>();
             if (targ && targ.team != team)
                 targ.TakeDamage(info.aoeDamage);
         }
-
         AudioManager.PlayClipRaw(GetComponent<AudioSource>().clip, transform);
         GetComponentInChildren<ParticleSystem>().Play();
         GetComponent<MeshRenderer>().enabled = false;
         aoeActive = true;
         fired = false;
     }
-
-    void PlayEffect()
+    private void PlayEffect()
     {
-        if (effectTime <= 0)
-        Destroy(gameObject);
+        if (effectTime <= 0.0f)
+            Destroy(gameObject);
         else
             effectTime -= Time.deltaTime;
     }
-
-	void Update() { if ( GameManager.GameEnded ) Destroy( gameObject );
-	// <BUGFIX: Dev Team #21>
-	else if ( projectileTimer <= 0.0f && !aoeActive ) Destroy( gameObject );
-	else if ( fired ) projectileTimer -= Time.deltaTime; }
-	float projectileTimer;
-	public float projectileLifetime = 3.0f;
-	void Start() { projectileTimer = projectileLifetime; }
-	// </BUGFIX: Dev Team #21>
 }
-
-#endif
-#endregion //OLD_CODE

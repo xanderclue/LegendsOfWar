@@ -1,49 +1,22 @@
 ﻿using UnityEngine;
 public class DayNight : MonoBehaviour
 {
-	public float dayNightCycleDuration = 5.0f;
-	[SerializeField]
-	private Transform sun = null, moon = null;
-	public delegate void DayNightEvent();
-	public static event DayNightEvent OnDay, OnNight;
-	private bool night;
-	private void Update()
-	{
-		transform.Rotate( Vector3.right, 360.0f / dayNightCycleDuration * Time.deltaTime );
-		if ( night != ( moon.position.y >= ( sun.position.y + 1.5f ) ) )
-		{
-			night = !night;
-			if ( night && null != OnNight )
-				OnNight();
-			else if ( null != OnDay )
-				OnDay();
-		}
-	}
+    public float dayNightCycleDuration = 5.0f;
+    [SerializeField]
+    private Transform sun = null, moon = null;
+    public delegate void DayNightEvent();
+    public static event DayNightEvent OnDay, OnNight;
+    private bool night;
+    private void Update()
+    {
+        transform.Rotate(Vector3.right, 360.0f / dayNightCycleDuration * Time.deltaTime);
+        if (night != (moon.position.y >= (sun.position.y + 1.5f)))
+        {
+            night = !night;
+            if (night && null != OnNight)
+                OnNight();
+            else if (null != OnDay)
+                OnDay();
+        }
+    }
 }
-#region OLD_CODE
-#if false
-using UnityEngine;
-
-public class DayNight : MonoBehaviour
-{
-	public float dayNightCycleDuration = 5.0f;
-	[SerializeField]
-	Transform sun = null, moon = null;
-	bool night;
-	public delegate void DayNightEvent();
-	public static event DayNightEvent OnDay, OnNight;
-	void Update()
-	{
-		transform.Rotate( Vector3.right, 360.0f / dayNightCycleDuration * Time.deltaTime );
-		if ( night != ( moon.position.y >= ( sun.position.y + 1.5f ) ) )
-		{
-			night = !night;
-			if ( night && OnNight != null )
-				OnNight();
-			else if ( OnDay != null )
-				OnDay();
-		}
-	}
-}
-#endif
-#endregion //OLD_CODE
